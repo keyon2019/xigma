@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul class="uk-pagination uk-margin">
+        <ul class="uk-pagination uk-margin-small-top">
             <li @click="changePage(paginationData.current_page - 1)"
                 :class="{'uk-disabled' : paginationData.prev_page_url == null}"><a><span data-uk-pagination-next></span></a></li>
 

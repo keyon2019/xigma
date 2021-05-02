@@ -6,7 +6,10 @@
         </div>
         <div v-else class="uk-grid uk-grid-small uk-child-width-auto" data-uk-grid>
             <div v-for="option in options">
-                <span class="uk-label uk-label-danger">{{option.name}}</span></div>
+                <span class="uk-label uk-label-danger"><span>{{option.name}}<span @click="removeOption(option)"
+                                                                                  class="clickable uk-margin-small-left"
+                                                                                  data-uk-icon="icon:close;ratio:0.7"></span></span></span>
+            </div>
         </div>
     </section>
 </template>
@@ -17,6 +20,11 @@
         data() {
             return {
                 options: this.initialOptions
+            }
+        },
+        methods: {
+            removeOption(option) {
+                this.$emit('remove', option);
             }
         }
     }

@@ -1,5 +1,6 @@
 <template>
-    <div class="notification uk-padding uk-light uk-border-rounded uk-box-shadow-medium toast" v-html="payload.message || ''" :class="[payload.type, show]">
+    <div class="notification uk-padding uk-light uk-border-rounded uk-box-shadow-medium toast" v-html="payload.message || ''"
+         :class="[payload.type, show]">
     </div>
 </template>
 
@@ -44,7 +45,7 @@
     class Toast {
         constructor() {
             this.text = "Default Message";
-            this.type = "uk-background-primary";
+            this.type = "primary";
             this.event = window.Event;
         }
 
@@ -54,25 +55,31 @@
         }
 
         success() {
-            this.type = 'uk-background-primary';
+            this.type = 'success';
             return this;
         }
 
         danger() {
-            this.type = 'uk-background-danger';
+            this.type = 'danger';
             return this;
         }
 
         info() {
-            this.type = 'uk-background-primary';
+            this.type = 'primary';
+            return this;
+        }
+
+        warning() {
+            this.type = 'warning';
             return this;
         }
 
         show() {
-            Event.$emit('toast', {
-                message: this.text,
-                type: this.type,
-            });
+            UIkit.notification({message: this.text, status: this.type, pos: 'bottom-right'});
+            // Event.$emit('toast', {
+            //     message: this.text,
+            //     type: this.type,
+            // });
         }
     }
 

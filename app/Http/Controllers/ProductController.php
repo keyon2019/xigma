@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index(ProductFilters $filters, Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Product::filter($filters)->latest()->paginate(10));
+            return response()->json(Product::filter($filters)->latest()->paginate(12));
         return view('dashboard.product.index');
     }
 
@@ -41,7 +41,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('dashboard.product.edit')->with('product', $product->load('options'));
+        return view('dashboard.product.edit')->with('product', $product->load('options', 'categories'));
     }
 
     public function update(Product $product, Request $request)

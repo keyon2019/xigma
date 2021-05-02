@@ -83,8 +83,35 @@ html {
 }
 
 $global-font-family: IRANYekan, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-
+$global-success-background: #28a745;
 @import "~uikit/src/scss/variables-theme";
 @import "~uikit/src/scss/mixins-theme";
-//mixin overwrites go here
+
+$notification-width: 400px;
+$notification-message-font-size: $global-small-font-size;
+$notification-message-primary-color: white;
+$notification-message-success-color: white;
+$notification-message-warning-color: white;
+$notification-message-danger-color: white;
+
 @import "~uikit/src/scss/uikit-theme.scss";
+
+.uk-notification-message {
+  //@extend .uk-border-rounded;
+}
+
+.uk-notification-message.uk-notification-message-success {
+  background-color: $global-success-background;
+}
+
+.uk-notification-message.uk-notification-message-danger {
+  background-color: $global-danger-background;
+}
+
+.uk-notification-message.uk-notification-message-info {
+  background-color: $global-primary-background;
+}
+
+.uk-notification-message.uk-notification-message-warning {
+  background-color: $global-warning-background;
+}

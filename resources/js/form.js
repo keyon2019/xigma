@@ -45,9 +45,12 @@ class Form {
         let formData = new FormData();
         _.forEach(this, (field, key) => {
             if (field.value) {
-                if (typeof field.value === 'object') {
+                console.log(field.value instanceof Object, field.value instanceof Blob);
+                if (field.rules.includes('file') && !(field.value instanceof Blob)) {
+                    return;
+                }
+                if (field.rules.includes('array')) {
                     _.forEach(field.value, (valueId, optionId) => {
-                        console.log(key, valueId, optionId);
                         formData.append(`${key}[${optionId}]`, valueId)
                     });
                     return
@@ -101,6 +104,10 @@ class Validator {
 
     static validateNumeric(value) {
         return !isNaN(value) ? [true, ''] : [false, 'Field must be numeric'];
+    }
+
+    static validateFile(value) {
+        return (value instanceof Blob || value.match(/\.(jpeg|jpg|gif|png)$/)) ? [true, ''] : [false, 'Select a valid image file'];
     }
 }
 

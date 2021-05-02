@@ -1,10 +1,17 @@
 <template>
-    <div>
-        <filters :url="url" @filtersChanged="filtersChanged">
-            <slot name="filters"></slot>
-        </filters>
-        <slot :records="data.data"></slot>
-        <pagination @pageChanged="pageChanged" :key="paginationRenderKey" :initial-data="data"></pagination>
+    <div class="uk-grid uk-grid-small uk-grid-match" data-uk-grid>
+        <div class="uk-width-1-5">
+            <filters :url="url"
+                     @filtersChanged="filtersChanged">
+                <slot name="filters"></slot>
+            </filters>
+        </div>
+        <div class="uk-width-4-5">
+            <div id="paginated-view-content">
+                <slot :records="data.data"></slot>
+            </div>
+            <pagination @pageChanged="pageChanged" :key="paginationRenderKey" :initial-data="data"></pagination>
+        </div>
     </div>
 </template>
 

@@ -29,11 +29,12 @@
                         </form-input>
                     </div>
                     <div class="uk-width-1-1">
-                        <variation-options :options="options" v-model="form.options.value"></variation-options>
+                        <variation-options :values="values" :options="options" v-model="form.options.value"></variation-options>
                     </div>
                 </div>
             </div>
             <div class="uk-width-1-4@m">
+                <div class="uk-form-label">&nbsp;</div>
                 <select-picture :disabled="disabled" :pictures="pictures" v-model="form.splash.value"></select-picture>
             </div>
         </div>
@@ -43,7 +44,7 @@
 <script>
 
     export default {
-        props: ['variation', 'button-class', 'button-text', 'pictures', 'disabled', 'options'],
+        props: ['variation', 'button-class', 'button-text', 'pictures', 'disabled', 'options', 'values'],
         data() {
             return {
                 form: new Form({

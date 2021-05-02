@@ -2,11 +2,12 @@
     <paginated-view>
         <template v-slot:filters>
             <div>
-                <input name="keyword" class="uk-input" placeholder="نام محصول">
+                <input name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
             </div>
         </template>
         <template v-slot="scopeData">
-            <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-middle">
+            <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
+            uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
                 <thead>
                 <tr>
                     <th>#</th>

@@ -1864,8 +1864,8 @@ button.uk-icon:not(:disabled) {
  */
 .uk-form-success,
 .uk-form-success:focus {
-  color: #32d296;
-  border-color: #32d296;
+  color: #28a745;
+  border-color: #28a745;
 }
 
 /*
@@ -3497,8 +3497,8 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-alert-success {
-  background: #edfbf6;
-  color: #32d296;
+  background: #d8efdd;
+  color: #28a745;
 }
 
 /*
@@ -3617,7 +3617,7 @@ select.uk-form-width-xsmall {
  * Success
  */
 .uk-label-success {
-  background-color: #32d296;
+  background-color: #28a745;
   color: #fff;
 }
 
@@ -4982,7 +4982,7 @@ select.uk-form-width-xsmall {
   z-index: 1040;
   /* 2 */
   box-sizing: border-box;
-  width: 350px;
+  width: 400px;
 }
 
 /* Position modifiers
@@ -4996,7 +4996,7 @@ select.uk-form-width-xsmall {
 .uk-notification-top-center,
 .uk-notification-bottom-center {
   right: 50%;
-  margin-right: -175px;
+  margin-right: -200px;
 }
 
 .uk-notification-bottom-left,
@@ -5024,7 +5024,7 @@ select.uk-form-width-xsmall {
   padding: 15px;
   background: #f8f8f8;
   color: #666;
-  font-size: 1.25rem;
+  font-size: 0.875rem;
   line-height: 1.4;
   cursor: pointer;
 }
@@ -5053,28 +5053,28 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-notification-message-primary {
-  color: #1e87f0;
+  color: white;
 }
 
 /*
  * Success
  */
 .uk-notification-message-success {
-  color: #32d296;
+  color: white;
 }
 
 /*
  * Warning
  */
 .uk-notification-message-warning {
-  color: #faa05a;
+  color: white;
 }
 
 /*
  * Danger
  */
 .uk-notification-message-danger {
-  color: #f0506e;
+  color: white;
 }
 
 /* ========================================================================
@@ -8564,7 +8564,7 @@ ul.uk-nav-sub {
 }
 
 .uk-text-success {
-  color: #32d296 !important;
+  color: #28a745 !important;
 }
 
 .uk-text-warning {
@@ -12356,4 +12356,19 @@ h3 {
 h3 {
     page-break-after: avoid;
   }
+}
+.uk-notification-message.uk-notification-message-success {
+  background-color: #28a745;
+}
+
+.uk-notification-message.uk-notification-message-danger {
+  background-color: #f0506e;
+}
+
+.uk-notification-message.uk-notification-message-info {
+  background-color: #1e87f0;
+}
+
+.uk-notification-message.uk-notification-message-warning {
+  background-color: #faa05a;
 }

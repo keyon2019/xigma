@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Value extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['option_id', 'name'];
+
+    public function option()
+    {
+        return $this->belongsTo(Option::class);
+    }
 }

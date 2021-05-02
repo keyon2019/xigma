@@ -1,14 +1,14 @@
 <template>
     <div v-if="!!this.$slots.default">
-        <form @submit.prevent="apply()"
-              ref="form" class="uk-background-primary uk-box-shadow-small uk-padding uk-border-rounded uk-light">
-            <div class="uk-margin-remove uk-text-large">جستجو</div>
+        <form @submit.prevent="apply()" data-uk-sticky="offset: 70;animation:uk-animation-slide-top;bottom:#paginated-view-content"
+              ref="form" class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
+            <div class="uk-margin-remove">جستجو</div>
             <hr class="uk-margin-remove-top"/>
-            <div class="uk-grid uk-child-width-1-6 uk-grid-small" data-uk-grid>
+            <div>
                 <slot></slot>
-                <div>
+                <div class="uk-margin-small-top">
                     <button @click="apply()"
-                            class="uk-button uk-width-expand uk-button-primary"
+                            class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
                             type="button">اعمال فیلترها
                     </button>
                 </div>

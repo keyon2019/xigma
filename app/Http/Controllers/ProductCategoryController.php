@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class ProductOptionsController extends Controller
+class ProductCategoryController extends Controller
 {
     public function __construct()
     {
@@ -15,14 +14,14 @@ class ProductOptionsController extends Controller
 
     public function store(Product $product, Request $request)
     {
-        $product->options()->syncWithoutDetaching($request->option_id);
+        $product->categories()->attach($request->category_id);
         return response([]);
     }
 
     public function destroy(Product $product, Request $request)
     {
-        $product->options()->detach($request->option_id);
-        DB::table('value_variation')->whereOptionId($request->option_id)->whereProductId($product->id)->delete();
+        $product->categories()->detach($request->category_id);
         return response([]);
     }
 }
+
