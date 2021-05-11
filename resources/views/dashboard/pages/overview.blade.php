@@ -3,5 +3,5 @@
 @section('title', 'Overview')
 
 @section('content')
-    Overview is HERE!
+    <img class="uk-position-absolute uk-position-center" alt="" src="/uploads/xigma_logo.png">
 @endsection

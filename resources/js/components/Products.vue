@@ -21,7 +21,7 @@
                 <tbody>
                 <tr v-for="product in scopeData.records">
                     <td class="uk-table-shrink">{{product.id}}</td>
-                    <td class="uk-table-shrink"><img class="uk-img" :src="'/' + product.splashPath" alt=""></td>
+                    <td class="uk-table-shrink"><img class="uk-img" :src="product.splashUrl" alt=""></td>
                     <td>{{product.name}}</td>
                     <td>{{product.price}}</td>
                     <td>{{product.old_price}}</td>

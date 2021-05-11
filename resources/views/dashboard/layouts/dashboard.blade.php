@@ -30,7 +30,7 @@
 
     @include('dashboard.partials._sideMenu')
 
-    <div id="content" data-uk-height-viewport="expand: true">
+    <div id="content" data-uk-height-viewport="expand: true" class="uk-position-relative">
         <div class="uk-container uk-container-expand">
             <h2 class="uk-margin-remove-bottom uk-text-bolder">@yield('title','عنوان صفحه')</h2>
             <hr class="uk-margin-small-top uk-margin-small-bottom"/>

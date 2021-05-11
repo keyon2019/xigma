@@ -1,73 +1,53 @@
-@extends('website.layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - {{config('app.name')}}</title>
+    <link rel="icon" href="/uploads/favicon.png">
+    <script src="{{ mix('js/app.js') }}" defer></script>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <meta name="csrf-token" content="{{csrf_token()}}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
+</head>
+<body style="background: url('/uploads/login-bg.jpeg') center no-repeat;background-size:cover;"
+      class="login uk-cover-container uk-background-secondary uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-overflow-hidden uk-light"
+      data-uk-height-viewport>
+<div class="uk-position-cover uk-overlay-primary"></div>
+<div class="uk-position-bottom-center uk-position-small uk-visible@m uk-position-z-index">
+    <span class="uk-text-small uk-text-muted">© {{\Carbon\Carbon::now()->year}} {{config('app.name')}} - All rights reserved</span>
+</div>
+<div id="app" class="uk-width-medium uk-padding-small uk-position-z-index" uk-scrollspy="cls: uk-animation-fade">
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+    <div class="uk-text-center">
+        <img src="/uploads/xigma_logo_inverse.png" alt="Logo">
+    </div>
+    <form method="post" class="toggle-class" action="{{route('login')}}">
+        @csrf
+        <fieldset class="uk-fieldset">
+            <div class="uk-margin-small">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: mail"></span>
+                    <input class="uk-input uk-border-pill" name="email" required placeholder="ایمیل" type="text">
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="uk-margin-small">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
+                    <input class="uk-input uk-border-pill" name="password" required placeholder="رمز عبور" type="password">
+                </div>
+            </div>
+            <div class="uk-margin-small">
+                <label><input class="uk-checkbox" name="remember" type="checkbox"> به خاطر سپاری</label>
+            </div>
+            <div class="uk-margin-bottom">
+                <button type="submit" class="uk-button uk-button-primary uk-border-pill uk-width-1-1">ورود</button>
+            </div>
+        </fieldset>
+    </form>
+    <!-- /login -->
 </div>
-@endsection
+
+</body>
+</html>

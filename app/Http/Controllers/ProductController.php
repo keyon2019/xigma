@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\ProductFilters;
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,13 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('admin');
+        $this->middleware('admin');
     }
 
     public function index(ProductFilters $filters, Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Product::filter($filters)->latest()->paginate(12));
+            return response()->json(Product::without('variations')->filter($filters)->latest()->paginate(12));
         return view('dashboard.product.index');
     }
 
@@ -25,17 +26,9 @@ class ProductController extends Controller
         return view('dashboard.product.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'description' => 'string',
-            'price' => 'required|numeric',
-            'old_price' => 'numeric',
-            'splash' => 'numeric'
-        ]);
-
-        $product = Product::create($validated);
+        $product = Product::create($request->validated());
         return response()->json(['product' => $product]);
     }
 
@@ -44,17 +37,9 @@ class ProductController extends Controller
         return view('dashboard.product.edit')->with('product', $product->load('options', 'categories'));
     }
 
-    public function update(Product $product, Request $request)
+    public function update(Product $product, StoreProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'description' => 'string',
-            'price' => 'required|numeric',
-            'old_price' => 'numeric',
-            'splash' => 'numeric'
-        ]);
-
-        $product->update($validated);
+        $product->update($request->validated());
         return response([]);
     }
 }

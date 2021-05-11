@@ -31,6 +31,25 @@
                                     v-model="form.old_price.value" classes="uk-input" type="input">
                         </form-input>
                     </div>
+                    <div class="uk-width-1-2">
+                        <form-input label="هزینه ارسال" classes="uk-input" :errors="form.errors" type="input" name="price"
+                                    v-model="form.delivery_cost.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <form-input label="ظرفیت تولید روزانه" classes="uk-input" :errors="form.errors" type="input" name="price"
+                                    v-model="form.daily_production_capacity.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <label><input class="uk-checkbox" type="checkbox" v-model="form.onesie.value"> تک‌سفارشی </label>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <label><input class="uk-checkbox" type="checkbox" v-model="form.preorderable.value"> قابل پیش‌سفارش </label>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <label><input class="uk-checkbox" type="checkbox" v-model="form.is_huge.value"> حجیم </label>
+                    </div>
                 </div>
             </div>
             <div v-if="product" class="uk-width-1-3@m">
@@ -63,6 +82,26 @@
                     old_price: {
                         value: '',
                         rules: 'numeric'
+                    },
+                    delivery_cost: {
+                        value: '',
+                        rules: 'numeric'
+                    },
+                    daily_production_capacity: {
+                        value: '',
+                        rules: 'numeric'
+                    },
+                    onesie: {
+                        value: false,
+                        rules: 'boolean'
+                    },
+                    preorderable: {
+                        value: false,
+                        rules: 'boolean'
+                    },
+                    is_huge: {
+                        value: false,
+                        rules: 'boolean'
                     },
                     splash: {
                         value: null,

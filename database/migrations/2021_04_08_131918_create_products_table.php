@@ -19,7 +19,13 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->unsignedBigInteger('price');
             $table->unsignedBigInteger('old_price')->nullable();
+            $table->unsignedBigInteger('delivery_cost');
+            $table->boolean('is_huge')->default(false);
+            $table->boolean('preorderable')->default(false);
+            $table->unsignedBigInteger('daily_production_capacity')->nullable();
+            $table->boolean('onesie')->default(false);
             $table->unsignedBigInteger('splash')->index()->nullable();
+
 
             $table->foreign('splash')->references('id')->on('pictures')->onDelete('set null');
             $table->timestamps();

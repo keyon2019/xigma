@@ -82,7 +82,7 @@ class Image implements \JsonSerializable
 
     private function getUrl()
     {
-        return $this->path ? url($this->path) : "";
+        return $this->path ? Storage::url($this->path) : "";
     }
 
 

@@ -30,7 +30,7 @@
         computed: {
             src() {
                 if (this.value)
-                    return "/" + _.find(this.pictures, p => p.id === this.value).path ?? null;
+                    return _.find(this.pictures, p => p.id === this.value).url ?? null;
                 return "";
             },
             name() {

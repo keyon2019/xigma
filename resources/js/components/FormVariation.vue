@@ -18,14 +18,19 @@
                                     v-model="form.sku.value">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-3">
                         <form-input label="قیمت" classes="uk-input" :errors="form.errors" type="input" name="price"
                                     v-model="form.price.value">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-3">
                         <form-input name="old_price" label="قیمت قدیم" :errors="form.errors"
                                     v-model="form.old_price.value" classes="uk-input" type="input">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-3">
+                        <form-input name="points" label="امتیاز" :errors="form.errors"
+                                    v-model="form.points.value" classes="uk-input" type="input">
                         </form-input>
                     </div>
                     <div class="uk-width-1-1">
@@ -61,6 +66,10 @@
                         rules: 'required|numeric'
                     },
                     old_price: {
+                        value: '',
+                        rules: 'numeric'
+                    },
+                    points: {
                         value: '',
                         rules: 'numeric'
                     },

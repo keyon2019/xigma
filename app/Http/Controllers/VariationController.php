@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\VariationFilters;
+use App\Http\Requests\StoreVariationRequest;
 use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Http\Request;
@@ -10,21 +12,19 @@ class VariationController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('admin');
+        $this->middleware('admin');
     }
 
-    public function store(Product $product, Request $request)
+    public function index(VariationFilters $filters, Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'sku' => 'string',
-            'price' => 'required|numeric',
-            'old_price' => 'numeric',
-            'splash' => 'numeric',
-            'options' => 'array'
-        ]);
+        return response()->json(Variation::filter($filters)->with(['product' => function ($q) {
+            $q->without('variations', 'pictures');
+        }])->paginate(15));
+    }
 
-        $variation = $product->variations()->create($validated);
+    public function store(Product $product, StoreVariationRequest $request)
+    {
+        $variation = $product->variations()->create($request->validated());
 
         if ($request->has('options'))
             $variation->values()->sync($this->optionsAsArray($variation, $request->options));
@@ -32,18 +32,9 @@ class VariationController extends Controller
         return response()->json(['variation' => $variation->fresh()]);
     }
 
-    public function update(Variation $variation, Request $request)
+    public function update(Variation $variation, StoreVariationRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'sku' => 'string',
-            'price' => 'required|numeric',
-            'old_price' => 'numeric',
-            'splash' => 'numeric',
-            'options' => 'array'
-        ]);
-
-        $variation->update($validated);
+        $variation->update($request->validated());
 
         if ($request->has('options'))
             $variation->values()->sync($this->optionsAsArray($variation, $request->options));

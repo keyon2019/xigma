@@ -28,6 +28,7 @@ class ProductFactory extends Factory
             'description' => $this->faker->text,
             'price' => $price,
             'old_price' => 1.1 * $price,
+            'delivery_cost' => $this->faker->numberBetween(20000,40000)
         ];
     }
 

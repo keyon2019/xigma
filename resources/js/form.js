@@ -49,6 +49,10 @@ class Form {
                 if (field.rules.includes('file') && !(field.value instanceof Blob)) {
                     return;
                 }
+                if (field.rules.includes('boolean')) {
+                    formData.append(key, field.value ? 1 : 0);
+                    return
+                }
                 if (field.rules.includes('array')) {
                     _.forEach(field.value, (valueId, optionId) => {
                         formData.append(`${key}[${optionId}]`, valueId)
@@ -89,25 +93,25 @@ class Validator {
         if (value !== '' && value != null) {
             return [true, ''];
         }
-        return [false, 'Field is Required']
+        return [false, 'این فیلد الزامی است']
     }
 
     static validateString(value) {
         if (typeof value === 'string')
             return [true, ''];
-        return [false, 'Field Must Be String']
+        return [false, 'ورودی این نامعتبر است']
     }
 
     static validateDigits(value, digits) {
-        return value.length === parseInt(digits) ? [true, ''] : [false, `Field must be ${digits} digits`];
+        return value.length === parseInt(digits) ? [true, ''] : [false, `تعداد ارقام این فیلد ${digits} عدد است`];
     }
 
     static validateNumeric(value) {
-        return !isNaN(value) ? [true, ''] : [false, 'Field must be numeric'];
+        return !isNaN(value) ? [true, ''] : [false, 'فیلد فقط مقادیر عددی را می‌پذیرد'];
     }
 
     static validateFile(value) {
-        return (value instanceof Blob || value.match(/\.(jpeg|jpg|gif|png)$/)) ? [true, ''] : [false, 'Select a valid image file'];
+        return (value instanceof Blob || value.match(/\.(jpeg|jpg|gif|png)$/)) ? [true, ''] : [false, 'تصویر انتخابی معتبر نیست'];
     }
 }
 

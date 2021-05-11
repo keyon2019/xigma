@@ -21,6 +21,7 @@ class CreateVariationsTable extends Migration
             $table->unsignedBigInteger('splash')->nullable();
             $table->unsignedBigInteger('price')->nullable();
             $table->unsignedBigInteger('old_price')->nullable();
+            $table->unsignedBigInteger('points')->nullable();
             $table->timestamps();
 
             $table->foreign('splash')->references('id')->on('pictures')->onDelete('set null');

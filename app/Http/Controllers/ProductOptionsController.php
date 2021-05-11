@@ -10,7 +10,7 @@ class ProductOptionsController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('admin');
+        $this->middleware('admin');
     }
 
     public function store(Product $product, Request $request)

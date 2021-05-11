@@ -4,7 +4,7 @@
     </div>
     <div class="left-content-box content-box-dark">
         <div class="uk-text-center uk-margin-small-bottom uk-margin-top">
-            <i data-uk-icon="icon: user;ratio:1.5"></i>
+            <img src="/uploads/favicon.png" alt="logo">
         </div>
         <h4 class="uk-text-center uk-margin-remove-top text-light">Admin</h4>
     </div>
@@ -33,16 +33,16 @@
             </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: bolt" class="uk-margin-small-right"></span>وسایل نقلیه</a>
                 <ul class="uk-nav-sub uk-text-light">
-                    <li><a href="/dashboard/vehichle" title="وسایل نقلیه">نمایش وسایل نقلیه</a></li>
-                    <li><a href="/dashboard/vehichle/create" title="وسیله نقلیه جدید">وسیله نقلیه جدید</a></li>
+                    <li><a href="/dashboard/vehicle" title="وسایل نقلیه">نمایش وسایل نقلیه</a></li>
+                    <li><a href="/dashboard/vehicle/create" title="وسیله نقلیه جدید">وسیله نقلیه جدید</a></li>
                 </ul>
             </li>
-            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: location" class="uk-margin-small-right"></span>نمایندگی‌ها</a>
-                <ul class="uk-nav-sub uk-text-light">
-                    <li><a href="/dashboard/retailer" title="دسته‌بندی‌ها">نمایش نمایندگی‌ها</a></li>
-                    <li><a href="/dashboard/retailer/create" title="دسته‌بندی‌ها">نمایندگی جدید</a></li>
-                </ul>
-            </li>
+            {{--<li class="uk-parent"><a href="#"><span data-uk-icon="icon: location" class="uk-margin-small-right"></span>نمایندگی‌ها</a>--}}
+                {{--<ul class="uk-nav-sub uk-text-light">--}}
+                    {{--<li><a href="/dashboard/retailer" title="دسته‌بندی‌ها">نمایش نمایندگی‌ها</a></li>--}}
+                    {{--<li><a href="/dashboard/retailer/create" title="دسته‌بندی‌ها">نمایندگی جدید</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
         </ul>
 
     </div>

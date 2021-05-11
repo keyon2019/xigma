@@ -3,23 +3,25 @@
 namespace App\Models;
 
 use App\Traits\Filterable;
+use App\Traits\HasGallery;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, HasGallery;
 
-    protected $fillable = ['name', 'description', 'price', 'old_price', 'splash'];
+    protected $fillable = ['name', 'description', 'price', 'old_price', 'splash',
+        'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie'];
 
     protected $with = ['variations', 'pictures'];
 
-    protected $appends = ['splashPath'];
+    protected $appends = ['splashUrl'];
 
-    public function getSplashPathAttribute()
+    public function getSplashUrlAttribute()
     {
         if ($pic = Picture::find($this->splash)) {
-            return $pic->path;
+            return $pic->url;
         }
         return null;
     }
@@ -27,11 +29,6 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
-    }
-
-    public function pictures()
-    {
-        return $this->morphMany(Picture::class, 'picturable');
     }
 
     public function variations()

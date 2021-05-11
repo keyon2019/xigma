@@ -62,7 +62,7 @@
                 axios.post(`/dashboard/product/${this.product.id}`, form.asFormData('patch')).then(() => {
                     Toast.message("محصول با موفقیت به روزرسانی شد").success().show();
                 }).catch(() => {
-
+                    Toast.message("خطا در بروزرسانی محصول").danger().show();
                 }).then(() => {
                     Loading.hide();
                 })

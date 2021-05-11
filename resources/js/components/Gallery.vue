@@ -2,7 +2,7 @@
     <div>
         <div v-if="pictures.length > 0" class="uk-grid uk-child-width-1-5@m" data-uk-grid>
             <div v-for="picture in pictures">
-                <img @click="select(picture)" alt="" :src="'/' + picture.path"
+                <img @click="select(picture)" alt="" :src="picture.url"
                      class="uk-width-expand uk-border-rounded clickable">
             </div>
         </div>
