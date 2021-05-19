@@ -26,10 +26,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('test', function () {
-    dd(\App\Models\Product::first()->toJson());
-});
-
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 

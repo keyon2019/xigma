@@ -10,7 +10,15 @@ window.Vue = require('vue').default;
 
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
-// import 'uikit/dist/js/uikit-core.min';
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {MyCustomUploadAdapterPlugin} from './uploadAdapter';
+
+CKEditor.component.props.editor.default = ClassicEditor;
+CKEditor.component.props.config.default = () => {
+    return {language: 'fa', extraPlugins: [MyCustomUploadAdapterPlugin]}
+};
+Vue.use(CKEditor);
 
 window.UIkit = UIkit;
 UIkit.use(Icons);

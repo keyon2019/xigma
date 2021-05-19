@@ -248,3 +248,7 @@
 .toast.show {
   transform: translateY(0);
 }
+
+.ck-editor__editable {
+  min-height: 10rem;
+}

@@ -13,13 +13,18 @@
     "axios": "^0.21",
     "laravel-mix": "^6.0.6",
     "lodash": "^4.17.19",
-    "postcss": "^8.1.14",
+    "postcss": "^8.2.15",
     "resolve-url-loader": "^2.3.1",
+    "rtlcss": "^3.1.2",
     "sass": "^1.20.1",
     "sass-loader": "^8.0.0",
+    "uikit": "^3.6.18",
     "vue": "^2.5.17",
-    "vue-template-compiler": "^2.6.10",
-    "rtlcss": "^3.1.2",
-    "uikit": "^3.6.18"
+    "vue-loader": "^15.9.7",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^27.1.0",
+    "@ckeditor/ckeditor5-vue2": "^1.0.5"
   }
 }

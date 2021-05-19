@@ -15,10 +15,7 @@
                     <div class="uk-width-1-1">
                         <label class="uk-form-label">توضیحات</label>
                         <div class="uk-form-controls">
-                            <form-input type="textarea" :errors="form.errors"
-                                        rows="6" placeholder="توضیحات محصول" classes="uk-textarea" name="description"
-                                        v-model="form.description.value">
-                            </form-input>
+                            <ckeditor @ready="ckReady" v-model="form.description.value"></ckeditor>
                         </div>
                     </div>
                     <div class="uk-width-1-2">
@@ -61,7 +58,6 @@
 </template>
 
 <script>
-
     export default {
         props: ['product', 'button-class', 'button-text'],
         data() {
@@ -110,17 +106,17 @@
                 }),
             }
         },
-        mounted() {
-            if (this.product) {
-                this.form.fill(this.product);
-            }
-        },
         methods: {
             submit() {
                 if (this.form.validate()) {
                     this.$emit('submit', this.form);
                 }
             },
+            ckReady() {
+                if (this.product) {
+                    this.form.fill(this.product);
+                }
+            }
         }
     }
 </script>
