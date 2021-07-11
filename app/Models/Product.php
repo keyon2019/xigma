@@ -16,11 +16,11 @@ class Product extends Model
 
     protected $with = ['variations', 'pictures'];
 
-    protected $appends = ['splashUrl'];
+    protected $appends = ['splashUrl', 'rating'];
 
     public function getSplashUrlAttribute()
     {
-        if ($pic = Picture::find($this->splash)) {
+        if ($pic = $this->pictures->firstWhere('id', $this->splash)) {
             return $pic->url;
         }
         return null;
@@ -39,5 +39,15 @@ class Product extends Model
     public function options()
     {
         return $this->belongsToMany(Option::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function getRatingAttribute()
+    {
+        return $this->comments()->avg('rating');
     }
 }

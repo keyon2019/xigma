@@ -1,16 +1,29 @@
 <?php
 
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ValueController;
 use App\Http\Controllers\VariationController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleVariationController;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,51 +39,58 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/', [HomeController::class, 'index']);
+
+Route::post('/map/search', [MapController::class, 'search']);
+Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::get('/cart', [CartController::class, 'index']);
+Route::post('/cart', [CartController::class, 'store']);
+Route::delete('/cart', [CartController::class, 'destroy']);
+
+Route::post('/order', [OrderController::class, 'store']);
+
+Route::get('/checkout', [CheckoutController::class, 'index']);
+Route::post('/checkout', [CheckoutController::class, 'analyze']);
+
+Route::get('/invoice/{invoice}', [InvoiceController::class, 'show']);
+Route::post('/invoice', [InvoiceController::class, 'store']);
+
+Route::get('/address', [AddressController::class, 'index']);
+
+Route::get('/product/{product}', [ProductController::class, 'show']);
+
+Route::get('/category/{category}', [CategoryController::class, 'show']);
+
+Route::any('/payment/{payment}', [PaymentController::class, 'update']);
+
+Route::post('/item/{variation}/retailer', [ItemController::class, 'retailers']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
-    Route::get('/product', [ProductController::class, 'index']);
-    Route::get('/product/create', [ProductController::class, 'create']);
-    Route::post('/product', [ProductController::class, 'store']);
-    Route::get('/product/{product}/edit', [ProductController::class, 'edit']);
-    Route::patch('/product/{product}', [ProductController::class, 'update']);
-    Route::post('/product', [ProductController::class, 'store']);
-
-    Route::get('/option', [OptionController::class, 'index']);
-    Route::get('/option/create', [OptionController::class, 'create']);
-    Route::post('/option', [OptionController::class, 'store']);
-    Route::get('/option/{option}/edit', [OptionController::class, 'edit']);
-    Route::patch('/option/{option}', [OptionController::class, 'update']);
-
-    Route::post('/value', [ValueController::class, 'store']);
-    Route::patch('/value/{value}', [ValueController::class, 'update']);
-    Route::delete('/value/{value}', [ValueController::class, 'destroy']);
+    Route::resource('product', ProductController::class)->except(['show', 'destroy']);
+    Route::resource('option', OptionController::class)->except(['show', 'destroy']);
+    Route::resource('value', ValueController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('category', CategoryController::class)->except(['show', 'destroy']);
+    Route::resource('vehicle', VehicleController::class)->except(['show', 'destroy']);
+    Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);
+    Route::resource('slider', SliderController::class);
 
     Route::post('/product/{product}/option', [ProductOptionsController::class, 'store']);
     Route::delete('/product/{product}/option', [ProductOptionsController::class, 'destroy']);
 
     Route::post('/product/{product}/variation', [VariationController::class, 'store']);
-    Route::get('/variation', [VariationController::class, 'index']);
-    Route::patch('/variation/{variation}', [VariationController::class, 'update']);
-    Route::delete('/variation/{variation}', [VariationController::class, 'destroy']);
-
-    Route::get('/category', [CategoryController::class, 'index']);
-    Route::get('/category/create', [CategoryController::class, 'create']);
-    Route::post('/category', [CategoryController::class, 'store']);
-    Route::get('/category/{category}/edit', [CategoryController::class, 'edit']);
-    Route::patch('/category/{category}', [CategoryController::class, 'update']);
 
     Route::post('/product/{product}/category', [ProductCategoryController::class, 'store']);
     Route::delete('/product/{product}/category', [ProductCategoryController::class, 'destroy']);
 
-    Route::get('/vehicle', [VehicleController::class, 'index']);
-    Route::post('/vehicle', [VehicleController::class, 'store']);
-    Route::get('/vehicle/create', [VehicleController::class, 'create']);
-    Route::get('/vehicle/{vehicle}/edit', [VehicleController::class, 'edit']);
-    Route::patch('/vehicle/{vehicle}', [VehicleController::class, 'update']);
-
     Route::post('/vehicle/{vehicle}/variation', [VehicleVariationController::class, 'store']);
     Route::delete('/vehicle/{vehicle}/variation', [VehicleVariationController::class, 'destroy']);
+
+    Route::get('/test', function () {
+        return view('dashboard.retailer.index');
+    });
 
     Route::post('/picture', [PictureController::class, 'store']);
 });

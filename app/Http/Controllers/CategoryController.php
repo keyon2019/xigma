@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\ProductFilters;
 use App\Image;
 use App\Models\Category;
+use App\Models\Option;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     public function index(Request $request)
@@ -18,6 +20,15 @@ class CategoryController extends Controller
         if ($request->wantsJson())
             return response()->json(Category::paginate(15));
         return view('dashboard.category.index');
+    }
+
+    public function show(Category $category, ProductFilters $filters)
+    {
+        if (request()->wantsJson()) {
+            return response()->json($category->products()->without('variations')
+                ->filter($filters)->latest()->paginate(12));
+        }
+        return view('website.category.show', compact('category'))->with(['options' => Option::all()]);
     }
 
     public function create()

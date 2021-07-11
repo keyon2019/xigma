@@ -1,8 +1,19 @@
 <template>
     <paginated-view>
         <template v-slot:filters>
-            <div>
-                <input name="keyword" class="uk-input uk-border-rounded" placeholder="نام وسیله نقلیه">
+            <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
+                <div class="uk-margin-remove">جستجو</div>
+                <hr class="uk-margin-remove-top"/>
+                <div>
+                    <div>
+                        <input name="keyword" class="uk-input uk-border-rounded" placeholder="نام وسیله نقلیه">
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
+                                type="submit">اعمال فیلترها
+                        </button>
+                    </div>
+                </div>
             </div>
         </template>
         <template v-slot="scopeData">

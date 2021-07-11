@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Events\OrderPaid;
+use App\Listeners\AddItemsToOrder;
+use App\Listeners\TransferCartFromSessionToDB;
+use App\Listeners\UpdateOrderPaymentStatus;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -15,9 +17,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        Login::class => [
+            TransferCartFromSessionToDB::class
         ],
+        OrderPaid::class => [
+            UpdateOrderPaymentStatus::class, AddItemsToOrder::class
+        ]
     ];
 
     /**

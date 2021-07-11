@@ -83,9 +83,21 @@ html {
 }
 
 $global-font-family: IRANYekan, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-$global-success-background: #28a745;
+
+$global-color: #131313;
+$global-primary-background: #FFAA1A;
+$global-danger-background: #FF271A;
+$global-success-background: #17CA1E;
+$dotnav-item-width: 15px;
+$dotnav-item-background: white;
+$dotnav-item-active-background: $global-danger-background;
+$dotnav-item-hover-background: $global-danger-background;
+$global-muted-background: #f3f3f3;
+
 @import "~uikit/src/scss/variables-theme";
 @import "~uikit/src/scss/mixins-theme";
+@import "~mapbox-gl/dist/mapbox-gl.css" /*!rtl:ignore*/
+;
 
 $notification-width: 400px;
 $notification-message-font-size: $global-small-font-size;
@@ -95,6 +107,30 @@ $notification-message-warning-color: white;
 $notification-message-danger-color: white;
 
 @import "~uikit/src/scss/uikit-theme.scss";
+
+.uk-button-success {
+  background: $global-success-background;
+}
+
+.uk-button-success:disabled {
+  background-color: transparent !important;
+  color: #999 !important;
+  border-color: #e5e5e5 !important;
+}
+
+
+
+.uk-background-danger {
+  background: $global-danger-background;
+}
+
+.uk-background-muted-darker {
+  background: #e7e7e7;
+}
+
+.uk-button-success:hover {
+  background: darken($global-success-background, 5%);
+}
 
 .uk-notification-message {
   //@extend .uk-border-rounded;
@@ -114,4 +150,160 @@ $notification-message-danger-color: white;
 
 .uk-notification-message.uk-notification-message-warning {
   background-color: $global-warning-background;
+}
+
+.marker {
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+}
+
+.marker.default {
+  background-image: url('/uploads/xigma_logo.png');
+}
+
+.marker.pin {
+  background-image: url('/uploads/marker.png');
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.marker.factory {
+  background-image: url('/uploads/factory.png');
+}
+
+.mapboxgl-marker {
+  right: 0 !important;
+  left: unset !important;
+}
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+}
+
+.special-title {
+  padding: 1.4rem 6rem;
+  border-bottom-right-radius: 1.4rem;
+  border-bottom-left-radius: 1.4rem;
+}
+
+.uk-text-line-through {
+  text-decoration: line-through;
+}
+
+.uk-text-medium {
+  font-size: 1.4rem;
+}
+
+.uk-box-shadow-hover-medium:hover {
+  box-shadow: 0 0 10px #D0D0D0;
+}
+
+.uk-text-white {
+  color: white;
+}
+
+a.uk-text-white:hover {
+  color: darken(white, 5%);
+}
+
+.product-card {
+  transition: all 0.5s ease;
+}
+
+.product-card:hover {
+  background-color: $background-default-background;
+}
+
+.main-slider-container .slider-box::after {
+  content: "";
+  top:0;
+  right:0;
+  left:0;
+  bottom:0;
+  position: absolute;
+  z-index: 0;
+  background: url("/uploads/diagonal-lines.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.uk-text-bolder {
+  font-weight: 800;
+}
+
+.uk-text-large {
+  font-size: 1.7rem;
+}
+
+input.apple-switch {
+  position: relative;
+  -webkit-appearance: none;
+  outline: none;
+  width: 50px;
+  height: 30px;
+  background-color: #fff;
+  border: 1px solid $global-muted-background;
+  border-radius: 50px;
+  box-shadow: inset -20px 0 0 0 $global-muted-background;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input.apple-switch:after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background: transparent;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
+}
+
+input.apple-switch:checked {
+  box-shadow: inset 20px 0 0 0 #4ed164;
+  border-color: #4ed164;
+}
+
+input.apple-switch:checked:after {
+  right: 20px;
+  box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+}
+
+hr {
+  border-top: 1px solid #bdbdbd;
+}
+
+.star-filled polygon {
+  fill: $global-primary-background;
+  stroke: darken($global-primary-background, 5%) !important;
+}
+
+.star > svg > polygon {
+  stroke: #FFAA1A !important;
+}
+
+.ck-content table {
+  @extend .uk-table;
+  @extend .uk-table-striped;
+}
+
+.ck-content figure.table {
+  width: 100%;
+}
+
+.ck-content table, .ck-content tr, .ck-content td {
+  border: none !important;
+}
+
+.clickable {
+  cursor: pointer;
 }

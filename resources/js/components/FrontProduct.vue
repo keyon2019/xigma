@@ -1,0 +1,319 @@
+<template>
+    <div>
+        <div class="uk-container">
+            <div class="uk-grid uk-grid-collapse">
+                <div class="uk-width-3-4@m">
+                    <ul class="uk-breadcrumb">
+                        <li><a href="/">زیگما</a></li>
+                        <li><a href="#">قطعات موتور زیگما</a></li>
+                    </ul>
+                    <div class="uk-grid uk-grid-collapse">
+                        <div class="uk-width-2-5@m">
+                            <img class="uk-width-expand"
+                                 :src="selectedVariation ? variationPicture(selectedVariation) : product.splashUrl">
+                            <div dir="ltr"
+                                 class="uk-position-relative uk-visible-toggle uk-light uk-margin-small-top uk-margin-bottom"
+                                 tabindex="-1" uk-slider>
+                                <ul class="uk-slider-items uk-child-width-1-4 uk-grid uk-grid-small">
+                                    <li v-for="picture in product.pictures">
+                                        <a class="uk-link-reset">
+                                            <img class="uk-width-expand uk-border-rounded bordered" :src="picture.url"
+                                                 :alt="product.name">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="uk-width-3-5@m">
+                            <div class="uk-padding uk-padding-remove-vertical">
+                                <div class="uk-clearfix">
+                                    <div class="uk-float-right">
+                                        <div class="uk-text-large uk-text-bold">{{selectedVariation.name}}</div>
+                                    </div>
+                                    <div class="uk-float-left">
+                                        <div class="uk-text-large uk-text-bold">{{product.name}}</div>
+                                    </div>
+                                </div>
+                                <hr class="uk-margin-small"/>
+                                <div v-if="product.rating" class="uk-flex">
+                                    <span data-uk-icon="star" class="star-filled"></span>
+                                    <span class="uk-margin-small-left uk-text-muted">{{parseFloat(product.rating).toFixed(1)}} ({{product.comments.length}})</span>
+                                    <span class="uk-text-muted uk-margin-small-left">•</span>
+                                    <span class="uk-margin-small-left"><a>{{product.comments.length}} نظر کاربران</a></span>
+                                </div>
+                                <div v-if="selectedVariation && selectedVariation.values.length > 0"
+                                     class="uk-grid uk-grid-small uk-margin-large-top uk-text-center uk-flex uk-flex-center uk-flex-middle uk-child-width-auto uk-grid-divider uk-text-small">
+                                    <div v-for="(value,index) in selectedVariation.values"
+                                         :class="index === 0 ? 'uk-first-column' : ''">
+                                        <p class="uk-margin-small-bottom">{{value.option.name}}</p>
+                                        <p class="uk-margin-remove">{{value.name}}</p>
+                                    </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label">انتخاب نوع</label>
+                                    <div class="uk-form-controls">
+                                        <select class="uk-select uk-border-rounded uk-width-medium@s" v-model="selectedVariation">
+                                            <option :value="null" disabled>انتخاب کنید</option>
+                                            <option v-for="variation in product.variations" :value="variation"
+                                                    v-text="variation.name"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="uk-margin">
+                                    <label class="uk-form-label">تعداد</label>
+                                    <div class="uk-form-controls">
+                                        <select class="uk-select uk-border-rounded uk-width-small@s" v-model="quantity">
+                                            <option :value="null" disabled>انتخاب کنید</option>
+                                            <option v-for="i in 12" :value="i">{{i}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div v-if="selectedVariation" class="uk-margin">
+                                    <p class="uk-link uk-margin-small-bottom"><span class="uk-margin-small-right"
+                                                                                    data-uk-icon="warning"></span><span>{{selectedVariation.points}} امتیاز ویژه خرید زیگما</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-4@m">
+                    <div class="uk-section-muted uk-border-rounded uk-padding-small">
+                        <p class="uk-text-center uk-background-gray uk-text-white uk-border-rounded">اطلاعات فروشنده</p>
+                        <div class="dot-container">
+                            <div class=""
+                                 style="width: 100%;height: 100%;padding: 10px;position: absolute;top:0;left:0;box-sizing:border-box;">
+                                <div class="uk-position-relative" style="width: 100%;height: 100%;">
+                                    <div class="uk-position-absolute uk-position-cover dots"></div>
+                                </div>
+                            </div>
+                            <div class="uk-position-relative" style="z-index: 10">
+                                <p v-if="retailers.length > 0" class="dot-icon-p"><span class="uk-background-muted"
+                                                                                        data-uk-icon="check"></span><span
+                                        class="uk-margin-small-left uk-text-small">موجود در <a
+                                        @click="$refs.retailers.scrollIntoView({behavior: 'smooth'})">{{retailers.length}} نمایندگی</a></span>
+                                </p>
+                                <p class="dot-icon-p"><span class="uk-background-muted"
+                                                            data-uk-icon="bolt"></span><span
+                                        class="uk-margin-small-left uk-text-small">ارسال سریع کالا</span>
+                                </p>
+                                <p class="dot-icon-p"><span class="horizontal-dots"></span>
+                                    <span class="uk-background-muted"
+                                          data-uk-icon="user"></span><span
+                                            class="uk-margin-small-left uk-text-small">انتخاب بهترین نمایندگی</span>
+                                </p>
+                                <p class="dot-icon-p"><span class="horizontal-dots"></span>
+                                    <span class="uk-background-muted"
+                                          data-uk-icon="location"></span><span
+                                            class="uk-margin-small-left uk-text-small">انتخاب بهترین مسیر ارسال</span>
+                                </p>
+                                <p class="dot-icon-p"><span class="uk-background-muted"
+                                                            data-uk-icon="check"></span><span
+                                        class="uk-margin-small-left uk-text-small">ضمانت اصالت کالا</span>
+                                </p>
+                                <p class="dot-icon-p"><span class="uk-background-muted"
+                                                            data-uk-icon="check"></span><span
+                                        class="uk-margin-small-left uk-text-small">ضمانت سلامت و عملکرد کالا</span>
+                                </p>
+                                <p class="dot-icon-p"><span class="uk-background-muted"
+                                                            data-uk-icon="refresh"></span><span
+                                        class="uk-margin-small-left uk-text-small">۳ روز گارانتی تعویض کالای معیوب</span>
+                                </p>
+                            </div>
+                        </div>
+                        <hr class="uk-margin-small"/>
+                        <p class="uk-text-muted">قیمت مصرف کننده</p>
+                        <p class="uk-text-large uk-text-center">{{selectedVariation.price.toLocaleString()}} تومان</p>
+                        <p v-if="product.onesie" class="uk-text-danger uk-margin-small-bottom"><span class="uk-margin-small-right"
+                                                                                                     data-uk-icon="warning"></span><span>محدودیت خرید</span>
+                        </p>
+                        <button class="uk-button uk-button-success uk-border-rounded uk-text-white add-to-cart-button uk-width-expand"
+                                @click="addToCart()"
+                                :disabled="!selectedVariation || (!!selectedVariation && !selectedVariation.available)">
+                    <span class="uk-grid uk-grid-small uk-flex uk-flex-middle uk-grid-divider">
+                        <span class="uk-width-auto uk-first-column" data-uk-icon="icon:cart;ratio:1.5"></span>
+                        <span class="uk-width-expand">افزودن به سبد خرید</span>
+                    </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ref="retailers" v-if="selectedVariation && retailers.length > 0">
+                <p class="uk-text-lead half-title uk-margin-large-bottom">نمایندگی‌ها فروشنده قطعه شما</p>
+                <div v-for="(retailer,index) in retailers">
+                    <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle" data-uk-grid>
+                        <div class="uk-width-2-5@m">
+                            <p class="uk-flex uk-margin-small-bottom"><span data-uk-icon="home"
+                                                                            class="uk-margin-small-right"></span>{{retailer.name}}
+                            </p>
+                            <p class="uk-margin-remove uk-text-meta">۹۲٪ رضایت عملکرد</p>
+                        </div>
+                        <div class="uk-width-expand@s">
+                            <p class="uk-margin-small-bottom">{{retailer.city}} نمایندگی</p>
+                            <p class="uk-text-meta uk-margin-remove">{{retailer.address}}</p>
+                        </div>
+                        <div class="uk-width-auto@s">
+                            <p><span data-uk-icon="home"></span></p>
+                        </div>
+                    </div>
+                    <hr v-if="index + 1 < retailers.length" class="uk-margin-small-top"/>
+                </div>
+            </div>
+        </div>
+        <slot></slot>
+        <div class="uk-section-small uk-section-default">
+            <div class="uk-container">
+                <ul class="uk-tab uk-child-width-1-5"
+                    data-uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
+                    <li><a href="#info" class="uk-text-large">مشخصات قطعه</a></li>
+                    <li><a href="#categories">امتیاز و دیدگاه کاربران</a></li>
+                </ul>
+                <div class="uk-switcher uk-margin">
+                    <div v-html="product.description" class="ck-content"></div>
+                    <div>
+                        <div class="uk-grid uk-grid-large">
+                            <div class="uk-width-1-4@m">
+                                <div v-if="product.rating">
+                                    <stars-rating :rating="product.rating"></stars-rating>
+                                    <span class="uk-heading-small">{{parseFloat(product.rating).toFixed(2)}}</span>
+                                    <span>از ۵</span>
+                                </div>
+                                <p class="uk-text-center">نظر خود را به اشتراک بگذارید</p>
+                                <button class="uk-button uk-button-primary uk-width-expand uk-border-rounded">ثبت دیدگاه
+                                </button>
+                            </div>
+                            <div class="uk-width-expand@m">
+                                <div v-for="(comment) in product.comments">
+                                    <p class="uk-margin-remove uk-text-bold">{{comment.user.name}}</p>
+                                    <p class="uk-text-meta uk-margin-remove">
+                                        <span class="uk-display-inline-block uk-width-expand">
+                                            <span class="uk-float-left">{{comment.created_at}}</span>
+                                            <span class="uk-float-right"><stars-rating :rating="comment.rating"></stars-rating></span>
+                                        </span>
+                                    </p>
+                                    <hr class="uk-margin-remove-top"/>
+                                    <p class="uk-margin-large uk-margin-remove-top uk-padding-small uk-padding-remove-vertical uk-padding-remove-right"
+                                       v-text="comment.text"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: ['product'],
+        data() {
+            return {
+                selectedVariation: null,
+                quantity: 1,
+                retailers: [],
+            }
+        },
+        methods: {
+            addToCart() {
+                Event.$emit('add-to-cart', this.selectedVariation.id, this.quantity);
+            },
+            variationPicture(variation) {
+                return _.find(this.product.pictures, ['id', variation.splash]).url;
+            },
+            getRetailers() {
+                axios.post(`/item/${this.selectedVariation.id}/retailer`).then((response) => {
+                    this.retailers = response.data.retailers;
+                }).catch((e) => {
+                    Toast.message(e.response.data.message).danger().show();
+                });
+            }
+        },
+        beforeMount() {
+            this.selectedVariation = _.first(this.product.variations);
+        },
+        watch: {
+            selectedVariation() {
+                this.getRetailers();
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+        margin: 0 3px;
+    }
+
+    .uk-background-gray {
+        background: gray;
+    }
+
+    .add-to-cart-button {
+        padding: 5px 10px;
+        font-size: 1.2rem;
+    }
+
+    .dot-container {
+        position: relative;
+    }
+
+    .dot-icon-p {
+        padding: 5px 0;
+    }
+
+    .dots:before {
+        content: "";
+        width: 8px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: url('/uploads/dot.png') repeat-y center;
+        transform: translateX(-50%);
+    }
+
+    .horizontal-dots {
+        background: url('/uploads/dot.png') repeat-x center;
+        padding: 0 10px;
+        margin-left: 12px;
+    }
+
+    .bordered {
+        border: 1px solid gainsboro;
+    }
+
+    .uk-grid-divider > :not(.uk-first-column)::before {
+        top: 20% !important;
+        bottom: 20% !important;
+        border-left: 1px solid #bdbdbd;
+    }
+
+    .half-title {
+        position: relative;
+    }
+
+    .half-title:after {
+        content: "";
+        height: 3px;
+        bottom: -30%;
+        left: 0;
+        width: 120px;
+        background: #FFAA1A;
+        position: absolute;
+    }
+
+    .uk-tab > * > a {
+        font-size: 1.3rem !important;
+        text-align: left;
+        /*border-bottom: 4px;*/
+    }
+
+    .uk-tab > *:not(.uk-active) > a {
+        border-bottom: 4px solid transparent;
+    }
+
+    .uk-tab > .uk-active > a {
+        border-bottom: 4px solid #FFAA1A;
+    }
+</style>

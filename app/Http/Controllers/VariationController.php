@@ -15,7 +15,7 @@ class VariationController extends Controller
         $this->middleware('admin');
     }
 
-    public function index(VariationFilters $filters, Request $request)
+    public function index(VariationFilters $filters)
     {
         return response()->json(Variation::filter($filters)->with(['product' => function ($q) {
             $q->without('variations', 'pictures');

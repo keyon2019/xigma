@@ -15,6 +15,8 @@ class Form {
                 if (rules.length > 0) {
                     if (_.indexOf(rules, 'required') < 0 && (field.value == null || field.value === ''))
                         return true;
+                    if (_.indexOf(rules, 'required') < 0 && (field.rules.includes('file') && typeof field.value === 'string'))
+                        return true;
                     _.forEach(rules, rule => {
                         rule = rule.split(':');
                         let arg = rule[1];
@@ -44,8 +46,7 @@ class Form {
     asFormData(method = null) {
         let formData = new FormData();
         _.forEach(this, (field, key) => {
-            if (field.value) {
-                console.log(field.value instanceof Object, field.value instanceof Blob);
+            if (field.value != null && field.value !== '') {
                 if (field.rules.includes('file') && !(field.value instanceof Blob)) {
                     return;
                 }

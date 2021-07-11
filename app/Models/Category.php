@@ -12,6 +12,11 @@ class Category extends Model
 
     protected $fillable = ['name', 'description', 'splash', 'wide_splash'];
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
+
     public function getSplashAttribute($value)
     {
         return new Image($value);

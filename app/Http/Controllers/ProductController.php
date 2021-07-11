@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin')->except('show');
     }
 
     public function index(ProductFilters $filters, Request $request)
@@ -19,6 +19,12 @@ class ProductController extends Controller
         if ($request->wantsJson())
             return response()->json(Product::without('variations')->filter($filters)->latest()->paginate(12));
         return view('dashboard.product.index');
+    }
+
+    public function show(Product $product)
+    {
+        return view('website.product.show')
+            ->with('product', $product->load('variations.values.option')->load('comments'));
     }
 
     public function create()

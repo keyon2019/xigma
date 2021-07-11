@@ -1,8 +1,19 @@
 <template>
     <paginated-view :fetch-url="fetchUrl">
         <template v-slot:filters>
-            <div>
-                <input name="product_name" class="uk-input uk-border-rounded" placeholder="نام قطعه">
+            <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
+                <div class="uk-margin-remove">جستجو</div>
+                <hr class="uk-margin-remove-top"/>
+                <div>
+                    <div>
+                        <input name="product_name" class="uk-input uk-border-rounded" placeholder="نام محصول">
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
+                                type="submit">اعمال فیلترها
+                        </button>
+                    </div>
+                </div>
             </div>
         </template>
         <template v-slot="scopeData">

@@ -1,8 +1,22 @@
 <template>
     <paginated-view>
         <template v-slot:filters>
-            <div>
-                <input name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
+            <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
+                <div class="uk-margin-remove">جستجو</div>
+                <hr class="uk-margin-remove-top"/>
+                <div>
+                    <div class="uk-margin-small">
+                        <label><input class="uk-checkbox" type="checkbox" value="1" name="available"> محصولات موجود </label>
+                    </div>
+                    <div>
+                        <input type="text" name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
+                    </div>
+                    <div class="uk-margin-small-top">
+                        <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
+                                type="submit">اعمال فیلترها
+                        </button>
+                    </div>
+                </div>
             </div>
         </template>
         <template v-slot="scopeData">
@@ -23,8 +37,8 @@
                     <td class="uk-table-shrink">{{product.id}}</td>
                     <td class="uk-table-shrink"><img class="uk-img" :src="product.splashUrl" alt=""></td>
                     <td>{{product.name}}</td>
-                    <td>{{product.price}}</td>
-                    <td>{{product.old_price}}</td>
+                    <td>{{product.price.toLocaleString()}}</td>
+                    <td>{{product.old_price.toLocaleString()}}</td>
                     <td><a :href="`/dashboard/product/${product.id}/edit`" class="uk-button uk-button-small uk-button-primary">ویرایش</a>
                     </td>
                 </tr>

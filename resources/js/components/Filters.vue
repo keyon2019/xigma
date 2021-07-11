@@ -1,29 +1,38 @@
 <template>
     <div v-if="!!this.$slots.default">
-        <form @submit.prevent="apply()" data-uk-sticky="offset: 70;animation:uk-animation-slide-top;bottom:#paginated-view-content"
-              ref="form" class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
-            <div class="uk-margin-remove">جستجو</div>
-            <hr class="uk-margin-remove-top"/>
-            <div>
-                <slot></slot>
-                <div class="uk-margin-small-top">
-                    <button @click="apply()"
-                            class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
-                            type="button">اعمال فیلترها
-                    </button>
-                </div>
-            </div>
+        <form @submit.prevent="apply()" ref="form">
+            <slot></slot>
         </form>
     </div>
 </template>
 
 <script>
     export default {
+        props: ['url'],
         methods: {
             apply() {
                 let formData = new FormData(this.$refs.form);
                 this.$emit('filtersChanged', formData);
             }
+        },
+        mounted() {
+            const urlParams = new URLSearchParams((new URL(this.url, document.baseURI)).search);
+            let keyValuePairs = {};
+            for (let pair of urlParams.entries()) {
+                keyValuePairs[pair[0]] = pair[1];
+                console.log(pair[0], pair[1]);
+            }
+            _.forEach(this.$refs.form.elements, (inputField) => {
+                if (_.keys(keyValuePairs).includes(inputField.getAttribute('name'))) {
+                    if (inputField.getAttribute('type') === 'text')
+                        inputField.value = keyValuePairs[inputField.getAttribute('name')];
+                    else {
+                        if (inputField.value == keyValuePairs[inputField.getAttribute('name')])
+                        // console.log(inputField.value, keyValuePairs[inputField.getAttribute('name')]);
+                            inputField.setAttribute('checked', "")
+                    }
+                }
+            });
         }
     }
 </script>

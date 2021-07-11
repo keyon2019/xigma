@@ -7,6 +7,7 @@
     <title>Xigma Dashboard</title>
 
     <script src="{{ mix('js/app.js') }}" defer></script>
+    <meta name="user" content="{{auth()->check() ? auth()->user() : '{}'}}">
 
     <meta name="csrf-token" content="{{csrf_token()}}">
 
@@ -37,7 +38,7 @@
             @yield('content')
         </div>
     </div>
-    <loading-modal></loading-modal>
+    <loading></loading>
     <toast message="{{session('flash_message')}}"></toast>
 </div>
 

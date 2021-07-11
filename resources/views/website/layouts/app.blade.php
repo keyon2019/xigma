@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="user" content="{{auth()->check() ? auth()->user() : '{}'}}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -14,66 +15,105 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        @media print {
+            header {
+                display: none;
+            }
+
+            footer {
+                display: none;
+            }
+        }
+
+        .animating-line {
+            width: 1px;
+            height: 100vh;
+            background: white;
+            position: absolute;
+            top: 0;
+            transition: all 1s ease;
+        }
+
+        .slider-box.left > .leading {
+            right: calc(100% + 1px);
+        }
+
+        .slider-box.left > .trailing {
+            left: calc(100% + 1px);
+        }
+
+        .slider-box.right > .trailing {
+            left: -1px;
+        }
+
+        .slider-box.right > .leading {
+            right: -1px;
+        }
+
+        .fade .content {
+            animation: fade 3s;
+        }
+
+        .fade::after {
+            animation: fade 3s;
+        }
+
+        @keyframes fade {
+            0% {
+                opacity: 1;
+            }
+            5% {
+                opacity: 0;
+            }
+            70% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .slider-box {
+            transition: all 1s ease;
+        }
+
+        .slider-box.right {
+            right: 40px;
+        }
+
+        .slider-box.left {
+            right: 100%;
+            transform: translateX(calc(100% + 40px));
+        }
+
+        .services-container {
+            background: url("/uploads/services-bg.png");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .sticky-nav {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        .sticky-nav.uk-active {
+            visibility: visible;
+            position: fixed;
+        }
+
+    </style>
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-                            
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+<body class="preload">
+<div class="site" id="app">
+    @include('website.partials._header')
+    <main class="site-content">
+        @yield('content')
+    </main>
+    @include('website.partials._footer')
+    <loading></loading>
+</div>
 </body>
 </html>

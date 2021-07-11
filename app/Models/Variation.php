@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Variation extends Model
 {
@@ -14,11 +15,16 @@ class Variation extends Model
 
     protected $with = ['values'];
 
-    protected $appends = ['filters'];
+    protected $appends = ['filters', 'available'];
 
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
     }
 
     public function values()
@@ -29,12 +35,32 @@ class Variation extends Model
     public function scopeWithProduct($query)
     {
         $query->with(['product' => function ($q) {
-            return $q->without('variations', 'pictures');
+            return $q->without('variations');
         }]);
     }
 
     public function getFiltersAttribute()
     {
         return implode('/', $this->values->pluck('name')->toArray());
+    }
+
+    public function getAvailableAttribute()
+    {
+        return $this->items()->whereSold(false)->exists();
+    }
+
+    public function prepareForTable($quantity)
+    {
+        if (!$this->product)
+            $this->load('product');
+        $this->quantity = $quantity;
+        $this->splash = Storage::url($this->product->pictures->firstWhere('id', $this->splash)->path ?? '');
+        $this->productName = $this->product->name;
+        return $this;
+    }
+
+    public function picture()
+    {
+        return $this->hasOne(Picture::class, 'id', 'splash');
     }
 }

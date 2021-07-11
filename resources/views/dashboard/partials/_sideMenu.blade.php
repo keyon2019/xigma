@@ -12,6 +12,13 @@
     <div class="left-nav-wrap">
         <ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav>
             <li class="uk-nav-header">تنظیمات</li>
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: image"
+                                                    class="uk-margin-small-right"></span>تنظیمات ظاهری</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/slider" title="همه محصولات">اسلایدر اصلی</a></li>
+                    <li><a href="/dashboard/slider/create" title="همه محصولات">اسلایدر جدید</a></li>
+                </ul>
+            </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: thumbnails"
                                                     class="uk-margin-small-right"></span>محصولات</a>
                 <ul class="uk-nav-sub uk-text-light">
@@ -37,12 +44,12 @@
                     <li><a href="/dashboard/vehicle/create" title="وسیله نقلیه جدید">وسیله نقلیه جدید</a></li>
                 </ul>
             </li>
-            {{--<li class="uk-parent"><a href="#"><span data-uk-icon="icon: location" class="uk-margin-small-right"></span>نمایندگی‌ها</a>--}}
-                {{--<ul class="uk-nav-sub uk-text-light">--}}
-                    {{--<li><a href="/dashboard/retailer" title="دسته‌بندی‌ها">نمایش نمایندگی‌ها</a></li>--}}
-                    {{--<li><a href="/dashboard/retailer/create" title="دسته‌بندی‌ها">نمایندگی جدید</a></li>--}}
-                {{--</ul>--}}
-            {{--</li>--}}
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: location" class="uk-margin-small-right"></span>نمایندگی‌ها</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/retailer" title="نمایندگی‌ها">نمایش نمایندگی‌ها</a></li>
+                    <li><a href="/dashboard/retailer/create" title="نمایندگی جدید">نمایندگی جدید</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>
