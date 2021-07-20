@@ -11,11 +11,13 @@ class Variation extends Model
 {
     use HasFactory, Filterable;
 
-    protected $fillable = ['name', 'sku', 'splash', 'price', 'old_price', 'points'];
+    protected $fillable = ['name', 'sku', 'splash', 'price', 'special_price', 'points', 'special_price_expiration'];
 
     protected $with = ['values'];
 
     protected $appends = ['filters', 'available'];
+
+    protected $dates = ['special_price_expiration'];
 
     public function product()
     {

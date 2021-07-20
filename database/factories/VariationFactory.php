@@ -24,13 +24,11 @@ class VariationFactory extends Factory
      */
     public function definition()
     {
-        $price = $this->faker->numberBetween(1000000, 9999999);
         return [
             'product_id' => Product::factory(),
             'name' => $this->faker->word,
             'sku' => Str::random(),
-            'price' => $price,
-            'old_price' => 1.1 * $price
+            'price' => $this->faker->numberBetween(1000000, 9999999),
         ];
     }
 

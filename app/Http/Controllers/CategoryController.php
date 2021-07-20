@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Category::paginate(15));
+            return response()->json(Category::paginate($request->has('n') ? $request->n : 15));
         return view('dashboard.category.index');
     }
 
@@ -42,7 +42,8 @@ class CategoryController extends Controller
             'name' => 'required|string',
             'description' => 'string',
             'splash' => 'file',
-            'wide_splash' => 'file'
+            'wide_splash' => 'file',
+            'parent_id' => 'numeric|exists:categories,id'
         ]);
 
         if ($request->hasFile('splash')) {
@@ -68,7 +69,8 @@ class CategoryController extends Controller
             'name' => 'required|string',
             'description' => 'string',
             'splash' => 'file',
-            'wide_splash' => 'file'
+            'wide_splash' => 'file',
+            'parent_id' => 'numeric|exists:categories,id'
         ]);
         if ($request->hasFile('splash')) {
             $validated['splash'] = $category->splash->update($request->file('splash'));

@@ -20,8 +20,9 @@ class CreateVariationsTable extends Migration
             $table->string('sku')->index()->nullable();
             $table->unsignedBigInteger('splash')->nullable();
             $table->unsignedBigInteger('price')->nullable();
-            $table->unsignedBigInteger('old_price')->nullable();
+            $table->unsignedBigInteger('special_price')->nullable();
             $table->unsignedBigInteger('points')->nullable();
+            $table->timestamp('special_price_expiration')->nullable();
             $table->timestamps();
 
             $table->foreign('splash')->references('id')->on('pictures')->onDelete('set null');

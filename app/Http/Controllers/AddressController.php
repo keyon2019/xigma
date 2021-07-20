@@ -17,4 +17,10 @@ class AddressController extends Controller
             return response()->json(['addresses' => auth()->user()->addresses]);
         return dd(auth()->user()->addresses);
     }
+
+    public function store(Request $request)
+    {
+        $address = auth()->user()->addresses()->create($request->all() + ['latitude' => $request->lat, 'longitude' => $request->lng]);
+        return response()->json(['address' => $address]);
+    }
 }

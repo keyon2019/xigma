@@ -26,7 +26,6 @@ class ItemFactory extends Factory
     {
         return [
             'variation_id' => Variation::factory(),
-            'price' => rand(1000, 100000),
             'barcode' => Str::random(10)
         ];
     }

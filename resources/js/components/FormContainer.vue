@@ -6,7 +6,7 @@
                 <div>
                     <div class="uk-form-label">&nbsp;</div>
                     <div class="uk-form-controls">
-                        <button v-if="!disabled" class="uk-button" type="button"
+                        <button v-if="!disabled" class="uk-button uk-border-rounded" type="button"
                                 :class="buttonClass ? buttonClass : 'uk-button-primary'"
                                 @click="$emit('submit')">
                             {{buttonText ? buttonText : 'ثبت'}}

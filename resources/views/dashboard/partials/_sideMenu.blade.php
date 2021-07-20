@@ -12,6 +12,13 @@
     <div class="left-nav-wrap">
         <ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav>
             <li class="uk-nav-header">تنظیمات</li>
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: tag"
+                                                    class="uk-margin-small-right"></span>سفارش‌</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/order" title="همه سفارشات">سفارش‌ها</a></li>
+                    <li><a href="/dashboard/invoice" title="همه پیش‌فاکتورها">پیش‌فاکتورها</a></li>
+                </ul>
+            </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: image"
                                                     class="uk-margin-small-right"></span>تنظیمات ظاهری</a>
                 <ul class="uk-nav-sub uk-text-light">

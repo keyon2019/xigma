@@ -115,5 +115,11 @@
     @include('website.partials._footer')
     <loading></loading>
 </div>
+<script src="{{ mix('js/app.js') }}"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+    });
+</script>
 </body>
 </html>

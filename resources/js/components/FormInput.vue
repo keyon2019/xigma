@@ -3,6 +3,7 @@
         <label class="uk-form-label">{{label}}</label>
         <div class="uk-form-controls">
             <component v-if="['input','textarea'].includes(type)" :is="type" :name="name" :placeholder="label" :value.prop="value"
+                       :id="id"
                        :rows="rows"
                        class="uk-border-rounded"
                        @input="$emit('input', $event.target.value)"
@@ -16,7 +17,7 @@
 
 <script>
     export default {
-        props: ['errors', 'label', 'name', 'type', 'classes', 'value', 'rows', 'options'],
+        props: ['errors', 'label', 'name', 'type', 'classes', 'value', 'rows', 'options', 'id'],
     }
 </script>
 

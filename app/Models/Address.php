@@ -10,6 +10,8 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['province', 'city', 'latitude', 'longitude', 'zip', 'mobile', 'phone', 'directions'];
+
     public function getNearbyStocksAttribute()
     {
         return DB::table('retailers')

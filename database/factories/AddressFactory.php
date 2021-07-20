@@ -28,6 +28,8 @@ class AddressFactory extends Factory
             'province' => $this->faker->city,
             'city' => $this->faker->city,
             'zip' => $this->faker->postcode,
+            'phone' => $this->faker->phoneNumber,
+            'mobile' => $this->faker->phoneNumber,
             'latitude' => $this->faker->latitude,
             'longitude' => $this->faker->longitude,
             'default' => false,

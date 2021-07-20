@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('description')->nullable();
             $table->string('splash');
             $table->string('wide_splash');
+            $table->foreignId('parent_id')->nullable()->references('id')->on('categories')->onDelete('set null');
             $table->timestamps();
         });
 

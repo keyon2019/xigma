@@ -11,10 +11,12 @@ class Product extends Model
 {
     use HasFactory, Filterable, HasGallery;
 
-    protected $fillable = ['name', 'description', 'price', 'old_price', 'splash',
-        'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie'];
+    protected $fillable = ['name', 'description', 'price', 'special_price', 'splash',
+        'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie', 'special_price_expiration'];
 
     protected $with = ['variations', 'pictures'];
+
+    protected $dates = ['special_price_expiration'];
 
     protected $appends = ['splashUrl', 'rating'];
 

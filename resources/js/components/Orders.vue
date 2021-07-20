@@ -6,10 +6,10 @@
                 <hr class="uk-margin-remove-top"/>
                 <div>
                     <div class="uk-margin-small">
-                        <label><input class="uk-checkbox" type="checkbox" value="1" name="available"> محصولات موجود </label>
+                        <input type="text" name="user_name" class="uk-input uk-border-rounded" placeholder="نام کاربر">
                     </div>
-                    <div>
-                        <input type="text" name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
+                    <div class="uk-margin-small">
+                        <input type="email" name="user_email" class="uk-input uk-border-rounded" placeholder="ایمیل کاربر">
                     </div>
                     <div class="uk-margin-small-top">
                         <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
@@ -25,21 +25,23 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>عکس</th>
-                    <th>نام</th>
-                    <th>قیمت</th>
-                    <th>قیمت استثنائی</th>
-                    <th>مدیریت</th>
+                    <th>کاربر</th>
+                    <th>مبلغ</th>
+                    <th>وضعیت پرداخت</th>
+                    <th>وضعیت سفارش</th>
+                    <th>زمان ثبت</th>
+                    <th>مشاهده</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="product in scopeData.records">
-                    <td class="uk-table-shrink">{{product.id}}</td>
-                    <td class="uk-table-shrink"><img class="uk-img" :src="product.splashUrl" alt=""></td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.price.toLocaleString()}}</td>
-                    <td>{{product.special_price ? product.special_price.toLocaleString() : ''}}</td>
-                    <td><a :href="`/dashboard/product/${product.id}/edit`" class="uk-button uk-button-small uk-button-primary">ویرایش</a>
+                <tr v-for="order in scopeData.records">
+                    <td class="uk-table-shrink">{{order.id}}</td>
+                    <td class="uk-table-shrink">{{order.user.name}}</td>
+                    <td>{{order.total.toLocaleString()}}</td>
+                    <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
+                    <td>{{order.statusName}}</td>
+                    <td>{{order.created_at}}</td>
+                    <td><a :href="`/dashboard/order/${order.id}/edit`" class="uk-button uk-button-small uk-button-primary">نمایش</a>
                     </td>
                 </tr>
                 </tbody>

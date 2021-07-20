@@ -6,6 +6,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Services\ShippingService;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,13 +16,31 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin')->only(['all', 'edit']);
+    }
+
+    public function all(Request $request)
+    {
+        if ($request->wantsJson())
+            return response()->json(Order::with('user')->paginate(15));
+        return view('dashboard.order.index');
+    }
+
+    public function index()
+    {
+        return response()->json(auth()->user()->orders()->paginate(15));
+    }
+
+    public function show(Order $order)
+    {
+        dd($order);
     }
 
     public function store(StoreOrderRequest $request, CartInterface $cart, GatewayInterface $gateway)
     {
         return $cart->checkAllAvailable(function () use ($request, $cart, $gateway) {
-            $order = Order::create($request->validated() + [
-                    'order_status' => 1,
+            $order = auth()->user()->orders()->create($request->validated() + [
+                    'status' => 1,
                     'total' => $cart->totalPrice()
                 ]);
 
@@ -46,5 +65,12 @@ class OrderController extends Controller
         }, function ($unavailableItems) {
             return response()->json(['message' => 'Some items are not available', 'item_ids' => $unavailableItems], 400);
         });
+    }
+
+    public function edit(Order $order)
+    {
+        return view('dashboard.order.edit')
+            ->with('order', $order->load(['user', 'address', 'items', 'variations.product']))
+            ->with('orderStatuses', json_encode(Order::STATUSES));
     }
 }

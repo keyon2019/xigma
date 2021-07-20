@@ -50,6 +50,10 @@
                 });
             else
                 this.initMap();
+
+            this.map.on('load', () => {
+                this.map.resize();
+            });
         },
         methods: {
             updateMarker() {
@@ -114,5 +118,6 @@
     #map {
         width: 100%;
         min-height: 300px;
+        height: 100%;
     }
 </style>

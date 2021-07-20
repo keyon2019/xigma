@@ -18,19 +18,25 @@
                                     v-model="form.sku.value">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-3">
+                    <div class="uk-width-1-2">
                         <form-input label="قیمت" classes="uk-input" :errors="form.errors" type="input" name="price"
                                     v-model="form.price.value">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-3">
-                        <form-input name="old_price" label="قیمت قدیم" :errors="form.errors"
-                                    v-model="form.old_price.value" classes="uk-input" type="input">
+                    <div class="uk-width-1-2">
+                        <form-input name="special_price" label="قیمت استثنایی" :errors="form.errors"
+                                    v-model="form.special_price.value" classes="uk-input" type="input">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-3">
+                    <div class="uk-width-1-2">
                         <form-input name="points" label="امتیاز" :errors="form.errors"
                                     v-model="form.points.value" classes="uk-input" type="input">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <form-input :id="dpRandomId" name="special_price_expiration" label="انقضای قیمت استثنائی"
+                                    :errors="form.errors"
+                                    :value="$refs.dp ? $refs.dp.displayValue : ''" classes="uk-input" type="input">
                         </form-input>
                     </div>
                     <div class="uk-width-1-1">
@@ -43,6 +49,8 @@
                 <select-picture :disabled="disabled" :pictures="pictures" v-model="form.splash.value"></select-picture>
             </div>
         </div>
+        <date-picker type="datetime"
+                     ref="dp" v-model="form.special_price_expiration.value" :element="dpRandomId"></date-picker>
     </form-container>
 </template>
 
@@ -52,6 +60,7 @@
         props: ['variation', 'button-class', 'button-text', 'pictures', 'disabled', 'options', 'values'],
         data() {
             return {
+                dpRandomId: Math.random().toString(36).substring(7),
                 form: new Form({
                     name: {
                         value: '',
@@ -65,9 +74,13 @@
                         value: '',
                         rules: 'required|numeric'
                     },
-                    old_price: {
+                    special_price: {
                         value: '',
                         rules: 'numeric'
+                    },
+                    special_price_expiration: {
+                        value: '',
+                        rules: 'string'
                     },
                     points: {
                         value: '',

@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -18,10 +19,11 @@ mix.webpackConfig({
 });
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue()
+    .js('resources/js/dashboard.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/dashboard.scss', 'public/css')
     .options({
         processCssUrls: false,
         postCss: [require('rtlcss')]
-    }).version();
+    }).vue()
+    .version();

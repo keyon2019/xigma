@@ -20,6 +20,8 @@ class CreateAddressesTable extends Migration
             $table->string('province');
             $table->string('city');
             $table->string('zip');
+            $table->string('mobile');
+            $table->string('phone');
             $table->decimal('latitude', 9, 6);
             $table->decimal('longitude', 9, 6);
             $table->boolean('default')->default(false);

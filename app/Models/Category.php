@@ -10,11 +10,16 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'splash', 'wide_splash'];
+    protected $fillable = ['name', 'description', 'splash', 'wide_splash', 'parent_id'];
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function subCategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
     public function getSplashAttribute($value)

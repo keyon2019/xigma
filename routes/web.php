@@ -48,7 +48,7 @@ Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
 Route::delete('/cart', [CartController::class, 'destroy']);
 
-Route::post('/order', [OrderController::class, 'store']);
+Route::resource('order', OrderController::class)->only(['show', 'index', 'store']);
 
 Route::get('/checkout', [CheckoutController::class, 'index']);
 Route::post('/checkout', [CheckoutController::class, 'analyze']);
@@ -66,6 +66,8 @@ Route::any('/payment/{payment}', [PaymentController::class, 'update']);
 
 Route::post('/item/{variation}/retailer', [ItemController::class, 'retailers']);
 
+Route::post('/address', [AddressController::class, 'store']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
@@ -76,6 +78,8 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('vehicle', VehicleController::class)->except(['show', 'destroy']);
     Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);
     Route::resource('slider', SliderController::class);
+    Route::get('order', [OrderController::class, 'all']);
+    Route::get('order/{order}/edit', [OrderController::class, 'edit']);
 
     Route::post('/product/{product}/option', [ProductOptionsController::class, 'store']);
     Route::delete('/product/{product}/option', [ProductOptionsController::class, 'destroy']);

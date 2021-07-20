@@ -10,6 +10,7 @@
     "production": "mix --production"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
     "axios": "^0.21",
     "laravel-mix": "^6.0.6",
     "lodash": "^4.17.19",
@@ -26,6 +27,8 @@
   },
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^27.1.0",
-    "@ckeditor/ckeditor5-vue2": "^1.0.5"
+    "@ckeditor/ckeditor5-vue2": "^1.0.5",
+    "treeflex": "^2.0.1",
+    "vue-persian-datetime-picker": "^2.6.1"
   }
 }

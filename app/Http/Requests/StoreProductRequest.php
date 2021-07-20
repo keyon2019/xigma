@@ -27,13 +27,14 @@ class StoreProductRequest extends FormRequest
             'name' => 'required|string',
             'description' => 'string',
             'price' => 'required|numeric',
-            'old_price' => 'numeric',
+            'special_price' => 'numeric',
             'splash' => 'numeric',
             'delivery_cost' => 'required|numeric',
             'is_huge' => 'boolean',
             'preorderable' => 'boolean',
             'daily_production_capacity' => 'numeric',
-            'onesie' => 'boolean'
+            'onesie' => 'boolean',
+            'special_price_expiration' => 'date'
         ];
     }
 }

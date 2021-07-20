@@ -26,6 +26,6 @@ class UpdateOrderPaymentStatus
     public function handle($event)
     {
         $order = $event->order;
-        $order->update(['paid' => true, 'order_status' => 2]);
+        $order->update(['paid' => true, 'status' => 2]);
     }
 }

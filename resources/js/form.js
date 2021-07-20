@@ -60,6 +60,12 @@ class Form {
                     });
                     return
                 }
+                if (field.rules.includes('object')) {
+                    for (const [key, value] of Object.entries(field.value)) {
+                        formData.append(key, value)
+                    }
+                    return
+                }
                 formData.append(key, field.value)
             }
         });

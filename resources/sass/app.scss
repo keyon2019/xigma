@@ -307,3 +307,7 @@ hr {
 .clickable {
   cursor: pointer;
 }
+
+.vpd-actions > button {
+  font-family: $global-font-family !important;
+}

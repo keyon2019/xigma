@@ -27,10 +27,11 @@ class StoreVariationRequest extends FormRequest
             'name' => 'required|string',
             'sku' => 'string',
             'price' => 'required|numeric',
-            'old_price' => 'numeric',
+            'special_price' => 'numeric',
             'points' => 'numeric',
             'splash' => 'numeric',
-            'options' => 'array'
+            'options' => 'array',
+            'special_price_expiration' => 'date'
         ];
     }
 }

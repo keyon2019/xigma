@@ -15,10 +15,11 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('address_id');
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('address_id')->constrained();
             $table->unsignedInteger('shipping_method');
             $table->unsignedInteger('cost_preference');
-            $table->unsignedInteger('order_status');
+            $table->unsignedInteger('status');
             $table->boolean('paid')->default(false);
             $table->unsignedInteger('total');
 

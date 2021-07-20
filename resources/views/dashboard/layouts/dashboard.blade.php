@@ -6,7 +6,6 @@
 
     <title>Xigma Dashboard</title>
 
-    <script src="{{ mix('js/app.js') }}" defer></script>
     <meta name="user" content="{{auth()->check() ? auth()->user() : '{}'}}">
 
     <meta name="csrf-token" content="{{csrf_token()}}">
@@ -44,6 +43,9 @@
 
 </body>
 </html>
+<script src="{{ mix('js/dashboard.js') }}"></script>
 <script>
-
+    const app = new Vue({
+        el: '#app',
+    });
 </script>

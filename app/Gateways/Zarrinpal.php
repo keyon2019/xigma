@@ -34,7 +34,7 @@ class Zarrinpal extends GatewayInterface
                 'Amount' => $payment->amount
             ])->throw()->json();
 
-            if ($response['Status'] == 101) {
+            if ($response['Status'] == 100 || $response['Status'] == 101) {
                 return $response['RefID'];
             }
             return false;

@@ -26,9 +26,10 @@ class AddItemsToOrder
 
         $items = $this->closesItemFinderService->find($order->address_id, $order->variations, $order->cost_preference);
 
-        Item::whereIn('id', $items->pluck('id'))->update([
-            'order_id' => $order->id,
-            'sold' => true
-        ]);
+        $updates = $items->map(function ($item) use ($order) {
+            return ['id' => $item->id, 'sold' => true, 'order_id' => $order->id, 'price' => $order->variations->firstWhere('id', $item->variation_id)->price];
+        });
+
+        Item::updateValues($updates->toArray());
     }
 }

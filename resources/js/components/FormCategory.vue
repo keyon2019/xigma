@@ -21,6 +21,13 @@
                             </form-input>
                         </div>
                     </div>
+                    <div class="uk-width-1-1">
+                        <label class="uk-form-label">دسته‌بندی مادر</label>
+                        <select v-model="form.parent_id.value" class="uk-select">
+                            <option :value="null">بدون دسته مادر</option>
+                            <option v-if="category.id !== c.id" v-for="c in categories" :value="c.id" v-text="c.name"></option>
+                        </select>
+                    </div>
                     <div class="uk-width-1-3">
                         <image-input name="splash" v-model="form.splash.value" placeholder="800x800"></image-input>
                         <div v-if="form.errors.has('splash')"
@@ -45,6 +52,7 @@
         props: ['category', 'button-class', 'button-text'],
         data() {
             return {
+                categories: [],
                 form: new Form({
                     name: {
                         value: '',
@@ -61,6 +69,10 @@
                     wide_splash: {
                         value: null,
                         rules: 'file'
+                    },
+                    parent_id: {
+                        value: null,
+                        rules: 'numeric'
                     }
                 }),
             }
@@ -69,6 +81,11 @@
             if (this.category) {
                 this.form.fill(this.category);
             }
+            axios.get('/dashboard/category', {n: 100}).then((response) => {
+                this.categories = response.data.data;
+            }).catch((e) => {
+                Toast.message(e.response.data.message).danger().show();
+            })
         },
         methods: {
             submit() {

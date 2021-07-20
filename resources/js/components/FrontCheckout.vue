@@ -18,8 +18,20 @@
                 </div>
             </template>
             <template v-else>
-                <p class="uk-text-small uk-text-center">شما هیج آدرس ثبت شده‌ای ندارید</p>
+                <div class="uk-text-center">
+                    <p class="uk-text-small uk-text-center">شما هیج آدرس ثبت شده‌ای ندارید</p>
+                </div>
             </template>
+            <div class="uk-margin uk-text-center">
+                <button class="uk-button uk-button-secondary uk-margin-small-top uk-border-rounded"
+                        @click="showNewAddressModal()">ثبت آدرس
+                    جدید
+                </button>
+                <modal name="address">
+                    <h2>ثبت آدرس جدید</h2>
+                    <form-address @submit="createAddress"></form-address>
+                </modal>
+            </div>
         </div>
         <div v-if="step === 2">
             <div class="uk-grid">
@@ -72,14 +84,15 @@
 </template>
 
 <script>
-    import Mapbox from "./Mapbox";
+    import FormAddress from "./FormAddress";
 
     export default {
-        components: {Mapbox},
+        components: {FormAddress},
         data() {
             return {
                 step: 1,
                 mapKey: 1,
+                addressModal: new Modal('address'),
                 addresses: null,
                 routes: null,
                 selectedAddress: null,
@@ -158,6 +171,20 @@
                 var setB = new Set(b);
                 return [...new Set(a)].filter(x => setB.has(x));
             },
+            showNewAddressModal() {
+                this.addressModal.show();
+            },
+            createAddress(form) {
+                Loading.show();
+                axios.post('/address', form.asFormData()).then((response) => {
+                    this.addresses.unshift(response.data.address);
+                    Toast.message('آدرس جدید با موفقیت ثبت شد').success().show();
+                }).catch((e) => {
+                    Toast.message(e.response.data.message).danger().show();
+                }).then(() => {
+                    Loading.hide();
+                })
+            }
         },
         computed: {
             markers() {

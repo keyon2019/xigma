@@ -11,7 +11,6 @@ class PaymentController extends Controller
     public function update(Payment $payment, Request $request)
     {
         if ($reference_number = $payment->gateway->onReturn($payment, $request)) {
-
             $payment->update([
                 'reference_number' => $reference_number,
                 'successful' => true
