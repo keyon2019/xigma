@@ -133,7 +133,7 @@
             getVariationType(variation) {
                 return _.reduce(variation.values, (type, value) => {
                     return type + " " + value.name;
-                });
+                }, "");
             },
             getVariationPicture(variation) {
                 return _.find(variation.product.pictures, {'id': variation.splash}).url ?? null;

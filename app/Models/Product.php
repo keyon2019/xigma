@@ -4,12 +4,15 @@ namespace App\Models;
 
 use App\Traits\Filterable;
 use App\Traits\HasGallery;
+use App\Traits\Shamsi;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory, Filterable, HasGallery;
+    use HasFactory, Filterable, HasGallery, Shamsi;
 
     protected $fillable = ['name', 'description', 'price', 'special_price', 'splash',
         'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie', 'special_price_expiration'];
@@ -18,7 +21,30 @@ class Product extends Model
 
     protected $dates = ['special_price_expiration'];
 
-    protected $appends = ['splashUrl', 'rating'];
+    protected $appends = ['splashUrl', 'orderPrice'];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('rating', function (Builder $builder) {
+            return $builder->withAvg('comments as rating', 'rating');
+        });
+    }
+
+    public function getOrderPriceAttribute()
+    {
+        if ($this->getRawOriginal('special_price_expiration') > Carbon::now()->toDateTimeString())
+            return $this->special_price;
+        return $this->price;
+    }
+
+    public function scopeWithAvailability($query)
+    {
+        return $query->withExists(['variations as available' => function ($query) {
+            return $query->whereHas('items', function ($query) {
+                $query->whereSold(false);
+            });
+        }]);
+    }
 
     public function getSplashUrlAttribute()
     {
@@ -48,8 +74,8 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function getRatingAttribute()
+    public function items()
     {
-        return $this->comments()->avg('rating');
+        return $this->hasMany(Item::class);
     }
 }

@@ -10,9 +10,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
-
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -23,6 +20,10 @@
             }
 
             footer {
+                display: none;
+            }
+
+            .hidden-in-print {
                 display: none;
             }
         }
@@ -106,7 +107,7 @@
 
     </style>
 </head>
-<body class="preload">
+<body>
 <div class="site" id="app">
     @include('website.partials._header')
     <main class="site-content">
@@ -121,5 +122,6 @@
         el: '#app',
     });
 </script>
+
 </body>
 </html>

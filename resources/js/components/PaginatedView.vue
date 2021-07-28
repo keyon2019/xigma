@@ -1,26 +1,24 @@
 <template>
     <div class="uk-grid uk-grid-small" data-uk-grid>
-        <div v-if="!filterless" class="uk-width-1-5 uk-width-visible@m">
-            <filters :url="url"
-                     @filtersChanged="filtersChanged">
-                <slot name="filters"></slot>
-            </filters>
-        </div>
-        <div class="uk-width-visible@m" :class="filterless ? 'uk-width-expand' : 'uk-width-4-5'">
+        <filters :url="url" class="uk-width-1-5 uk-width-visible@m"
+                 @filtersChanged="filtersChanged">
+            <slot name="filters"></slot>
+        </filters>
+        <div class="uk-width-expand">
             <sort @sortsChanged="sortsChanged" :url="url">
                 <slot name="sort"></slot>
             </sort>
             <div id="paginated-view-content">
                 <slot :records="data.data"></slot>
             </div>
-            <pagination @pageChanged="pageChanged" :key="paginationRenderKey" :initial-data="data"></pagination>
+            <pagination :limit="2" @pagination-change-page="pageChanged" :key="paginationRenderKey" :data="data"></pagination>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['fetch-url', 'filterless'],
+        props: ['fetch-url'],
         data() {
             return {
                 data: {},
@@ -45,7 +43,7 @@
                 url.searchParams.set('page', page);
                 if (!this.embed)
                     window.history.pushState({}, '', url);
-                this.url = url;
+                this.url = url.href;
                 this.fetch();
             },
             filtersChanged(formData) {
@@ -57,7 +55,7 @@
                 url.searchParams.set('page', 1);
                 if (!this.embed)
                     window.history.pushState({}, '', url);
-                this.url = url;
+                this.url = url.href;
                 this.fetch();
             },
             sortsChanged(formData) {
@@ -72,7 +70,7 @@
                 url.searchParams.set('page', 1);
                 if (!this.embed)
                     window.history.pushState({}, '', url);
-                this.url = url;
+                this.url = url.href;
                 this.fetch();
             },
             fetch() {

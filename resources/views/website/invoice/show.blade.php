@@ -14,6 +14,10 @@
                 </div>
             </div>
             @include('website.partials._invoiceTable', ['items' => $invoice->variations])
+            <div class="uk-margin-top hidden-in-print">
+                <button class="uk-button uk-button-secondary uk-border-rounded" onclick="print()">چاپ فاکتور</button>
+                <button class="uk-button uk-button-primary uk-border-rounded">ثبت سفارش فاکتور</button>
+            </div>
         </div>
     </div>
 @endsection

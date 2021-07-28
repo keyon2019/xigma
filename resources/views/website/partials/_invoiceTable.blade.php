@@ -23,7 +23,7 @@
             @php($quantity = $item->pivot->quantity ?? $item->quantity)
             @php($totalQuantity += $quantity)
             <td>{{$quantity}}</td>
-            @php($price = $item->pivot->price ?? $item->price)
+            @php($price = $item->pivot->orderPrice ?? $item->orderPrice)
             <td>{{number_format($price)}}</td>
             @php($rowTotal = $price * $quantity)
             <td>{{number_format($rowTotal)}}</td>
@@ -33,7 +33,7 @@
     </tbody>
     <tfoot class="uk-background-muted">
     <tr>
-        <td colspan="4" class="uk-text-bold"></td>
+        <td colspan="4" class="uk-text-bold">جـمــــــــــــــــــــــــــــــــــــع کـــــــــــــــــــــــــــــــــــــل</td>
         <td colspan="2">{{$totalQuantity}}</td>
         <td>{{number_format($totalPrice)}}</td>
     </tr>

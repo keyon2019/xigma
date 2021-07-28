@@ -14,7 +14,15 @@
 </head>
 <body>
 
-<div id="app">
+<div class="uk-position-cover uk-background-muted loading-cover">
+    <div class="lds-ellipsis uk-position-center">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div id="app" v-cloak>
     <header id="top-head" class="uk-position-fixed uk-box-shadow-medium">
         <div class="uk-container uk-container-expand uk-background-secondary">
             <nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
@@ -31,7 +39,7 @@
     @include('dashboard.partials._sideMenu')
 
     <div id="content" data-uk-height-viewport="expand: true" class="uk-position-relative">
-        <div class="uk-container uk-container-expand">
+        <div class="uk-container uk-container-expand uk-padding uk-padding-remove-top">
             <h2 class="uk-margin-remove-bottom uk-text-bolder">@yield('title','عنوان صفحه')</h2>
             <hr class="uk-margin-small-top uk-margin-small-bottom"/>
             @yield('content')

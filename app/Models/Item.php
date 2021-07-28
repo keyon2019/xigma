@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use App\Traits\BatchUpdatable;
+use App\Traits\Filterable;
+use App\Traits\Shamsi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Item extends Model
 {
-    use HasFactory, BatchUpdatable;
+    use HasFactory, BatchUpdatable, Filterable, Shamsi;
 
     public function variation()
     {

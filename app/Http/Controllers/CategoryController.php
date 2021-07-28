@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\CategoryFilters;
 use App\Filters\ProductFilters;
 use App\Image;
 use App\Models\Category;
 use App\Models\Option;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -15,17 +17,18 @@ class CategoryController extends Controller
         $this->middleware('auth')->except('show');
     }
 
-    public function index(Request $request)
+    public function index(Request $request, CategoryFilters $filters)
     {
         if ($request->wantsJson())
-            return response()->json(Category::paginate($request->has('n') ? $request->n : 15));
+            return response()->json(Category::filter($filters)->paginate($request->has('n') ? $request->n : 15));
         return view('dashboard.category.index');
     }
 
     public function show(Category $category, ProductFilters $filters)
     {
         if (request()->wantsJson()) {
-            return response()->json($category->products()->without('variations')
+            return response()->json($category->products()
+                ->withAvailability()->without('variations')
                 ->filter($filters)->latest()->paginate(12));
         }
         return view('website.category.show', compact('category'))->with(['options' => Option::all()]);

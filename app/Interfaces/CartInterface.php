@@ -26,6 +26,6 @@ abstract class CartInterface
 
     public function totalPrice()
     {
-        return $this->items->sum('price');
+        return $this->items->sum('orderPrice');
     }
 }

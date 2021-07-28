@@ -31,6 +31,7 @@
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/product" title="همه محصولات">نمایش محصولات</a></li>
                     <li><a href="/dashboard/product/create" title="همه محصولات">محصول جدید</a></li>
+                    <li><a href="/dashboard/variation" title="انبار و موجودی">لیست تولید</a></li>
                 </ul>
             </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: social" class="uk-margin-small-right"></span>دسته‌بندی‌ها</a>

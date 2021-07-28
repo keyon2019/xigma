@@ -19,17 +19,25 @@
                         </div>
                     </div>
                     <div class="uk-width-1-3">
-                        <form-input label="قیمت" classes="uk-input" :errors="form.errors" type="input" name="price"
-                                    v-model="form.price.value">
-                        </form-input>
+                        <label class="uk-form-label">قیمت</label>
+                        <div class="uk-form-controls">
+                            <c-s-input name="price" v-model="form.price.value"></c-s-input>
+                        </div>
+                        <div v-if="form.errors.has('price')"
+                             class="uk-text-danger uk-text-small">{{form.errors['price']}}
+                        </div>
                     </div>
                     <div class="uk-width-1-3">
-                        <form-input name="special_price" label="قیمت استثنائی" :errors="form.errors"
-                                    v-model="form.special_price.value" classes="uk-input" type="input">
-                        </form-input>
+                        <label class="uk-form-label">قیمت استثنایی</label>
+                        <div class="uk-form-controls">
+                            <c-s-input name="special_price" v-model="form.special_price.value"></c-s-input>
+                        </div>
+                        <div v-if="form.errors.has('special_price')"
+                             class="uk-text-danger uk-text-small">{{form.errors['special_price']}}
+                        </div>
                     </div>
                     <div class="uk-width-1-3">
-                        <form-input id="special_price_expiration" name="special_price_expiration" label="انقضای قیمت استثنائی" :errors="form.errors"
+                        <form-input id="special_price_expiration" name="special_price_expiration" label="انقضای قیمت استثنایی" :errors="form.errors"
                                     :value="$refs.dp ? $refs.dp.displayValue : ''" classes="uk-input" type="input">
                         </form-input>
                     </div>
@@ -65,7 +73,9 @@
 </template>
 
 <script>
+    import CSInput from "./CSInput";
     export default {
+        components: {CSInput},
         props: ['product', 'button-class', 'button-text'],
         data() {
             return {

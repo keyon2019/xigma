@@ -19,21 +19,16 @@
             </p>
             <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
                 <span class="uk-float-left uk-text-meta">مقبولیت</span>
-                <span class="uk-float-right uk-text-meta">
-                                                <span data-uk-icon="icon:star;ratio:0.7"></span>
-                                                <span data-uk-icon="icon:star;ratio:0.7"></span>
-                                                <span data-uk-icon="icon:star;ratio:0.7"></span>
-                                                <span data-uk-icon="icon:star;ratio:0.7"></span>
-                                                <span data-uk-icon="icon:star;ratio:0.7"></span>
-                                            </span>
+                <stars-rating class="uk-float-right" :rating="product.rating"></stars-rating>
             </p>
             <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
                 <span class="uk-float-right uk-text-medium">{{product.price.toLocaleString()}}</span>
                 <span class="uk-float-left uk-text-medium uk-text-normal">تومان</span>
             </p>
-            <button class="uk-button uk-button-success uk-text-white uk-width-expand uk-margin-small-bottom">
-                <span class="uk-margin-small-right"
-                      data-uk-icon="cart"></span><span>اضافه به سبد خرید</span>
+            <button :disabled="!product.available" @click="navigateToProduct(product)"
+                    class="uk-button uk-button-success uk-text-white uk-width-expand uk-margin-small-bottom">
+                <span v-if="product.available" class="uk-margin-small-right"
+                      data-uk-icon="cart"></span><span v-text="product.available ? 'اضافه به سبد خرید' : 'ناموجود'"></span>
             </button>
         </div>
     </div>
@@ -41,7 +36,12 @@
 
 <script>
     export default {
-        props: ['product']
+        props: ['product'],
+        methods: {
+            navigateToProduct(product) {
+                return window.location.href = `/product/${product.id}`;
+            }
+        }
     }
 </script>
 

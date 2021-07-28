@@ -123,7 +123,7 @@
                         </div>
                         <hr class="uk-margin-small"/>
                         <p class="uk-text-muted">قیمت مصرف کننده</p>
-                        <p class="uk-text-large uk-text-center">{{selectedVariation.price.toLocaleString()}} تومان</p>
+                        <p class="uk-text-large uk-text-center">{{selectedVariation.orderPrice.toLocaleString()}} تومان</p>
                         <p v-if="product.onesie" class="uk-text-danger uk-margin-small-bottom"><span class="uk-margin-small-right"
                                                                                                      data-uk-icon="warning"></span><span>محدودیت خرید</span>
                         </p>

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Shamsi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, Shamsi;
 
     CONST STATUSES = [
         '1' => 'ثبت اولیه',
@@ -30,6 +31,8 @@ class Order extends Model
 
     protected $fillable = ['address_id', 'shipping_method', 'cost_preference', 'status', 'total', 'paid'];
 
+    protected $appends = ['statusName'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -45,9 +48,9 @@ class Order extends Model
         return self::COST_PREFERENCES[$value];
     }
 
-    public function getStatusNameAttribute($value)
+    public function getStatusNameAttribute()
     {
-        return self::STATUSES[$value];
+        return self::STATUSES[$this->status];
     }
 
     public function payments()

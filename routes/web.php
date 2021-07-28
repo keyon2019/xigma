@@ -17,6 +17,7 @@ use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ValueController;
 use App\Http\Controllers\VariationController;
@@ -68,6 +69,8 @@ Route::post('/item/{variation}/retailer', [ItemController::class, 'retailers']);
 
 Route::post('/address', [AddressController::class, 'store']);
 
+Route::get('/profile', [ProfileController::class, 'index']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
@@ -91,6 +94,9 @@ Route::prefix('dashboard')->group(function () {
 
     Route::post('/vehicle/{vehicle}/variation', [VehicleVariationController::class, 'store']);
     Route::delete('/vehicle/{vehicle}/variation', [VehicleVariationController::class, 'destroy']);
+
+    Route::get('/variation/{variation}/item', [ItemController::class, 'index']);
+    Route::post('/variation/{variation}/item', [ItemController::class, 'store']);
 
     Route::get('/test', function () {
         return view('dashboard.retailer.index');

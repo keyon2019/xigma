@@ -19,14 +19,22 @@
                         </form-input>
                     </div>
                     <div class="uk-width-1-2">
-                        <form-input label="قیمت" classes="uk-input" :errors="form.errors" type="input" name="price"
-                                    v-model="form.price.value">
-                        </form-input>
+                        <label class="uk-form-label">قیمت</label>
+                        <div class="uk-form-controls">
+                            <c-s-input name="price" v-model="form.price.value"></c-s-input>
+                        </div>
+                        <div v-if="form.errors.has('price')"
+                             class="uk-text-danger uk-text-small">{{form.errors['price']}}
+                        </div>
                     </div>
                     <div class="uk-width-1-2">
-                        <form-input name="special_price" label="قیمت استثنایی" :errors="form.errors"
-                                    v-model="form.special_price.value" classes="uk-input" type="input">
-                        </form-input>
+                        <label class="uk-form-label">قیمت استثنایی</label>
+                        <div class="uk-form-controls">
+                            <c-s-input name="special_price" v-model="form.special_price.value"></c-s-input>
+                        </div>
+                        <div v-if="form.errors.has('special_price')"
+                             class="uk-text-danger uk-text-small">{{form.errors['special_price']}}
+                        </div>
                     </div>
                     <div class="uk-width-1-2">
                         <form-input name="points" label="امتیاز" :errors="form.errors"

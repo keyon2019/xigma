@@ -17,14 +17,14 @@ class ProductController extends Controller
     public function index(ProductFilters $filters, Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Product::without('variations')->filter($filters)->latest()->paginate(12));
+            return response()->json(Product::without('variations')->filter($filters)->withAvailability()->latest()->paginate(12));
         return view('dashboard.product.index');
     }
 
     public function show(Product $product)
     {
         return view('website.product.show')
-            ->with('product', $product->load('variations.values.option')->load('comments'));
+            ->with('product', $product->load('variations.values.option', 'comments'));
     }
 
     public function create()

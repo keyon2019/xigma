@@ -1,5 +1,5 @@
 <template>
-    <paginated-view ref="view" :filterless="true">
+    <paginated-view ref="view">
         <template v-slot="scopeData">
             <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
             uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">

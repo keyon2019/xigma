@@ -40,11 +40,11 @@
                         @endforeach
                         <a class="uk-margin-right uk-link-reset uk-text-small">
                             <span>امور نمایندگان</span>
-                            {{--<span data-uk-icon="chevron-down"></span>--}}
+                            <span data-uk-icon="chevron-down"></span>
                         </a>
                         <a class="uk-margin-right uk-link-reset uk-text-small">
                             <span>ارتباط با ما</span>
-                            {{--<span data-uk-icon="chevron-down"></span>--}}
+                            <span data-uk-icon="chevron-down"></span>
                         </a>
                     </div>
                 </div>
@@ -73,7 +73,8 @@
                         <span class="uk-flex uk-margin-left uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable" onclick="window.location.replace('/profile')"
                               data-uk-icon="icon:user;ratio:1.5"></span>
                         <div class="uk-text-small uk-text-muted uk-margin-left">
-                            <a class="uk-link-reset" href="/profile">ورود به حساب کاربری</a>
+                            <a class="uk-link-reset" href="{{auth()->check() ? '/profile' : '/login'}}">
+                                {{auth()->check() ? auth()->user()->name : 'ورود به حساب کاربری'}}</a>
                         </div>
                     </div>
                     <div class="uk-background-muted uk-flex uk-flex-column uk-flex-center" style="flex: 1 1 0px">

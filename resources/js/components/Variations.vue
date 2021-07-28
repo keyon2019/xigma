@@ -1,12 +1,29 @@
 <template>
     <paginated-view :fetch-url="fetchUrl">
+        <template v-slot:sort>
+            <div class="uk-background-default uk-text-small uk-margin-small-bottom uk-padding-small uk-border-rounded uk-box-shadow-small">
+                <span class="uk-text-bold">ترتیب نمایش:</span>
+                <div class="uk-margin-small-left uk-inline clickable uk-text-light uk-width-small">
+                    <div data-uk-form-custom="target:true">
+                        <select name="orderBy">
+                            <option selected :value="null" disabled>پیش‌فرض</option>
+                            <option value="items_count.desc">بیشترین موجودی</option>
+                            <option value="items_count">کمترین موجودی</option>
+                        </select>
+                        <span></span>
+                        <span><i data-uk-icon="icon:chevron-down"></i></span>
+                    </div>
+                </div>
+            </div>
+        </template>
         <template v-slot:filters>
             <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
                 <div class="uk-margin-remove">جستجو</div>
                 <hr class="uk-margin-remove-top"/>
                 <div>
                     <div>
-                        <input name="product_name" class="uk-input uk-border-rounded" placeholder="نام محصول">
+                        <auto-complete name="product" value-key="id" api-result-key="data"
+                                       method="get" api="/dashboard/product" placeholder="محصول"></auto-complete>
                     </div>
                     <div class="uk-margin-small-top">
                         <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
@@ -25,6 +42,7 @@
                     <th>نام محصول</th>
                     <th>نوع</th>
                     <th>فیلترها</th>
+                    <th>موجودی</th>
                     <th>مدیریت</th>
                 </tr>
                 </thead>
@@ -34,8 +52,11 @@
                     <td>{{variation.product.name}}</td>
                     <td>{{variation.name}}</td>
                     <td>{{variation.filters}}</td>
-                    <td v-if="!chooseList"><a :href="`/dashboard/variation/${variation.id}/edit`"
-                                              class="uk-button uk-button-small uk-button-primary">ویرایش</a></td>
+                    <td>{{variation.items_count}}</td>
+                    <td v-if="!chooseList">
+                        <a :href="`/dashboard/variation/${variation.id}/item`"
+                           class="uk-button uk-button-small uk-button-secondary">انبار</a>
+                    </td>
                     <td v-else><a class="uk-button uk-button-small uk-button-secondary"
                                   @click="$emit('chosen', variation)">انتخاب</a></td>
                 </tr>

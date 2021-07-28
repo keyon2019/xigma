@@ -22,17 +22,18 @@
                 keyValuePairs[pair[0]] = pair[1];
                 console.log(pair[0], pair[1]);
             }
-            _.forEach(this.$refs.form.elements, (inputField) => {
-                if (_.keys(keyValuePairs).includes(inputField.getAttribute('name'))) {
-                    if (inputField.getAttribute('type') === 'text')
-                        inputField.value = keyValuePairs[inputField.getAttribute('name')];
-                    else {
-                        if (inputField.value == keyValuePairs[inputField.getAttribute('name')])
-                        // console.log(inputField.value, keyValuePairs[inputField.getAttribute('name')]);
-                            inputField.setAttribute('checked', "")
+            if (this.$refs.form)
+                _.forEach(this.$refs.form.elements, (inputField) => {
+                    if (_.keys(keyValuePairs).includes(inputField.getAttribute('name'))) {
+                        if (inputField.getAttribute('type') === 'text')
+                            inputField.value = keyValuePairs[inputField.getAttribute('name')];
+                        else {
+                            if (inputField.value == keyValuePairs[inputField.getAttribute('name')])
+                            // console.log(inputField.value, keyValuePairs[inputField.getAttribute('name')]);
+                                inputField.setAttribute('checked', "")
+                        }
                     }
-                }
-            });
+                });
         }
     }
 </script>

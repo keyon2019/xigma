@@ -26,14 +26,16 @@ class OrderController extends Controller
         return view('dashboard.order.index');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(auth()->user()->orders()->paginate(15));
+        if ($request->wantsJson())
+            return response()->json(auth()->user()->orders()->latest()->paginate(10));
+        return view('website.order.index');
     }
 
     public function show(Order $order)
     {
-        dd($order);
+        return view('website.order.show')->with('order', $order->load('variations', 'items'));
     }
 
     public function store(StoreOrderRequest $request, CartInterface $cart, GatewayInterface $gateway)
@@ -46,7 +48,9 @@ class OrderController extends Controller
 
             $orderVariations = $cart->items->mapWithKeys(function ($item) {
                 return [
-                    $item->id => ['quantity' => $item->quantity]
+                    $item->id => [
+                        'quantity' => $item->quantity,
+                    ]
                 ];
             })->toArray();
 

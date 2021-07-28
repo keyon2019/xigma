@@ -2,7 +2,6 @@
 
 namespace App\Filters;
 
-
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilters extends QueryFilter
@@ -15,9 +14,9 @@ class ProductFilters extends QueryFilter
     public function available($value)
     {
         $this->query->whereHas('variations', function (Builder $query) {
-            return $query->withCount(['items' => function (Builder $query) {
-                return $query->whereSold(false);
-            }])->having('items_count', '>', 0);
+            return $query->whereHas('items', function (Builder $query) {
+                $query->whereSold(false);
+            });
         });
     }
 
