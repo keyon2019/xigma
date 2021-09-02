@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ItemController;
@@ -18,13 +19,13 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RetailerController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ValueController;
 use App\Http\Controllers\VariationController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleVariationController;
-use Illuminate\Http\Client\RequestException;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -81,6 +82,10 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('vehicle', VehicleController::class)->except(['show', 'destroy']);
     Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);
     Route::resource('slider', SliderController::class);
+    Route::resource('retailer', RetailerController::class)->except(['show', 'destroy']);
+
+    Route::get('/discount', [DiscountController::class, 'create']);
+    Route::post('/discount', [DiscountController::class, 'store']);
     Route::get('order', [OrderController::class, 'all']);
     Route::get('order/{order}/edit', [OrderController::class, 'edit']);
 

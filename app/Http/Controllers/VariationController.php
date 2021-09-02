@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\VariationFilters;
 use App\Http\Requests\StoreVariationRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Variation;
 use Illuminate\Http\Request;
@@ -17,12 +18,13 @@ class VariationController extends Controller
 
     public function index(VariationFilters $filters)
     {
+//        dd(\request()->all());
         if (\request()->wantsJson())
             return response()->json(Variation::withAvailableItemsCount()
                 ->filter($filters)->with(['product' => function ($q) {
                     $q->without('variations', 'pictures');
                 }])->paginate(15));
-        return view('dashboard.variation.index');
+        return view('dashboard.variation.index')->with('categories', Category::all());
     }
 
     public function store(Product $product, StoreVariationRequest $request)

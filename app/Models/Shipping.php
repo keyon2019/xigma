@@ -10,4 +10,15 @@ class Shipping extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['method', 'stock_id', 'cost', 'sailed_at'];
+
+    protected $dates = ['sailed_at'];
+
+    protected $with = ['stock'];
+
+    public function stock()
+    {
+        return $this->belongsTo(Retailer::class, 'stock_id');
+    }
+
 }

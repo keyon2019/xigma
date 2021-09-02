@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
         <div class="uk-background-default uk-margin uk-box-shadow-small uk-border-rounded">
             <div class="uk-padding">
@@ -41,7 +41,7 @@
                     <tr v-for="item in scopeData.records">
                         <td>{{item.barcode}}</td>
                         <td>{{item.created_at}}</td>
-                        <td>{{item.stock_id ? '' : 'کارخانه'}}</td>
+                        <td>{{item.stock != null ? item.stock.name : 'کارخانه'}}</td>
                         <td>{{item.sold ? 'فروخته شده' : 'موجود'}}</td>
                         <td>{{item.order_id}}</td>
                         <td>

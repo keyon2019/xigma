@@ -252,7 +252,7 @@ input.apple-switch {
   border-radius: 50px;
   box-shadow: inset -20px 0 0 0 $global-muted-background;
   cursor: pointer;
-  transition: all 0.3s ease;
+  //transition: all 0.3s ease;
 }
 
 input.apple-switch:after {
@@ -268,8 +268,8 @@ input.apple-switch:after {
 }
 
 input.apple-switch:checked {
-  box-shadow: inset 20px 0 0 0 #4ed164;
-  border-color: #4ed164;
+  box-shadow: inset 20px 0 0 0 $global-primary-background;
+  border-color: $global-primary-background;
 }
 
 input.apple-switch:checked:after {
@@ -385,4 +385,16 @@ hr {
 
 .profile-nav-item:hover {
   transform: translateX(10px);
+}
+
+.uk-padding-xsmall {
+  padding: 5px;
+}
+
+table.full-bordered {
+  border: 1px solid gainsboro;
+}
+
+table.full-bordered th, table.full-bordered td {
+  border: 1px solid gainsboro;
 }

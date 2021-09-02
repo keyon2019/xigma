@@ -32,4 +32,13 @@ class Category extends Model
     {
         return new Image($value);
     }
+
+    public function variations()
+    {
+        return Variation::whereHas('product', function ($query) {
+            return $query->whereHas('categories', function ($query) {
+                return $query->whereId($this->id);
+            });
+        });
+    }
 }

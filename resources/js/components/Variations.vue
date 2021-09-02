@@ -25,6 +25,23 @@
                         <auto-complete name="product" value-key="id" api-result-key="data"
                                        method="get" api="/dashboard/product" placeholder="محصول"></auto-complete>
                     </div>
+                    <div>
+                        <ul data-uk-accordion="" class="uk-margin-small-top">
+                            <li class="uk-open">
+                                <a class="uk-accordion-title uk-text-small">دسته‌بندی</a>
+                                <div class="uk-accordion-content">
+                                    <div v-for="category in categories" class="uk-text-meta">
+                                        <div class="uk-margin-small">
+                                            <label><input name="categories[]" class="uk-checkbox"
+                                                          type="checkbox"
+                                                          :value="category.id">
+                                                {{category.name}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="uk-margin-small-top">
                         <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
                                 type="submit">اعمال فیلترها
@@ -68,7 +85,7 @@
 
 <script>
     export default {
-        props: ['fetch-url', 'choose-list']
+        props: ['fetch-url', 'choose-list', 'categories']
     }
 </script>
 

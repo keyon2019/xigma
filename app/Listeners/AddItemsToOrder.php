@@ -25,7 +25,7 @@ class AddItemsToOrder
         $order = $event->order;
 
         $items = $this->closesItemFinderService->find($order->address_id, $order->variations, $order->getRawOriginal('cost_preference'));
-
+        
         $updates = $items->map(function ($item) use ($order) {
             return [
                 'id' => $item->id,

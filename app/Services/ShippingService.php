@@ -9,13 +9,13 @@ use App\Interfaces\CartInterface;
 class ShippingService
 {
     public const PICKUPATSTORE = 1;
-    public const BIKE = 2;
+    public const POST = 2;
     public const TRUCK = 3;
 
     public const CHEAPEST = 1;
     public const FASTEST = 2;
 
-    public const SHIPPING_METHODS = [self::PICKUPATSTORE, self::BIKE, self::TRUCK];
+    public const SHIPPING_METHODS = [self::PICKUPATSTORE, self::POST, self::TRUCK];
     public const COST_PREFERENCES = [self::CHEAPEST, self::FASTEST];
 
     public $closestItemFinderService;
@@ -49,6 +49,6 @@ class ShippingService
 
     public function findStores($address_id, $items, $method = self::CHEAPEST)
     {
-        return $this->closestItemFinderService->find($address_id, $items, $method)->unique('stock_id');
+        return $this->closestItemFinderService->find($address_id, $items, $method);
     }
 }

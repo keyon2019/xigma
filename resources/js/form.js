@@ -43,6 +43,12 @@ class Form {
         });
     }
 
+    clear() {
+        _.forEach(this, (obj, key) => {
+            obj.value = null;
+        });
+    }
+
     asFormData(method = null) {
         let formData = new FormData();
         _.forEach(this, (field, key) => {
@@ -61,8 +67,15 @@ class Form {
                     return
                 }
                 if (field.rules.includes('object')) {
-                    for (const [key, value] of Object.entries(field.value)) {
-                        formData.append(key, value)
+                    for (const [objKey, value] of Object.entries(field.value)) {
+                        if (typeof value === 'object') {
+                            _.forEach(value, (nestedValue, nestedKey) => {
+                                console.log(key, objKey, nestedKey, nestedValue);
+                                formData.append(`${key}[${objKey}][${nestedKey}]`, nestedValue);
+                            });
+                        } else {
+                            formData.append(objKey, value)
+                        }
                     }
                     return
                 }

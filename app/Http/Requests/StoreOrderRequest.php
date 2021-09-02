@@ -28,7 +28,7 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'address_id' => 'required|numeric|exists:addresses,id',
-            'shipping_method' => ['required', 'numeric', Rule::in(ShippingService::SHIPPING_METHODS)],
+            'shipping_methods' => ['array'],
             'gateway_id' => ['required', 'numeric', Rule::in(array_column(config('gateway'), 'id'))],
             'cost_preference' => ['required', 'numeric', Rule::in(ShippingService::COST_PREFERENCES)]
         ];

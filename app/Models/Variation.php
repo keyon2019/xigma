@@ -74,6 +74,8 @@ class Variation extends Model
         $this->quantity = $quantity;
         $this->splash = Storage::url($this->product->pictures->firstWhere('id', $this->splash)->path ?? '');
         $this->productName = $this->product->name;
+        $this->discount = $this->special_price_expiration > Carbon::now() ? $this->price - $this->special_price : 0;
+        $this->price = $this->special_price_expiration > Carbon::now() ? $this->special_price : $this->price;
         return $this;
     }
 

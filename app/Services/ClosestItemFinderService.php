@@ -20,8 +20,11 @@ class ClosestItemFinderService
         foreach ($items as $index => $item) {
             $baseTable = DB::table('items')
                 ->leftJoin('retailers', 'retailers.id', 'items.stock_id')
-                ->select('items.*')
-                ->selectRaw('retailers.latitude, retailers.longitude, retailers.name')
+                ->join('variations', 'variations.id', 'items.variation_id')
+                ->join('products', 'variations.product_id', 'products.id')
+                ->select(['items.id', 'items.variation_id', 'items.stock_id', 'variations.name', 'products.is_huge', 'products.delivery_cost',
+                    DB::raw('(CASE WHEN variations.special_price_expiration > NOW() THEN variations.special_price ELSE variations.price END) as price')])
+                ->selectRaw('retailers.latitude, retailers.longitude, retailers.address as retailerAddress, retailers.name as retailerName, retailers.id as retailerId')
                 ->where('items.sold', false)
                 ->orderByRaw("items.variation_id, FIELD(IFNULL(`items`.`stock_id`, -1), $nearbyStocks)");
 
@@ -29,7 +32,7 @@ class ClosestItemFinderService
 
             $baseTable->joinSub($baseTable, $t, function ($join) use ($item, $t) {
                 $join->on("$t.id", "items.id")->where("$t.variation_id", $item->id);
-            })->limit($item->quantity);
+            })->limit($item->quantity ?? $item->pivot->quantity);
 
             array_push($results, $baseTable);
         }
@@ -39,6 +42,7 @@ class ClosestItemFinderService
         foreach ($results as $r) {
             $b->union($r);
         }
+
         return $b->get();
     }
 }

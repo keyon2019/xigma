@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrderRequest;
 use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
+use App\Models\Item;
 use App\Models\Order;
-use App\Models\Payment;
-use App\Services\ShippingService;
+use App\Services\ClosestItemFinderService;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
@@ -38,13 +37,43 @@ class OrderController extends Controller
         return view('website.order.show')->with('order', $order->load('variations', 'items'));
     }
 
-    public function store(StoreOrderRequest $request, CartInterface $cart, GatewayInterface $gateway)
+    public function store(StoreOrderRequest $request, CartInterface $cart, GatewayInterface $gateway, ClosestItemFinderService $closestItemFinderService)
     {
-        return $cart->checkAllAvailable(function () use ($request, $cart, $gateway) {
+        return $cart->checkAllAvailable(function () use ($request, $cart, $gateway, $closestItemFinderService) {
+
+            $items = $closestItemFinderService->find($request->address_id, $cart->items, $request->cost_preference);
+
+            $shippingCosts = $items->groupBy('stock_id')->mapWithKeys(function ($shipping, $stock) {
+                return [$stock ? $stock : 'null' => $shipping->max('delivery_cost')];
+            });
+
+            $shippings = array_map(function ($shipping, $key) use ($shippingCosts) {
+                $shipping['stock_id'] = $shipping['stock'] == 'null' ? null : $shipping['stock'];
+                unset($shipping['stock']);
+                if ($shipping['method'] == 2) {
+                    $shipping['cost'] = $shippingCosts[$key];
+                } else {
+                    $shipping['cost'] = 0;
+                }
+                return $shipping;
+            }, $request->shipping_methods, array_keys($request->shipping_methods));
+
+
             $order = auth()->user()->orders()->create($request->validated() + [
                     'status' => 1,
-                    'total' => $cart->totalPrice()
+                    'total' => $cart->totalPrice() + collect($shippings)->sum('cost')
                 ]);
+
+            $createdShippings = $order->shippings()->createMany($shippings);
+
+            $itemShippingsToUpdate = $items->map(function ($item) use ($createdShippings) {
+                return [
+                    'id' => $item->id,
+                    'shipping_id' => $createdShippings->firstWhere('stock_id', $item->stock_id)->id
+                ];
+            });
+
+            Item::updateValues($itemShippingsToUpdate->toArray());
 
             $orderVariations = $cart->items->mapWithKeys(function ($item) {
                 return [
@@ -74,7 +103,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         return view('dashboard.order.edit')
-            ->with('order', $order->load(['user', 'address', 'items', 'variations.product']))
+            ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product']))
             ->with('orderStatuses', json_encode(Order::STATUSES));
     }
 }

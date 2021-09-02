@@ -4,7 +4,7 @@
         <div class="uk-margin-bottom uk-padding-small uk-padding-remove-vertical">
             <div class="uk-background-muted uk-border-rounded uk-margin-top" style="border: 1px solid gainsboro">
                 <div class="uk-padding-small">
-                    <div class="uk-grid">
+                    <div class="uk-grid uk-margin-small-bottom">
                         <div class="uk-width-1-2">
                             <p><strong>نام کاربر: </strong> {{order.user.name}}</p>
                             <p><strong>آدرس: </strong> {{order.address.province}}, {{order.address.city}},
@@ -25,7 +25,6 @@
                                     <option :value="1">پرداخت شده</option>
                                 </select>
                             </p>
-                            <p><strong>نحوه ارسال: </strong> {{order.shipping_method}}</p>
                             <p><strong>ترجیح هزینه‌ای: </strong> {{order.cost_preference}}</p>
                         </div>
                     </div>
@@ -70,6 +69,19 @@
             </tr>
             </tfoot>
         </table>
+        <div>ارسال‌ها</div>
+        <hr class="uk-margin-small"/>
+        <div class="uk-grid uk-grid-small uk-child-width-1-5">
+            <div v-for="shipping in order.shippings">
+                <div class="uk-background-secondary uk-light uk-border-rounded uk-padding-small uk-box-shadow-small">
+                    <p class="uk-margin-small">{{shipping.stock != null ? shipping.stock.name : 'کارخانه'}}</p>
+                    <hr class="uk-margin-small uk-margin-remove-top"/>
+                    <p class="uk-margin-small">نحوه ارسال: <span class="uk-text-bold" v-text="getShippingMethodName(shipping.method)"></span></p>
+                    <p>هزینه ارسال: <span class="uk-text-bold" v-text="shipping.cost"></span></p>
+                    <p>وضعیت: <span class="uk-text-bold" v-text="shipping.sailed ? 'ارسال شده' : 'در انتظار'"></span></p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -137,6 +149,18 @@
             },
             getVariationPicture(variation) {
                 return _.find(variation.product.pictures, {'id': variation.splash}).url ?? null;
+            },
+            getShippingMethodName(id) {
+                switch (id) {
+                    case 1:
+                        return 'دریافت در محل';
+                    case 2:
+                        return 'ارسال با پست';
+                    case 3:
+                        return 'ارسال با باربری';
+                    default:
+                        return ''
+                }
             }
         },
     }

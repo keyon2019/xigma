@@ -17,7 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('address_id')->constrained();
-            $table->unsignedInteger('shipping_method');
             $table->unsignedInteger('cost_preference');
             $table->unsignedInteger('status');
             $table->boolean('paid')->default(false);

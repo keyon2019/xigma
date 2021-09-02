@@ -80,7 +80,7 @@ class CategoryController extends Controller
         }
 
         if ($request->hasFile('wide_splash')) {
-            $validated['wide_splash'] = $category->splash->update($request->file('wide_splash'));
+            $validated['wide_splash'] = $category->wide_splash->update($request->file('wide_splash'));
         }
 
         $category->update($validated);

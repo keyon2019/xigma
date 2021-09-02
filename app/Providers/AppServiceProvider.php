@@ -7,8 +7,6 @@ use App\Cart\SessionCart;
 use App\Gateways\Zarrinpal;
 use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

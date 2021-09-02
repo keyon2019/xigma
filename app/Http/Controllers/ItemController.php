@@ -19,7 +19,7 @@ class ItemController extends Controller
     public function index(Variation $variation, Request $request, ItemFilters $filters)
     {
         if ($request->wantsJson())
-            return response()->json($variation->items()->filter($filters)->orderBy('barcode', 'desc')->paginate(15));
+            return response()->json($variation->items()->with('stock')->filter($filters)->orderBy('barcode', 'desc')->paginate(15));
         return view('dashboard.item.index', compact('variation'));
     }
 

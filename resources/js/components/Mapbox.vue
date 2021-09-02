@@ -19,7 +19,13 @@
                 type: Boolean,
                 default: false,
             },
-            value: {}
+            value: {},
+            latName: {
+                default: 'lat'
+            },
+            lngName: {
+                default: 'lng'
+            }
         },
         data() {
             return {
@@ -29,12 +35,13 @@
                 marker: null,
                 cursorLng: null,
                 cursorLat: null,
-                center: [51.420470, 35.729054]
+                center: this.value ? this.value : [51.420470, 35.729054]
             }
         },
         mounted() {
-            if (this.value)
+            if (this.value) {
                 this.center = this.value;
+            }
             if (this.locate)
                 navigator.geolocation.getCurrentPosition((pos) => {
                     let crd = pos.coords;
@@ -58,7 +65,7 @@
         methods: {
             updateMarker() {
                 this.marker.setLngLat([this.cursorLng, this.cursorLat]);
-                this.$emit('input', {lat: this.cursorLat, lng: this.cursorLng});
+                this.$emit('input', {[this.latName]: this.cursorLat, [this.lngName]: this.cursorLng});
             },
             initMap() {
                 this.map = new mapboxgl.Map({
@@ -80,7 +87,7 @@
                     let bounds = new mapboxgl.LngLatBounds();
                     _.forEach(this.markers, (marker) => {
                         this.addMarker(marker, marker[2]);
-                        console.log(marker);
+                        // console.log(marker);
                         bounds.extend([marker[0], marker[1]]);
                     });
                     this.map.fitBounds(bounds, {
@@ -108,7 +115,7 @@
                         value.geom.coordinates[1]
                     ]
                 })
-            }
+            },
         }
     }
 

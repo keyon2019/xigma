@@ -26,4 +26,13 @@ class VariationFilters extends QueryFilter
             return $query->where('name', 'like', "%$value%");
         });
     }
+
+    public function categories($value)
+    {
+        $this->query->whereHas('product', function (Builder $query) use ($value) {
+            return $query->whereHas('categories', function (Builder $query) use ($value) {
+                return $query->whereIn('id', $value);
+            });
+        });
+    }
 }

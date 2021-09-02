@@ -18,10 +18,12 @@ window.Event = new Vue();
 import {Loading} from './loading';
 import {Form} from './form';
 import {Modal} from './modal';
+import {Cart} from './cart';
 
 window.Loading = new Loading();
 window.Form = Form;
 window.Modal = Modal;
+window.Cart = new Cart();
 
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));

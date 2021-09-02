@@ -3,5 +3,5 @@
 @section('title', 'انبار و موجودی')
 
 @section('content')
-    <variations></variations>
+    <variations :categories="{{$categories}}"></variations>
 @endsection
