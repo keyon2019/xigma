@@ -6,7 +6,20 @@
                 <hr class="uk-margin-remove-top"/>
                 <div>
                     <div class="uk-margin-small">
-                        <input type="text" name="user_name" class="uk-input uk-border-rounded" placeholder="نام کاربر">
+                        <input class="uk-input" id="created_at" name="created_at"
+                               :value="$refs.dp ? $refs.dp.displayValue : ''" placeholder="زمان ثبت">
+                        </input>
+                        <date-picker type="date" ref="dp" element="created_at"></date-picker>
+                    </div>
+                    <div class="uk-margin-small">
+                        <select name="status" class="uk-select">
+                            <option :value="null">انتخاب کنید</option>
+                            <option value="1">ثبت اولیه</option>
+                            <option value="2">در حال پردازش</option>
+                            <option value="3">ارسال شده</option>
+                            <option value="4">تکمیل شده</option>
+                            <option value="5">لغو شده</option>
+                        </select>
                     </div>
                     <div class="uk-margin-small">
                         <input type="email" name="user_email" class="uk-input uk-border-rounded" placeholder="ایمیل کاربر">
@@ -41,7 +54,8 @@
                     <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
                     <td>{{order.statusName}}</td>
                     <td>{{order.created_at}}</td>
-                    <td><a :href="`/dashboard/order/${order.id}/edit`" class="uk-button uk-button-small uk-button-primary">نمایش</a>
+                    <td><a :href="`/dashboard/order/${order.id}/edit`"
+                           class="uk-button uk-button-small uk-button-primary">نمایش</a>
                     </td>
                 </tr>
                 </tbody>

@@ -9,28 +9,38 @@
     >
         <div class="uk-position-relative uk-visible-toggle">
             <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-1 uk-grid uk-grid-small">
-                @foreach([1,2,3,4,5,6] as $number)
+                @foreach($items as $product)
                     <li>
                         <div class="uk-card uk-box-shadow-hover-medium" style="border-radius: 0.6em">
-                            <img src="/uploads/card-image.png" class="uk-width-expand">
+                            <img src="{{$product->splashUrl}}" class="uk-width-expand">
                             <div class="uk-padding-small">
-                                <p class="uk-text-secondary uk-text-medium">XIGMA PRO-CLICK 135</p>
+                                <p class="uk-text-secondary uk-text-medium uk-margin-small-bottom uk-text-center uk-text-bold">{{$product->name}}</p>
                                 <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
-                                    <span class="uk-text-muted uk-float-right uk-text-line-through">46,850,000</span>
-                                    <span class="uk-float-left uk-label uk-label-danger">23%</span>
+                                    <span class="uk-text-muted uk-float-right uk-text-line-through">{{number_format($product->price)}}</span>
+                                    <span class="uk-float-left uk-label uk-label-danger">{{$product->discount}}%</span>
                                 </p>
                                 <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
-                                    <span class="uk-float-right uk-text-medium">45,000,000</span>
+                                    <span class="uk-float-right uk-text-medium">{{number_format($product->special_price)}}</span>
                                     <span class="uk-float-left uk-text-medium">تومان</span>
                                 </p>
-                                <p class="uk-display-inline-block uk-width-1-1">
-                                    <span class="uk-float-right uk-text-meta uk-text-light">۲۳:۴۳:۲۰</span>
+                                <p class="uk-display-inline-block uk-width-1-1 uk-margin-small">
+                                    <span class="uk-float-right uk-text-meta uk-text-light">
+                                        <span class="uk-text-meta uk-display-inline-block" data-uk-countdown="date: {{$product->special_price_expiration}}">
+                                            <span class="uk-countdown-number uk-text-meta uk-countdown-days"></span>
+                                            <span class="uk-countdown-separator uk-text-meta">:</span>
+                                            <span class="uk-countdown-number uk-text-meta uk-countdown-hours"></span>
+                                            <span class="uk-countdown-separator uk-text-meta">:</span>
+                                            <span class="uk-countdown-number uk-text-meta uk-countdown-minutes"></span>
+                                            <span class="uk-countdown-separator uk-text-meta">:</span>
+                                            <span class="uk-countdown-number uk-text-meta uk-countdown-seconds"></span>
+                                        </span>
+                                    </span>
                                     <span class="uk-float-left uk-text-meta uk-text-light">زمان باقیمانده</span>
                                 </p>
-                                <button class="uk-button uk-button-secondary uk-width-expand uk-margin-small-bottom">
+                                <a href="/product/{{$product->id}}" class="uk-button uk-button-secondary uk-width-expand uk-margin-small-bottom">
                                     <span>اضافه به سبد خرید</span><span class="uk-margin-small-right"
                                                                         data-uk-icon="cart"></span>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </li>

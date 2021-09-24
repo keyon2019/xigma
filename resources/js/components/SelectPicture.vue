@@ -4,7 +4,7 @@
             <img v-if="value && src" :src="src" class="uk-width-expand uk-border-rounded" alt="">
             <placeholder v-else>انتخاب عکس</placeholder>
         </div>
-        <modal @selected="selected" :name="name">
+        <modal class="uk-modal-container" @selected="selected" :name="name">
             <gallery :initial-pictures="pictures"></gallery>
         </modal>
     </div>

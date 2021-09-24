@@ -59,6 +59,9 @@
                     <li><a href="/dashboard/retailer/create" title="نمایندگی جدید">نمایندگی جدید</a></li>
                 </ul>
             </li>
+            <li><a href="/dashboard/comment">
+                    <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>نظرات</a>
+            </li>
         </ul>
 
     </div>

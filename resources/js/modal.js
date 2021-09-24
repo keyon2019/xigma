@@ -3,6 +3,10 @@ class Modal {
         this.name = name;
     }
 
+    static show(modalName) {
+        Event.$emit(`show-modal-${modalName}`);
+    }
+
     show() {
         Event.$emit(`show-modal-${this.name}`);
     }

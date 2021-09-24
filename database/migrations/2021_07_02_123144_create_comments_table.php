@@ -19,7 +19,7 @@ class CreateCommentsTable extends Migration
             $table->foreignId('product_id')->constrained();
             $table->unsignedInteger('rating');
             $table->text('text');
-            $table->boolean('approved')->default(false);
+            $table->boolean('approved')->nullable();
             $table->timestamps();
         });
     }

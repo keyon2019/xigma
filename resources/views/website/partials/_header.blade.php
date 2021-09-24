@@ -1,4 +1,4 @@
-<div data-uk-sticky="top: .nav;animation: uk-animation-slide-top" class="sticky-nav uk-box-shadow-small">
+<div data-uk-sticky="top: 500;animation: uk-animation-slide-top" class="sticky-nav uk-box-shadow-small">
     <div class="uk-background-default">
         <div class="uk-container">
             <div class="uk-grid uk-grid-small uk-flex uk-flex-stretch">
@@ -94,7 +94,10 @@
                                     </button>
                                 </div>
                                 <div class="uk-width-expand">
-                                    <input class="uk-input uk-border-rounded">
+                                    <div class="uk-inline uk-width-expand">
+                                        <span class="uk-form-icon" data-uk-icon="search"></span>
+                                        <input class="uk-input uk-border-rounded uk-text-muted">
+                                    </div>
                                 </div>
                             </div>
                         </div>

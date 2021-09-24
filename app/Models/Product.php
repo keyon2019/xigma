@@ -78,4 +78,11 @@ class Product extends Model
     {
         return $this->hasMany(Item::class);
     }
+
+    public function getDiscountAttribute()
+    {
+        if ($this->special_price_expiration > Carbon::now())
+            return number_format((($this->price - $this->special_price) / $this->price) * 100);
+        return 0;
+    }
 }

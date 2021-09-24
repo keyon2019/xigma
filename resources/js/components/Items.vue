@@ -34,7 +34,6 @@
                         <th>آخرین موقعیت</th>
                         <th>وضعیت</th>
                         <th>شماره سفارش</th>
-                        <th>مدیریت</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,10 +42,7 @@
                         <td>{{item.created_at}}</td>
                         <td>{{item.stock != null ? item.stock.name : 'کارخانه'}}</td>
                         <td>{{item.sold ? 'فروخته شده' : 'موجود'}}</td>
-                        <td>{{item.order_id}}</td>
-                        <td>
-                            مدیریت
-                        </td>
+                        <td><a :href="'/dashboard/order/' + item.order_id + '/edit'">{{item.order_id}}</a></td>
                     </tr>
                     </tbody>
                 </table>

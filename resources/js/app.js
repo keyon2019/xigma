@@ -10,6 +10,7 @@ window.Vue = require('vue').default;
 
 import UIkit from 'uikit';
 import Icons from 'uikit/dist/js/uikit-icons';
+
 window.UIkit = UIkit;
 UIkit.use(Icons);
 
@@ -23,6 +24,8 @@ import {Cart} from './cart';
 window.Loading = new Loading();
 window.Form = Form;
 window.Modal = Modal;
+Vue.prototype.Modal = window.Modal;
+Vue.prototype.CSRF = window.CSRF;
 window.Cart = new Cart();
 
 const files = require.context('./', true, /\.vue$/i);
@@ -32,6 +35,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 const user = JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content'));
 if (!_.isEmpty(user))
     Vue.prototype.user = user;
+
 
 import mapboxgl from 'mapbox-gl';
 

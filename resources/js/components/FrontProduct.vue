@@ -62,10 +62,12 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label">تعداد</label>
                                     <div class="uk-form-controls">
-                                        <select class="uk-select uk-border-rounded uk-width-small@s" v-model="quantity">
-                                            <option :value="null" disabled>انتخاب کنید</option>
-                                            <option v-for="i in 12" :value="i">{{i}}</option>
-                                        </select>
+                                        <incrementer class="uk-border-rounded" style="border: 1px solid gainsboro"
+                                                     v-model="quantity"></incrementer>
+                                        <!--<select class="uk-select uk-border-rounded uk-width-small@s" v-model="quantity">-->
+                                        <!--<option :value="null" disabled>انتخاب کنید</option>-->
+                                        <!--<option v-for="i in 12" :value="i">{{i}}</option>-->
+                                        <!--</select>-->
                                     </div>
                                 </div>
                                 <div v-if="selectedVariation" class="uk-margin">
@@ -146,14 +148,19 @@
                             <p class="uk-flex uk-margin-small-bottom"><span data-uk-icon="home"
                                                                             class="uk-margin-small-right"></span>{{retailer.name}}
                             </p>
-                            <p class="uk-margin-remove uk-text-meta">۹۲٪ رضایت عملکرد</p>
+                            <p class="uk-margin-remove uk-text-meta"><span class="uk-text-success uk-text-bold">۹۲٪</span> رضایت
+                                عملکرد</p>
                         </div>
                         <div class="uk-width-expand@s">
                             <p class="uk-margin-small-bottom">{{retailer.city}} نمایندگی</p>
                             <p class="uk-text-meta uk-margin-remove">{{retailer.address}}</p>
                         </div>
                         <div class="uk-width-auto@s">
-                            <p><span data-uk-icon="home"></span></p>
+                            <div class="uk-grid uk-grid-small uk-child-width-auto uk-grid-divider">
+                                <div class="uk-first-column uk-text-primary" data-uk-icon="icon:home;ratio:1.5"></div>
+                                <div class="uk-text-primary" data-uk-icon="icon:comment;ratio:1.5"></div>
+                                <div class="uk-text-primary" data-uk-icon="icon: check;ratio:1.5"></div>
+                            </div>
                         </div>
                     </div>
                     <hr v-if="index + 1 < retailers.length" class="uk-margin-small-top"/>
@@ -179,7 +186,7 @@
                                     <span>از ۵</span>
                                 </div>
                                 <p class="uk-text-center">نظر خود را به اشتراک بگذارید</p>
-                                <button class="uk-button uk-button-primary uk-width-expand uk-border-rounded">ثبت دیدگاه
+                                <button class="uk-button uk-button-primary uk-width-expand uk-border-rounded" @click="commentModal.show()">ثبت دیدگاه
                                 </button>
                             </div>
                             <div class="uk-width-expand@m">
@@ -188,12 +195,17 @@
                                     <p class="uk-text-meta uk-margin-remove">
                                         <span class="uk-display-inline-block uk-width-expand">
                                             <span class="uk-float-left">{{comment.created_at}}</span>
-                                            <span class="uk-float-right"><stars-rating :rating="comment.rating"></stars-rating></span>
+                                            <span class="uk-float-right"><stars-rating
+                                                    :rating="comment.rating"></stars-rating></span>
                                         </span>
                                     </p>
                                     <hr class="uk-margin-remove-top"/>
                                     <p class="uk-margin-large uk-margin-remove-top uk-padding-small uk-padding-remove-vertical uk-padding-remove-right"
                                        v-text="comment.text"></p>
+                                </div>
+                                <div v-if="product.comments.length === 0"
+                                     class="uk-flex uk-flex-center uk-flex-middle uk-height-1-1">
+                                    <p class="uk-text-center uk-text-muted">هیچ دیدگاهی تاکنون برای این محصول ثبت نشده است</p>
                                 </div>
                             </div>
                         </div>
@@ -201,6 +213,9 @@
                 </div>
             </div>
         </div>
+        <modal class="uk-modal-container" name="comment">
+            <form-comment @submit="commentModal.hide()" :product="product"></form-comment>
+        </modal>
     </div>
 </template>
 
@@ -212,6 +227,7 @@
                 selectedVariation: null,
                 quantity: 1,
                 retailers: [],
+                commentModal: new Modal('comment')
             }
         },
         methods: {

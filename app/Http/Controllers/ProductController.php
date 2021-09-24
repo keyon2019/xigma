@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\ProductFilters;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\TopProducts;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -21,10 +22,13 @@ class ProductController extends Controller
         return view('dashboard.product.index');
     }
 
-    public function show(Product $product)
+    public function show(Product $product, TopProducts $top)
     {
         return view('website.product.show')
-            ->with('product', $product->load('variations.values.option', 'comments'));
+            ->with('product', $product->load('variations.values.option')->load(['comments' => function ($query) {
+                return $query->whereApproved(true)->latest();
+            }]))
+            ->with('topProducts', $top);
     }
 
     public function create()

@@ -24,7 +24,7 @@ class InvoiceController extends Controller
     {
         $invoice = auth()->user()->invoices()->create(['total' => $cart->totalPrice()]);
         $invoice->variations()->sync($cart->preparedForDB());
-        $cart->clear();
+//        $cart->clear();
         return redirect("/invoice/$invoice->id");
     }
 }

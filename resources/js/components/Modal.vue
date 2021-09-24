@@ -1,5 +1,5 @@
 <template>
-    <div ref="modal" class="uk-modal uk-flex-top uk-modal-container">
+    <div ref="modal" class="uk-modal uk-flex-top">
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded uk-background-muted">
             <slot></slot>
         </div>

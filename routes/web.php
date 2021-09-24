@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
@@ -72,6 +73,8 @@ Route::post('/address', [AddressController::class, 'store']);
 
 Route::get('/profile', [ProfileController::class, 'index']);
 
+Route::post('/comment', [CommentController::class, 'store']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
@@ -103,9 +106,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/variation/{variation}/item', [ItemController::class, 'index']);
     Route::post('/variation/{variation}/item', [ItemController::class, 'store']);
 
-    Route::get('/test', function () {
-        return view('dashboard.retailer.index');
-    });
+    Route::get('/comment', [CommentController::class, 'index']);
+    Route::patch('/comment/{comment}', [CommentController::class, 'approve']);
 
     Route::post('/picture', [PictureController::class, 'store']);
 });

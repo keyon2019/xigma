@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\OrderFilters;
 use App\Http\Requests\StoreOrderRequest;
 use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
@@ -18,10 +19,10 @@ class OrderController extends Controller
         $this->middleware('admin')->only(['all', 'edit']);
     }
 
-    public function all(Request $request)
+    public function all(Request $request, OrderFilters $filters)
     {
         if ($request->wantsJson())
-            return response()->json(Order::with('user')->paginate(15));
+            return response()->json(Order::filter($filters)->with('user')->paginate(15));
         return view('dashboard.order.index');
     }
 

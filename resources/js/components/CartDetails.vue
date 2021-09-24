@@ -5,7 +5,8 @@
         </div>
         <div v-else class="uk-grid uk-grid-small">
             <div class="uk-width-3-4">
-                <div v-for="item in cart.items" class="uk-background-muted uk-border-rounded uk-margin-small-bottom" style="border: 1px solid gainsboro">
+                <div v-for="item in cart.items" class="uk-background-muted uk-border-rounded uk-margin-small-bottom"
+                     style="border: 1px solid gainsboro">
                     <div class="uk-grid uk-padding-small uk-border-rounded">
                         <div class="uk-width-1-5@m">
                             <div class="">
@@ -56,8 +57,10 @@
                                 </div>
                                 <hr class="uk-margin-small"/>
                                 <div class="uk-grid uk-grid-divider uk-grid-small uk-text-small uk-text-light">
-                                    <a @click="cart.remove(item.id)" class="uk-text-danger"><span data-uk-icon="trash"></span> حذف از سبد خرید</a>
-                                    <div><a @click="cart.add(item.id, item.quantity)"><span data-uk-icon="pencil"></span> ویرایش خرید</a></div>
+                                    <a @click="cart.remove(item.id)" class="uk-text-danger"><span data-uk-icon="trash"></span> حذف
+                                        از سبد خرید</a>
+                                    <div><a @click="cart.add(item.id, item.quantity)"><span data-uk-icon="pencil"></span> ویرایش
+                                        خرید</a></div>
                                 </div>
                             </div>
                         </div>
@@ -82,6 +85,14 @@
                     <p class="uk-text-meta">جهت نهایی کردن فاکتور خود و انتخاب نحوه ارسال قطعات وارد مرحله بعد شوید</p>
                     <a href="/checkout" class="uk-button uk-button-danger uk-button-large uk-width-expand uk-border-rounded">نهایی
                         کردن خرید</a>
+                    <form method="post" action="/invoice">
+                        <input type="hidden" name="_token" :value="CSRF">
+                        <div class="uk-text-center">
+                            <button class="uk-button-text uk-button uk-text-small uk-button-small uk-margin-small-top">
+                                ثبت پیش‌فاکتور از سبد خرید
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="uk-flex uk-text-meta uk-margin-top uk-padding-small">
                     <div class="uk-margin-small-right"><span data-uk-icon="icon:warning;ratio:2"></span></div>

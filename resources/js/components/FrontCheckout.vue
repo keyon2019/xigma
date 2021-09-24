@@ -114,11 +114,11 @@
                      style="border: 1px solid gainsboro">
                     <div class="uk-grid-small uk-text-muted" uk-grid>
                         <div class="uk-width-expand">جمع قیمت اقلام</div>
-                        <div>{{cart.total().toLocaleString()}}</div>
+                        <div>{{(cart.total() + cart.totalDiscount()).toLocaleString()}}</div>
                     </div>
                     <div class="uk-grid-small uk-text-muted" uk-grid>
                         <div class="uk-width-expand">جمع تخفیفات</div>
-                        <div>0</div>
+                        <div>{{cart.totalDiscount().toLocaleString()}}</div>
                     </div>
                     <hr class="uk-text-muted"/>
                     <div class="uk-grid-small uk-text-muted" uk-grid>
@@ -156,7 +156,7 @@
                 </div>
             </div>
         </div>
-        <modal name="address">
+        <modal class="uk-modal-container" name="address">
             <h2>ثبت آدرس جدید</h2>
             <form-address @submit="createAddress"></form-address>
         </modal>

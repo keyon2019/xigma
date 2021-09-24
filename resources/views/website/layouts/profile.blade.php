@@ -6,7 +6,7 @@
             <div class="uk-grid uk-grid-small">
                 <div class="uk-width-1-4" style="background: url('/uploads/bg-pattern.png');padding-right:0">
                     <div class="uk-padding-small uk-padding-remove-top" style="z-index: 8;">
-                        <img src="/uploads/xigma-badge.png" class="uk-margin-small-bottom" alt="xigma_badge">
+                        <img src="/uploads/xigma-badge.png" class="uk-margin-small-bottom uk-width-expand" alt="xigma_badge">
                         <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom">
                             <div class="uk-grid uk-grid-small uk-grid-divider uk-flex uk-flex-middle">
                                 <div>

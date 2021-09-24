@@ -7,6 +7,6 @@
         </front-product>
     </div>
     <div class="uk-section-muted uk-margin-top">
-        @include('website.partials._specialSaleSlideshow', ['items' => \App\Models\Product::limit(6)->get(), 'title' => 'قطعات مرتبط با انتخاب شما', 'muted' => true])
+        @include('website.partials._specialSaleSlideshow', ['items' => $topProducts->discounted()])
     </div>
 @endsection
