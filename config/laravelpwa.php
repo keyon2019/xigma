@@ -13,35 +13,35 @@ return [
         'status_bar'=> 'black',
         'icons' => [
             '72x72' => [
-                'path' => url('/uploads/icons/icon-72x72.png'),
+                'path' => '/uploads/icons/icon-72x72.png',
                 'purpose' => 'any'
             ],
             '96x96' => [
-                'path' => url('/uploads/icons/icon-96x96.png'),
+                'path' => '/uploads/icons/icon-96x96.png',
                 'purpose' => 'any'
             ],
             '128x128' => [
-                'path' => url('/uploads/icons/icon-128x128.png'),
+                'path' => '/uploads/icons/icon-128x128.png',
                 'purpose' => 'any'
             ],
             '144x144' => [
-                'path' => url('/uploads/icons/icon-144x144.png'),
+                'path' => '/uploads/icons/icon-144x144.png',
                 'purpose' => 'any'
             ],
             '152x152' => [
-                'path' => url('/uploads/icons/icon-152x152.png'),
+                'path' => '/uploads/icons/icon-152x152.png',
                 'purpose' => 'any'
             ],
             '192x192' => [
-                'path' => url('/uploads/icons/icon-192x192.png'),
+                'path' => '/uploads/icons/icon-192x192.png',
                 'purpose' => 'any'
             ],
             '284x284' => [
-                'path' => url('/uploads/icons/icon-384x384.png'),
+                'path' => '/uploads/icons/icon-384x384.png',
                 'purpose' => 'any'
             ],
             '512x512' => [
-                'path' => url('/uploads/icons/icon-512x512.png'),
+                'path' => '/uploads/icons/icon-512x512.png',
                 'purpose' => 'any'
             ],
         ],
