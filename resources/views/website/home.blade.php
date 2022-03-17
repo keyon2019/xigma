@@ -5,8 +5,9 @@
     <front-main-slider :sliders="{{$sliders}}"></front-main-slider>
 
     {{-- Special Sale --}}
-
-    @include('website.partials._specialSaleSlideshow', ['items' => $topProducts->discounted()])
+    @if($topProducts->discounted()->count() > 0)
+        @include('website.partials._specialSaleSlideshow', ['items' => $topProducts->discounted()])
+    @endif
 
     {{-- Secondary Slider --}}
     <div>

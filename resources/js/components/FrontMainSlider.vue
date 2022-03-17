@@ -48,7 +48,7 @@
                  data-uk-slideshow="autoplay: true;animation:fade;ratio:1:1;">
                 <ul class="uk-slideshow-items uk-child-width-1-1">
                     <li :data-index="index" v-for="(slider,index) in sliders">
-                        <div class="uk-inline uk-width-expand">
+                        <div class="uk-inline uk-width-expand uk-height-1-1">
                             <img class="slider-img uk-width-expand" :src="slider.picture">
                             <div class="uk-overlay-primary uk-position-cover uk-overlay-secondary">
                                 <div class="uk-padding uk-position-absolute uk-position-center">
