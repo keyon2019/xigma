@@ -14,6 +14,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PictureController;
 use App\Http\Controllers\ProductCategoryController;
@@ -21,11 +22,16 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RetailerController;
+use App\Http\Controllers\RetailerItemController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserVehicleController;
 use App\Http\Controllers\ValueController;
 use App\Http\Controllers\VariationController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleVariationController;
+use App\Http\Controllers\WidgetController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +81,12 @@ Route::get('/profile', [ProfileController::class, 'index']);
 
 Route::post('/comment', [CommentController::class, 'store']);
 
+Route::post('search', [SearchController::class, 'index']);
+
+Route::get('vehicle', [UserVehicleController::class, 'index']);
+Route::post('vehicle', [UserVehicleController::class, 'store']);
+Route::delete('vehicle', [UserVehicleController::class, 'destroy']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
@@ -82,10 +94,15 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('option', OptionController::class)->except(['show', 'destroy']);
     Route::resource('value', ValueController::class)->only(['store', 'update', 'destroy']);
     Route::resource('category', CategoryController::class)->except(['show', 'destroy']);
+    Route::resource('widget', WidgetController::class)->except(['show', 'index']);
     Route::resource('vehicle', VehicleController::class)->except(['show', 'destroy']);
     Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);
     Route::resource('slider', SliderController::class);
     Route::resource('retailer', RetailerController::class)->except(['show', 'destroy']);
+    Route::resource('page', PageController::class)->except(['show']);
+
+    Route::get('widget/all', [WidgetController::class, 'all']);
+    Route::post('widget/{widget}/purge', [WidgetController::class, 'purge']);
 
     Route::get('/discount', [DiscountController::class, 'create']);
     Route::post('/discount', [DiscountController::class, 'store']);
@@ -109,5 +126,15 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/comment', [CommentController::class, 'index']);
     Route::patch('/comment/{comment}', [CommentController::class, 'approve']);
 
+    Route::get('retailer/item', [RetailerItemController::class, 'create']);
+    Route::post('retailer/item', [RetailerItemController::class, 'send']);
+    Route::post('retailer/search', [RetailerController::class, 'search']);
+    Route::post('item/find', [ItemController::class, 'find']);
+
+    Route::resource('user', UserController::class)->except('show', 'destroy');
+    Route::get('user/search', [UserController::class, 'search']);
+
     Route::post('/picture', [PictureController::class, 'store']);
 });
+
+Route::get('{page}', [PageController::class, 'show']);

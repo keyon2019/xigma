@@ -4,7 +4,7 @@
     <div class="uk-section-muted profile-section">
         <div class="uk-container">
             <div class="uk-grid uk-grid-small">
-                <div class="uk-width-1-4" style="background: url('/uploads/bg-pattern.png');padding-right:0">
+                <div class="uk-width-1-4@m" style="background: url('/uploads/bg-pattern.png');padding-right:0">
                     <div class="uk-padding-small uk-padding-remove-top" style="z-index: 8;">
                         <img src="/uploads/xigma-badge.png" class="uk-margin-small-bottom uk-width-expand" alt="xigma_badge">
                         <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom">
@@ -44,19 +44,19 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/comment">
                                         <span data-uk-icon="comment"></span>
                                         <span class="uk-margin-small-left uk-text-small">نظرات</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/address">
                                         <span data-uk-icon="location"></span>
                                         <span class="uk-margin-small-left uk-text-small">نشانی‌ها</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/vehicle">
                                         <span data-uk-icon="bolt"></span>
                                         <span class="uk-margin-small-left uk-text-small">وسایل نقلیه من</span>
                                     </a>

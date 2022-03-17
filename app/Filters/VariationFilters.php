@@ -15,6 +15,11 @@ class VariationFilters extends QueryFilter
         $this->query->orderBy($columnName, $order);
     }
 
+    public function keyword($value)
+    {
+        $this->query->where('name', 'like', "%$value%");
+    }
+
     public function product($value)
     {
         $this->query->whereProductId($value);

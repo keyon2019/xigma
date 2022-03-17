@@ -78,4 +78,11 @@ class Order extends Model
     {
         return $this->hasMany(Shipping::class);
     }
+
+    public function getRetailersAttribute()
+    {
+        return Retailer::whereHas('items', function ($q) {
+            $q->whereOrderId($this->id);
+        })->with('user')->get();
+    }
 }

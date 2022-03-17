@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\VehicleFilters;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,10 @@ class VehicleController extends Controller
         $this->middleware('admin');
     }
 
-    public function index(Request $request)
+    public function index(Request $request, VehicleFilters $filters)
     {
         if ($request->wantsJson())
-            return response()->json(Vehicle::paginate(10));
+            return response()->json(Vehicle::filter($filters)->paginate(10));
         return view('dashboard.vehicle.index');
     }
 

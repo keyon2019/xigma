@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div class="uk-grid uk-grid-small">
-            <div class="uk-width-3-4">
+        <div class="uk-grid uk-grid-small" data-uk-grid>
+            <div class="uk-width-3-4@m">
                 <p class="uk-margin-small">نشانی تحویل گیرنده</p>
                 <div class="address-container uk-padding-small uk-border-rounded">
-                    <div class="uk-grid uk-child-width-1-3 uk-grid-small uk-grid-match">
+                    <div class="uk-grid uk-child-width-1-3@m uk-grid-small uk-grid-match" data-uk-grid>
                         <div v-for="address in addresses">
                             <div class="address-container uk-border-rounded uk-padding-small">
                                 <div class="uk-flex">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="uk-grid uk-grid-small uk-child-width-1-2@m">
+                <div class="uk-grid uk-grid-small uk-child-width-1-2@m" data-uk-grid>
                     <div>
                         <ul class="uk-child-width-expand uk-subnav uk-subnav-pill uk-text-center" uk-switcher>
                             <li><a @click="form.cost_preference.value = 1" class="uk-border-rounded"
@@ -53,63 +53,66 @@
                         </button>
                     </div>
                 </div>
-                <table class="uk-table uk-table-middle uk-table-large full-bordered">
-                    <thead>
-                    <tr class="uk-background-muted">
-                        <th>ردیف</th>
-                        <th>شرح کالا</th>
-                        <th>تعداد</th>
-                        <th class="uk-text-center">قیمت کل (تومان)</th>
-                        <th class="uk-width-1-4">فرستنده</th>
-                        <th>نحوه ارسال</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="(retailer,id) in tableItems">
-                        <td class="uk-table-shrink">
-                            <p class="uk-margin-large" v-for="(item, index) in retailer.items">{{item.id}}</p>
-                        </td>
-                        <td class="uk-table-expand">
-                            <p class="uk-margin-large" v-for="item in retailer.items" v-text="item.name"></p>
-                        </td>
-                        <td>
-                            <p class="uk-margin-large uk-text-center" v-for="item in retailer.items" v-text="item.quantity"></p>
-                        </td>
-                        <td>
-                            <p class="uk-margin-large uk-text-center" v-for="item in retailer.items"
-                               v-text="item.price.toLocaleString()"></p>
-                        </td>
-                        <td>
-                            <dl>
-                                <dt>{{retailer.retailer}}</dt>
-                                <dd class="uk-text-meta">{{retailer.address}}</dd>
-                            </dl>
+                <div class="uk-margin-small-top">
+                    <table class="uk-table uk-table-middle uk-table-large full-bordered uk-table-responsive">
+                        <thead>
+                        <tr class="uk-background-muted">
+                            <th>ردیف</th>
+                            <th>شرح کالا</th>
+                            <th>تعداد</th>
+                            <th class="uk-text-center@m">قیمت کل (تومان)</th>
+                            <th class="uk-width-1-4">فرستنده</th>
+                            <th>نحوه ارسال</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(retailer,id) in tableItems">
+                            <td class="uk-table-shrink">
+                                <p class="uk-margin-large" v-for="(item, index) in retailer.items">{{item.id}}</p>
+                            </td>
+                            <td class="uk-table-expand">
+                                <p class="uk-margin-large" v-for="item in retailer.items" v-text="item.name"></p>
+                            </td>
+                            <td>
+                                <p class="uk-margin-large uk-text-center@m" v-for="item in retailer.items"
+                                   v-text="item.quantity"></p>
+                            </td>
+                            <td>
+                                <p class="uk-margin-large uk-text-center@m" v-for="item in retailer.items"
+                                   v-text="item.price.toLocaleString()"></p>
+                            </td>
+                            <td>
+                                <dl>
+                                    <dt>{{retailer.retailer}}</dt>
+                                    <dd class="uk-text-meta">{{retailer.address}}</dd>
+                                </dl>
 
-                        </td>
-                        <td>
-                            <p v-for="method in retailer.shippingMethods">
-                                <label class="uk-text-small uk-flex uk-flex-middle"><input class="uk-radio" type="radio"
-                                                                                           :value="{
+                            </td>
+                            <td>
+                                <p v-for="method in retailer.shippingMethods">
+                                    <label class="uk-text-small uk-flex uk-flex-middle"><input class="uk-radio" type="radio"
+                                                                                               :value="{
                                                                                            'stock' : id,
                                                                                            'method': method.id,
                                                                                            'cost': method.id === 2 ? retailer.delivery_cost : 0
                                                                                            }"
-                                                                                           :name="`shipping_methods[${id}]`"
-                                                                                           v-model="form.shipping_methods.value[id]">
-                                    <div class="uk-margin-small-left">
-                                        <div>{{method.name}}</div>
-                                        <div class="uk-text-meta" v-if="method.id === 2">هزینه ارسال
-                                            {{retailer.delivery_cost.toLocaleString()}} تومان
+                                                                                               :name="`shipping_methods[${id}]`"
+                                                                                               v-model="form.shipping_methods.value[id]">
+                                        <div class="uk-margin-small-left">
+                                            <div>{{method.name}}</div>
+                                            <div class="uk-text-meta" v-if="method.id === 2">هزینه ارسال
+                                                {{retailer.delivery_cost.toLocaleString()}} تومان
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
-                            </p>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                                    </label>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="uk-width-1-4">
+            <div class="uk-width-1-4@m">
                 <div class="uk-background-muted uk-padding-small uk-border-rounded uk-text-small"
                      style="border: 1px solid gainsboro">
                     <div class="uk-grid-small uk-text-muted" uk-grid>
@@ -145,12 +148,17 @@
                         </div>
                     </div>
                     <div class="uk-margin-top">
-                        <button @click="placeOrder" class="uk-button uk-button-danger uk-border-rounded">پرداخت مبلغ و ثبت نهایی فاکتور</button>
+                        <button @click="placeOrder" class="uk-button uk-button-danger uk-border-rounded uk-width-expand">پرداخت مبلغ و ثبت نهایی
+                            فاکتور
+                        </button>
                     </div>
                 </div>
-                <div class="uk-margin-small-top uk-padding-small uk-border-rounded" style="border: 1px solid gainsboro" v-if="routes">
+                <div class="uk-margin-small-top uk-padding-small uk-border-rounded" style="border: 1px solid gainsboro"
+                     v-if="routes">
                     <div class="uk-light uk-margin-small">
-                        <div class="uk-text-center uk-background-secondary uk-border-rounded uk-padding-small">نمایش مسیر ارسال کالا</div>
+                        <div class="uk-text-center uk-background-secondary uk-border-rounded uk-padding-small">نمایش مسیر ارسال
+                            کالا
+                        </div>
                     </div>
                     <mapbox class="uk-border-rounded" :key="mapKey" :markers="markers"></mapbox>
                 </div>
@@ -274,7 +282,7 @@
         },
         methods: {
             placeOrder() {
-                if(Object.values(this.form.shipping_methods.value).length !== Object.values(this.tableItems).length) {
+                if (Object.values(this.form.shipping_methods.value).length !== Object.values(this.tableItems).length) {
                     Toast.message("لطفا نحوه ارسال تمامی مرسولات را مشخص نمایید").danger().show();
                     return;
                 }

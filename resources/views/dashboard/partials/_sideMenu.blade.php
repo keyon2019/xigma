@@ -22,6 +22,10 @@
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: image"
                                                     class="uk-margin-small-right"></span>تنظیمات ظاهری</a>
                 <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/widget/all" title="محصولات صفحه اصلی">ویجت‌ها</a></li>
+                    <li><a href="/dashboard/widget/create" title="">ویجت جدید</a></li>
+                    <li><a href="/dashboard/page" title="صفحات">صفحات</a></li>
+                    <li><a href="/dashboard/page/create">صفحه جدید</a></li>
                     <li><a href="/dashboard/slider" title="اسلایدر اصلی">اسلایدر اصلی</a></li>
                     <li><a href="/dashboard/slider/create">اسلایدر جدید</a></li>
                 </ul>
@@ -57,6 +61,13 @@
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/retailer" title="نمایندگی‌ها">نمایش نمایندگی‌ها</a></li>
                     <li><a href="/dashboard/retailer/create" title="نمایندگی جدید">نمایندگی جدید</a></li>
+                    <li><a href="/dashboard/retailer/item" title="ارسال محصول">ارسال محصول</a></li>
+                </ul>
+            </li>
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: users" class="uk-margin-small-right"></span>کاربران</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/user" title="کاربران">لیست کاربران</a></li>
+                    <li><a href="/dashboard/user/create" title="کاربر جدید">کاربر جدید</a></li>
                 </ul>
             </li>
             <li><a href="/dashboard/comment">

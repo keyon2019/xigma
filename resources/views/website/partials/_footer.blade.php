@@ -58,77 +58,38 @@
                 <a class="uk-link-reset uk-margin-large-right" href="#"><img src="/uploads/telegram.svg"></a>
                 <a class="uk-link-reset" href="#"><img src="/uploads/whatsapp.svg"></a>
             </div>
-            <p class="uk-text-large">با ما در شبکه‌های اجتماعی همراه باشید.</p>
+            <p class="uk-text-large text-small@m">با ما در شبکه‌های اجتماعی همراه باشید.</p>
         </div>
     </div>
     <div class="uk-section uk-section-secondary uk-padding-remove-bottom">
         <div class="uk-container">
             <div class="uk-grid uk-child-width-1-4@m uk-child-width-1-2 uk-text-light">
                 <div>
-                    <p class="uk-text-large uk-text-primary">ابــزارهای خریــد</p>
-                    <p class="uk-margin-small">
-                        <a href="/" class="uk-link-reset uk-text-meta">جسجتوی پیشرفته محصولات</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">ایجاد پروفایل کاربری</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">جستجوی نمایندگان</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">راهنمای خرید محصولات</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">درخواست نمایندگی</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">تخفیفات ویژه</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">مشاوره خرید</a>
-                    </p>
+                    <p class="uk-text-large text-small@m uk-text-primary">ابــزارهای خریــد</p>
+                    @foreach($pages->filter(function($page) { return $page->position === 3;}) as $page)
+                        <p class="uk-margin-small">
+                            <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
+                        </p>
+                    @endforeach
                 </div>
                 <div>
-                    <p class="uk-text-large uk-text-primary">دسته‌بندی محصولات</p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">موتور سیکلت</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">قطعات موتورسیکلت</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">دوچرخه</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">قطعات خودرو</a>
-                    </p>
+                    <p class="uk-text-large text-small@m uk-text-primary">دسته‌بندی محصولات</p>
+                    @foreach($pages->filter(function($page) { return $page->position === 3;}) as $page)
+                        <p class="uk-margin-small">
+                            <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
+                        </p>
+                    @endforeach
                 </div>
                 <div>
-                    <p class="uk-text-large uk-text-primary">لینک‌های مفید</p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">عیب‌یابی موتور سیکلت</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">نحوه صدور سند</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">مراکز تعویض پلاک</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">عیب‌یابی خودرو</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">ایران خودرو</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">سایپا</a>
-                    </p>
-                    <p class="uk-margin-small">
-                        <a href="#" class="uk-link-reset uk-text-meta">جهان صنعت</a>
-                    </p>
+                    <p class="uk-text-large text-small@m uk-text-primary">لینک‌های مفید</p>
+                    @foreach($pages->filter(function($page) { return $page->position === 4;}) as $page)
+                        <p class="uk-margin-small">
+                            <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
+                        </p>
+                    @endforeach
                 </div>
                 <div>
-                    <p class="uk-text-large uk-text-primary">تماس با ما</p>
+                    <p class="uk-text-large text-small@m uk-text-primary">تماس با ما</p>
                     <p class="uk-text-meta" style="line-height: 1.5rem">
                         دفتر مرکزی <br/>تهران، خیابان دماوند، بعد از چهارراه آیت پلاک ۲۸۶، ساختمان زیگما، واحد ۱۵
                     </p>
@@ -138,7 +99,8 @@
                 </div>
             </div>
             <hr class="uk-margin-large-top uk-background-default uk-margin-remove-bottom"/>
-            <p class="uk-text-light uk-margin-small-top uk-margin-small-bottom">کلیه حقوق مادی و معنوی، همچنین حق اثر این سایت متعلق به گروه زیگما می‌باید و هر نوع کپی برداری از آن پیگرد قانونی خواهد داشت.</p>
+            <p class="uk-text-light uk-margin-small-top uk-margin-small-bottom text-small@m">کلیه حقوق مادی و معنوی، همچنین حق اثر این سایت
+                متعلق به گروه زیگما می‌باید و هر نوع کپی برداری از آن پیگرد قانونی خواهد داشت.</p>
         </div>
     </div>
 </footer>

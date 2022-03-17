@@ -1,5 +1,9 @@
 @extends('website.layouts.app')
 
+@section('title', $product->name)
+@section('meta_title', $product->name)
+@section('meta_description', strip_tags($product->description))
+
 @section('content')
     <div class="uk-section-xsmall uk-section-default">
         <front-product :product="{{$product}}">

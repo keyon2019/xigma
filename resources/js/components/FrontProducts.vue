@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <paginated-view @fetched="scroll">
         <template v-slot:sort>
             <div class="uk-flex uk-text-small uk-border-rounded uk-text-white"
@@ -31,25 +31,25 @@
             </div>
         </template>
         <template v-slot:filters>
-            <div class="uk-background-default uk-border-rounded uk-text-small uk-box-shadow-small">
+            <div class="uk-background-default uk-border-rounded uk-text-small">
                 <p class="uk-text-center uk-text-small uk-padding-small uk-padding-remove-horizontal uk-margin-remove uk-text-bold">
                     تنظیمات نمایش محصولات</p>
-                <div class="uk-background-default uk-flex custom-padding uk-flex-middle section-container">
+                <div class=" uk-flex custom-padding uk-flex-middle section-container">
                     <p class="uk-margin-remove" style="flex: 1">فقط کالاهای موجود</p>
                     <input name="available" value="1" class="apple-switch uk-margin-remove" type="checkbox">
                 </div>
-                <div class="uk-background-default uk-flex custom-padding uk-flex-middle section-container">
+                <div class=" uk-flex custom-padding uk-flex-middle section-container">
                     <p class="uk-margin-remove" style="flex: 1">فقط قطعات دارای تصویر</p>
                     <input name="has-picture" value="1" class="apple-switch uk-margin-remove" type="checkbox">
                 </div>
-                <div class="uk-background-default uk-flex custom-padding uk-flex-middle section-container">
+                <div class=" uk-flex custom-padding uk-flex-middle section-container">
                     <p class="uk-margin-remove" style="flex: 1">فقط قطعات موتور من</p>
                     <input name="owned" value="1" class="apple-switch uk-margin-remove" type="checkbox">
                 </div>
                 <hr class="uk-margin-small-left uk-margin-small-right uk-margin-small"/>
-                <div v-for="(option, index) in options" class="uk-background-default section-container uk-margin-small">
+                <div v-for="(option, index) in options" class=" section-container uk-margin-small">
                     <ul data-uk-accordion="" class="uk-margin-remove-bottom">
-                        <li class="uk-open">
+                        <li class="">
                             <a class="uk-accordion-title uk-text-small custom-padding">{{option.name}}</a>
                             <div class="uk-accordion-content uk-margin-remove">
                                 <div v-for="value in option.values" class="custom-padding uk-text-meta">
@@ -66,16 +66,14 @@
                         class="uk-margin-small-left uk-margin-small-right uk-margin-remove-vertical"/>
                 </div>
             </div>
-            <button class="uk-button uk-button-small uk-width-expand uk-button-primary uk-border-rounded"
-                    type="submit">اعمال فیلترها
-            </button>
         </template>
         <template v-slot="scopeData">
-            <div data-uk-grid class="uk-grid uk-grid-small uk-child-width-1-3@m uk-child-width-1-2 uk-margin-small-top">
+            <div v-if="scopeData.records ? scopeData.records.length > 0 : false" data-uk-grid class="uk-grid uk-grid-small uk-child-width-1-3@m uk-child-width-1-2 uk-margin-small-top">
                 <div v-for="product in scopeData.records">
                     <front-product-card :product="product"></front-product-card>
                 </div>
             </div>
+            <div v-else class="uk-text-center uk-text-meta uk-margin-top">متاسفانه هیچ محصولی با فیلترهای انتخابی شما و یا در دسته‌بندی مورد نظر موجود نیست</div>
         </template>
     </paginated-view>
 </template>

@@ -25,11 +25,15 @@
             search: {
                 default: 'name'
             },
+            keyName: {
+                default: 'search'
+            },
             value: {},
             api: {},
             apiResultKey: {
                 default: 'result'
             },
+            initialInput: {},
             method: {
                 default: 'post'
             },
@@ -47,14 +51,20 @@
                 realValue: null,
             }
         },
+        beforeMount() {
+            if (!!this.initialInput) {
+                this.forShowOnly = true;
+                this.keyword = this.initialInput;
+            }
+        },
         methods: {
             fetch() {
                 this.isLoading = true;
                 let config = {method: this.method, url: this.api};
                 if (this.method === 'get') {
-                    config.params = {keyword: this.keyword}
+                    config.params = {[this.keyName]: this.keyword}
                 } else {
-                    config.data = {keyword: this.keyword}
+                    config.data = {[this.keyName]: this.keyword}
                 }
                 axios(config).then((response) => {
                     this.records = response.data[this.apiResultKey];

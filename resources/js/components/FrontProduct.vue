@@ -89,7 +89,7 @@
                                     <div class="uk-position-absolute uk-position-cover dots"></div>
                                 </div>
                             </div>
-                            <div class="uk-position-relative" style="z-index: 10">
+                            <div class="uk-position-relative" style="z-index: 9">
                                 <p v-if="retailers.length > 0" class="dot-icon-p"><span class="uk-background-muted"
                                                                                         data-uk-icon="check"></span><span
                                         class="uk-margin-small-left uk-text-small">موجود در <a
@@ -170,17 +170,17 @@
         <slot></slot>
         <div class="uk-section-small uk-section-default">
             <div class="uk-container">
-                <ul class="uk-tab uk-child-width-1-5"
+                <ul class="uk-tab uk-child-width-1-5@m uk-child-width-1-2"
                     data-uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
-                    <li><a href="#info" class="uk-text-large">مشخصات قطعه</a></li>
-                    <li><a href="#categories">امتیاز و دیدگاه کاربران</a></li>
+                    <li><a class="text-small@m" href="#info">مشخصات قطعه</a></li>
+                    <li><a class="text-small@m" href="#categories">امتیاز و دیدگاه کاربران</a></li>
                 </ul>
                 <div class="uk-switcher uk-margin">
                     <div v-html="product.description" class="ck-content"></div>
                     <div>
-                        <div class="uk-grid uk-grid-large">
+                        <div class="uk-grid uk-grid-large" data-uk-grid>
                             <div class="uk-width-1-4@m">
-                                <div v-if="product.rating">
+                                <div v-if="product.rating" class="uk-text-left@m uk-text-center">
                                     <stars-rating :rating="product.rating"></stars-rating>
                                     <span class="uk-heading-small">{{parseFloat(product.rating).toFixed(2)}}</span>
                                     <span>از ۵</span>
@@ -320,7 +320,7 @@
     }
 
     .uk-tab > * > a {
-        font-size: 1.3rem !important;
+        font-size: 1.3rem;
         text-align: left;
         /*border-bottom: 4px;*/
     }

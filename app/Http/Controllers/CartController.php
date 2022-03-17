@@ -12,7 +12,7 @@ class CartController extends Controller
     public function index(CartInterface $cart, Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(['items' => $cart->items]);
+            return response()->json(['items' => $cart->items, 'vehicles' => auth()->check() ? auth()->user()->vehicles->load('variations') : []]);
         return view('website.cart.index')->with('items', $cart->items);
     }
 

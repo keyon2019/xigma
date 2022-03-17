@@ -78,7 +78,7 @@
                     <hr class="uk-margin-small uk-margin-remove-top"/>
                     <p class="uk-margin-small">نحوه ارسال: <span class="uk-text-bold" v-text="getShippingMethodName(shipping.method)"></span></p>
                     <p>هزینه ارسال: <span class="uk-text-bold" v-text="shipping.cost"></span></p>
-                    <p>وضعیت: <span class="uk-text-bold" v-text="shipping.sailed ? 'ارسال شده' : 'در انتظار'"></span></p>
+                    <p>وضعیت: <span class="uk-text-bold" v-text="shipping.sailed_at ? 'ارسال شده' : 'در انتظار'"></span></p>
                 </div>
             </div>
         </div>

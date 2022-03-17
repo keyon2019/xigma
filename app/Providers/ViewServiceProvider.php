@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Http\View\Composers\HeaderComposer;
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Page;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,8 +29,20 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('website.partials._header', function ($view) {
-            return $view->with('categories', Category::take(4)->get());
+        $pages = Page::select('slug', 'name', 'position')->get();
+        View::composer('website.partials._header', function ($view) use ($pages) {
+            return $view->with([
+                'categories' => Category::root()->with('subCategories')->get(),
+                'pages' => $pages->filter(function ($value) {
+                    return $value->position === 1;
+                })
+            ]);
+        });
+
+        View::composer('website.partials._footer', function ($view) use ($pages) {
+            return $view->with('pages', $pages->filter(function ($value) {
+                return $value->position > 1;
+            }));
         });
     }
 }

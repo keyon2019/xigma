@@ -4,7 +4,7 @@
             <h2 class="uk-text-center uk-text-light uk-padding-large">سبد خرید شما خالی است</h2>
         </div>
         <div v-else class="uk-grid uk-grid-small">
-            <div class="uk-width-3-4">
+            <div class="uk-width-3-4@m">
                 <div v-for="item in cart.items" class="uk-background-muted uk-border-rounded uk-margin-small-bottom"
                      style="border: 1px solid gainsboro">
                     <div class="uk-grid uk-padding-small uk-border-rounded">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
             </div>
-            <div class="uk-width-1-4">
+            <div class="uk-width-1-4@m">
                 <div class="uk-background-muted uk-border-rounded uk-padding-small" style="border: 1px solid gainsboro;">
                     <div class="uk-grid uk-grid-small uk-text-emphasis uk-flex uk-flex-middle" uk-grid>
                         <div class="uk-width-expand">قیمت اقلام ({{cart.totalQuantity()}})</div>

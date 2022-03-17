@@ -1,13 +1,19 @@
 <template>
     <div class="uk-grid uk-grid-small" data-uk-grid>
-        <filters :url="url" class="uk-width-1-5 uk-width-visible@m"
+        <filters ref="filters" :url="url" class="uk-width-1-5 uk-visible@m"
                  @filtersChanged="filtersChanged">
             <slot name="filters"></slot>
         </filters>
         <div class="uk-width-expand">
-            <sort @sortsChanged="sortsChanged" :url="url">
+            <sort @sortsChanged="sortsChanged" class="uk-visible@m" :url="url">
                 <slot name="sort"></slot>
             </sort>
+            <div class="uk-text-small uk-hidden@m">
+                <a @click="showFiltersModal()" class="uk-link-reset"><span class="uk-margin-small-right"><i
+                        class="fa-solid fa-sliders"></i> فیلتر</span></a>
+                <a class="uk-link-reset"><span><i class="fa-solid fa-arrow-down-wide-short"></i> ترتیب نمایش</span></a>
+                <hr class="uk-margin-small"/>
+            </div>
             <div id="paginated-view-content">
                 <slot :records="data.data"></slot>
             </div>
@@ -26,6 +32,8 @@
                 url: !!this.fetchUrl ? this.fetchUrl : window.location.href,
                 embed: !!this.fetchUrl,
                 initialFetch: true,
+                filtersModal: new Modal('filters-modal'),
+                sortsModal: new Modal('sorts-modal')
             }
         },
         mounted() {
@@ -91,11 +99,15 @@
                     }
                 }).catch(error => console.log(error.response)).then(() => {
                     Loading.hide();
+                    this.$refs.filters.isSubmitting = false;
                 })
             },
             destroy(id) {
                 const index = _.findIndex(this.data.data, r => r.id === id);
                 this.data.data.splice(index, 1);
+            },
+            showFiltersModal() {
+                UIkit.modal('#filters-modal').show();
             }
         }
     }

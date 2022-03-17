@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\OrderPaid;
 use App\Listeners\AddItemsToOrder;
+use App\Listeners\NotifyRetailers;
 use App\Listeners\TransferCartFromSessionToDB;
 use App\Listeners\UpdateOrderPaymentStatus;
 use Illuminate\Auth\Events\Login;
@@ -21,7 +22,7 @@ class EventServiceProvider extends ServiceProvider
             TransferCartFromSessionToDB::class
         ],
         OrderPaid::class => [
-            UpdateOrderPaymentStatus::class, AddItemsToOrder::class
+            UpdateOrderPaymentStatus::class, AddItemsToOrder::class, NotifyRetailers::class
         ]
     ];
 

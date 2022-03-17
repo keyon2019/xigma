@@ -25,10 +25,12 @@ class Product extends Model
 
     protected static function booted()
     {
+        parent::booted();
         static::addGlobalScope('rating', function (Builder $builder) {
             return $builder->withAvg('comments as rating', 'rating');
         });
     }
+
 
     public function getOrderPriceAttribute()
     {

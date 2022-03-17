@@ -15,6 +15,13 @@ class ItemFilters extends QueryFilter
         $this->query->orderBy($columnName, $order);
     }
 
+    public function variationName($value)
+    {
+        $this->query->whereHas('variation', function ($q) use ($value) {
+            return $q->where('name', 'like', "%$value%");
+        });
+    }
+
     public function variation($value)
     {
         $this->query->whereVariationId($value);

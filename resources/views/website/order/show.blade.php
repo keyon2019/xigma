@@ -7,7 +7,7 @@
         <li class="uk-text-small">وضعیت سفارش: <strong>{{$order->statusName}}</strong></li>
     </ul>
 
-    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small">
+    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-overflow-auto">
         @include('website.partials._invoiceTable', ['items' => $order->variations])
     </div>
 @endsection

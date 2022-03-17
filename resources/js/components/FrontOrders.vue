@@ -1,31 +1,33 @@
 <template>
     <paginated-view @fetched="scroll" filterless="true">
         <template v-slot="scopeData">
-            <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
             uk-table-middle uk-table-striped">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>مبلغ</th>
-                    <th>وضعیت پرداخت</th>
-                    <th>وضعیت سفارش</th>
-                    <th>زمان ثبت</th>
-                    <th>مشاهده</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="order in scopeData.records">
-                    <td class="uk-table-shrink">{{order.id}}</td>
-                    <td>{{order.total.toLocaleString()}}</td>
-                    <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
-                    <td>{{order.statusName}}</td>
-                    <td>{{order.created_at}}</td>
-                    <td><a :href="`/order/${order.id}`"
-                           class="uk-button uk-button-small uk-button-primary">نمایش</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت پرداخت</th>
+                        <th>وضعیت سفارش</th>
+                        <th>زمان ثبت</th>
+                        <th>مشاهده</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="order in scopeData.records">
+                        <td class="uk-table-shrink">{{order.id}}</td>
+                        <td>{{order.total.toLocaleString()}}</td>
+                        <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
+                        <td>{{order.statusName}}</td>
+                        <td>{{order.created_at}}</td>
+                        <td><a :href="`/order/${order.id}`"
+                               class="uk-button uk-button-small uk-button-primary">نمایش</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </template>
     </paginated-view>
 </template>

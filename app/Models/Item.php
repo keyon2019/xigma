@@ -13,6 +13,8 @@ class Item extends Model
 {
     use HasFactory, BatchUpdatable, Filterable, Shamsi;
 
+    protected $fillable = ['shipping_id', 'order_id', 'sold'];
+
     public function variation()
     {
         return $this->belongsTo(Variation::class);

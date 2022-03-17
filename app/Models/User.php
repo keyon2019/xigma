@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
+use App\Traits\Shamsi;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens, Filterable, Shamsi;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
+        'is_retailer'
     ];
 
     /**
@@ -68,5 +72,20 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function retailer()
+    {
+        return $this->hasOne(Retailer::class);
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        return $query->where('name', 'like', "%$value%")->orWhere('email', 'like', "%$value%");
+    }
+
+    public function vehicles()
+    {
+        return $this->belongsToMany(Vehicle::class);
     }
 }

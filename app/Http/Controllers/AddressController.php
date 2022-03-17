@@ -13,9 +13,11 @@ class AddressController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->wantsJson())
-            return response()->json(['addresses' => auth()->user()->addresses]);
-        return dd(auth()->user()->addresses);
+        if ($request->wantsJson()) {
+            $result = $request->has('paginated') ? auth()->user()->addresses()->latest()->paginate(15) : ['addresses' => auth()->user()->addresses];
+            return response()->json($result);
+        }
+        return view('website.address.index');
     }
 
     public function store(Request $request)

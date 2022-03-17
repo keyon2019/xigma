@@ -15,7 +15,7 @@ class RetailerController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Retailer::paginate(15));
+            return response()->json(Retailer::with('user')->paginate(15));
         return view('dashboard.retailer.index');
     }
 
@@ -32,7 +32,8 @@ class RetailerController extends Controller
             'address' => 'string',
             'latitude' => 'required|string',
             'longitude' => 'required|string',
-            'available' => 'boolean'
+            'available' => 'boolean',
+            'user_id' => 'numeric|exists:users,id'
         ]);
 
         $retailer = Retailer::create($validated);
@@ -41,6 +42,7 @@ class RetailerController extends Controller
 
     public function edit(Retailer $retailer)
     {
+        $retailer->load('user');
         return view('dashboard.retailer.edit', compact('retailer'));
     }
 
@@ -53,11 +55,17 @@ class RetailerController extends Controller
             'address' => 'string',
             'latitude' => 'required|string',
             'longitude' => 'required|string',
-            'available' => 'boolean'
+            'available' => 'boolean',
+            'user_id' => 'numeric|exists:users,id'
         ]);
 
         $retailer->update($validated);
 
         return response([]);
+    }
+
+    public function search(Request $request)
+    {
+        return response()->json(['retailers' => Retailer::where('name', 'like', "%$request->search%")->get()]);
     }
 }

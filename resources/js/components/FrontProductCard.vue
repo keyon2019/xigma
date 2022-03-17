@@ -7,28 +7,18 @@
             <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">
                 {{product.name}}
             </p>
-            <p class="uk-text-secondary uk-margin-remove-top uk-text-medium uk-text-light uk-text-center">
-                Xigma 135 Civic</p>
-            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
-                <span class="uk-float-right uk-text-meta">CUB</span>
-                <span class="uk-float-left uk-text-meta">کلاس</span>
-            </p>
-            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
-                <span class="uk-float-left uk-text-meta">نوع</span>
-                <span class="uk-float-right uk-text-meta">انژکتور</span>
-            </p>
-            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
+            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
                 <span class="uk-float-left uk-text-meta">مقبولیت</span>
                 <stars-rating class="uk-float-right" :rating="product.rating"></stars-rating>
             </p>
-            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
+            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
                 <span class="uk-float-right uk-text-medium">{{product.price.toLocaleString()}}</span>
                 <span class="uk-float-left uk-text-medium uk-text-normal">تومان</span>
             </p>
             <button :disabled="!product.available" @click="navigateToProduct(product)"
                     class="uk-button uk-button-success uk-text-white uk-width-expand uk-margin-small-bottom">
                 <span v-if="product.available" class="uk-margin-small-right"
-                      data-uk-icon="cart"></span><span v-text="product.available ? 'اضافه به سبد خرید' : 'ناموجود'"></span>
+                      data-uk-icon="cart"></span><span v-text="product.available ? 'خرید' : 'ناموجود'"></span>
             </button>
         </div>
     </div>

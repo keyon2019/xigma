@@ -14,7 +14,7 @@
             </div>
             <div>
                 <p class="uk-text-small uk-text-meta uk-margin-remove uk-text-center"><span data-uk-icon="icon:bolt;ratio:0.8"></span> وسایل نقلیه</p>
-                <p class="uk-margin-small uk-text-center"><a>۲ وسیله نقلیه ثبت شده</a></p>
+                <p class="uk-margin-small uk-text-center"><a href="/vehicle">{{auth()->user()->vehicles()->count()}} وسیله نقلیه ثبت شده</a></p>
             </div>
             <div>
                 <p class="uk-text-small uk-text-meta uk-margin-remove uk-text-center"><span data-uk-icon="icon:calendar;ratio:0.8"></span> تاریخ عضویت</p>
@@ -23,7 +23,7 @@
         </div>
     </div>
     <h5 class="uk-text-muted uk-margin-small-bottom">آخرین سفارش‌ها</h5>
-    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small">
+    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-overflow-auto">
         <table class="uk-table uk-table-striped">
             <thead>
             <tr>

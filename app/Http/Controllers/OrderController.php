@@ -22,7 +22,7 @@ class OrderController extends Controller
     public function all(Request $request, OrderFilters $filters)
     {
         if ($request->wantsJson())
-            return response()->json(Order::filter($filters)->with('user')->paginate(15));
+            return response()->json(Order::filter($filters)->with('user')->latest()->paginate(15));
         return view('dashboard.order.index');
     }
 

@@ -9,6 +9,7 @@
                         <th>#</th>
                         <th>نام نماینده</th>
                         <th>شهر</th>
+                        <th>کاربر</th>
                         <th>محاسبه در الگوریتم</th>
                         <th>مدیریت</th>
                     </tr>
@@ -18,6 +19,7 @@
                         <td>{{retailer.id}}</td>
                         <td>{{retailer.name}}</td>
                         <td>{{retailer.city}}</td>
+                        <td>{{retailer.user.name}}</td>
                         <td><span :data-uk-icon="retailer.available ? 'check': 'close'"></span></td>
                         <td>
                             <a :href="'/dashboard/retailer/' + retailer.id + '/edit'"

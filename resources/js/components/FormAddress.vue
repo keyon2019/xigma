@@ -4,7 +4,7 @@
         <div class="uk-grid" data-uk-grid>
             <div class="uk-width-expand">
                 <div class="uk-grid uk-grid-small uk-grid-match" data-uk-grid>
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m">
                         <form-input label="استان" classes="uk-input"
                                     type="input"
                                     name="province"
@@ -42,7 +42,7 @@
                                     v-model="form.mobile.value">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m">
                         <div class="uk-form-label">آدرس روی نقشه</div>
                         <mapbox :interactive="true" v-model="form.coords.value"></mapbox>
                         <div v-if="form.errors.has('coords')"

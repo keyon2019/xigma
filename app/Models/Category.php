@@ -13,6 +13,11 @@ class Category extends Model
 
     protected $fillable = ['name', 'description', 'splash', 'wide_splash', 'parent_id'];
 
+    public function scopeRoot($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class);

@@ -16,9 +16,21 @@ class Shipping extends Model
 
     protected $with = ['stock'];
 
+    protected $appends = ['methodName'];
+
     public function stock()
     {
         return $this->belongsTo(Retailer::class, 'stock_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    public function getMethodNameAttribute()
+    {
+        return Order::SHIPPING_METHODS[$this->method];
     }
 
 }

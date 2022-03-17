@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Filters\ItemFilters;
+use App\Models\Item;
 use App\Models\Retailer;
 use App\Models\Variation;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -46,5 +48,19 @@ class ItemController extends Controller
             return $q->whereVariationId($variation->id)->whereSold(false);
         })->get();
         return response()->json(['retailers' => $retailers]);
+    }
+
+    public function find(Request $request)
+    {
+        $request->validate(['barcode' => 'required|string']);
+        try {
+            $item = Item::with('variation')->whereSold(false)
+                ->whereNull('stock_id')
+                ->whereBarcode($request->barcode)->firstOrFail();
+        } catch (ModelNotFoundException $exception) {
+            return response()->json(['message' => 'محصول مورد نظر یافت نشد'], 404);
+        }
+
+        return response()->json(['item' => $item]);
     }
 }
