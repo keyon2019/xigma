@@ -9,7 +9,6 @@
                     <th>نام</th>
                     <th>slug</th>
                     <th>موقعیت</th>
-                    <th></th>
                     <th>مدیریت</th>
                 </tr>
                 </thead>
@@ -19,7 +18,7 @@
                     <td class="uk-table-shrink">{{page.name}}</td>
                     <td>{{page.slug}}</td>
                     <td>{{page.position}}</td>
-                    <td><a :href="`/dashboard/page/${page.id}/edit`" class="uk-button uk-button-small uk-button-primary">ویرایش</a>
+                    <td><a :href="`/dashboard/page/${page.slug}/edit`" class="uk-button uk-button-small uk-button-primary">ویرایش</a>
                     </td>
                 </tr>
                 </tbody>

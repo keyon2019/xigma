@@ -15,7 +15,7 @@
                     <div class="uk-container uk-background-primary uk-position-relative">
                         <div class="slider-box uk-position-absolute uk-padding uk-width-large uk-position-relative"
                              :class="[{'fade' : pulse}, currentSlider.left ? 'left' : 'right']"
-                             style="top:150px;">
+                             style="top:8.8rem;">
                             <div class="animating-line leading"></div>
                             <div class="animating-line trailing"></div>
                             <div class="slider-content-bottom-line"></div>

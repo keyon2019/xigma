@@ -86,12 +86,12 @@
         }
 
         .slider-box.right {
-            right: 40px;
+            right: 3.8rem;
         }
 
         .slider-box.left {
             right: 100%;
-            transform: translateX(calc(100% + 40px));
+            transform: translateX(calc(100% + 3.8rem));
         }
 
         .services-container {
