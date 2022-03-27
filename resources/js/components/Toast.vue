@@ -25,7 +25,8 @@
             });
             if (this.message) {
                 this.payload = JSON.parse(this.message);
-                this.showMessage(5000);
+                UIkit.notification({message: this.payload.message, status: this.payload.type, pos: 'bottom-right'});
+                // this.showMessage(5000);
             }
         },
         methods: {

@@ -22,11 +22,11 @@
                     <div v-for="category in scopeData.records">
                         <div @click="selected(category)"
                              class="uk-card uk-card-default uk-card-small uk-border-rounded uk-box-shadow-medium clickable uk-position-relative uk-visible-toggle">
-                            <div uk-tooltip="حذف دسته‌بندی" @click.stop="deleteCategory(category)"
+                            <div v-if="!chooseList" uk-tooltip="حذف دسته‌بندی" @click.stop="deleteCategory(category)"
                                  uk-close
                                  class="uk-text-danger uk-position-absolute uk-position-top-left uk-margin-small-top uk-margin-small-left uk-hidden-hover"></div>
                             <div class="uk-card-media-top">
-                                <img :src="category.splash">
+                                <img :src="category.splash ? category.splash : '/uploads/xigma_logo.png'">
                             </div>
                             <div class="uk-card-body">
                                 <p v-text="category.name"></p>
