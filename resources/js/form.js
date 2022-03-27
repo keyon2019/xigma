@@ -52,7 +52,7 @@ class Form {
     asFormData(method = null) {
         let formData = new FormData();
         _.forEach(this, (field, key) => {
-            if (field.value != null && field.value !== '') {
+            if ((field.value != null && field.value !== '') || field.nullable) {
                 if (field.rules.includes('file') && !(field.value instanceof Blob)) {
                     return;
                 }

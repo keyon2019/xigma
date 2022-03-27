@@ -24,8 +24,8 @@
                     <div class="uk-width-1-1">
                         <label class="uk-form-label">دسته‌بندی مادر</label>
                         <select v-model="form.parent_id.value" class="uk-select">
-                            <option :value="null">بدون دسته مادر</option>
-                            <option v-if="category.id !== c.id" v-for="c in categories" :value="c.id" v-text="c.name"></option>
+                            <option value="">بدون دسته مادر</option>
+                            <option v-for="c in selectableCategories" :value="c.id" v-text="c.name"></option>
                         </select>
                     </div>
                     <div class="uk-width-1-3">
@@ -71,8 +71,9 @@
                         rules: 'file'
                     },
                     parent_id: {
-                        value: null,
-                        rules: 'numeric'
+                        value: '',
+                        rules: 'numeric',
+                        nullable: true
                     }
                 }),
             }
@@ -93,6 +94,13 @@
                     this.$emit('submit', this.form);
                 }
             },
+        },
+        computed: {
+            selectableCategories() {
+                if(!this.category)
+                    return this.categories;
+                return this.categories.filter(c => c.id !== this.category.id);
+            }
         }
     }
 </script>

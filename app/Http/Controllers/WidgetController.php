@@ -45,6 +45,19 @@ class WidgetController extends Controller
         return redirect("/dashboard/widget/$widget->id/edit");
     }
 
+    public function update(Widget $widget, Request $request)
+    {
+        $data = $request->validate([
+            'type' => 'required|numeric',
+            'category' => 'required|numeric',
+            'order' => 'required|numeric'
+        ]);
+
+        $widget->update($data);
+
+        return back();
+    }
+
     public function edit(Widget $widget)
     {
         return view('dashboard.widget.edit', compact('widget'))->with(['categories' => Category::all()]);

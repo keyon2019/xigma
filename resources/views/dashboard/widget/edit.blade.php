@@ -3,7 +3,7 @@
 @section('title', "ویرایش ویجت $widget->name")
 
 @section('content')
-    <form method="post" action="/dashboard/widget">
+    <form method="post" action="/dashboard/widget/{{$widget->id}}">
         <fieldset class="uk-fieldset uk-width-1-2">
             @include('dashboard.widget.form', [
             'widget' => $widget,

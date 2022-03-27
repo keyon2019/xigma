@@ -93,7 +93,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('product', ProductController::class)->except(['show', 'destroy']);
     Route::resource('option', OptionController::class)->except(['show', 'destroy']);
     Route::resource('value', ValueController::class)->only(['store', 'update', 'destroy']);
-    Route::resource('category', CategoryController::class)->except(['show', 'destroy']);
+    Route::resource('category', CategoryController::class)->except(['show']);
     Route::resource('widget', WidgetController::class)->except(['show', 'index']);
     Route::resource('vehicle', VehicleController::class)->except(['show', 'destroy']);
     Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);

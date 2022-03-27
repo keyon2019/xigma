@@ -8,6 +8,7 @@ use App\Image;
 use App\Models\Category;
 use App\Models\Option;
 use App\Models\Product;
+use App\Models\Widget;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -46,7 +47,7 @@ class CategoryController extends Controller
             'description' => 'string',
             'splash' => 'file',
             'wide_splash' => 'file',
-            'parent_id' => 'numeric|exists:categories,id'
+            'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : ''
         ]);
 
         if ($request->hasFile('splash')) {
@@ -73,8 +74,9 @@ class CategoryController extends Controller
             'description' => 'string',
             'splash' => 'file',
             'wide_splash' => 'file',
-            'parent_id' => 'numeric|exists:categories,id'
+            'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : ''
         ]);
+
         if ($request->hasFile('splash')) {
             $validated['splash'] = $category->splash->update($request->file('splash'));
         }
@@ -86,5 +88,14 @@ class CategoryController extends Controller
         $category->update($validated);
 
         return response([]);
+    }
+
+    public function destroy(Category $category)
+    {
+        $category->splash->delete();
+        $category->wide_splash->delete();
+        Widget::whereCategory($category->id)->delete();
+        $category->delete();
+        return response([], 200);
     }
 }

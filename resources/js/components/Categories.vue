@@ -1,5 +1,5 @@
 <template>
-    <paginated-view :fetch-url="fetchUrl">
+    <paginated-view :fetch-url="fetchUrl" ref="pv">
         <template v-slot:filters>
             <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
                 <div class="uk-margin-remove">جستجو</div>
@@ -21,7 +21,10 @@
                 <div class="uk-grid uk-grid-small uk-child-width-1-6 uk-margin" data-uk-grid>
                     <div v-for="category in scopeData.records">
                         <div @click="selected(category)"
-                             class="uk-card uk-card-default uk-card-small uk-border-rounded uk-box-shadow-medium clickable">
+                             class="uk-card uk-card-default uk-card-small uk-border-rounded uk-box-shadow-medium clickable uk-position-relative uk-visible-toggle">
+                            <div uk-tooltip="حذف دسته‌بندی" @click.stop="deleteCategory(category)"
+                                 uk-close
+                                 class="uk-text-danger uk-position-absolute uk-position-top-left uk-margin-small-top uk-margin-small-left uk-hidden-hover"></div>
                             <div class="uk-card-media-top">
                                 <img :src="category.splash">
                             </div>
@@ -60,7 +63,17 @@
                     this.$emit('chosen', category);
                     return
                 }
-                window.location.replace(`/dashboard/category/${category.id}/edit`);
+                window.location.href = `/dashboard/category/${category.id}/edit`;
+            },
+            deleteCategory(category) {
+                if (confirm("آیا از حذف دسته‌بندی اطمینان دارید؟")) {
+                    Loading.show();
+                    axios.post(`/dashboard/category/${category.id}`, {_method: 'delete'}).then(() => {
+                        this.$refs.pv.destroy(category.id);
+                        Toast.message("دسته‌بندی با موفقیت حذف شد").success().show();
+                    }).catch((e) => Toast.message(e.resposne.data.message).danger().show())
+                        .then(() => Loading.hide());
+                }
             }
         }
     }
