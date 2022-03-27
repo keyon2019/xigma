@@ -11,6 +11,8 @@
         </front-product>
     </div>
     <div class="uk-section-muted uk-margin-top">
-        @include('website.partials._specialSaleSlideshow', ['items' => $topProducts->discounted()])
+        @if($topProducts->discounted()->count() > 0)
+            @include('website.partials._specialSaleSlideshow', ['items' => $topProducts->discounted()])
+        @endif
     </div>
 @endsection
