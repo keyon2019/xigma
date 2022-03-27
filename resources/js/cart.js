@@ -9,7 +9,7 @@ class Cart {
     }
 
     add(variation_id, quantity = 1) {
-        if (this.vehicleVariations.length > 0) {
+        if (this.vehicleVariations && this.vehicleVariations.length > 0) {
             if (!this.vehicleVariations.includes(variation_id)) {
                 UIkit.modal.confirm("محصول انتخابی شما متعلق به هیچ یک از وسایل نقلیه انتخابی شما نیست، آیا از انتخاب خود مطمئنید؟", {
                     labels: {
@@ -17,19 +17,13 @@ class Cart {
                         'cancel': 'خیر'
                     }
                 }).then(() => {
-                    axios.post('/cart', {variation_id: variation_id, quantity: quantity}).then((response) => {
-                        let item = response.data.item;
-                        let index = _.findIndex(this.items, i => i.id === item.id);
-                        if (index > -1) {
-                            this.items.splice(index, 1)
-                        }
-                        this.items.unshift(item);
-                        Toast.message("محصول با موفقیت به سبد خرید اضافه شد").success().show();
-                    }).catch((e) => {
-                        Toast.message(e.response.data.message).danger().show();
-                    });
+                    this.addMethod(variation_id, quantity);
                 });
+            } else {
+                this.addMethod(variation_id, quantity);
             }
+        } else {
+            this.addMethod(variation_id, quantity);
         }
     }
 
@@ -61,6 +55,20 @@ class Cart {
         return _.sumBy(this.items, (item) => {
             return item.discount;
         })
+    }
+
+    addMethod(variation_id, quantity) {
+        axios.post('/cart', {variation_id: variation_id, quantity: quantity}).then((response) => {
+            let item = response.data.item;
+            let index = _.findIndex(this.items, i => i.id === item.id);
+            if (index > -1) {
+                this.items.splice(index, 1)
+            }
+            this.items.unshift(item);
+            Toast.message("محصول با موفقیت به سبد خرید اضافه شد").success().show();
+        }).catch((e) => {
+            Toast.message(e.response.data.message).danger().show();
+        });
     }
 }
 
