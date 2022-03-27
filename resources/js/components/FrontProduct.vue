@@ -15,8 +15,8 @@
                                  class="uk-position-relative uk-visible-toggle uk-light uk-margin-small-top uk-margin-bottom"
                                  tabindex="-1" uk-slider>
                                 <ul class="uk-slider-items uk-child-width-1-4 uk-grid uk-grid-small">
-                                    <li v-for="picture in product.pictures">
-                                        <a class="uk-link-reset">
+                                    <li v-for="(picture,index) in product.pictures">
+                                        <a class="uk-link-reset" @click="showSlideshow(index)">
                                             <img class="uk-width-expand uk-border-rounded bordered" :src="picture.url"
                                                  :alt="product.name">
                                         </a>
@@ -186,7 +186,8 @@
                                     <span>از ۵</span>
                                 </div>
                                 <p class="uk-text-center">نظر خود را به اشتراک بگذارید</p>
-                                <button class="uk-button uk-button-primary uk-width-expand uk-border-rounded" @click="commentModal.show()">ثبت دیدگاه
+                                <button class="uk-button uk-button-primary uk-width-expand uk-border-rounded"
+                                        @click="commentModal.show()">ثبت دیدگاه
                                 </button>
                             </div>
                             <div class="uk-width-expand@m">
@@ -213,8 +214,11 @@
                 </div>
             </div>
         </div>
-        <modal class="uk-modal-container" name="comment">
+        <modal class="uk-modal-container" :transparent-dialog="true" name="comment">
             <form-comment @submit="commentModal.hide()" :product="product"></form-comment>
+        </modal>
+        <modal name="slideshowmodal" class="" :transparent-dialog="true">
+            <slideshow :images="productPictures" :index="selectedImageIndex"></slideshow>
         </modal>
     </div>
 </template>
@@ -227,7 +231,9 @@
                 selectedVariation: null,
                 quantity: 1,
                 retailers: [],
-                commentModal: new Modal('comment')
+                commentModal: new Modal('comment'),
+                slideShowModal: new Modal('slideshowmodal'),
+                selectedImageIndex: 0
             }
         },
         methods: {
@@ -243,10 +249,19 @@
                 }).catch((e) => {
                     Toast.message(e.response.data.message).danger().show();
                 });
+            },
+            showSlideshow(index) {
+                this.selectedImageIndex = index;
+                this.slideShowModal.show();
             }
         },
         beforeMount() {
             this.selectedVariation = _.first(this.product.variations);
+        },
+        computed: {
+            productPictures() {
+                return _.map(this.product.pictures, 'url');
+            }
         },
         watch: {
             selectedVariation() {

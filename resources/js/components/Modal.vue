@@ -1,6 +1,6 @@
 <template>
     <div ref="modal" class="uk-modal uk-flex-top">
-        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded uk-background-muted">
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded uk-background-muted" :style="transparentDialog ? 'background: none !important' : ''">
             <slot></slot>
         </div>
     </div>
@@ -8,7 +8,7 @@
 
 <script>
     export default {
-        props: ['name'],
+        props: ['name', 'transparent-dialog'],
         mounted() {
             this.$on('escalate-selected', picture => {
                 this.$emit('selected', picture);
