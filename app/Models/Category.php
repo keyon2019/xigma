@@ -18,10 +18,12 @@ class Category extends Model
         return $query->whereNull('parent_id');
     }
 
+    protected $with = ['subCategories'];
+
     public function withSubCategoryProducts()
     {
         return Product::whereHas('categories', function ($q) {
-            $q->whereIn('id', $this->load('subCategories')->pluck('id')->toArray());
+            return $q->whereIn('id', Category::getAllSubCategoriesIds($this));
         });
     }
 
@@ -52,5 +54,17 @@ class Category extends Model
                 return $query->whereId($this->id);
             });
         });
+    }
+
+    public static function getAllSubCategoriesIds($category)
+    {
+        $ids = collect([$category->id]);
+        if ($category->subCategories) {
+            $ids = $ids->concat($category->subCategories->pluck('id'));
+            foreach ($category->subCategories as $cat) {
+                $ids = $ids->concat(Category::getAllSubCategoriesIds($cat));
+            }
+        }
+        return $ids->unique()->toArray();
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Category;
 use App\Models\Item;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -30,7 +31,7 @@ class TopProducts
             if ($category) {
                 $items->whereHas('variation.product', function ($q) use ($category) {
                     return $q->whereHas('categories', function ($q) use ($category) {
-                        return $q->whereIn('id', $category->load('subCategories')->pluck('id')->toArray());
+                        return $q->whereIn('id', Category::getAllSubCategoriesIds($category));
                     });
                 });
             }

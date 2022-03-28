@@ -1,80 +1,80 @@
-<div data-uk-sticky="top: 600;animation: uk-animation-slide-top;" class="sticky-nav uk-box-shadow-small uk-visible@m">
-    <div class="uk-background-default">
-        <div class="uk-container">
-            <div class="uk-grid uk-grid-small uk-flex uk-flex-stretch">
-                <div class="uk-width-3-4@m uk-flex uk-flex-middle">
-                    <span style="margin-left: 1px"
-                          class="uk-flex uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable"
-                          onclick="window.location.replace('/cart')"
-                          data-uk-icon="icon:cart;ratio:1.5"></span>
-                    <span class="uk-flex uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable"
-                          onclick="window.location.replace('/profile')"
-                          data-uk-icon="icon:user;ratio:1.5"></span>
-                    <search class="uk-margin-left uk-width-expand"></search>
-                </div>
-                <div class="uk-width-1-4">
-                    <div class="uk-background-primary">
-                        <img class="uk-width-expand uk-padding uk-padding-remove-vertical"
-                             src="/uploads/xigma-typography.png">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="uk-background-muted">
-        <div class="uk-container">
-            <div class="arman-sticky-nav">
-                <div class="uk-grid uk-flex uk-flex-middle">
-                    <div class="uk-width-3-4@m">
-                        <ul class="uk-navbar-nav">
-                            <li>
-                                <a class="uk-text-secondary">دسته‌بندی کالاها <span uk-icon="chevron-down"></span></a>
-                                <div style="border-top: 1px solid #ecebeb;"
-                                     uk-drop="pos:bottom-justify;boundary: .arman-sticky-nav;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"
-                                     class="uk-background-default uk-box-shadow-medium uk-padding-small">
-                                    <div class="uk-grid uk-grid-small">
-                                        <div>
-                                            <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
-                                                @foreach($categories as $index => $category)
-                                                    <li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <div class="uk-width-expand">
-                                            <ul class="uk-switcher uk-margin" id="cat-tabs">
-                                                @foreach($categories as $category)
-                                                    <li class="uk-column-1-5">
-                                                        @foreach($category->subCategories as $sCategory)
-                                                            <a href="/category/{{$category->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
-                                                            <ul class="uk-list uk-margin-small">
-                                                                @foreach($sCategory->subCategories as $ssCategory)
-                                                                    <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$category->id}}">{{$ssCategory->name}}</a></li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endforeach
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            @foreach($pages as $page)
-                                <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    <div class="uk-width-1-4">
-                        <div class="uk-background-muted uk-padding-small uk-text-center">
-                            <span class="uk-margin-right uk-text-muted"> XIGMA BOX </span>
-                            <span class="uk-text-muted" data-uk-icon="icon:menu;ratio:1.5"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{--<div data-uk-sticky="top: 600;animation: uk-animation-slide-top;" class="sticky-nav uk-box-shadow-small uk-visible@m">--}}
+    {{--<div class="uk-background-default">--}}
+        {{--<div class="uk-container">--}}
+            {{--<div class="uk-grid uk-grid-small uk-flex uk-flex-stretch">--}}
+                {{--<div class="uk-width-3-4@m uk-flex uk-flex-middle">--}}
+                    {{--<span style="margin-left: 1px"--}}
+                          {{--class="uk-flex uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable"--}}
+                          {{--onclick="window.location.replace('/cart')"--}}
+                          {{--data-uk-icon="icon:cart;ratio:1.5"></span>--}}
+                    {{--<span class="uk-flex uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable"--}}
+                          {{--onclick="window.location.replace('/profile')"--}}
+                          {{--data-uk-icon="icon:user;ratio:1.5"></span>--}}
+                    {{--<search class="uk-margin-left uk-width-expand"></search>--}}
+                {{--</div>--}}
+                {{--<div class="uk-width-1-4">--}}
+                    {{--<div class="uk-background-primary">--}}
+                        {{--<img class="uk-width-expand uk-padding uk-padding-remove-vertical"--}}
+                             {{--src="/uploads/xigma-typography.png">--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="uk-background-muted">--}}
+        {{--<div class="uk-container">--}}
+            {{--<div class="arman-sticky-nav">--}}
+                {{--<div class="uk-grid uk-flex uk-flex-middle">--}}
+                    {{--<div class="uk-width-3-4@m">--}}
+                        {{--<ul class="uk-navbar-nav">--}}
+                            {{--<li>--}}
+                                {{--<a class="uk-text-secondary">دسته‌بندی کالاها <span uk-icon="chevron-down"></span></a>--}}
+                                {{--<div style="border-top: 1px solid #ecebeb;"--}}
+                                     {{--uk-drop="pos:bottom-justify;boundary: .arman-sticky-nav;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"--}}
+                                     {{--class="uk-background-default uk-text-small uk-box-shadow-medium uk-padding-small">--}}
+                                    {{--<div class="uk-grid uk-grid-small uk-grid-match">--}}
+                                        {{--<div>--}}
+                                            {{--<ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">--}}
+                                                {{--@foreach($categories as $index => $category)--}}
+                                                    {{--<li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>--}}
+                                                {{--@endforeach--}}
+                                            {{--</ul>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="uk-width-expand">--}}
+                                            {{--<ul class="uk-switcher uk-margin" id="cat-tabs">--}}
+                                                {{--@foreach($categories as $category)--}}
+                                                    {{--<li class="uk-column-1-5">--}}
+                                                        {{--@foreach($category->subCategories as $sCategory)--}}
+                                                            {{--<a href="/category/{{$category->id}}" class=" uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>--}}
+                                                            {{--<ul class="uk-list uk-margin-small">--}}
+                                                                {{--@foreach($sCategory->subCategories as $ssCategory)--}}
+                                                                    {{--<li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$category->id}}">{{$ssCategory->name}}</a></li>--}}
+                                                                {{--@endforeach--}}
+                                                            {{--</ul>--}}
+                                                        {{--@endforeach--}}
+                                                    {{--</li>--}}
+                                                {{--@endforeach--}}
+                                            {{--</ul>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</li>--}}
+                            {{--@foreach($pages as $page)--}}
+                                {{--<li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>--}}
+                            {{--@endforeach--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                    {{--<div class="uk-width-1-4">--}}
+                        {{--<div class="uk-background-muted uk-padding-small uk-text-center">--}}
+                            {{--<span class="uk-margin-right uk-text-muted"> XIGMA BOX </span>--}}
+                            {{--<span class="uk-text-muted" data-uk-icon="icon:menu;ratio:1.5"></span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</div>--}}
 
 <header class="@if($isHome ?? false) home-nav uk-position-absolute uk-position-top-center @endif">
     <div class="uk-hidden@m uk-background-primary">
@@ -151,8 +151,8 @@
                                     <a class="uk-text-secondary">دسته‌بندی کالاها <span uk-icon="chevron-down"></span></a>
                                     <div style="border-top: 1px solid #ecebeb;"
                                          uk-drop="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"
-                                         class="uk-background-default uk-box-shadow-medium uk-padding-small">
-                                        <div class="uk-grid uk-grid-small">
+                                         class="uk-background-default uk-box-shadow-medium uk-padding-small uk-text-small">
+                                        <div class="uk-grid uk-grid-small uk-grid-match">
                                             <div>
                                                 <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
                                                     @foreach($categories as $index => $category)
@@ -165,10 +165,10 @@
                                                     @foreach($categories as $category)
                                                         <li class="uk-column-1-5">
                                                             @foreach($category->subCategories as $sCategory)
-                                                                <a href="/category/{{$category->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
+                                                                <a href="/category/{{$sCategory->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
                                                                 <ul class="uk-list uk-margin-small">
                                                                     @foreach($sCategory->subCategories as $ssCategory)
-                                                                        <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$category->id}}">{{$ssCategory->name}}</a></li>
+                                                                        <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a></li>
                                                                     @endforeach
                                                                 </ul>
                                                             @endforeach
