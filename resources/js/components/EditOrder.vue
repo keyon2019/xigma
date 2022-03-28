@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="uk-button uk-button-primary uk-border-rounded">ویرایش</button>
+                        <button class="uk-button uk-button-primary uk-border-rounded" @click="updateOrder">ویرایش</button>
                     </div>
                 </div>
             </div>
@@ -76,7 +76,8 @@
                 <div class="uk-background-secondary uk-light uk-border-rounded uk-padding-small uk-box-shadow-small">
                     <p class="uk-margin-small">{{shipping.stock != null ? shipping.stock.name : 'کارخانه'}}</p>
                     <hr class="uk-margin-small uk-margin-remove-top"/>
-                    <p class="uk-margin-small">نحوه ارسال: <span class="uk-text-bold" v-text="getShippingMethodName(shipping.method)"></span></p>
+                    <p class="uk-margin-small">نحوه ارسال: <span class="uk-text-bold"
+                                                                 v-text="getShippingMethodName(shipping.method)"></span></p>
                     <p>هزینه ارسال: <span class="uk-text-bold" v-text="shipping.cost"></span></p>
                     <p>وضعیت: <span class="uk-text-bold" v-text="shipping.sailed_at ? 'ارسال شده' : 'در انتظار'"></span></p>
                 </div>
@@ -161,6 +162,19 @@
                     default:
                         return ''
                 }
+            },
+            updateOrder() {
+                Loading.show();
+                axios.post(`/dashboard/order/${this.order.id}`, {
+                    _method: "patch",
+                    status: this.order.status,
+                    paid: this.order.paid
+                }).then(() => {
+
+                    Toast.message("سفارش با موفقیت به روزرسانی شد").success().show();
+                })
+                    .catch((e) => Toast.message(e.response.data.message).danger().show())
+                    .then(() => Loading.hide());
             }
         },
     }

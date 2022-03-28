@@ -107,4 +107,11 @@ class OrderController extends Controller
             ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product']))
             ->with('orderStatuses', json_encode(Order::STATUSES));
     }
+
+    public function update(Order $order, Request $request)
+    {
+        $data = $request->validate(['paid' => 'boolean', 'status' => 'numeric']);
+        $order->update($data);
+        return response([], 200);
+    }
 }

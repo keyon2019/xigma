@@ -1,4 +1,4 @@
-<div data-uk-sticky="top: 500;animation: uk-animation-slide-top" class="sticky-nav uk-box-shadow-small uk-visible@m">
+<div data-uk-sticky="top: 600;animation: uk-animation-slide-top;" class="sticky-nav uk-box-shadow-small uk-visible@m">
     <div class="uk-background-default">
         <div class="uk-container">
             <div class="uk-grid uk-grid-small uk-flex uk-flex-stretch">
@@ -27,29 +27,38 @@
                 <div class="uk-grid uk-flex uk-flex-middle">
                     <div class="uk-width-3-4@m">
                         <ul class="uk-navbar-nav">
-                            @foreach($categories as $category)
-                                <li>
-                                    <a class="uk-text-secondary">{{$category->name}} <span uk-icon="chevron-down"></span></a>
-                                    <div style="border-top: 1px solid #ecebeb;"
-                                         uk-drop="pos:bottom-justify;boundary: .arman-sticky-nav;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"
-                                         class="uk-background-default uk-box-shadow-medium uk-padding">
-                                        <div class="uk-grid uk-child-width-expand">
-                                            @foreach($category->subCategories as $sCategory)
-                                                <div>
-                                                    <p class="uk-text-bold">{{strtoupper($sCategory->name)}}</p>
-                                                    <ul class="uk-list uk-list-primary uk-list-disc uk-text-small">
-                                                        @foreach($sCategory->subCategories as $ssCategory)
-                                                            <li><a class="uk-button uk-button-text"
-                                                                   href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a>
-                                                            </li>
+                            <li>
+                                <a class="uk-text-secondary">دسته‌بندی کالاها <span uk-icon="chevron-down"></span></a>
+                                <div style="border-top: 1px solid #ecebeb;"
+                                     uk-drop="pos:bottom-justify;boundary: .arman-sticky-nav;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"
+                                     class="uk-background-default uk-box-shadow-medium uk-padding-small">
+                                    <div class="uk-grid uk-grid-small">
+                                        <div>
+                                            <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
+                                                @foreach($categories as $index => $category)
+                                                    <li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="uk-width-expand">
+                                            <ul class="uk-switcher uk-margin" id="cat-tabs">
+                                                @foreach($categories as $category)
+                                                    <li class="uk-column-1-5">
+                                                        @foreach($category->subCategories as $sCategory)
+                                                            <a href="/category/{{$category->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
+                                                            <ul class="uk-list uk-margin-small">
+                                                                @foreach($sCategory->subCategories as $ssCategory)
+                                                                    <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$category->id}}">{{$ssCategory->name}}</a></li>
+                                                                @endforeach
+                                                            </ul>
                                                         @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endforeach
+                                                    </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
-                                </li>
-                            @endforeach
+                                </div>
+                            </li>
                             @foreach($pages as $page)
                                 <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
                             @endforeach
@@ -118,10 +127,10 @@
                                 </div>
                                 <search class="padding-small@m uk-width-expand"></search>
                                 {{--<div class="uk-width-expand padding-small@m">--}}
-                                    {{--<div class="uk-inline uk-width-expand">--}}
-                                        {{--<span class="uk-form-icon" data-uk-icon="search"></span>--}}
-                                        {{--<input class="uk-input uk-border-rounded uk-text-muted">--}}
-                                    {{--</div>--}}
+                                {{--<div class="uk-inline uk-width-expand">--}}
+                                {{--<span class="uk-form-icon" data-uk-icon="search"></span>--}}
+                                {{--<input class="uk-input uk-border-rounded uk-text-muted">--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
                             </div>
                         </div>
@@ -135,32 +144,41 @@
                             </a>
                         </div>
                     </div>
-                    <div class="uk-width-3-4@m uk-text-small uk-flex uk-flex-row uk-flex-middle uk-visible@m">
+                    <div class="uk-width-3-4@m uk-flex uk-flex-row uk-flex-middle uk-visible@m">
                         <div class="uk-padding-small uk-padding-remove-vertical">
                             <ul class="uk-navbar-nav">
-                                @foreach($categories as $category)
-                                    <li>
-                                        <a class="uk-text-secondary">{{$category->name}} <span uk-icon="chevron-down"></span></a>
-                                        <div style="border-top: 1px solid #ecebeb;"
-                                             uk-drop="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"
-                                             class="uk-background-default uk-box-shadow-medium uk-padding">
-                                            <div class="uk-grid uk-child-width-expand">
-                                                @foreach($category->subCategories as $sCategory)
-                                                    <div>
-                                                        <p class="uk-text-bold">{{strtoupper($sCategory->name)}}</p>
-                                                        <ul class="uk-list uk-list-primary uk-list-disc uk-text-small">
-                                                            @foreach($sCategory->subCategories as $ssCategory)
-                                                                <li><a class="uk-button uk-button-text"
-                                                                       href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a>
-                                                                </li>
+                                <li>
+                                    <a class="uk-text-secondary">دسته‌بندی کالاها <span uk-icon="chevron-down"></span></a>
+                                    <div style="border-top: 1px solid #ecebeb;"
+                                         uk-drop="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300"
+                                         class="uk-background-default uk-box-shadow-medium uk-padding-small">
+                                        <div class="uk-grid uk-grid-small">
+                                            <div>
+                                                <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
+                                                    @foreach($categories as $index => $category)
+                                                        <li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <ul class="uk-switcher uk-margin" id="cat-tabs">
+                                                    @foreach($categories as $category)
+                                                        <li class="uk-column-1-5">
+                                                            @foreach($category->subCategories as $sCategory)
+                                                                <a href="/category/{{$category->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
+                                                                <ul class="uk-list uk-margin-small">
+                                                                    @foreach($sCategory->subCategories as $ssCategory)
+                                                                        <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$category->id}}">{{$ssCategory->name}}</a></li>
+                                                                    @endforeach
+                                                                </ul>
                                                             @endforeach
-                                                        </ul>
-                                                    </div>
-                                                @endforeach
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
                                             </div>
                                         </div>
-                                    </li>
-                                @endforeach
+                                    </div>
+                                </li>
                                 @foreach($pages as $page)
                                     <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
                                 @endforeach

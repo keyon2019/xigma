@@ -108,6 +108,7 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/discount', [DiscountController::class, 'store']);
     Route::get('order', [OrderController::class, 'all']);
     Route::get('order/{order}/edit', [OrderController::class, 'edit']);
+    Route::patch('order/{order}', [OrderController::class, 'update']);
 
     Route::post('/product/{product}/option', [ProductOptionsController::class, 'store']);
     Route::delete('/product/{product}/option', [ProductOptionsController::class, 'destroy']);

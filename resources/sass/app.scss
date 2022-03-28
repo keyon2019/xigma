@@ -92,7 +92,9 @@ $dotnav-item-width: 15px;
 $dotnav-item-background: white;
 $dotnav-item-active-background: $global-danger-background;
 $dotnav-item-hover-background: $global-danger-background;
-  $global-muted-background: #f3f3f3;
+$global-muted-background: #f3f3f3;
+$tab-border-width: 3px;
+$tab-item-border-width: 3px;
 
 @import "~uikit/src/scss/variables-theme";
 @import "~uikit/src/scss/mixins-theme";
@@ -468,4 +470,6 @@ table.full-bordered th, table.full-bordered td {
   display: none;
 }
 
-[v-cloak]::before {content: "Loading..."}
+[v-cloak]::before {
+  content: "Loading..."
+}

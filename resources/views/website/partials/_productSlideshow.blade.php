@@ -2,8 +2,8 @@
     <div class="uk-container">
         <div class="uk-grid uk-flex uk-flex-middle uk-margin-bottom">
             <div class="uk-width-expand"><h2 class="uk-text-large uk-text-center uk-text-left@s">{{$title}}</h2></div>
-            <div class="uk-width-auto uk-visible@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span
-                            data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>
+            {{--<div class="uk-width-auto uk-visible@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span--}}
+                            {{--data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>--}}
         </div>
         <div data-uk-slider dir="ltr">
             <div class="uk-position-relative uk-visible-toggle">
@@ -45,7 +45,7 @@
                    {{--uk-slider-item="previous"></a>--}}
             </div>
         </div>
-        <div class="uk-width-expand uk-hidden@s uk-text-center uk-text-left@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span
-                        data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>
+        {{--<div class="uk-width-expand uk-hidden@s uk-text-center uk-text-left@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span--}}
+                        {{--data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>--}}
     </div>
 </div>

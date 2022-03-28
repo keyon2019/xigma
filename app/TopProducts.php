@@ -30,7 +30,7 @@ class TopProducts
             if ($category) {
                 $items->whereHas('variation.product', function ($q) use ($category) {
                     return $q->whereHas('categories', function ($q) use ($category) {
-                        return $q->whereId($category->id);
+                        return $q->whereIn('id', $category->load('subCategories')->pluck('id')->toArray());
                     });
                 });
             }
@@ -42,7 +42,7 @@ class TopProducts
     {
         if ($category)
             return Cache::remember("newest_{$category->name}_products", 7200, function () use ($category) {
-                return $category->products()->latest()->limit(8)->get();
+                return $category->withSubCategoryProducts()->latest()->limit(8)->get();
             });
         return Cache::remember('newest__products', 7200, function () {
             return Product::latest()->limit(8)->get();

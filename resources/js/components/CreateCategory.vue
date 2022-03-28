@@ -11,7 +11,9 @@
                 Loading.show();
                 axios.post('/dashboard/category', form.asFormData()).then((response) => {
                     Toast.message("دسته‌بندی جدید با موفقیت ثبت شد").success().show();
-                    window.location.replace(`/dashboard/category/${response.data.category.id}/edit`);
+                    setTimeout(() => {
+                        window.location.replace(`/dashboard/category/${response.data.category.id}/edit`);
+                    }, 2000);
                 }).catch((error) => {
                     Toast.message(error.response.data.message).danger().show();
                 }).then(() => {

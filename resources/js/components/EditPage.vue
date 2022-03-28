@@ -15,10 +15,10 @@
         methods: {
             submit(form) {
                 Loading.show();
-                axios.post(`/dashboard/page/${this.page.id}`, form.asFormData('patch')).then((response) => {
+                axios.post(`/dashboard/page/${this.page.slug}`, form.asFormData('patch')).then((response) => {
                     Toast.message("صفحه با موفقیت به روزرسانی شد").success().show();
                 }).catch((error) => {
-                    Toast.message(error.response.data.message);
+                    Toast.message(error.response.data.message).danger().show();
                 }).then(() => {
                     Loading.close();
                 })

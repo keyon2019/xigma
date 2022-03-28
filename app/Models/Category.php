@@ -18,6 +18,13 @@ class Category extends Model
         return $query->whereNull('parent_id');
     }
 
+    public function withSubCategoryProducts()
+    {
+        return Product::whereHas('categories', function ($q) {
+            $q->whereIn('id', $this->load('subCategories')->pluck('id')->toArray());
+        });
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class);

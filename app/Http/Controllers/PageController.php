@@ -64,4 +64,10 @@ class PageController extends Controller
 
         return response([]);
     }
+
+    public function destroy(Page $page)
+    {
+        $page->delete();
+        return response([], 200);
+    }
 }

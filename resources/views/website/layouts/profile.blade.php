@@ -77,7 +77,7 @@
                             <hr/>
                             <ul class="uk-list uk-list-large">
                                 <li>
-                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/logout">
                                         <span data-uk-icon="sign-out"></span>
                                         <span class="uk-margin-small-left uk-text-small">خروج</span>
                                     </a>

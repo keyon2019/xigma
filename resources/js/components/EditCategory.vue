@@ -18,7 +18,7 @@
                 axios.post(`/dashboard/category/${this.category.id}`, form.asFormData('patch')).then((response) => {
                     Toast.message("دسته‌بندی با موفقیت به روزرسانی شد").success().show();
                 }).catch((error) => {
-
+                    Toast.message(error.response.data.message).danger().show();
                 }).then(() => {
                     Loading.close();
                 })

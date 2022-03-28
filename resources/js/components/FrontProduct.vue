@@ -5,7 +5,7 @@
                 <div class="uk-width-3-4@m">
                     <ul class="uk-breadcrumb">
                         <li><a href="/">زیگما</a></li>
-                        <li><a href="#">قطعات موتور زیگما</a></li>
+                        <!--<li><a href="#">قطعات موتور زیگما</a></li>-->
                     </ul>
                     <div class="uk-grid uk-grid-collapse">
                         <div class="uk-width-2-5@m">
@@ -27,19 +27,19 @@
                         <div class="uk-width-3-5@m">
                             <div class="uk-padding uk-padding-remove-vertical">
                                 <div class="uk-clearfix">
-                                    <div class="uk-float-right">
-                                        <div class="uk-text-large uk-text-bold">{{selectedVariation.name}}</div>
+                                    <div class="uk-float-right" v-if="selectedVariation">
+                                        <div class="uk-text-bold">{{selectedVariation.name}}</div>
                                     </div>
                                     <div class="uk-float-left">
-                                        <div class="uk-text-large uk-text-bold">{{product.name}}</div>
+                                        <div class="uk-text-bold">{{product.name}}</div>
                                     </div>
                                 </div>
                                 <hr class="uk-margin-small"/>
-                                <div v-if="product.rating" class="uk-flex">
+                                <div class="uk-flex">
                                     <span data-uk-icon="star" class="star-filled"></span>
-                                    <span class="uk-margin-small-left uk-text-muted">{{parseFloat(product.rating).toFixed(1)}} ({{product.comments.length}})</span>
+                                    <span class="uk-margin-small-left uk-text-muted">{{product.rating ? parseFloat(product.rating).toFixed(1) : ''}} ({{product.comments.length}})</span>
                                     <span class="uk-text-muted uk-margin-small-left">•</span>
-                                    <span class="uk-margin-small-left"><a>{{product.comments.length}} نظر کاربران</a></span>
+                                    <span class="uk-margin-small-left"><a @click="showComments()">{{product.comments.length}} نظر کاربران</a></span>
                                 </div>
                                 <div v-if="selectedVariation && selectedVariation.values.length > 0"
                                      class="uk-grid uk-grid-small uk-margin-large-top uk-text-center uk-flex uk-flex-center uk-flex-middle uk-child-width-auto uk-grid-divider uk-text-small">
@@ -62,7 +62,8 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label">تعداد</label>
                                     <div class="uk-form-controls">
-                                        <incrementer :disabled="product.onesie" class="uk-border-rounded" style="border: 1px solid gainsboro"
+                                        <incrementer :disabled="product.onesie" class="uk-border-rounded"
+                                                     style="border: 1px solid gainsboro"
                                                      v-model="quantity"></incrementer>
                                         <!--<select class="uk-select uk-border-rounded uk-width-small@s" v-model="quantity">-->
                                         <!--<option :value="null" disabled>انتخاب کنید</option>-->
@@ -125,7 +126,11 @@
                         </div>
                         <hr class="uk-margin-small"/>
                         <p class="uk-text-muted">قیمت مصرف کننده</p>
-                        <p class="uk-text-large uk-text-center">{{selectedVariation.orderPrice.toLocaleString()}} تومان</p>
+                        <p class="uk-text-large uk-text-center" v-if="selectedVariation && selectedVariation.available">
+                            {{selectedVariation.orderPrice.toLocaleString()}} تومان</p>
+                        <p v-else class="uk-text-center">
+                            ناموجود
+                        </p>
                         <p v-if="product.onesie" class="uk-text-danger uk-margin-small-bottom"><span class="uk-margin-small-right"
                                                                                                      data-uk-icon="warning"></span><span>محدودیت خرید</span>
                         </p>
@@ -168,14 +173,19 @@
             </div>
         </div>
         <slot></slot>
-        <div class="uk-section-small uk-section-default">
+        <!--<div class="uk-section-small uk-section-default" ref="comments">-->
+        <div class="uk-background-default" ref="comments" style="position: sticky; bottom: 0;padding-top:20px;z-index:100;border-top: 1px solid gainsboro">
             <div class="uk-container">
-                <ul class="uk-tab uk-child-width-1-5@m uk-child-width-1-2"
+                <ul class="uk-tab uk-child-width-1-5@m uk-child-width-1-2" @click="$refs.comments.scrollIntoView({behavior: 'smooth'})" uk-tab="connect:#tog-table;animation:uk-animation-fade" ref="tab"
                     data-uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
                     <li><a class="text-small@m" href="#info">مشخصات قطعه</a></li>
                     <li><a class="text-small@m" href="#categories">امتیاز و دیدگاه کاربران</a></li>
                 </ul>
-                <div class="uk-switcher uk-margin">
+            </div>
+        </div>
+        <div class="uk-background-default uk-padding">
+            <div class="uk-container">
+                <div class="uk-switcher uk-margin" id="tog-table">
                     <div v-html="product.description" class="ck-content"></div>
                     <div>
                         <div class="uk-grid uk-grid-large" data-uk-grid>
@@ -214,6 +224,7 @@
                 </div>
             </div>
         </div>
+        <!--</div>-->
         <modal class="uk-modal-container" :transparent-dialog="true" name="comment">
             <form-comment @submit="commentModal.hide()" :product="product"></form-comment>
         </modal>
@@ -241,7 +252,8 @@
                 Event.$emit('add-to-cart', this.selectedVariation.id, this.quantity);
             },
             variationPicture(variation) {
-                return _.find(this.product.pictures, ['id', variation.splash]).url;
+                const p = _.find(this.product.pictures, ['id', variation.splash]);
+                return p ? p.url : '';
             },
             getRetailers() {
                 axios.post(`/item/${this.selectedVariation.id}/retailer`).then((response) => {
@@ -253,6 +265,10 @@
             showSlideshow(index) {
                 this.selectedImageIndex = index;
                 this.slideShowModal.show();
+            },
+            showComments() {
+                this.$refs.comments.scrollIntoView({behavior: 'smooth'});
+                UIkit.tab(this.$refs.tab).show(1);
             }
         },
         beforeMount() {
@@ -264,8 +280,9 @@
             }
         },
         watch: {
-            selectedVariation() {
-                this.getRetailers();
+            selectedVariation(v) {
+                if (v)
+                    this.getRetailers();
             }
         }
     }
