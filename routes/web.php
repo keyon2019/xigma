@@ -95,7 +95,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('value', ValueController::class)->only(['store', 'update', 'destroy']);
     Route::resource('category', CategoryController::class)->except(['show']);
     Route::resource('widget', WidgetController::class)->except(['show', 'index']);
-    Route::resource('vehicle', VehicleController::class)->except(['show', 'destroy']);
+    Route::resource('vehicle', VehicleController::class)->except(['show']);
     Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);
     Route::resource('slider', SliderController::class);
     Route::resource('retailer', RetailerController::class)->except(['show', 'destroy']);

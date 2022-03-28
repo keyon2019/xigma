@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\VehicleFilters;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VehicleController extends Controller
 {
@@ -51,5 +52,12 @@ class VehicleController extends Controller
 
         $vehicle->update($validated);
         return response([]);
+    }
+
+    public function destroy(Vehicle $vehicle)
+    {
+        Storage::delete($vehicle->splash);
+        $vehicle->delete();
+        return back();
     }
 }
