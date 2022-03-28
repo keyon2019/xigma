@@ -9,9 +9,9 @@
                      style="border: 1px solid gainsboro">
                     <div class="uk-grid uk-padding-small uk-border-rounded">
                         <div class="uk-width-1-5@m">
-                            <div class="">
+                            <a class="" :href="`/product/${item.product.id}`">
                                 <img class="uk-margin-top" :src="item.splash">
-                            </div>
+                            </a>
                         </div>
                         <div class="uk-width-expand">
                             <h3 class="uk-title uk-margin-remove">{{item.productName}}</h3>
@@ -32,9 +32,9 @@
                                             <div class="uk-text-bold uk-text-default uk-text-emphasis uk-margin-right">
                                                 تعداد کالا
                                             </div>
-                                            <incrementer name="quantity" v-model="item.quantity"
+                                            <incrementer :disabled="item.product.onesie" name="quantity" v-model="item.quantity"
                                                          class="uk-background-default uk-border-rounded"
-                                                         style="border: 1px solid gainsboro;border-radius:10px;"></incrementer>
+                                                         style="border: 1px solid gainsboro;"></incrementer>
                                         </div>
                                         <div class="uk-width-2-5@m">
                                             <div v-if="item.discount > 0"

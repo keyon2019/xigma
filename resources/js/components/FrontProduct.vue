@@ -62,7 +62,7 @@
                                 <div class="uk-margin">
                                     <label class="uk-form-label">تعداد</label>
                                     <div class="uk-form-controls">
-                                        <incrementer class="uk-border-rounded" style="border: 1px solid gainsboro"
+                                        <incrementer :disabled="product.onesie" class="uk-border-rounded" style="border: 1px solid gainsboro"
                                                      v-model="quantity"></incrementer>
                                         <!--<select class="uk-select uk-border-rounded uk-width-small@s" v-model="quantity">-->
                                         <!--<option :value="null" disabled>انتخاب کنید</option>-->

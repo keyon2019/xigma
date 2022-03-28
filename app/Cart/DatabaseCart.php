@@ -5,10 +5,7 @@ namespace App\Cart;
 use App\Interfaces\CartInterface;
 use App\Models\Item;
 use App\Models\Variation;
-use http\Env\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class DatabaseCart extends CartInterface
 {

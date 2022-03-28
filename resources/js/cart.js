@@ -53,7 +53,7 @@ class Cart {
 
     totalDiscount() {
         return _.sumBy(this.items, (item) => {
-            return item.discount;
+            return item.discount * item.quantity;
         })
     }
 
