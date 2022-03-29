@@ -5,11 +5,22 @@
             <div class="uk-width-expand">
                 <div class="uk-grid uk-grid-small" data-uk-grid>
                     <div class="uk-width-1-1">
+                        <label><input class="uk-checkbox" v-model="form.show.value" type="checkbox" name="show"> نمایش محصول </label>
+                    </div>
+                    <div class="uk-width-1-1">
                         <form-input label="نام محصول" classes="uk-input"
                                     type="input"
                                     name="name"
                                     :errors="form.errors"
                                     v-model="form.name.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <form-input label="نام لاتین محصول" classes="uk-input"
+                                    type="input"
+                                    name="name"
+                                    :errors="form.errors"
+                                    v-model="form.en_name.value">
                         </form-input>
                     </div>
                     <div class="uk-width-1-1">
@@ -123,6 +134,14 @@
                     splash: {
                         value: null,
                         rules: 'numeric',
+                    },
+                    show: {
+                        value: null,
+                        rules: 'boolean'
+                    },
+                    en_name: {
+                        value: null,
+                        rules: 'string',
                     }
                 }),
             }

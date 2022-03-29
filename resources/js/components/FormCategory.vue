@@ -5,12 +5,18 @@
             <div class="uk-width-expand">
                 <div class="uk-grid uk-grid-small" data-uk-grid>
                     <div class="uk-width-1-1">
+                        <label><input class="uk-checkbox" v-model="form.show.value" type="checkbox" name="show"> نمایش دسته‌بندی </label>
+                    </div>
+                    <div class="uk-width-1-1">
                         <form-input label="نام دسته‌بندی" classes="uk-input"
                                     type="input"
                                     name="name"
                                     :errors="form.errors"
                                     v-model="form.name.value">
                         </form-input>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <input type="number" placeholder="ترتیب نمایش" class="uk-input" v-model="form.order.value">
                     </div>
                     <div class="uk-width-1-1">
                         <label class="uk-form-label">توضیحات</label>
@@ -74,6 +80,14 @@
                         value: '',
                         rules: 'numeric',
                         nullable: true
+                    },
+                    order: {
+                        value: null,
+                        rules: 'numeric'
+                    },
+                    show: {
+                        value: null,
+                        rules: 'boolean'
                     }
                 }),
             }
@@ -97,7 +111,7 @@
         },
         computed: {
             selectableCategories() {
-                if(!this.category)
+                if (!this.category)
                     return this.categories;
                 return this.categories.filter(c => c.id !== this.category.id);
             }

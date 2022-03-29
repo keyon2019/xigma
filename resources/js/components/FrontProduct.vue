@@ -27,8 +27,8 @@
                         <div class="uk-width-3-5@m">
                             <div class="uk-padding uk-padding-remove-vertical">
                                 <div class="uk-clearfix">
-                                    <div class="uk-float-right" v-if="selectedVariation">
-                                        <div class="uk-text-bold">{{selectedVariation.name}}</div>
+                                    <div class="uk-float-right">
+                                        <div class="uk-text-bold">{{product.en_name}}</div>
                                     </div>
                                     <div class="uk-float-left">
                                         <div class="uk-text-bold">{{product.name}}</div>

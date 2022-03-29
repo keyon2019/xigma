@@ -155,7 +155,7 @@
                                         <div class="uk-grid uk-grid-small uk-grid-match">
                                             <div>
                                                 <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
-                                                    @foreach($categories as $index => $category)
+                                                    @foreach($categories->sortBy('order') as $index => $category)
                                                         <li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
                                                     @endforeach
                                                 </ul>
@@ -164,10 +164,10 @@
                                                 <ul class="uk-switcher uk-margin" id="cat-tabs">
                                                     @foreach($categories as $category)
                                                         <li class="uk-column-1-5">
-                                                            @foreach($category->subCategories as $sCategory)
+                                                            @foreach($category->subCategories->sortBy('order') as $sCategory)
                                                                 <a href="/category/{{$sCategory->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
                                                                 <ul class="uk-list uk-margin-small">
-                                                                    @foreach($sCategory->subCategories as $ssCategory)
+                                                                    @foreach($sCategory->subCategories->sortBy('order') as $ssCategory)
                                                                         <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a></li>
                                                                     @endforeach
                                                                 </ul>
@@ -203,15 +203,15 @@
         <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
             <li><img uk-img width="100" style="filter: invert(100%)" src="/uploads/xigma-typography.png"></li>
             <li class="uk-nav-divider uk-margin-small-top"></li>
-            @foreach($categories as $category)
+            @foreach($categories->sortBy('order') as $category)
                 <li class="uk-parent">
                     <a>{{$category->name}}</a>
                     <ul class="uk-nav-sub">
-                        @foreach($category->subCategories as $sCategory)
+                        @foreach($category->subCategories->sortBy('order') as $sCategory)
                             <li class="uk-parent">
                                 <a>{{$sCategory->name}}</a>
                                 <ul class="uk-list-hyphen">
-                                    @foreach($sCategory->subCategories as $ssCategory)
+                                    @foreach($sCategory->subCategories->sortBy('order') as $ssCategory)
                                         <li>
                                             <a href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a>
                                         </li>

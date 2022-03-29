@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\ProductFilters;
 use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
+use App\Scopes\VisibleProductsScope;
 use App\TopProducts;
 use Illuminate\Http\Request;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
     public function index(ProductFilters $filters, Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Product::without('variations')->filter($filters)->withAvailability()->latest()->paginate(12));
+            return response()->json(Product::withoutGlobalScope(VisibleProductsScope::class)->without('variations')->filter($filters)->withAvailability()->latest()->paginate(12));
         return view('dashboard.product.index');
     }
 
@@ -42,13 +43,15 @@ class ProductController extends Controller
         return response()->json(['product' => $product]);
     }
 
-    public function edit(Product $product)
+    public function edit($id)
     {
+        $product = Product::withoutGlobalScope(VisibleProductsScope::class)->find($id);
         return view('dashboard.product.edit')->with('product', $product->load('options', 'categories'));
     }
 
-    public function update(Product $product, StoreProductRequest $request)
+    public function update($id, StoreProductRequest $request)
     {
+        $product = Product::withoutGlobalScope(VisibleProductsScope::class)->find($id);
         $product->update($request->validated());
         return response([]);
     }

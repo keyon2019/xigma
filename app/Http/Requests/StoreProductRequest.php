@@ -34,7 +34,9 @@ class StoreProductRequest extends FormRequest
             'preorderable' => 'boolean',
             'daily_production_capacity' => 'numeric',
             'onesie' => 'boolean',
-            'special_price_expiration' => 'date'
+            'special_price_expiration' => 'date',
+            'show' => 'boolean',
+            'en_name' => 'string'
         ];
     }
 }

@@ -11,11 +11,16 @@ class Category extends Model
 {
     use HasFactory, Filterable;
 
-    protected $fillable = ['name', 'description', 'splash', 'wide_splash', 'parent_id'];
+    protected $fillable = ['name', 'description', 'splash', 'wide_splash', 'parent_id', 'show', 'order'];
 
     public function scopeRoot($query)
     {
         return $query->whereNull('parent_id');
+    }
+
+    public function scopeVisible($query)
+    {
+        return $query->whereShow(true);
     }
 
     protected $with = ['subCategories'];

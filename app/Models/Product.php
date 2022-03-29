@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\VisibleProductsScope;
 use App\Traits\Filterable;
 use App\Traits\HasGallery;
 use App\Traits\Shamsi;
@@ -15,7 +16,8 @@ class Product extends Model
     use HasFactory, Filterable, HasGallery, Shamsi;
 
     protected $fillable = ['name', 'description', 'price', 'special_price', 'splash',
-        'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie', 'special_price_expiration'];
+        'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie', 'special_price_expiration',
+        'show', 'en_name'];
 
     protected $with = ['variations', 'pictures'];
 
@@ -26,6 +28,7 @@ class Product extends Model
     protected static function booted()
     {
         parent::booted();
+        static::addGlobalScope(new VisibleProductsScope());
         static::addGlobalScope('rating', function (Builder $builder) {
             return $builder->withAvg('comments as rating', 'rating');
         });

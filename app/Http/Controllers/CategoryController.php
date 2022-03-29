@@ -47,7 +47,9 @@ class CategoryController extends Controller
             'description' => 'string',
             'splash' => 'file',
             'wide_splash' => 'file',
-            'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : ''
+            'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : '',
+            'show' => 'boolean',
+            'order' => 'numeric'
         ]);
 
         if ($request->hasFile('splash')) {
@@ -74,7 +76,9 @@ class CategoryController extends Controller
             'description' => 'string',
             'splash' => 'file',
             'wide_splash' => 'file',
-            'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : ''
+            'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : '',
+            'show' => 'boolean',
+            'order' => 'numeric'
         ]);
 
         if ($request->hasFile('splash')) {
