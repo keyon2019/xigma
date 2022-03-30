@@ -30,7 +30,9 @@ class Product extends Model
         parent::booted();
         static::addGlobalScope(new VisibleProductsScope());
         static::addGlobalScope('rating', function (Builder $builder) {
-            return $builder->withAvg('comments as rating', 'rating');
+            return $builder->withAvg(['comments as rating' => function ($q) {
+                return $q->whereApproved(true);
+            }], 'rating');
         });
     }
 
@@ -56,7 +58,7 @@ class Product extends Model
         if ($pic = $this->pictures->firstWhere('id', $this->splash)) {
             return $pic->url;
         }
-        return null;
+        return "/uploads/xigma_logo.png";
     }
 
     public function categories()

@@ -225,7 +225,7 @@
             </div>
         </div>
         <!--</div>-->
-        <modal class="uk-modal-container" :transparent-dialog="true" name="comment">
+        <modal class="uk-modal-container" name="comment">
             <form-comment @submit="commentModal.hide()" :product="product"></form-comment>
         </modal>
         <modal name="slideshowmodal" class="" :transparent-dialog="true">

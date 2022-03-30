@@ -8,7 +8,13 @@
 
 <script>
     export default {
-        props: ['name', 'transparent-dialog'],
+        props: {
+            name,
+            transparentDialog: {
+                default: false,
+                type: Boolean
+            }
+        },
         mounted() {
             this.$on('escalate-selected', picture => {
                 this.$emit('selected', picture);
