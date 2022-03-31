@@ -30,14 +30,30 @@
                             <li class="uk-open">
                                 <a class="uk-accordion-title uk-text-small">دسته‌بندی</a>
                                 <div class="uk-accordion-content">
-                                    <div v-for="category in categories" class="uk-text-meta">
-                                        <div class="uk-margin-small">
+                                    <ul v-for="category in categories" class="uk-list uk-list-hyphen">
+                                        <li>
                                             <label><input name="categories[]" class="uk-checkbox"
                                                           type="checkbox"
                                                           :value="category.id">
                                                 {{category.name}}</label>
-                                        </div>
-                                    </div>
+                                            <ul v-for="sCategory in category.sub_categories" class="uk-list uk-list-hyphen">
+                                                <li>
+                                                    <label><input name="categories[]" class="uk-checkbox"
+                                                                  type="checkbox"
+                                                                  :value="sCategory.id">
+                                                        {{sCategory.name}}</label>
+                                                    <ul v-for="ssCategory in sCategory.sub_categories" class="uk-list uk-list-hyphen">
+                                                        <li>
+                                                            <label><input name="categories[]" class="uk-checkbox"
+                                                                          type="checkbox"
+                                                                          :value="ssCategory.id">
+                                                                {{ssCategory.name}}</label>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </div>
                             </li>
                         </ul>

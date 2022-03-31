@@ -66,7 +66,7 @@
             <div class="uk-grid uk-child-width-1-4@m uk-child-width-1-2 uk-text-light">
                 <div>
                     <p class="uk-text-large text-small@m uk-text-primary">ابــزارهای خریــد</p>
-                    @foreach($pages->filter(function($page) { return $page->position === 3;}) as $page)
+                    @foreach($pages->filter(function($page) { return $page->position === 2;}) as $page)
                         <p class="uk-margin-small">
                             <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
                         </p>

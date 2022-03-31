@@ -17,11 +17,12 @@
                                     </a>
                                     <div class="uk-padding-small">
                                         <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->name}}</p>
+                                        <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->en_name}}</p>
                                         <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle uk-margin-remove uk-text-muted" uk-grid>
                                             <div class="uk-width-expand">
-                                                <stars-rating size="0.7" rating="{{$product->rating}}"></stars-rating>
+                                                <stars-rating size="0.7" rating="{{$product->rating ?? 3}}"></stars-rating>
                                             </div>
-                                            <div class="text-small@m">مقبولیت</div>
+                                            <div class="text-small@m">امتیاز</div>
                                         </div>
                                         <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
                                             <span class="uk-float-right uk-text-medium">{{number_format($product->price)}}</span>

@@ -91,7 +91,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
     Route::resource('product', ProductController::class)->except(['show', 'destroy']);
-    Route::resource('option', OptionController::class)->except(['show', 'destroy']);
+    Route::resource('option', OptionController::class)->except(['show']);
     Route::resource('value', ValueController::class)->only(['store', 'update', 'destroy']);
     Route::resource('category', CategoryController::class)->except(['show']);
     Route::resource('widget', WidgetController::class)->except(['show', 'index']);
@@ -136,6 +136,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('user/search', [UserController::class, 'search']);
 
     Route::post('/picture', [PictureController::class, 'store']);
+    Route::delete('picture/{picture}', [PictureController::class, 'destroy']);
 });
 
 Route::get('{page}', [PageController::class, 'show']);

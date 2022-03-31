@@ -11,7 +11,6 @@ class HomeController extends Controller
 
     public function index(TopProducts $top)
     {
-//        dd(Widget::with('categoryItSelf')->orderBy('order')->get()->first()->categoryItSelf->name);
         return view('website.home')
             ->with('isHome', true)
             ->with('topProducts', $top)

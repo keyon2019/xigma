@@ -7,9 +7,12 @@
             <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">
                 {{product.name}}
             </p>
+            <div class="uk-text-secondary uk-text-center clickable uk-margin-small-bottom">
+                {{product.en_name}}
+            </div>
             <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
-                <span class="uk-float-left uk-text-meta">مقبولیت</span>
-                <stars-rating class="uk-float-right" :rating="product.rating"></stars-rating>
+                <span class="uk-float-left uk-text-meta">امتیاز</span>
+                <stars-rating class="uk-float-right" :rating="product.rating ? product.rating : 3"></stars-rating>
             </p>
             <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
                 <span class="uk-float-right uk-text-medium">{{product.price.toLocaleString()}}</span>

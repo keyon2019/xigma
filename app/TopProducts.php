@@ -13,7 +13,7 @@ class TopProducts
 {
     public function discounted()
     {
-        return Cache::remember('most_discounted_products', 7200, function () {
+        return Cache::remember('most_discounted_products', 1200, function () {
             return Product::whereDate('special_price_expiration', '>', Carbon::now())
                 ->select(DB::raw('*, ((price - IFNULL(special_price, price)) / price) * 100 as discount'))
                 ->orderBy('discount', 'desc')->get();

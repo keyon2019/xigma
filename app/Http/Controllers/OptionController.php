@@ -49,4 +49,10 @@ class OptionController extends Controller
 
         return response([]);
     }
+
+    public function destroy(Option $option)
+    {
+        $option->delete();
+        return response([]);
+    }
 }

@@ -14,6 +14,14 @@ class Picture extends Model
 
     protected $appends = ['url'];
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function (Picture $picture) {
+            Storage::delete($picture->path);
+        });
+    }
+
     public function picturable()
     {
         return $this->morphTo();

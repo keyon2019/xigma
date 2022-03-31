@@ -5,10 +5,30 @@
                 <div class="uk-width-3-4@m">
                     <ul class="uk-breadcrumb">
                         <li><a href="/">زیگما</a></li>
-                        <!--<li><a href="#">قطعات موتور زیگما</a></li>-->
+                        <li v-if="category && category.parent_category && category.parent_category.parent_category"><a
+                                :href="`/category/${category.parent_category.parent_category.id}`">{{category.parent_category.parent_category.name}}</a>
+                        </li>
+                        <li v-if="category && category.parent_category"><a :href="`/category/${category.parent_category.id}`">{{category.parent_category.name}}</a>
+                        </li>
+                        <li v-if="category"><a :href="`/category/${category.id}`">{{category.name}}</a></li>
                     </ul>
                     <div class="uk-grid uk-grid-collapse">
                         <div class="uk-width-2-5@m">
+                            <p v-if="Date.parse(product.special_price_expiration) > Date.now()" class="uk-display-inline-block uk-width-1-1 uk-margin-small uk-text-danger uk-text-bold">
+                                    <span class="uk-float-right uk-text-light">
+                                        <span class="uk-text-danger uk-display-inline-block" dir="ltr"
+                                              :data-uk-countdown="`date: ${product.special_price_expiration}`">
+                                            <span class="uk-countdown-number uk-text-small uk-countdown-days"></span>
+                                            <span class="uk-countdown-separator uk-text-small">:</span>
+                                            <span class="uk-countdown-number uk-text-small uk-countdown-hours"></span>
+                                            <span class="uk-countdown-separator uk-text-small">:</span>
+                                            <span class="uk-countdown-number uk-text-small uk-countdown-minutes"></span>
+                                            <span class="uk-countdown-separator uk-text-small">:</span>
+                                            <span class="uk-countdown-number uk-text-small uk-countdown-seconds"></span>
+                                        </span>
+                                    </span>
+                                <span class="uk-float-left uk-text-light uk-text-bold"><span uk-icon="clock" class="uk-margin-small-right"></span>فروش ویژه</span>
+                            </p>
                             <img class="uk-width-expand"
                                  :src="selectedVariation ? variationPicture(selectedVariation) : product.splashUrl">
                             <div dir="ltr"
@@ -126,7 +146,10 @@
                         </div>
                         <hr class="uk-margin-small"/>
                         <p class="uk-text-muted">قیمت مصرف کننده</p>
-                        <p class="uk-text-large uk-text-center" v-if="selectedVariation && selectedVariation.available">
+                        <p class="uk-text-small uk-margin-small uk-text-center uk-text-line-through uk-text-meta" v-if="selectedVariation && selectedVariation.available && selectedVariation.orderPrice < selectedVariation.price">
+                            {{selectedVariation.price.toLocaleString()}} تومان
+                        </p>
+                        <p class="uk-text-large uk-margin-small uk-text-center" v-if="selectedVariation && selectedVariation.available">
                             {{selectedVariation.orderPrice.toLocaleString()}} تومان</p>
                         <p v-else class="uk-text-center">
                             ناموجود
@@ -174,9 +197,12 @@
         </div>
         <slot></slot>
         <!--<div class="uk-section-small uk-section-default" ref="comments">-->
-        <div class="uk-background-default" ref="comments" style="position: sticky; bottom: 0;padding-top:20px;z-index:100;border-top: 1px solid gainsboro">
+        <div class="uk-background-default" ref="comments"
+             style="position: sticky; bottom: 0;padding-top:20px;z-index:100;border-top: 1px solid gainsboro">
             <div class="uk-container">
-                <ul class="uk-tab uk-child-width-1-5@m uk-child-width-1-2" @click="$refs.comments.scrollIntoView({behavior: 'smooth'})" uk-tab="connect:#tog-table;animation:uk-animation-fade" ref="tab"
+                <ul class="uk-tab uk-child-width-1-5@m uk-child-width-1-2"
+                    @click="$refs.comments.scrollIntoView({behavior: 'smooth'})"
+                    uk-tab="connect:#tog-table;animation:uk-animation-fade" ref="tab"
                     data-uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
                     <li><a class="text-small@m" href="#info">مشخصات قطعه</a></li>
                     <li><a class="text-small@m" href="#categories">امتیاز و دیدگاه کاربران</a></li>
@@ -228,7 +254,7 @@
         <modal class="uk-modal-container" name="comment">
             <form-comment @submit="commentModal.hide()" :product="product"></form-comment>
         </modal>
-        <modal name="slideshowmodal" class="" :transparent-dialog="true">
+        <modal :close="true" name="slideshowmodal" class="" :transparent-dialog="true">
             <slideshow :images="productPictures" :index="selectedImageIndex"></slideshow>
         </modal>
     </div>
@@ -236,7 +262,7 @@
 
 <script>
     export default {
-        props: ['product'],
+        props: ['product', 'category'],
         data() {
             return {
                 selectedVariation: null,

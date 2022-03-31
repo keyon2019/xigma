@@ -15,7 +15,7 @@ class ItemController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin')->except('retailers');
     }
 
     public function index(Variation $variation, Request $request, ItemFilters $filters)

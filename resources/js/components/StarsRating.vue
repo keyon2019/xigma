@@ -12,7 +12,7 @@
     export default {
         props: {
             rating: {
-                default: 0
+                default: 3
             },
             size: {
                 default: 1

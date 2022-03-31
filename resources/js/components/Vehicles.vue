@@ -54,7 +54,7 @@
                     axios.post(`/dashboard/vehicle/${vehicle.id}`, {_method: 'delete'}).then(() => {
                         this.$refs.pv.destroy(vehicle.id);
                         Toast.message("وسیله نقیله با موفقیت حذف شد").success().show();
-                    }).catch((e) => Toast.message(e.resposne.data.message).danger().show())
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show())
                         .then(() => Loading.hide());
                 }
             }

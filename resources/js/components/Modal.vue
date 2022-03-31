@@ -1,6 +1,8 @@
 <template>
     <div ref="modal" class="uk-modal uk-flex-top">
-        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded uk-background-muted" :style="transparentDialog ? 'background: none !important' : ''">
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded uk-background-muted"
+             :style="transparentDialog ? 'background: none !important' : ''">
+            <button style="left: unset;right: -10px;" v-if="close" class="uk-modal-close-outside" type="button" uk-close></button>
             <slot></slot>
         </div>
     </div>
@@ -12,6 +14,10 @@
             name,
             transparentDialog: {
                 default: false,
+                type: Boolean
+            },
+            close: {
+                defaule: false,
                 type: Boolean
             }
         },

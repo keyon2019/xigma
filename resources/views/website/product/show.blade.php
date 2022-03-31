@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="uk-section-xsmall uk-section-default">
-        <front-product :product="{{$product}}">
+        <front-product :category="{{$category}}" :product="{{$product}}">
             <div class="uk-margin uk-margin-remove-bottom">@include('website.partials._productSlideshow', ['items' => \App\Models\Product::limit(6)->get(), 'title' => 'قطعات مرتبط با انتخاب شما', 'muted' => true])</div>
         </front-product>
     </div>

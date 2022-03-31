@@ -71,7 +71,7 @@
                     axios.post(`/dashboard/category/${category.id}`, {_method: 'delete'}).then(() => {
                         this.$refs.pv.destroy(category.id);
                         Toast.message("دسته‌بندی با موفقیت حذف شد").success().show();
-                    }).catch((e) => Toast.message(e.resposne.data.message).danger().show())
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show())
                         .then(() => Loading.hide());
                 }
             }

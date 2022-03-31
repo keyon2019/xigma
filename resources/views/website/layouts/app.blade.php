@@ -110,6 +110,14 @@
             position: fixed;
         }
 
+        .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+            margin: 0 3px;
+        }
+
+        .uk-background-gray {
+            background: gray;
+        }
+
     </style>
 </head>
 <body>

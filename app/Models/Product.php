@@ -66,6 +66,11 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function getCategoryAttribute()
+    {
+        return $this->belongsToMany(Category::class)->first();
+    }
+
     public function variations()
     {
         return $this->hasMany(Variation::class);

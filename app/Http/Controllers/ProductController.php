@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\ProductFilters;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Option;
 use App\Models\Product;
 use App\Scopes\VisibleProductsScope;
 use App\TopProducts;
@@ -20,16 +21,18 @@ class ProductController extends Controller
     {
         if ($request->wantsJson())
             return response()->json(Product::withoutGlobalScope(VisibleProductsScope::class)->without('variations')->filter($filters)->withAvailability()->latest()->paginate(12));
-        return view('dashboard.product.index');
+        return view('dashboard.product.index')->with('options', Option::all());
     }
 
     public function show(Product $product, TopProducts $top)
     {
+//        dd($product->special_price_expiration);
         return view('website.product.show')
             ->with('product', $product->load('variations.values.option')->load(['comments' => function ($query) {
                 return $query->whereApproved(true)->latest();
             }]))
-            ->with('topProducts', $top);
+            ->with('topProducts', $top)
+            ->with('category', $product->category->withAncestors());
     }
 
     public function create()

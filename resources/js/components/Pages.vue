@@ -47,7 +47,7 @@
                     axios.post(`/dashboard/page/${page.slug}`, {_method: 'delete'}).then(() => {
                         this.$refs.pv.destroy(page.id);
                         Toast.message("صفحه با موفقیت حذف شد").success().show();
-                    }).catch((e) => Toast.message(e.resposne.data.message).danger().show())
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show())
                         .then(() => Loading.hide());
                 }
             }

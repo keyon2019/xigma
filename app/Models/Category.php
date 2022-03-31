@@ -32,6 +32,11 @@ class Category extends Model
         });
     }
 
+    public function scopeWithAncestors()
+    {
+        return $this->load('parentCategory.parentCategory');
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
@@ -40,6 +45,11 @@ class Category extends Model
     public function subCategories()
     {
         return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function parentCategory()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
     }
 
     public function getSplashAttribute($value)

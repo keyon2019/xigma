@@ -3,5 +3,5 @@
 @section('title', 'محصولات')
 
 @section('content')
-    <products></products>
+    <products :options="{{$options}}"></products>
 @endsection

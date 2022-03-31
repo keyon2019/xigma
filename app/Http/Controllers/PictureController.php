@@ -31,4 +31,10 @@ class PictureController extends Controller
         $picture = Picture::create($validated + ['path' => $filePath]);
         return response()->json(['picture' => $picture]);
     }
+
+    public function destroy(Picture $picture)
+    {
+        $picture->delete();
+        return response([], 200);
+    }
 }
