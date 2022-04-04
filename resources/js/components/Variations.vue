@@ -42,7 +42,8 @@
                                                                   type="checkbox"
                                                                   :value="sCategory.id">
                                                         {{sCategory.name}}</label>
-                                                    <ul v-for="ssCategory in sCategory.sub_categories" class="uk-list uk-list-hyphen">
+                                                    <ul v-for="ssCategory in sCategory.sub_categories"
+                                                        class="uk-list uk-list-hyphen">
                                                         <li>
                                                             <label><input name="categories[]" class="uk-checkbox"
                                                                           type="checkbox"

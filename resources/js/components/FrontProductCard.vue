@@ -1,13 +1,13 @@
 <template>
-    <div class="uk-card product-card uk-box-shadow-hover-medium" style="border-radius: 0.6em">
+    <div class="uk-card product-card uk-box-shadow-hover-medium uk-card-default" style="border-radius: 0.6em">
         <a :href="`/product/${product.id}`">
-            <img :src="product.splashUrl ? product.splashUrl : '/uploads/xigma_logo.png'" class="uk-width-expand card-image">
+            <img :src="product.splashUrl ? product.splashUrl : '/uploads/xigma_logo.png'" class="uk-width-expand uk-border-rounded card-image">
         </a>
         <div class="uk-padding-small">
             <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">
                 {{product.name}}
             </p>
-            <div class="uk-text-secondary uk-text-center clickable uk-margin-small-bottom">
+            <div class="uk-text-secondary uk-text-center clickable uk-margin-small-bottom numeric-standard">
                 {{product.en_name}}
             </div>
             <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">

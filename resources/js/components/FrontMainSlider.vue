@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="numeric-standard">
         <div class="main-slider-container uk-visible@m">
             <div class="uk-background-default" style="height: 4.35em"></div>
             <div class="uk-inline uk-width-expand">

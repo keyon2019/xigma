@@ -19,7 +19,7 @@
                         <td>{{retailer.id}}</td>
                         <td>{{retailer.name}}</td>
                         <td>{{retailer.city}}</td>
-                        <td>{{retailer.user.name}}</td>
+                        <td>{{retailer.user ? retailer.user.name : 'بدون کاربر'}}</td>
                         <td><span :data-uk-icon="retailer.available ? 'check': 'close'"></span></td>
                         <td>
                             <a :href="'/dashboard/retailer/' + retailer.id + '/edit'"

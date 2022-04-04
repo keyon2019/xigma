@@ -11,13 +11,13 @@
                     <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2 uk-grid uk-grid-small">
                         @foreach($items as $product)
                             <li>
-                                <div class="uk-card product-card uk-box-shadow-hover-medium" style="border-radius: 0.6em;">
+                                <div class="uk-card uk-card-default product-card uk-box-shadow-hover-medium" style="border-radius: 0.6em;">
                                     <a href="/product/{{$product->id}}">
-                                        <img src="{{$product->splashUrl}}" class="uk-width-expand">
+                                        <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
                                     </a>
                                     <div class="uk-padding-small">
                                         <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->name}}</p>
-                                        <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->en_name}}</p>
+                                        <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center numeric-standard">{{$product->en_name}}</p>
                                         <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle uk-margin-remove uk-text-muted" uk-grid>
                                             <div class="uk-width-expand">
                                                 <stars-rating size="0.7" rating="{{$product->rating ?? 3}}"></stars-rating>

@@ -24,7 +24,7 @@
                                     v-model="form.address.value">
                         </form-input>
                         <div class="uk-margin-small">
-                            <auto-complete :initial-input="retailer ? retailer.user.name : ''" v-model="form.user_id.value" value-key="id" api-result-key="users" method="get"
+                            <auto-complete :initial-input="retailer ? retailer.user ? retailer.user.name : '' : ''" v-model="form.user_id.value" value-key="id" api-result-key="users" method="get"
                                            api="/dashboard/user/search?retailer=1" placeholder="کاربر"></auto-complete>
                         </div>
                         <div class="uk-margin">

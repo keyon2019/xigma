@@ -12,9 +12,12 @@
                 @foreach($items as $product)
                     <li>
                         <div class="uk-card uk-box-shadow-hover-medium" style="border-radius: 0.6em">
-                            <img src="{{$product->splashUrl}}" class="uk-width-expand">
+                            <a href="/product/{{$product->id}}">
+                                <img src="{{$product->splashUrl}}" class="uk-width-expand">
+                            </a>
                             <div class="uk-padding-small">
                                 <p class="uk-text-secondary uk-text-medium uk-margin-small-bottom uk-text-center uk-text-bold">{{$product->name}}</p>
+                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center numeric-standard">{{$product->en_name}}</p>
                                 <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
                                     <span class="uk-text-muted uk-float-right uk-text-line-through">{{number_format($product->price)}}</span>
                                     <span class="uk-float-left uk-label uk-label-danger">{{$product->discount}}%</span>
@@ -25,7 +28,8 @@
                                 </p>
                                 <p class="uk-display-inline-block uk-width-1-1 uk-margin-small">
                                     <span class="uk-float-right uk-text-meta uk-text-light">
-                                        <span class="uk-text-meta uk-display-inline-block" data-uk-countdown="date: {{$product->special_price_expiration}}">
+                                        <span class="uk-text-meta uk-display-inline-block"
+                                              data-uk-countdown="date: {{$product->special_price_expiration}}">
                                             <span class="uk-countdown-number uk-text-meta uk-countdown-days"></span>
                                             <span class="uk-countdown-separator uk-text-meta">:</span>
                                             <span class="uk-countdown-number uk-text-meta uk-countdown-hours"></span>
@@ -37,9 +41,10 @@
                                     </span>
                                     <span class="uk-float-left uk-text-meta uk-text-light">زمان باقیمانده</span>
                                 </p>
-                                <a href="/product/{{$product->id}}" class="uk-button uk-button-secondary uk-width-expand uk-margin-small-bottom">
-                                    <span>اضافه به سبد خرید</span><span class="uk-margin-small-right"
-                                                                        data-uk-icon="cart"></span>
+                                <a href="/product/{{$product->id}}"
+                                   class="uk-button uk-text-white uk-button-success uk-width-expand uk-margin-small-bottom">
+                                    <span>افزودن به سبد خرید</span><span class="uk-margin-small-right"
+                                                                         data-uk-icon="cart"></span>
                                 </a>
                             </div>
                         </div>

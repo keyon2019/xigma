@@ -14,7 +14,8 @@
                     </ul>
                     <div class="uk-grid uk-grid-collapse">
                         <div class="uk-width-2-5@m">
-                            <p v-if="Date.parse(product.special_price_expiration) > Date.now()" class="uk-display-inline-block uk-width-1-1 uk-margin-small uk-text-danger uk-text-bold">
+                            <p v-if="Date.parse(product.special_price_expiration) > Date.now()"
+                               class="uk-display-inline-block uk-width-1-1 uk-margin-small uk-text-danger uk-text-bold">
                                     <span class="uk-float-right uk-text-light">
                                         <span class="uk-text-danger uk-display-inline-block" dir="ltr"
                                               :data-uk-countdown="`date: ${product.special_price_expiration}`">
@@ -27,10 +28,13 @@
                                             <span class="uk-countdown-number uk-text-small uk-countdown-seconds"></span>
                                         </span>
                                     </span>
-                                <span class="uk-float-left uk-text-light uk-text-bold"><span uk-icon="clock" class="uk-margin-small-right"></span>فروش ویژه</span>
+                                <span class="uk-float-left uk-text-light uk-text-bold"><span uk-icon="clock"
+                                                                                             class="uk-margin-small-right"></span>فروش ویژه</span>
                             </p>
-                            <img class="uk-width-expand"
-                                 :src="selectedVariation ? variationPicture(selectedVariation) : product.splashUrl">
+                            <a class="uk-link-reset" @click="showSlideshow()">
+                                <img class="uk-width-expand"
+                                     :src="selectedVariation ? variationPicture(selectedVariation) : product.splashUrl">
+                            </a>
                             <div dir="ltr"
                                  class="uk-position-relative uk-visible-toggle uk-light uk-margin-small-top uk-margin-bottom"
                                  tabindex="-1" uk-slider>
@@ -48,7 +52,7 @@
                             <div class="uk-padding uk-padding-remove-vertical">
                                 <div class="uk-clearfix">
                                     <div class="uk-float-right">
-                                        <div class="uk-text-bold">{{product.en_name}}</div>
+                                        <div class="uk-text-bold numeric-standard">{{product.en_name}}</div>
                                     </div>
                                     <div class="uk-float-left">
                                         <div class="uk-text-bold">{{product.name}}</div>
@@ -57,9 +61,12 @@
                                 <hr class="uk-margin-small"/>
                                 <div class="uk-flex">
                                     <span data-uk-icon="star" class="star-filled"></span>
-                                    <span class="uk-margin-small-left uk-text-muted">{{product.rating ? parseFloat(product.rating).toFixed(1) : ''}} ({{product.comments.length}})</span>
+                                    <span class="uk-margin-small-left uk-text-muted">{{product.rating ? parseFloat(product.rating).toFixed(1) : '3'}} {{product.rating ? `(${product.comments.length})` : ''}}</span>
                                     <span class="uk-text-muted uk-margin-small-left">•</span>
-                                    <span class="uk-margin-small-left"><a @click="showComments()">{{product.comments.length}} نظر کاربران</a></span>
+                                    <span class="uk-flex-1 uk-margin-small-left"><a @click="showComments()">{{product.comments.length}} نظر کاربران</a></span>
+                                    <span class="numeric-standard" v-text="selectedVariation ? selectedVariation.sku : ''">
+
+                                    </span>
                                 </div>
                                 <div v-if="selectedVariation && selectedVariation.values.length > 0"
                                      class="uk-grid uk-grid-small uk-margin-large-top uk-text-center uk-flex uk-flex-center uk-flex-middle uk-child-width-auto uk-grid-divider uk-text-small">
@@ -146,12 +153,18 @@
                         </div>
                         <hr class="uk-margin-small"/>
                         <p class="uk-text-muted">قیمت مصرف کننده</p>
-                        <p class="uk-text-small uk-margin-small uk-text-center uk-text-line-through uk-text-meta" v-if="selectedVariation && selectedVariation.available && selectedVariation.orderPrice < selectedVariation.price">
+                        <p class="uk-text-small uk-margin-small uk-text-center uk-text-line-through uk-text-danger"
+                           v-if="selectedVariation && selectedVariation.available && selectedVariation.orderPrice < selectedVariation.price">
                             {{selectedVariation.price.toLocaleString()}} تومان
                         </p>
-                        <p class="uk-text-large uk-margin-small uk-text-center" v-if="selectedVariation && selectedVariation.available">
+                        <p class="uk-text-large uk-margin-small uk-text-center uk-position-relative"
+                           v-if="selectedVariation && selectedVariation.available"><span
+                                v-if="selectedVariation.orderPrice < selectedVariation.price"
+                                class="uk-position-absolute uk-position-top-right uk-label uk-label-danger">
+                            {{(((selectedVariation.price - selectedVariation.orderPrice) / selectedVariation.price) * 100).toFixed(0)}}%
+                        </span>
                             {{selectedVariation.orderPrice.toLocaleString()}} تومان</p>
-                        <p v-else class="uk-text-center">
+                        <p v-else class="uk-text-center uk-text-danger">
                             ناموجود
                         </p>
                         <p v-if="product.onesie" class="uk-text-danger uk-margin-small-bottom"><span class="uk-margin-small-right"
