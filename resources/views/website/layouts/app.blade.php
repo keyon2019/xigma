@@ -120,8 +120,8 @@
 
     </style>
 </head>
-<body>
-<div class="site" id="app">
+<body dir="ltr">
+<div class="site" id="app" dir="rtl">
     @include('website.partials._header')
     <main class="site-content">
         @yield('content')
