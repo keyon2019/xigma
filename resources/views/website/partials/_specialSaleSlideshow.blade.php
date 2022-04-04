@@ -13,7 +13,7 @@
                     <li>
                         <div class="uk-card uk-box-shadow-hover-medium" style="border-radius: 0.6em">
                             <a href="/product/{{$product->id}}">
-                                <img src="{{$product->splashUrl}}" class="uk-width-expand">
+                                <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
                             </a>
                             <div class="uk-padding-small">
                                 <p class="uk-text-secondary uk-text-medium uk-margin-small-bottom uk-text-center uk-text-bold">{{$product->name}}</p>
