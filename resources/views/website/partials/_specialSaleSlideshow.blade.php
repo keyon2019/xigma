@@ -11,7 +11,7 @@
             <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-1 uk-grid uk-grid-small">
                 @foreach($items as $product)
                     <li>
-                        <div class="uk-card uk-box-shadow-hover-medium" style="border-radius: 0.6em">
+                        <div class="uk-card uk-card-default uk-box-shadow-hover-medium" style="border-radius: 0.6em">
                             <a href="/product/{{$product->id}}">
                                 <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
                             </a>
