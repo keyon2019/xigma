@@ -543,3 +543,21 @@ table.full-bordered th, table.full-bordered td {
 [v-cloak]::before {
   content: "Loading..."
 }
+
+.toast {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 1.5em;
+  transition: transform 0.3s ease;
+  transform: translateY(170%);
+  z-index: 999999;
+}
+
+.toast.show {
+  transform: translateY(0);
+}
+
+.ck-editor__editable {
+  min-height: 10rem;
+}

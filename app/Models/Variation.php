@@ -72,14 +72,16 @@ class Variation extends Model
         if (!$this->product)
             $this->load('product');
         $this->quantity = $quantity;
-        if ($this->product->pictures)
+        if ($this->product) {
             $this->splash = Storage::url($this->product->pictures->firstWhere('id', $this->splash)->path ?? '');
+            $this->productName = $this->product->name;
+            $this->discount = $this->special_price_expiration > Carbon::now() ? $this->price - $this->special_price : 0;
+            $this->price = $this->special_price_expiration > Carbon::now() ? $this->special_price : $this->price;
+        }
         else {
             $this->splash = '/uploads/xigma_logo.png';
+            $this->productName = 'unknown';
         }
-        $this->productName = $this->product->name;
-        $this->discount = $this->special_price_expiration > Carbon::now() ? $this->price - $this->special_price : 0;
-        $this->price = $this->special_price_expiration > Carbon::now() ? $this->special_price : $this->price;
         return $this;
     }
 
