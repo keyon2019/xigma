@@ -31,7 +31,9 @@ class AddItemsToOrder
                 'id' => $item->id,
                 'sold' => true,
                 'order_id' => $order->id,
-                'price' => $order->variations->firstWhere('id', $item->variation_id)->orderPrice];
+                'price' => $order->variations->firstWhere('id', $item->variation_id)->orderPrice,
+                'discount' => $order->variations->firstWhere('id', $item->variation_id)->discount
+            ];
         });
 
         Item::updateValues($updates->toArray());

@@ -13,6 +13,13 @@ class InvoiceController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request)
+    {
+        if ($request->wantsJson())
+            return response()->json(auth()->user()->invoices()->latest()->paginate(10));
+        return view('website.invoice.index');
+    }
+
     public function show(Invoice $invoice)
     {
         if ($invoice->user_id == auth()->id())

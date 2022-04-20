@@ -128,6 +128,7 @@
     </main>
     @include('website.partials._footer')
     <loading></loading>
+    <toast message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif"></toast>
 </div>
 <script src="{{ mix('js/app.js') }}"></script>
 <script>

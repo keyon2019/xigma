@@ -12,10 +12,10 @@ class Order extends Model
     use HasFactory, Shamsi, Filterable;
 
     CONST STATUSES = [
-        '1' => 'ثبت اولیه',
-        '2' => 'در حال پردازش',
-        '3' => 'ارسال شده',
-        '4' => 'تکمیل شده',
+        '1' => 'ثبت فاکتور',
+        '2' => 'بررسی سفارش',
+        '3' => 'آماده‌سازی',
+        '4' => 'ارسال شد',
         '5' => 'لغو شده'
     ];
 
@@ -59,9 +59,14 @@ class Order extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function successfulPayment()
+    {
+        return $this->hasOne(Payment::class)->whereSuccessful(true);
+    }
+
     public function variations()
     {
-        return $this->belongsToMany(Variation::class)->withPivot('quantity');
+        return $this->belongsToMany(Variation::class)->withPivot(['quantity', 'price', 'discount']);
     }
 
     public function address()

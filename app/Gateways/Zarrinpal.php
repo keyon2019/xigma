@@ -69,9 +69,9 @@ class Zarrinpal extends GatewayInterface
                 $this->token = $response['Authority'];
                 return $this->token;
             }
-            abort("500", "Problem occurred with Zarinpal Gateway!");
+            return abort("500", "Problem occurred with Zarinpal Gateway!");
         } catch (RequestException $exception) {
-            abort(500, $exception->getMessage());
+            return abort(500, $exception->getMessage());
         }
     }
 }

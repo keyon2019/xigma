@@ -42,7 +42,11 @@ class DatabaseCart extends CartInterface
     {
         $arr = [];
         $this->items->each(function ($item) use (&$arr) {
-            $arr[$item->id] = ['quantity' => $item->quantity, 'price' => $item->price];
+            $arr[$item->id] = [
+                'quantity' => $item->quantity,
+                'price' => $item->price,
+                'discount' => $item->discount
+            ];
         });
         return $arr;
     }

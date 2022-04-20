@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->only(['all', 'edit']);
+        $this->middleware('admin')->only(['all', 'edit', 'update']);
     }
 
     public function all(Request $request, OrderFilters $filters)
@@ -35,7 +35,9 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        return view('website.order.show')->with('order', $order->load('variations', 'items'));
+        if (auth()->user()->id === $order->user_id)
+            return view('website.order.show')->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment'));
+        return abort(401);
     }
 
     public function store(StoreOrderRequest $request, CartInterface $cart, GatewayInterface $gateway, ClosestItemFinderService $closestItemFinderService)
@@ -80,6 +82,8 @@ class OrderController extends Controller
                 return [
                     $item->id => [
                         'quantity' => $item->quantity,
+                        'price' => $item->price,
+                        'discount' => $item->discount
                     ]
                 ];
             })->toArray();
@@ -113,5 +117,12 @@ class OrderController extends Controller
         $data = $request->validate(['paid' => 'boolean', 'status' => 'numeric']);
         $order->update($data);
         return response([], 200);
+    }
+
+    public function invoice(Order $order)
+    {
+        if (auth()->user()->id === $order->user_id)
+            return view('website.order.invoice')->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment'));
+        return abort(401);
     }
 }

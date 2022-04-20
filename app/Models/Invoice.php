@@ -16,6 +16,6 @@ class Invoice extends Model
     {
         return $this->belongsToMany(Variation::class)
             ->with('picture')
-            ->withPivot(['quantity', 'price']);
+            ->withPivot(['quantity', 'price', 'discount']);
     }
 }

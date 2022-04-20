@@ -1,11 +1,13 @@
 @extends('website.layouts.app')
 
+@section('title', 'حساب کاربری')
+
 @section('content')
     <div class="uk-section-muted profile-section">
         <div class="uk-container">
             <div class="uk-grid uk-grid-small">
-                <div class="uk-width-1-4@m" style="background: url('/uploads/bg-pattern.png');padding-right:0">
-                    <div class="uk-padding-small uk-padding-remove-top" style="z-index: 8;">
+                <div class="uk-width-1-4@m" style="">
+                    <div class="uk-padding-small uk-padding-remove-top" style="z-index: 8;background: url('/uploads/bg-pattern.png');">
                         <img src="/uploads/xigma-badge.png" class="uk-margin-small-bottom uk-width-expand" alt="xigma_badge">
                         <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom">
                             <div class="uk-grid uk-grid-small uk-grid-divider uk-flex uk-flex-middle">
@@ -25,6 +27,12 @@
                         </div>
                         <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium">
                             <ul class="uk-list uk-list-large">
+                                <li>
+                                    <a href="/profile/edit" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                        <span data-uk-icon="user"></span>
+                                        <span class="uk-margin-small-left uk-text-small">اطلاعات کاربری</span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="/order" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
                                         <span data-uk-icon="tag"></span>

@@ -8,20 +8,16 @@
                     <tr>
                         <th>#</th>
                         <th>مبلغ</th>
-                        <th>وضعیت پرداخت</th>
-                        <th>وضعیت سفارش</th>
                         <th>زمان ثبت</th>
                         <th>مشاهده</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="order in scopeData.records">
-                        <td class="uk-table-shrink">{{order.id}}</td>
-                        <td>{{order.total.toLocaleString()}}</td>
-                        <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
-                        <td>{{order.statusName}}</td>
-                        <td>{{order.created_at}}</td>
-                        <td><a :href="`/order/${order.id}`"
+                    <tr v-for="invoice in scopeData.records">
+                        <td class="uk-table-shrink">{{invoice.id}}</td>
+                        <td>{{invoice.total.toLocaleString()}}</td>
+                        <td>{{invoice.created_at}}</td>
+                        <td><a :href="`/invoice/${invoice.id}`"
                                class="uk-button uk-button-small uk-button-primary">نمایش</a>
                         </td>
                     </tr>

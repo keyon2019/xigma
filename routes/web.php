@@ -58,10 +58,12 @@ Route::post('/cart', [CartController::class, 'store']);
 Route::delete('/cart', [CartController::class, 'destroy']);
 
 Route::resource('order', OrderController::class)->only(['show', 'index', 'store']);
+Route::get('order/{order}/invoice', [OrderController::class, 'invoice']);
 
 Route::get('/checkout', [CheckoutController::class, 'index']);
 Route::post('/checkout', [CheckoutController::class, 'analyze']);
 
+Route::get('invoice', [InvoiceController::class, 'index']);
 Route::get('/invoice/{invoice}', [InvoiceController::class, 'show']);
 Route::post('/invoice', [InvoiceController::class, 'store']);
 
@@ -78,6 +80,9 @@ Route::post('/item/{variation}/retailer', [ItemController::class, 'retailers']);
 Route::post('/address', [AddressController::class, 'store']);
 
 Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile/edit', [ProfileController::class, 'edit']);
+Route::patch('profile', [ProfileController::class, 'update']);
+Route::patch('password', [ProfileController::class, 'changePassword']);
 
 Route::post('/comment', [CommentController::class, 'store']);
 

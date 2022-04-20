@@ -13,7 +13,7 @@ class Item extends Model
 {
     use HasFactory, BatchUpdatable, Filterable, Shamsi;
 
-    protected $fillable = ['shipping_id', 'order_id', 'sold'];
+    protected $fillable = ['shipping_id', 'order_id', 'sold', 'discount'];
 
     public function variation()
     {

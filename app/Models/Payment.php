@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Shamsi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    use HasFactory;
+    use HasFactory, Shamsi;
 
     protected $fillable = ['order_id', 'amount', 'gateway', 'token', 'reference_number', 'successful'];
 
@@ -18,6 +19,13 @@ class Payment extends Model
     public function order()
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function getGatewayNameAttribute()
+    {
+        return array_values(array_filter(config('gateway'), function ($arr) {
+            return $arr['id'] == $this->getRawOriginal('gateway');
+        }))[0]['name'];
     }
 
     public function getGatewayAttribute($value)

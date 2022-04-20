@@ -14,10 +14,10 @@
                     <div class="uk-margin-small">
                         <select name="status" class="uk-select">
                             <option :value="null">انتخاب کنید</option>
-                            <option value="1">ثبت اولیه</option>
-                            <option value="2">در حال پردازش</option>
-                            <option value="3">ارسال شده</option>
-                            <option value="4">تکمیل شده</option>
+                            <option value="1">ثبت فاکتور</option>
+                            <option value="2">بررسی سفارش</option>
+                            <option value="3">آماده‌سازی</option>
+                            <option value="4">ارسال شده</option>
                             <option value="5">لغو شده</option>
                         </select>
                     </div>

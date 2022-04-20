@@ -24,7 +24,10 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
-        'is_retailer'
+        'is_retailer',
+        'mobile',
+        'emergency_mobile',
+        'telephone'
     ];
 
     /**
@@ -87,5 +90,15 @@ class User extends Authenticatable
     public function vehicles()
     {
         return $this->belongsToMany(Vehicle::class);
+    }
+
+    public function getAreaCodeAttribute()
+    {
+        return substr($this->telephone, 0, strlen($this->telephone)  - 8);
+    }
+
+    public function getTelephonePartAttribute()
+    {
+        return substr($this->telephone, -8, 8);
     }
 }
