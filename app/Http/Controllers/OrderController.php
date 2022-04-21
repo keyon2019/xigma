@@ -108,13 +108,13 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         return view('dashboard.order.edit')
-            ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product']))
+            ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product', 'successfulPayment']))
             ->with('orderStatuses', json_encode(Order::STATUSES));
     }
 
     public function update(Order $order, Request $request)
     {
-        $data = $request->validate(['paid' => 'boolean', 'status' => 'numeric']);
+        $data = $request->validate(['status' => 'numeric']);
         $order->update($data);
         return response([], 200);
     }

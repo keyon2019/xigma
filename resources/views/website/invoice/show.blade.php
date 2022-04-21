@@ -73,7 +73,7 @@
             </table>
             <div class="uk-text-center">
                 <a href="/invoice/{{$invoice->id}}/invoice"
-                   class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">چاپ فاکتور</a>
+                   class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">چاپ پیش فاکتور</a>
                 <a href="/invoice/{{$invoice->id}}/invoice" class="uk-button uk-button-primary uk-border-rounded">به
                     روزرسانی</a>
                 <a href="/invoice/{{$invoice->id}}/invoice"

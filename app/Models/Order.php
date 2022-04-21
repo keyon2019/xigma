@@ -30,7 +30,7 @@ class Order extends Model
         '2' => 'سریع‌ترین'
     ];
 
-    protected $fillable = ['address_id', 'shipping_method', 'cost_preference', 'status', 'total', 'paid'];
+    protected $fillable = ['address_id', 'shipping_method', 'cost_preference', 'status', 'total', 'paid', 'receiver', 'receiver_number'];
 
     protected $appends = ['statusName'];
 

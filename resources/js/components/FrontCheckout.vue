@@ -2,7 +2,32 @@
     <div>
         <div class="uk-grid uk-grid-small" data-uk-grid>
             <div class="uk-width-3-4@m">
-                <p class="uk-margin-small">نشانی تحویل گیرنده</p>
+                <a href="/cart" class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">
+                    <i uk-icon="chevron-right" class="uk-margin-small-right"></i><span>بازگشت به سبد خرید</span>
+                </a>
+                <div class="uk-padding-small address-container uk-border-rounded uk-margin">
+                    <div class="uk-text-bold">مشخصات گیرنده کالا</div>
+                    <div class="uk-margin-small">
+                        <label><input v-model="alternateReceiver" :true-value="false" :false-value="true"
+                                      class="uk-checkbox uk-margin-small-right" type="checkbox"
+                                      name="available">گیرنده کالا خودم هستم</label>
+                    </div>
+                    <template v-if="alternateReceiver">
+                        <div class="uk-margin-small">
+                            <input name="receiver" class="uk-input uk-border-rounded" v-model="form.receiver.value" placeholder="نام گیرنده">
+                            <div v-if="form.errors.has('receiver')"
+                                 class="uk-text-danger uk-text-small">{{form.errors['receiver']}}
+                            </div>
+                        </div>
+                        <div class="uk-margin-small">
+                            <input class="uk-input uk-border-rounded" v-model="form.receiver_number.value"
+                                   placeholder="شماره گیرنده">
+                            <div v-if="form.errors.has('receiver_number')"
+                                 class="uk-text-danger uk-text-small">{{form.errors['receiver_number']}}
+                            </div>
+                        </div>
+                    </template>
+                </div>
                 <div class="address-container uk-padding-small uk-border-rounded">
                     <div class="uk-grid uk-child-width-1-3@m uk-grid-small uk-grid-match" data-uk-grid>
                         <div v-for="address in addresses">
@@ -148,7 +173,8 @@
                         </div>
                     </div>
                     <div class="uk-margin-top">
-                        <button @click="placeOrder" class="uk-button uk-button-danger uk-border-rounded uk-width-expand">پرداخت مبلغ و ثبت نهایی
+                        <button @click="placeOrder" class="uk-button uk-button-danger uk-border-rounded uk-width-expand">پرداخت
+                            مبلغ و ثبت نهایی
                             فاکتور
                         </button>
                     </div>
@@ -234,6 +260,7 @@
                 selectedAddress: null,
                 factory: [51.5286869, 35.8243285, 'factory'],
                 methods: null,
+                alternateReceiver: false,
                 allShippingMethods: [
                     {
                         id: 1,
@@ -265,6 +292,14 @@
                     },
                     gateway_id: {
                         value: 1,
+                        rules: 'required|numeric'
+                    },
+                    receiver: {
+                        value: '',
+                        rules: 'required|string'
+                    },
+                    receiver_number: {
+                        value: '',
                         rules: 'required|numeric'
                     }
                 }),
@@ -391,6 +426,15 @@
             },
             'form.cost_preference.value': function () {
                 this.getRoutes();
+            },
+            'alternateReceiver': function (value) {
+                if (!value) {
+                    this.form.receiver.value = this.user.name;
+                    this.form.receiver_number.value = this.user.mobile;
+                } else {
+                    this.form.receiver.value = '';
+                    this.form.receiver_number.value = '';
+                }
             }
         }
     }

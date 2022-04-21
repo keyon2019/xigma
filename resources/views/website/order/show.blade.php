@@ -8,12 +8,6 @@
         height: 0;
     }
 
-    /* Responsive Arrow Progress Bar */
-
-    .container {
-        font-family: 'Lato', sans-serif;
-    }
-
     .arrow-steps .step {
         font-size: 14px;
         text-align: center;
@@ -238,7 +232,7 @@
                     <div class="uk-grid uk-grid-collapse uk-child-width-1-2@m uk-margin-small-top uk-text-meta"
                          data-uk-grid>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">نام و نام
-                            خانوادگی: {{$order->receiver_name}}</div>
+                            خانوادگی: {{$order->receiver}}</div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">شماره
                             تماس: {{$order->receiver_number}}</div>
                         <div class="uk-padding-small uk-background-muted uk-width-1-1" style="border: 1px solid white">آدرس

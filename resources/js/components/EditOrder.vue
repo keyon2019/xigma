@@ -1,17 +1,14 @@
 <template>
     <div>
-        <p class="uk-margin-remove uk-text-small">زمان ثبت: {{order.created_at}}</p>
         <div class="uk-margin-bottom uk-padding-small uk-padding-remove-vertical">
             <div class="uk-background-muted uk-border-rounded uk-margin-top" style="border: 1px solid gainsboro">
                 <div class="uk-padding-small">
                     <div class="uk-grid uk-margin-small-bottom">
                         <div class="uk-width-1-2">
                             <p><strong>نام کاربر: </strong> {{order.user.name}}</p>
-                            <p><strong>آدرس: </strong> {{order.address.province}}, {{order.address.city}},
-                                {{order.address.directions}}
-                            </p>
-                            <p><strong>تلفن: </strong> {{order.address.phone}}</p>
-                            <p><strong>موبایل: </strong> {{order.address.mobile}}</p>
+                            <p><strong>شماره تماس: </strong> {{order.user.mobile}}</p>
+                            <p><strong>نام گیرنده: </strong> {{order.receiver}}</p>
+                            <p><strong>شماره تماس گیرنده: </strong> {{order.receiver_number}}</p>
                         </div>
                         <div class="uk-width-1-2">
                             <p><strong>وضعیت سفارش: </strong>
@@ -19,17 +16,17 @@
                                     <option v-for="(status,key) in statuses" :value="key">{{status}}</option>
                                 </select>
                             </p>
-                            <p><strong>وضعیت پرداخت: </strong>
-                                <select v-model="order.paid" class="uk-select uk-width-medium uk-border-rounded">
-                                    <option :value="0">پرداخت نشده</option>
-                                    <option :value="1">پرداخت شده</option>
-                                </select>
-                            </p>
                             <p><strong>ترجیح هزینه‌ای: </strong> {{order.cost_preference}}</p>
+                            <p><strong>تاریخ ثبت: </strong> {{order.created_at}}</p>
+                            <p><strong>آدرس: </strong> {{order.address.province}}, {{order.address.city}},
+                                {{order.address.directions}}
+                            </p>
                         </div>
                     </div>
                     <div>
-                        <button class="uk-button uk-button-primary uk-border-rounded" @click="updateOrder">ویرایش</button>
+                        <button class="uk-button uk-button-primary uk-border-rounded hidden-in-print" @click="updateOrder">
+                            ویرایش
+                        </button>
                     </div>
                 </div>
             </div>
@@ -39,50 +36,90 @@
             <tr>
                 <th>#</th>
                 <th>تصویر</th>
+                <th>کد محصول</th>
                 <th>نام محصول</th>
                 <th>نوع</th>
-                <th>مشخصات</th>
-                <th>فی</th>
+                <th>قیمت</th>
                 <th>تعداد</th>
+                <th>تخفیف</th>
                 <th>جمع ردیف</th>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(item,index) in items">
+            <tr v-for="(variation, index) in order.variations">
                 <td class="uk-table-shrink">{{index + 1}}</td>
-                <td class="uk-table-shrink"><img class="uk-border-rounded" :src="item.picture">
+                <td class="uk-table-shrink"><img class="uk-border-rounded" :src="getVariationPicture(variation)">
                 </td>
-                <td class="uk-table-expand">{{item.name}}</td>
-                <td>{{item.variation}}</td>
-                <td>{{item.options}}</td>
-                <td>{{item.price.toLocaleString()}}</td>
-                <td class="uk-table-shrink">{{item.quantity}}</td>
-                <td>{{item.subtotal.toLocaleString()}}</td>
+                <td class="uk-table-expand">{{variation.sku}}</td>
+                <td class="uk-table-expand">{{variation.product.name}}</td>
+                <td>{{variation.filters}}</td>
+                <td>{{(variation.pivot.price + variation.pivot.discount).toLocaleString()}}</td>
+                <td class="uk-table-shrink">{{variation.pivot.quantity}}</td>
+                <td>{{variation.pivot.discount.toLocaleString()}}</td>
+                <td>{{(variation.pivot.price * variation.pivot.quantity).toLocaleString()}}</td>
+            </tr>
+            <tr>
+                <td colspan="9">
+                    <div>
+                        <div class="uk-grid uk-grid-small uk-child-width-1-3" data-uk-grid>
+                            <div>
+                                جمع کل خرید: {{total.toLocaleString()}} تومان
+                            </div>
+                            <div>
+                                مالیات بر ارزش افزوده: ۹ درصد
+                            </div>
+                            <div>
+                                مبلغ پرداختی: {{payable.toLocaleString()}} تومان
+                            </div>
+                            <div>
+                                مجموع تخفیف: {{totalDiscount.toLocaleString()}} تومان
+                            </div>
+                            <div>
+                                هزینه ارسال: {{totalShippingsCost.toLocaleString()}} تومان
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="9">
+                    <div class="uk-text-meta uk-margin-small-bottom">اطلاعات پرداخت</div>
+                    <div class="uk-grid uk-child-width-1-4">
+                        <div>وضعیت پرداخت: {{order.paid ? "پرداخت شده" : "در انتظار پرداخت"}}</div>
+                        <div>تاریخ پرداخت: {{order.successful_payment.updated_at}}</div>
+                        <div>درگاه پرداخت: {{order.successful_payment.gatewayName}}</div>
+                        <div>شماره پیگیری: {{order.successful_payment.reference_number}}</div>
+                    </div>
+                </td>
+            </tr>
+            <tr v-for="(shipping, index) in order.shippings">
+                <td colspan="9">
+                    <div class="uk-text-meta">اطلاعات ارسال مرسوله {{index + 1}}</div>
+                    <div class="uk-grid uk-child-width-1-3 uk-grid-small uk-margin-small" data-uk-grid>
+                        <div>مبدا ارسال: {{shipping.stock ? shipping.stock.name : 'کارخانه زیگما'}}</div>
+                        <div>نحوه ارسال: {{shipping.methodName}}</div>
+                        <div>تاریخ ارسال: {{shipping.sailed_at}}</div>
+                        <div>هزینه ارسال: {{shipping.cost.toLocaleString()}}</div>
+                        <div class="uk-width-expand">شماره مرسوله/بارنامه:
+                            <template>
+                                <span v-if="shipping.stock == null">
+                                    <span class="uk-inline">
+                                        <a @click="updateShippingCode(shipping)" class="uk-form-icon uk-form-icon-flip" href="#"
+                                           uk-icon="icon: pencil"></a>
+                                        <input class="uk-input uk-border-rounded" v-model="shippingCode"
+                                               type="text">
+                                    </span>
+                                </span>
+                                <span v-else>{{shipping.code}}</span>
+                            </template>
+                        </div>
+                    </div>
+                </td>
             </tr>
             </tbody>
             <tfoot>
-            <tr class="uk-background-muted uk-text-bold">
-                <td></td>
-                <td colspan="5">جمـــــــــــــــــــــع کــــــــــــــــــــــــــل</td>
-                <td>{{total.quantity.toLocaleString()}}</td>
-                <td>{{total.price.toLocaleString()}}</td>
-            </tr>
             </tfoot>
         </table>
-        <div>ارسال‌ها</div>
-        <hr class="uk-margin-small"/>
-        <div class="uk-grid uk-grid-small uk-child-width-1-5">
-            <div v-for="shipping in order.shippings">
-                <div class="uk-background-secondary uk-light uk-border-rounded uk-padding-small uk-box-shadow-small">
-                    <p class="uk-margin-small">{{shipping.stock != null ? shipping.stock.name : 'کارخانه'}}</p>
-                    <hr class="uk-margin-small uk-margin-remove-top"/>
-                    <p class="uk-margin-small">نحوه ارسال: <span class="uk-text-bold"
-                                                                 v-text="getShippingMethodName(shipping.method)"></span></p>
-                    <p>هزینه ارسال: <span class="uk-text-bold" v-text="shipping.cost"></span></p>
-                    <p>وضعیت: <span class="uk-text-bold" v-text="shipping.sailed_at ? 'ارسال شده' : 'در انتظار'"></span></p>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -91,44 +128,28 @@
         props: ['initial-order', 'statuses'],
         data() {
             return {
-                order: this.initialOrder
+                order: this.initialOrder,
+                shippingCode: ''
+            }
+        },
+        mounted() {
+            const factoryShipping = _.find(this.order.shippings, s => s.stock === null);
+            if (factoryShipping) {
+                this.shippingCode = factoryShipping.code;
             }
         },
         computed: {
-            items() {
-                if (this.order.items.length > 0) {
-                    let grouped = _.groupBy(this.order.items, 'variation_id');
-                    return _.map(grouped, (group) => {
-                        let groupInstance = group[0];
-                        let item = this.findItemProductName(groupInstance);
-                        return {
-                            'name': item.product_name,
-                            'variation': item.variation_name,
-                            'options': item.type,
-                            'picture': item.picture,
-                            'price': groupInstance.price,
-                            'quantity': group.length,
-                            'subtotal': group.length * groupInstance.price
-                        }
-                    });
-                }
-                return _.map(this.order.variations, (variation) => {
-                    return {
-                        'name': variation.product.name,
-                        'variation': variation.name,
-                        'options': this.getVariationType(variation),
-                        'picture': this.getVariationPicture(variation),
-                        'price': variation.price,
-                        'quantity': variation.pivot.quantity,
-                        'subtotal': variation.price * variation.pivot.quantity
-                    }
-                })
-            },
             total() {
-                return {
-                    'quantity': _.sumBy(this.items, 'quantity'),
-                    'price': _.sumBy(this.items, 'subtotal')
-                }
+                return _.sumBy(this.order.variations, v => (v.pivot.price + v.pivot.discount) * v.pivot.quantity);
+            },
+            payable() {
+                return _.sumBy(this.order.variations, v => (v.pivot.price) * v.pivot.quantity) + _.sumBy(this.order.shippings, 'cost');
+            },
+            totalDiscount() {
+                return _.sumBy(this.order.variations, v => v.pivot.discount);
+            },
+            totalShippingsCost() {
+                return _.sumBy(this.order.shippings, 'cost');
             }
         },
         methods: {
@@ -143,13 +164,23 @@
                     'picture': picture
                 }
             },
+            updateShippingCode(shipping) {
+                Loading.show();
+                axios.post(`/dashboard/shipping/${shipping.id}`, {_method: 'patch', code: this.shippingCode}).then(() => {
+                    Toast.message('کد مرسوله با موفقیت ثبت شد').success().show()
+                }).catch((e) => Toast.message(e.response.data.message).show())
+                    .then(() => Loading.hide());
+            },
             getVariationType(variation) {
                 return _.reduce(variation.values, (type, value) => {
                     return type + " " + value.name;
                 }, "");
             },
             getVariationPicture(variation) {
-                return _.find(variation.product.pictures, {'id': variation.splash}).url ?? null;
+                const picture = _.find(variation.product.pictures, {'id': variation.splash});
+                if (picture)
+                    return picture.url;
+                return '/uploads/xigma_logo.png'
             },
             getShippingMethodName(id) {
                 switch (id) {

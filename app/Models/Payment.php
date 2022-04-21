@@ -16,6 +16,8 @@ class Payment extends Model
 
     protected $with = ['order'];
 
+    protected $appends = ['gatewayName'];
+
     public function order()
     {
         return $this->belongsTo(Order::class);

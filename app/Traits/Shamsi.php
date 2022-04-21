@@ -21,4 +21,11 @@ trait Shamsi
             return Jalalian::forge($date)->format($this->shamsiFormat);
         return null;
     }
+
+    public function getSailedAtAttribute($date)
+    {
+        if ($date)
+            return Jalalian::forge($date)->format($this->shamsiFormat);
+        return null;
+    }
 }

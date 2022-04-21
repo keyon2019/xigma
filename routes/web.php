@@ -66,6 +66,7 @@ Route::post('/checkout', [CheckoutController::class, 'analyze']);
 Route::get('invoice', [InvoiceController::class, 'index']);
 Route::get('/invoice/{invoice}', [InvoiceController::class, 'show']);
 Route::post('/invoice', [InvoiceController::class, 'store']);
+Route::get('/invoice/{invoice}/invoice', [InvoiceController::class, 'print']);
 
 Route::get('/address', [AddressController::class, 'index']);
 
@@ -105,6 +106,8 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('slider', SliderController::class);
     Route::resource('retailer', RetailerController::class)->except(['show', 'destroy']);
     Route::resource('page', PageController::class)->except(['show']);
+
+    Route::patch('shipping/{shipping}', [\App\Http\Controllers\ShippingController::class, 'update']);
 
     Route::get('widget/all', [WidgetController::class, 'all']);
     Route::post('widget/{widget}/purge', [WidgetController::class, 'purge']);

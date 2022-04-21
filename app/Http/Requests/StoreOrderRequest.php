@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Interfaces\CartInterface;
+use App\Rules\Mobile;
 use App\Services\ShippingService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -30,7 +31,9 @@ class StoreOrderRequest extends FormRequest
             'address_id' => 'required|numeric|exists:addresses,id',
             'shipping_methods' => ['array'],
             'gateway_id' => ['required', 'numeric', Rule::in(array_column(config('gateway'), 'id'))],
-            'cost_preference' => ['required', 'numeric', Rule::in(ShippingService::COST_PREFERENCES)]
+            'cost_preference' => ['required', 'numeric', Rule::in(ShippingService::COST_PREFERENCES)],
+            'receiver' => 'required|string',
+            'receiver_number' => ['required', new Mobile()]
         ];
     }
 

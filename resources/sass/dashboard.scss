@@ -253,3 +253,9 @@
 .ck-editor__editable {
   min-height: 10rem;
 }
+
+@media print {
+  .hidden-in-print {
+    display: none;
+  }
+}

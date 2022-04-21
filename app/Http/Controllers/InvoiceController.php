@@ -34,4 +34,11 @@ class InvoiceController extends Controller
 //        $cart->clear();
         return redirect("/invoice/$invoice->id");
     }
+
+    public function print(Invoice $invoice)
+    {
+        if (auth()->user()->id === $invoice->user_id)
+            return view('website.invoice.invoice')->with('invoice', $invoice->load('variations'));
+        return abort(401);
+    }
 }
