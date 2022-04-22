@@ -2,7 +2,8 @@
     <div>
         <auto-complete v-if="interactive"
                        v-model="search" api="/map/search" search="address" class="uk-margin-small-bottom"></auto-complete>
-        <div :class="{'clickable' : interactive}" id="map" class="uk-border-rounded">
+        <div ref="map" :style="'min-height: ' + height + 'px !important;'" :class="{'clickable' : interactive}"
+             class="uk-border-rounded">
         </div>
     </div>
 </template>
@@ -25,6 +26,9 @@
             },
             lngName: {
                 default: 'lng'
+            },
+            height: {
+                default: 300,
             }
         },
         data() {
@@ -69,7 +73,7 @@
             },
             initMap() {
                 this.map = new mapboxgl.Map({
-                    container: 'map',
+                    container: this.$refs.map,
                     style: `mapbox://styles/mapbox/streets-v11`,
                     center: this.center,
                     zoom: 12
@@ -93,11 +97,13 @@
                     this.map.fitBounds(bounds, {
                         padding: 50
                     });
+                } else {
+                    this.addMarker();
                 }
                 if (this.interactive) {
                     this.map.on('click', this.updateMarker);
-                    this.addMarker();
                 }
+
             },
             addMarker(coords, cssClass = 'default') {
                 coords = coords ? coords : this.map.getCenter();

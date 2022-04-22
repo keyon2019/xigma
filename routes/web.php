@@ -69,6 +69,8 @@ Route::post('/invoice', [InvoiceController::class, 'store']);
 Route::get('/invoice/{invoice}/invoice', [InvoiceController::class, 'print']);
 
 Route::get('/address', [AddressController::class, 'index']);
+Route::patch('/address/{address}', [AddressController::class, 'update']);
+Route::delete('address/{address}', [AddressController::class, 'destroy']);
 
 Route::get('/product/{product}', [ProductController::class, 'show']);
 

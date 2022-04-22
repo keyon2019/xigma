@@ -27,6 +27,7 @@ class CategoryController extends Controller
 
     public function show(Category $category, ProductFilters $filters)
     {
+        $category->withAncestors();
         if (request()->wantsJson()) {
             return response()->json($category->withSubCategoryProducts()
                 ->withAvailability()->without('variations')
