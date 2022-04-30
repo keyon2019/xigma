@@ -15,7 +15,7 @@ class ProfileController extends Controller
 
     public function index()
     {
-        return view('website.profile.index')->with('orders', Order::latest()->limit(5)->get());
+        return view('website.profile.index')->with('orders', auth()->user()->orders()->latest()->limit(8)->get());
     }
 
     public function edit()
