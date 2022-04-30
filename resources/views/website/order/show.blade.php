@@ -193,11 +193,11 @@
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">وضعیت
                             پرداخت: {{$order->paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">تاریخ
-                            پرداخت: {{$order->successfulPayment->created_at}}</div>
+                            پرداخت: {{$order->successfulPayment->created_at ?? null}}</div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">درگاه
-                            پرداخت: {{$order->successfulPayment->gatewayName}}</div>
+                            پرداخت: {{$order->successfulPayment->gatewayName ?? null}}</div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">شماره
-                            پیگیری: {{$order->successfulPayment->reference_number}}</div>
+                            پیگیری: {{$order->successfulPayment->reference_number ?? null}}</div>
                     </div>
                 </accordion>
             </div>

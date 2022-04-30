@@ -134,7 +134,7 @@
                                 درگاه پرداخت
                             </div>
                             <div class="uk-width-2-3">
-                                {{$order->successfulPayment->gatewayName}}
+                                {{$order->successfulPayment->gatewayName ?? ''}}
                             </div>
                         </div>
                     </div>
@@ -144,13 +144,13 @@
                                 تاریخ پرداخت
                             </div>
                             <div class="uk-width-3-4">
-                                {{$order->successfulPayment->created_at}}
+                                {{$order->successfulPayment->created_at ?? ''}}
                             </div>
                             <div class="uk-width-1-4 uk-text-muted">
                                 شماره پیگیری
                             </div>
                             <div class="uk-width-3-4">
-                                {{$order->successfulPayment->reference_number}}
+                                {{$order->successfulPayment->reference_number ?? ''}}
                             </div>
                         </div>
                     </div>
