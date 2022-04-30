@@ -20,7 +20,11 @@ class ProductController extends Controller
     public function index(ProductFilters $filters, Request $request)
     {
         if ($request->wantsJson())
-            return response()->json(Product::withoutGlobalScope(VisibleProductsScope::class)->without('variations')->filter($filters)->withAvailability()->latest()->paginate(12));
+            return response()->json(
+                Product::withoutGlobalScope(VisibleProductsScope::class)
+                    ->without('variations')->filter($filters)
+                    ->withAvailability()->latest()->paginate(12)
+            );
         return view('dashboard.product.index')->with('options', Option::all());
     }
 

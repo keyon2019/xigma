@@ -124,8 +124,8 @@
 
     </style>
 </head>
-<body dir="ltr">
-<div class="site" id="app" dir="rtl">
+<body>
+<div class="site" id="app">
     @include('website.partials._header')
     <main class="site-content">
         @yield('content')

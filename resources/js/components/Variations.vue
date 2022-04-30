@@ -26,43 +26,37 @@
                                        method="get" api="/dashboard/product" placeholder="محصول"></auto-complete>
                     </div>
                     <div>
-                        <ul data-uk-accordion="" class="uk-margin-small-top">
-                            <li class="uk-open">
-                                <a class="uk-accordion-title uk-text-small">دسته‌بندی</a>
-                                <div class="uk-accordion-content">
-                                    <ul v-for="category in categories" class="uk-list uk-list-hyphen">
-                                        <li>
-                                            <label><input name="categories[]" class="uk-checkbox"
-                                                          type="checkbox"
-                                                          :value="category.id">
-                                                {{category.name}}</label>
-                                            <ul v-for="sCategory in category.sub_categories" class="uk-list uk-list-hyphen">
-                                                <li>
-                                                    <label><input name="categories[]" class="uk-checkbox"
+                        <accordion title="دسته‌بندی" class="uk-margin-small-top">
+                            <template v-for="category in categories" class="uk-list uk-list-hyphen">
+                                <accordion class="uk-margin-top">
+                                    <template v-slot:title>
+                                        <label class="uk-margin-small-left"><input name="categories[]" class="uk-checkbox"
+                                                                                   type="checkbox"
+                                                                                   :value="category.id">
+                                            {{category.name}}</label>
+                                    </template>
+                                    <template v-for="sCategory in category.sub_categories" class="uk-list uk-list-hyphen">
+                                        <accordion class="uk-margin-small-top">
+                                            <template v-slot:title>
+                                                <label class="uk-margin-left"><input name="categories[]" class="uk-checkbox"
+                                                                                     type="checkbox"
+                                                                                     :value="sCategory.id">
+                                                    {{sCategory.name}}</label>
+                                            </template>
+                                            <template v-for="ssCategory in sCategory.sub_categories"
+                                                      class="uk-list uk-list-hyphen">
+                                                <div class="uk-margin-small-top">
+                                                    <label class="uk-margin-large-left"><input name="categories[]" class="uk-checkbox"
                                                                   type="checkbox"
-                                                                  :value="sCategory.id">
-                                                        {{sCategory.name}}</label>
-                                                    <ul v-for="ssCategory in sCategory.sub_categories"
-                                                        class="uk-list uk-list-hyphen">
-                                                        <li>
-                                                            <label><input name="categories[]" class="uk-checkbox"
-                                                                          type="checkbox"
-                                                                          :value="ssCategory.id">
-                                                                {{ssCategory.name}}</label>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="uk-margin-small-top">
-                        <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
-                                type="submit">اعمال فیلترها
-                        </button>
+                                                                  :value="ssCategory.id">
+                                                        {{ssCategory.name}}</label>
+                                                </div>
+                                            </template>
+                                        </accordion>
+                                    </template>
+                                </accordion>
+                            </template>
+                        </accordion>
                     </div>
                 </div>
             </div>
@@ -101,7 +95,10 @@
 </template>
 
 <script>
+    import Accordion from "./Accordion";
+
     export default {
+        components: {Accordion},
         props: ['fetch-url', 'choose-list', 'categories']
     }
 </script>

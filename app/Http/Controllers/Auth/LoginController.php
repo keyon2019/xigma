@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\Mobile;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function credentials(Request $request)
+    {
+        if (is_numeric($request->get('email'))) {
+            return ['mobile' => $request->get('email'), 'password' => $request->get('password')];
+        } elseif (filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $request->get('email'), 'password' => $request->get('password')];
+        }
+        return ['username' => $request->get('email'), 'password' => $request->get('password')];
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => is_numeric($request->email) ? ['required', new Mobile()] : 'required|email',
+            'password' => 'required|string',
+        ]);
     }
 }

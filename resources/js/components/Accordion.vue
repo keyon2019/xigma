@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="clickable" @click="toggle">
-            <span>{{title}}</span><span class="uk-margin-small-left" :uk-icon="show ? 'chevron-down' : 'chevron-left'"></span>
+            <span v-if="!this.$slots.title">{{title}}</span>
+            <slot name="title"></slot>
+            <span class="uk-margin-small-left" :uk-icon="show ? 'chevron-down' : 'chevron-left'"></span>
         </div>
         <div v-show="show">
             <slot></slot>

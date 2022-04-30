@@ -1,6 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
-        <paginated-view :fetch-url="url">
+        <paginated-view ref="pv" :fetch-url="url">
             <template v-slot="scopeData">
                 <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
             uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
@@ -24,6 +24,8 @@
                         <td>
                             <a :href="'/dashboard/retailer/' + retailer.id + '/edit'"
                                class="uk-button uk-button-small uk-button-text uk-text-primary">ویرایش</a>
+                            <a @click="removeRetailer(retailer)"
+                               class="uk-button uk-button-small uk-button-text uk-text-danger">حذف</a>
                         </td>
                     </tr>
                     </tbody>
@@ -35,7 +37,18 @@
 
 <script>
     export default {
-        props: ['url']
+        props: ['url'],
+        methods: {
+            removeRetailer(retailer) {
+                if (confirm("آیا از حذف نماینده اطمینان دارید؟")) {
+                    Loading.show();
+                    axios.post(`/dashboard/retailer/${retailer.id}`, {_method: 'delete'}).then(() => {
+                        this.$refs.pv.destroy(retailer.id);
+                        Toast.message("نماینده با موفقیت حذف شد").success().show();
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show()).then(() => Loading.hide())
+                }
+            }
+        }
     }
 </script>
 

@@ -30,4 +30,9 @@ class ProductFilters extends QueryFilter
             });
         }
     }
+
+    public function category($value)
+    {
+
+    }
 }

@@ -64,6 +64,12 @@ class RetailerController extends Controller
         return response([]);
     }
 
+    public function destroy(Retailer $retailer)
+    {
+        $retailer->delete();
+        return response([], 200);
+    }
+
     public function search(Request $request)
     {
         return response()->json(['retailers' => Retailer::where('name', 'like', "%$request->search%")->get()]);

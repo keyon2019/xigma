@@ -47,6 +47,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+Route::group(['middleware' => ['throttle:2,2']], function () {
+    Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
+});
+Route::post('verify_otp', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyOtp']);
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -106,7 +110,7 @@ Route::prefix('dashboard')->group(function () {
     Route::resource('vehicle', VehicleController::class)->except(['show']);
     Route::resource('variation', VariationController::class)->only(['index', 'update', 'destroy']);
     Route::resource('slider', SliderController::class);
-    Route::resource('retailer', RetailerController::class)->except(['show', 'destroy']);
+    Route::resource('retailer', RetailerController::class)->except(['show']);
     Route::resource('page', PageController::class)->except(['show']);
 
     Route::patch('shipping/{shipping}', [\App\Http\Controllers\ShippingController::class, 'update']);
