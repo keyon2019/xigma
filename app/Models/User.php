@@ -27,7 +27,8 @@ class User extends Authenticatable
         'is_retailer',
         'mobile',
         'emergency_mobile',
-        'telephone'
+        'telephone',
+        'is_active'
     ];
 
     /**

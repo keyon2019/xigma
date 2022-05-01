@@ -16,34 +16,48 @@
                 </div>
             </div>
         </template>
+        <template v-slot:sort>
+            <div class="uk-margin-small-bottom">
+                <a href="#" @click="viewMode = 'large'" class="uk-icon-link uk-margin-small-right" uk-icon="grid"></a>
+                <a href="#" @click="viewMode = 'medium'" class="uk-icon-link uk-margin-small-right" uk-icon="list"></a>
+                <a href="#" @click="viewMode = 'list'" class="uk-icon-link uk-margin-small-right" uk-icon="table"></a>
+            </div>
+        </template>
         <template v-slot="scopeData">
-            <div v-if="!treeView">
-                <div class="uk-grid uk-grid-small uk-child-width-1-6 uk-margin" data-uk-grid>
-                    <div v-for="category in scopeData.records">
-                        <div @click="selected(category)"
-                             class="uk-card uk-card-default uk-card-small uk-border-rounded uk-box-shadow-medium clickable uk-position-relative uk-visible-toggle">
-                            <div v-if="!chooseList" uk-tooltip="حذف دسته‌بندی" @click.stop="deleteCategory(category)"
-                                 uk-close
-                                 class="uk-text-danger uk-position-absolute uk-position-top-left uk-margin-small-top uk-margin-small-left uk-hidden-hover"></div>
-                            <div class="uk-card-media-top">
-                                <img :src="category.splash ? category.splash : '/uploads/xigma_logo.png'">
-                            </div>
-                            <div class="uk-card-body">
-                                <p v-text="category.name"></p>
-                                <p class="uk-text-meta uk-text-truncate" v-text="category.description"></p>
-                            </div>
+            <div v-if="viewMode === 'large'" class="uk-grid uk-grid-small uk-child-width-1-6 uk-margin" data-uk-grid>
+                <div v-for="category in scopeData.records">
+                    <div @click="selected(category)"
+                         class="uk-card uk-card-default uk-card-small uk-border-rounded uk-box-shadow-medium clickable uk-position-relative uk-visible-toggle">
+                        <div v-if="!chooseList" uk-tooltip="حذف دسته‌بندی" @click.stop="deleteCategory(category)"
+                             uk-close
+                             class="uk-text-danger uk-position-absolute uk-position-top-left uk-margin-small-top uk-margin-small-left uk-hidden-hover"></div>
+                        <div class="uk-card-media-top">
+                            <img :src="category.splash ? category.splash : '/uploads/xigma_logo.png'">
+                        </div>
+                        <div class="uk-card-body">
+                            <p v-text="category.name"></p>
+                            <p class="uk-text-meta uk-text-truncate" v-text="category.description"></p>
                         </div>
                     </div>
                 </div>
             </div>
             <div v-else>
-                <div class="tf-tree">
-                    <ul>
-                        <li>
-
-                        </li>
-                    </ul>
-                </div>
+                <table class="uk-table uk-table-small uk-table-striped uk-table-hover uk-table-divider uk-table-middle">
+                    <tbody>
+                    <tr @click="selected(category)" v-for="category in scopeData.records" class="clickable">
+                        <td v-if="viewMode === 'medium'" class="uk-table-shrink">
+                            <img uk-img width="69" class="uk-preserve-width uk-border-rounded"
+                                 :src="category.splash ? category.splash : '/uploads/xigma_logo.png'">
+                        </td>
+                        <td>
+                            <div>
+                                <div v-text="category.name"></div>
+                                <div v-if="viewMode === 'medium'" class="uk-text-meta uk-text-truncate" v-text="category.description"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </template>
     </paginated-view>
@@ -54,7 +68,7 @@
         props: ['fetch-url', 'choose-list'],
         data() {
             return {
-                treeView: false,
+                viewMode: 'large',
             }
         },
         methods: {

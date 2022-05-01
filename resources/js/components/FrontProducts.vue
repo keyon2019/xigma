@@ -40,7 +40,7 @@
                 </div>
                 <div class=" uk-flex custom-padding uk-flex-middle section-container">
                     <p class="uk-margin-remove" style="flex: 1">فقط قطعات دارای تصویر</p>
-                    <input name="has-picture" value="1" class="apple-switch uk-margin-remove" type="checkbox">
+                    <input name="pictured" value="1" class="apple-switch uk-margin-remove" type="checkbox">
                 </div>
                 <div class=" uk-flex custom-padding uk-flex-middle section-container">
                     <p class="uk-margin-remove" style="flex: 1">فقط قطعات موتور من</p>

@@ -43,11 +43,11 @@ class LoginController extends Controller
     protected function credentials(Request $request)
     {
         if (is_numeric($request->get('email'))) {
-            return ['mobile' => $request->get('email'), 'password' => $request->get('password')];
+            return ['mobile' => $request->get('email'), 'password' => $request->get('password'), 'is_active' => true];
         } elseif (filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
-            return ['email' => $request->get('email'), 'password' => $request->get('password')];
+            return ['email' => $request->get('email'), 'password' => $request->get('password'), 'is_active' => true];
         }
-        return ['username' => $request->get('email'), 'password' => $request->get('password')];
+        return ['username' => $request->get('email'), 'password' => $request->get('password'), 'is_active' => true];
     }
 
     protected function validateLogin(Request $request)

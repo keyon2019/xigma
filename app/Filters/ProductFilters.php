@@ -31,6 +31,11 @@ class ProductFilters extends QueryFilter
         }
     }
 
+    public function pictured($value)
+    {
+        $this->query->whereHas('pictures');
+    }
+
     public function category($value)
     {
 

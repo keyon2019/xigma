@@ -20,6 +20,7 @@
                             <option value="2">ستون اول فوتر</option>
                             <option value="3">ستون دوم فوتر</option>
                             <option value="4">ستون سوم فوتر</option>
+                            <option value="5">XIGMA BOX</option>
                         </select>
                     </div>
                     <div class="uk-width-1-1">

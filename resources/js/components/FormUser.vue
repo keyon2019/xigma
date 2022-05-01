@@ -11,6 +11,12 @@
                                     :errors="form.errors"
                                     v-model="form.name.value">
                         </form-input>
+                        <form-input label="موبایل" classes="uk-input"
+                                    type="input"
+                                    name="mobile"
+                                    :errors="form.errors"
+                                    v-model="form.mobile.value">
+                        </form-input>
                         <form-input label="ایمیل" classes="uk-input"
                                     type="input"
                                     name="email"
@@ -26,6 +32,10 @@
                         <div class="uk-flex uk-flex-middle uk-margin-small">
                             <label><input v-model="form.is_retailer.value" class="uk-checkbox" type="checkbox">
                                 فروشنده</label>
+                        </div>
+                        <div class="uk-flex uk-flex-middle uk-margin-small">
+                            <label><input v-model="form.is_active.value" class="uk-checkbox" type="checkbox">
+                                فعال</label>
                         </div>
                     </div>
                 </div>
@@ -49,15 +59,23 @@
                         value: '',
                         rules: 'required|string'
                     },
+                    mobile: {
+                        value: '',
+                        rules: 'required|numeric'
+                    },
                     email: {
                         value: '',
-                        rules: 'required|string',
+                        rules: 'string',
                     },
                     password: {
                         value: '',
                         rules: 'string',
                     },
                     is_retailer: {
+                        value: '',
+                        rules: 'boolean',
+                    },
+                    is_active: {
                         value: '',
                         rules: 'boolean',
                     },

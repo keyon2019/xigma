@@ -1,5 +1,5 @@
 <template>
-    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" :uk-slideshow="'index:' + selectedIndex + ';ratio:1:1;max-height:600px;'">
+    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" :uk-slideshow="'index:' + index + ';ratio:1:1;max-height:600px;'">
         <ul class="uk-slideshow-items">
             <li v-for="image in images">
                 <img class="uk-background-default" :src="image" alt="" uk-cover>
@@ -14,9 +14,7 @@
     export default {
         props: ['images', 'index'],
         data() {
-            return {
-                selectedIndex: this.index
-            }
+
         }
     }
 </script>

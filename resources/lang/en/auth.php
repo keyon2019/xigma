@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'تلفن همراه و رمز عبور وارد شده معتبر نیست.',
     'password' => 'The provided password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'otp' => 'کد فعال‌سازی شما: :code \n\n گروه صنعتی زیگما'

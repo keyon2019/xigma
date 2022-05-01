@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\UserFilters;
 use App\Models\User;
+use App\Rules\Mobile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,9 +31,11 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string',
+            'mobile' => ['required', new Mobile()],
+            'email' => 'nullable|string',
             'password' => 'required|string',
             'is_retailer' => 'boolean',
+            'is_active' => 'boolean'
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
@@ -49,9 +52,11 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'email' => 'required|string',
+            'mobile' => ['required', new Mobile()],
+            'email' => 'nullable|string',
             'password' => 'string',
             'is_retailer' => 'boolean',
+            'is_active' => 'boolean'
         ]);
 
         if ($request->has('password'))
