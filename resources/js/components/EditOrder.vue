@@ -86,9 +86,9 @@
                     <div class="uk-text-meta uk-margin-small-bottom">اطلاعات پرداخت</div>
                     <div class="uk-grid uk-child-width-1-4">
                         <div>وضعیت پرداخت: {{order.paid ? "پرداخت شده" : "در انتظار پرداخت"}}</div>
-                        <div>تاریخ پرداخت: {{order.successful_payment.updated_at}}</div>
-                        <div>درگاه پرداخت: {{order.successful_payment.gatewayName}}</div>
-                        <div>شماره پیگیری: {{order.successful_payment.reference_number}}</div>
+                        <div>تاریخ پرداخت: <span v-if="order.successful_payment">{{order.successful_payment.updated_at}}</span></div>
+                        <div>درگاه پرداخت: <span v-if="order.successful_payment">{{order.successful_payment.gatewayName}}</span></div>
+                        <div>شماره پیگیری: <span v-if="order.successful_payment">{{order.successful_payment.reference_number}}</span></div>
                     </div>
                 </td>
             </tr>
