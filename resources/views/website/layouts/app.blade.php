@@ -19,6 +19,9 @@
     @laravelPWA
 
     <style>
+        .uk-modal-page {
+            overflow: unset !important;
+        }
         @media print {
             header {
                 display: none;
