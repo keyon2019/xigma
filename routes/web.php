@@ -124,6 +124,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('order/{order}/edit', [OrderController::class, 'edit']);
     Route::patch('order/{order}', [OrderController::class, 'update']);
 
+    Route::get('invoice', [InvoiceController::class, 'all']);
+    Route::get('invoice/{invoice}/edit', [InvoiceController::class, 'edit']);
+
     Route::post('/product/{product}/option', [ProductOptionsController::class, 'store']);
     Route::delete('/product/{product}/option', [ProductOptionsController::class, 'destroy']);
 

@@ -23,7 +23,7 @@
     </div>
 </div>
 <div id="app" v-cloak>
-    <header id="top-head" class="uk-position-fixed uk-box-shadow-medium">
+    <header id="top-head" class="uk-position-fixed uk-box-shadow-medium hidden-in-print">
         <div class="uk-container uk-container-expand uk-background-secondary">
             <nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
                 <div class="uk-navbar-right">

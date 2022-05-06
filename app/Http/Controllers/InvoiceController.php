@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Filters\InvoiceFilters;
 use App\Interfaces\CartInterface;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
@@ -11,6 +12,20 @@ class InvoiceController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin')->only('all');
+    }
+
+    public function all(Request $request, InvoiceFilters $filters)
+    {
+        if ($request->wantsJson())
+            return response()->json(Invoice::filter($filters)->with('user')->latest()->paginate(15));
+        return view('dashboard.invoice.index');
+    }
+
+    public function edit(Invoice $invoice)
+    {
+        return view('dashboard.invoice.edit')
+            ->with('invoice', $invoice->load(['user', 'variations.product']));
     }
 
     public function index(Request $request)
