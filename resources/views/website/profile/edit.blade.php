@@ -16,7 +16,7 @@
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-text">شماره موبایل</label>
                 <div class="uk-form-controls">
-                    <input required name="mobile" class="uk-input uk-border-rounded" id="form-horizontal-text" type="text" value="{{$user->mobile}}"
+                    <input required name="mobile" disabled class="uk-input uk-border-rounded" id="form-horizontal-text" type="text" value="{{$user->mobile}}"
                            placeholder="شماره موبایل">
                 </div>
             </div>

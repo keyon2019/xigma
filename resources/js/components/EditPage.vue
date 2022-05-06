@@ -1,12 +1,12 @@
 <template>
     <div>
-        <form-page :page="page" @submit="submit"></form-page>
+        <form-page :page="page" :top-menus="topMenus" @submit="submit"></form-page>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['initial-page'],
+        props: ['initial-page', 'top-menus'],
         data() {
             return {
                 page: this.initialPage

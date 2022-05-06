@@ -3,5 +3,5 @@
 @section('title', 'صفحه جدید')
 
 @section('content')
-    <create-page></create-page>
+    <create-page :top-menus="{{$topMenus}}"></create-page>
 @endsection

@@ -26,7 +26,7 @@ class PageController extends Controller
 
     public function create()
     {
-        return view('dashboard.page.create');
+        return view('dashboard.page.create')->with('topMenus', Page::wherePosition(1)->get());
     }
 
     public function store(Request $request)
@@ -37,7 +37,8 @@ class PageController extends Controller
             'content' => 'string',
             'position' => 'required|numeric',
             'meta_title' => 'string',
-            'meta_description' => 'string'
+            'meta_description' => 'string',
+            'parent' => 'required|numeric',
         ]);
 
         $page = Page::create($validated);
@@ -47,7 +48,7 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
-        return view('dashboard.page.edit', compact('page'));
+        return view('dashboard.page.edit', compact('page'))->with('topMenus', Page::wherePosition(1)->get());
     }
 
     public function update(Page $page, Request $request)
@@ -58,7 +59,8 @@ class PageController extends Controller
             'content' => 'string',
             'position' => 'required|numeric',
             'meta_title' => 'string',
-            'meta_description' => 'string'
+            'meta_description' => 'string',
+            'parent' => 'required|numeric',
         ]);
         $page->update($validated);
 

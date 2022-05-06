@@ -52,7 +52,6 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string',
-            'mobile' => ['required', new Mobile()],
             'email' => 'nullable|string',
             'password' => 'string',
             'is_retailer' => 'boolean',

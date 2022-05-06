@@ -1,11 +1,12 @@
 <template>
     <div>
-        <form-page @submit="submit"></form-page>
+        <form-page :top-menus="topMenus" @submit="submit"></form-page>
     </div>
 </template>
 
 <script>
     export default {
+        props: ['top-menus'],
         methods: {
             submit(form) {
                 Loading.show();

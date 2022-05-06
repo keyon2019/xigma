@@ -36,7 +36,8 @@
                                         <div>
                                             <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
                                                 @foreach($categories as $index => $category)
-                                                    <li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
+                                                    <li onmouseover="event.target.click()"
+                                                        class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -45,10 +46,16 @@
                                                 @foreach($categories as $category)
                                                     <li class="uk-column-1-5">
                                                         @foreach($category->subCategories as $sCategory)
-                                                            <a href="/category/{{$sCategory->id}}" class=" uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
+                                                            <a href="/category/{{$sCategory->id}}"
+                                                               class=" uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}}
+                                                                <span style="font-size: 0.6rem"
+                                                                      class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
                                                             <ul class="uk-list uk-margin-small">
                                                                 @foreach($sCategory->subCategories as $ssCategory)
-                                                                    <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a></li>
+                                                                    <li>
+                                                                        <a class="uk-text-muted uk-button uk-button-text uk-text-truncate"
+                                                                           href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a>
+                                                                    </li>
                                                                 @endforeach
                                                             </ul>
                                                         @endforeach
@@ -59,15 +66,35 @@
                                     </div>
                                 </div>
                             </li>
-                            @foreach($pages as $page)
-                                <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
+                            @foreach($pages->where('position', 1) as $page)
+                                <li>
+                                    <a href="/{{$page->slug}}"
+                                       class="uk-text-secondary">{{$page->name}}@if($page->subs->count() > 0)<span
+                                                uk-icon="chevron-down"></span>@endif</a>
+                                    <div uk-dropdown="pos:bottom-justify;boundary: .arman-sticky-nav;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300">
+                                        <ul class="uk-nav uk-dropdown-nav">
+                                            @foreach($page->subs as $p)
+                                                <li><a href="/{{$p->slug}}" class="uk-text-secondary">{{$p->name}}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
                     <div class="uk-width-1-4">
-                        <div class="uk-background-muted uk-padding-small uk-text-center">
+                        <div class="uk-background-muted uk-padding-small uk-text-center clickable">
                             <span class="uk-margin-right uk-text-muted"> XIGMA BOX </span>
                             <span class="uk-text-muted" data-uk-icon="icon:menu;ratio:1.5"></span>
+                        </div>
+                        <div uk-dropdown="pos:bottom-justify;offset:0">
+                            @if($page->subs->count() > 0)
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    @foreach($pages->where('position', 5) as $page)
+                                        <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -126,12 +153,6 @@
                                     </button>
                                 </div>
                                 <search class="padding-small@m uk-width-expand"></search>
-                                {{--<div class="uk-width-expand padding-small@m">--}}
-                                {{--<div class="uk-inline uk-width-expand">--}}
-                                {{--<span class="uk-form-icon" data-uk-icon="search"></span>--}}
-                                {{--<input class="uk-input uk-border-rounded uk-text-muted">--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
                             </div>
                         </div>
 
@@ -156,7 +177,9 @@
                                             <div>
                                                 <ul class="uk-tab uk-tab-left" uk-switcher="connect:#cat-tabs">
                                                     @foreach($categories->sortBy('order') as $index => $category)
-                                                        <li onmouseover="event.target.click()" class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a></li>
+                                                        <li onmouseover="event.target.click()"
+                                                            class="uk-margin-small uk-text-truncate"><a>{{$category->name}}</a>
+                                                        </li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -165,10 +188,16 @@
                                                     @foreach($categories as $category)
                                                         <li class="uk-column-1-5">
                                                             @foreach($category->subCategories->sortBy('order') as $sCategory)
-                                                                <a href="/category/{{$sCategory->id}}" class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}} <span style="font-size: 0.6rem" class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
+                                                                <a href="/category/{{$sCategory->id}}"
+                                                                   class="uk-text-bold uk-link-reset uk-text-truncate">{{$sCategory->name}}
+                                                                    <span style="font-size: 0.6rem"
+                                                                          class="fa-solid uk-margin-small-left fa-chevron-left"></span></a>
                                                                 <ul class="uk-list uk-margin-small">
                                                                     @foreach($sCategory->subCategories->sortBy('order') as $ssCategory)
-                                                                        <li><a class="uk-text-muted uk-button uk-button-text uk-text-truncate" href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a></li>
+                                                                        <li>
+                                                                            <a class="uk-text-muted uk-button uk-button-text uk-text-truncate"
+                                                                               href="/category/{{$ssCategory->id}}">{{$ssCategory->name}}</a>
+                                                                        </li>
                                                                     @endforeach
                                                                 </ul>
                                                             @endforeach
@@ -179,16 +208,37 @@
                                         </div>
                                     </div>
                                 </li>
-                                @foreach($pages as $page)
-                                    <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
+                                @foreach($pages->where('position', 1) as $page)
+                                    <li>
+                                        <a href="/{{$page->slug}}"
+                                           class="uk-text-secondary">{{$page->name}}@if($page->subs->count() > 0)<span
+                                                    uk-icon="chevron-down"></span>@endif</a>
+                                        <div uk-dropdown="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300">
+                                            @if($page->subs->count() > 0)
+                                                <ul class="uk-nav uk-dropdown-nav">
+                                                    @foreach($page->subs as $p)
+                                                        <li><a href="/{{$p->slug}}" class="uk-text-secondary">{{$p->name}}</a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </div>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>
                     </div>
                     <div class="uk-width-1-4@m">
-                        <div class="uk-background-muted uk-padding-small uk-text-center uk-visible@m">
+                        <div class="uk-background-muted uk-padding-small uk-text-center uk-visible@m clickable">
                             <span class="uk-margin-right uk-text-muted"> XIGMA BOX </span>
                             <span class="uk-text-muted" data-uk-icon="icon:menu;ratio:1.5"></span>
+                        </div>
+                        <div uk-dropdown="pos:bottom-justify;offset:0">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                @foreach($pages->where('position', 5) as $page)
+                                    <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
+                                @endforeach
+                            </ul>
                         </div>
                     </div>
                 </div>
