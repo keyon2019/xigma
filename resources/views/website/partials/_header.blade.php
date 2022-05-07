@@ -87,15 +87,15 @@
                             <span class="uk-margin-right uk-text-muted"> XIGMA BOX </span>
                             <span class="uk-text-muted" data-uk-icon="icon:menu;ratio:1.5"></span>
                         </div>
-                        <div uk-dropdown="pos:bottom-justify;offset:0">
-                            @if($page->subs->count() > 0)
+                        @if($page->subs->count() > 0)
+                            <div uk-dropdown="pos:bottom-justify;offset:0">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     @foreach($pages->where('position', 5) as $page)
                                         <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
                                     @endforeach
                                 </ul>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -213,16 +213,16 @@
                                         <a href="/{{$page->slug}}"
                                            class="uk-text-secondary">{{$page->name}}@if($page->subs->count() > 0)<span
                                                     uk-icon="chevron-down"></span>@endif</a>
-                                        <div uk-dropdown="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300">
-                                            @if($page->subs->count() > 0)
+                                        @if($page->subs->count() > 0)
+                                            <div uk-dropdown="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300">
                                                 <ul class="uk-nav uk-dropdown-nav">
                                                     @foreach($page->subs as $p)
                                                         <li><a href="/{{$p->slug}}" class="uk-text-secondary">{{$p->name}}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
-                                            @endif
-                                        </div>
+                                            </div>
+                                        @endif
                                     </li>
                                 @endforeach
                             </ul>
