@@ -11,42 +11,47 @@
                     <ul class="uk-slider-items uk-child-width-1-4@m uk-child-width-1-3@s uk-child-width-1-2 uk-grid uk-grid-small">
                         @foreach($items as $product)
                             <li>
-                                <div class="uk-card uk-card-default product-card uk-box-shadow-hover-medium"
-                                     style="border-radius: 0.6em;">
-                                    <a href="/product/{{$product->id}}" class="uk-link-reset">
-                                        <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
-                                        <div class="uk-padding-small">
-                                            <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->name}}</p>
-                                            <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard">{{$product->en_name}}</p>
-                                            <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle uk-margin-remove uk-text-muted"
-                                                 uk-grid>
-                                                <div class="uk-width-expand">
-                                                    <stars-rating size="0.7" rating="{{$product->rating ?? 3}}"></stars-rating>
+                                <div class="uk-padding-xsmall">
+                                    <div class="uk-card uk-card-default product-card uk-box-shadow-hover-medium"
+                                         style="border-radius: 0.6em;">
+                                        <a href="/product/{{$product->id}}" class="uk-link-reset">
+                                            <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
+                                            <div class="uk-padding-small">
+                                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->name}}</p>
+                                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard">{{$product->en_name}}</p>
+                                                <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle uk-margin-remove uk-text-muted"
+                                                     uk-grid>
+                                                    <div class="uk-width-expand">
+                                                        <stars-rating size="0.7"
+                                                                      rating="{{$product->rating ?? 3}}"></stars-rating>
+                                                    </div>
+                                                    <div class="text-small@m">امتیاز</div>
                                                 </div>
-                                                <div class="text-small@m">امتیاز</div>
+                                                <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
+                                                    <span class="uk-float-right uk-text-medium">{{number_format($product->price)}}</span>
+                                                    <span class="uk-float-left uk-text-medium uk-text-normal">تومان</span>
+                                                </p>
+                                                <a href="/product/{{$product->id}}"
+                                                   class="uk-button uk-button-success uk-text-white uk-width-expand uk-margin-small-bottom uk-margin-small-top">
+                                                    <span>خرید</span><span class="uk-margin-small-right"
+                                                                           data-uk-icon="cart"></span>
+                                                </a>
                                             </div>
-                                            <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">
-                                                <span class="uk-float-right uk-text-medium">{{number_format($product->price)}}</span>
-                                                <span class="uk-float-left uk-text-medium uk-text-normal">تومان</span>
-                                            </p>
-                                            <a href="/product/{{$product->id}}"
-                                               class="uk-button uk-button-success uk-text-white uk-width-expand uk-margin-small-bottom uk-margin-small-top">
-                                                <span>خرید</span><span class="uk-margin-small-right"
-                                                                       data-uk-icon="cart"></span>
-                                            </a>
-                                        </div>
-                                    </a>
+                                        </a>
+                                    </div>
                                 </div>
                             </li>
                         @endforeach
                     </ul>
                 </div>
-                <a class="uk-position-center-left-out uk-visible@m uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                <a class="uk-position-center-left-out uk-visible@m uk-position-small" href="#" uk-slidenav-next
+                   uk-slider-item="next"></a>
                 <a class="uk-position-center-right-out uk-visible@m uk-position-small" href="#" uk-slidenav-previous
-                uk-slider-item="previous"></a>
-                <a class="uk-position-center-left uk-hidden@m uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                   uk-slider-item="previous"></a>
+                <a class="uk-position-center-left uk-hidden@m uk-position-small" href="#" uk-slidenav-next
+                   uk-slider-item="next"></a>
                 <a class="uk-position-center-right uk-hidden@m uk-position-small" href="#" uk-slidenav-previous
-                uk-slider-item="previous"></a>
+                   uk-slider-item="previous"></a>
             </div>
         </div>
         {{--<div class="uk-width-expand uk-hidden@s uk-text-center uk-text-left@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span--}}
