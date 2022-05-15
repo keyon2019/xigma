@@ -15,6 +15,18 @@ class OrderFilters extends QueryFilter
         $this->query->whereStatus($value);
     }
 
+    public function name($value)
+    {
+        return $this->query->whereHas('user', function ($q) use ($value) {
+            return $q->whereName($value);
+        });
+    }
+
+    public function userMobile($value)
+    {
+        $this->query->whereReceiverNumber($value);
+    }
+
     public function keyword($value)
     {
         $this->query->where('name', 'like', "%$value%");

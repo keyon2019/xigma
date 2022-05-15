@@ -13,10 +13,10 @@
                     <search class="uk-margin-left uk-width-expand"></search>
                 </div>
                 <div class="uk-width-1-4">
-                    <div class="uk-background-primary">
+                    <a class="uk-background-primary uk-display-block" href="/">
                         <img class="uk-width-expand uk-padding uk-padding-remove-vertical"
                              src="/uploads/xigma-typography.png">
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -42,14 +42,14 @@
                                                 <div class="uk-width-expand">تخفیف</div>
                                                 <div><span
                                                         class="">{{(item.quantity * item.discount).toLocaleString()}}</span>
-                                                    ریال
+                                                    تومان
                                                 </div>
                                             </div>
                                             <div class="uk-grid uk-grid-small uk-text-emphasis uk-flex uk-flex-middle" uk-grid>
                                                 <div class="uk-width-expand">قیمت</div>
                                                 <div><span
                                                         class="uk-text-large">{{(item.quantity * item.price).toLocaleString()}}</span>
-                                                    ریال
+                                                    تومان
                                                 </div>
                                             </div>
                                         </div>
@@ -71,16 +71,16 @@
                 <div class="uk-background-muted uk-border-rounded uk-padding-small" style="border: 1px solid gainsboro;">
                     <div class="uk-grid uk-grid-small uk-text-emphasis uk-flex uk-flex-middle" uk-grid>
                         <div class="uk-width-expand">قیمت اقلام ({{cart.totalQuantity()}})</div>
-                        <div><span>{{(cart.total() + cart.totalDiscount()).toLocaleString()}}</span> ریال</div>
+                        <div><span>{{(cart.total() + cart.totalDiscount()).toLocaleString()}}</span> تومان</div>
                     </div>
                     <div class="uk-grid uk-grid-small uk-text-danger uk-flex uk-flex-middle" uk-grid>
                         <div class="uk-width-expand">جمع تخفیف‌ها</div>
-                        <div><span>{{cart.totalDiscount().toLocaleString()}}</span> ریال</div>
+                        <div><span>{{cart.totalDiscount().toLocaleString()}}</span> تومان</div>
                     </div>
                     <hr/>
                     <div class="uk-grid uk-grid-small uk-text-emphasis uk-flex uk-flex-middle" uk-grid>
                         <div class="uk-width-expand">مبلغ سبد خرید</div>
-                        <div><span>{{(cart.total()).toLocaleString()}}</span> ریال</div>
+                        <div><span>{{(cart.total()).toLocaleString()}}</span> تومان</div>
                     </div>
                     <p class="uk-text-meta">جهت نهایی کردن فاکتور خود و انتخاب نحوه ارسال قطعات وارد مرحله بعد شوید</p>
                     <a href="/checkout" class="uk-button uk-button-danger uk-button-large uk-width-expand uk-border-rounded">نهایی

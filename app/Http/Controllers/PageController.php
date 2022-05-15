@@ -38,7 +38,7 @@ class PageController extends Controller
             'position' => 'required|numeric',
             'meta_title' => 'string',
             'meta_description' => 'string',
-            'parent' => 'required|numeric',
+            'parent' => 'nullable|numeric',
         ]);
 
         $page = Page::create($validated);
@@ -60,7 +60,7 @@ class PageController extends Controller
             'position' => 'required|numeric',
             'meta_title' => 'string',
             'meta_description' => 'string',
-            'parent' => 'required|numeric',
+            'parent' => 'nullable|numeric',
         ]);
         $page->update($validated);
 

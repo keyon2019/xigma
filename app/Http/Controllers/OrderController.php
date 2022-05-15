@@ -8,6 +8,7 @@ use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\User;
 use App\Services\ClosestItemFinderService;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->only(['all', 'edit', 'update']);
+        $this->middleware('admin')->only(['all', 'edit', 'update', 'userOrders']);
     }
 
     public function all(Request $request, OrderFilters $filters)
@@ -31,6 +32,11 @@ class OrderController extends Controller
         if ($request->wantsJson())
             return response()->json(auth()->user()->orders()->latest()->paginate(10));
         return view('website.order.index');
+    }
+
+    public function userOrders(User $user)
+    {
+        return response()->json($user->orders()->latest()->paginate(10));
     }
 
     public function show(Order $order)

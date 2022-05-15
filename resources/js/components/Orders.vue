@@ -6,6 +6,9 @@
                 <hr class="uk-margin-remove-top"/>
                 <div>
                     <div class="uk-margin-small">
+                        <input type="text" name="name" class="uk-input uk-border-rounded" placeholder="نام کاربر">
+                    </div>
+                    <div class="uk-margin-small">
                         <input class="uk-input" id="created_at" name="created_at"
                                :value="$refs.dp ? $refs.dp.displayValue : ''" placeholder="زمان ثبت">
                         </input>
@@ -22,7 +25,7 @@
                         </select>
                     </div>
                     <div class="uk-margin-small">
-                        <input type="email" name="user_email" class="uk-input uk-border-rounded" placeholder="ایمیل کاربر">
+                        <input type="text" name="userMobile" class="uk-input uk-border-rounded" placeholder="موبایل">
                     </div>
                     <div class="uk-margin-small-top">
                         <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
@@ -39,8 +42,8 @@
                 <tr>
                     <th>#</th>
                     <th>کاربر</th>
+                    <th>موبایل</th>
                     <th>مبلغ</th>
-                    <th>وضعیت پرداخت</th>
                     <th>وضعیت سفارش</th>
                     <th>زمان ثبت</th>
                     <th>مشاهده</th>
@@ -50,8 +53,8 @@
                 <tr v-for="order in scopeData.records">
                     <td class="uk-table-shrink">{{order.id}}</td>
                     <td class="uk-table-shrink">{{order.user.name}}</td>
+                    <td>{{order.receiver_number}}</td>
                     <td>{{order.total.toLocaleString()}}</td>
-                    <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
                     <td>{{order.statusName}}</td>
                     <td>{{order.created_at}}</td>
                     <td><a :href="`/dashboard/order/${order.id}/edit`"

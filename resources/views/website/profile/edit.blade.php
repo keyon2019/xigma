@@ -1,22 +1,24 @@
 @extends('website.layouts.profile')
 
 @section('profile-content')
-    <h4 class="uk-text-muted">اطلاعات کاربری</h4>
-    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small">
+    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
+        <h4 class="uk-text-muted">اطلاعات کاربری</h4>
         <form class="uk-form-horizontal" method="post" action="/profile">
             @csrf
             @method('patch')
             <div class="uk-margin-bottom">
                 <label class="uk-form-label" for="form-horizontal-text">نام و نام خانوادگی</label>
                 <div class="uk-form-controls">
-                    <input required name="name" class="uk-input uk-border-rounded" id="form-horizontal-text" type="text" value="{{$user->name}}"
+                    <input required name="name" class="uk-input uk-border-rounded" id="form-horizontal-text" type="text"
+                           value="{{$user->name}}"
                            placeholder="نام و نام خانواداگی">
                 </div>
             </div>
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-text">شماره موبایل</label>
                 <div class="uk-form-controls">
-                    <input required name="mobile" disabled class="uk-input uk-border-rounded" id="form-horizontal-text" type="text" value="{{$user->mobile}}"
+                    <input required name="mobile" disabled class="uk-input uk-border-rounded" id="form-horizontal-text"
+                           type="text" value="{{$user->mobile}}"
                            placeholder="شماره موبایل">
                 </div>
             </div>
@@ -24,13 +26,16 @@
                 <label class="uk-form-label" for="form-horizontal-text">تاریخ تولد</label>
                 <div class="uk-form-controls uk-flex uk-flex-bottom">
                     <input class="uk-input uk-width-small uk-form-blank" id="form-horizontal-text"
-                           style="border-bottom: 1px solid gainsboro" type="number" min="1" max="31" value="{{$user->birthday}}" placeholder="روز">
+                           style="border-bottom: 1px solid gainsboro" type="number" min="1" max="31" value="{{$user->birthday}}"
+                           placeholder="روز">
                     <span class="uk-padding-small uk-padding-remove-vertical">/</span>
                     <input class="uk-input uk-width-small uk-form-blank" id="form-horizontal-text"
-                           style="border-bottom: 1px solid gainsboro" type="number" min="1" max="12" value="{{$user->birthday}}" placeholder="ماه">
+                           style="border-bottom: 1px solid gainsboro" type="number" min="1" max="12" value="{{$user->birthday}}"
+                           placeholder="ماه">
                     <span class="uk-padding-small uk-padding-remove-vertical">/</span>
                     <input class="uk-input uk-width-small uk-form-blank" id="form-horizontal-text"
-                           style="border-bottom: 1px solid gainsboro" type="number" min="1200" max="1401" value="{{$user->birthday}}" placeholder="سال">
+                           style="border-bottom: 1px solid gainsboro" type="number" min="1200" max="1401"
+                           value="{{$user->birthday}}" placeholder="سال">
                 </div>
             </div>
             <div class="uk-margin">
@@ -55,7 +60,8 @@
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-text">آدرس ایمیل</label>
                 <div class="uk-form-controls">
-                    <input name="email" class="uk-input uk-border-rounded" id="form-horizontal-text" type="email" required value="{{$user->email}}"
+                    <input name="email" class="uk-input uk-border-rounded" id="form-horizontal-text" type="email" required
+                           value="{{$user->email}}"
                            placeholder="آدرس ایمیل ">
                 </div>
             </div>
@@ -64,53 +70,61 @@
             </div>
         </form>
     </div>
-    <div class="uk-text-small uk-text-bold uk-margin uk-margin-remove-bottom">انتخاب وسیله نقلیه</div>
-    <div class="uk-text-meta"> شما می‌توانید جهت سهولت در استفاده از امکانات و جستجوی دقیق‌تر بین محصولات وسیله نقلیه خود را
-        انتخاب و سیستم را هوشمند‌تر ساز سازید
-    </div>
-    <div class="uk-grid uk-flex uk-flex-middle uk-margin-top uk-padding">
-        <div class="uk-width-1-4 uk-flex uk-flex-middle uk-text-muted">
-            افزودن <span class="uk-margin-left uk-border-rounded uk-padding-small clickable"
-                         style="border: 1px solid gainsboro"><i class="fa-solid fa-4x fa-plus"></i></span>
+    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
+        <div class="uk-text-small uk-text-bold uk-margin uk-margin-remove-bottom">انتخاب وسیله نقلیه</div>
+        <div class="uk-text-meta"> شما می‌توانید جهت سهولت در استفاده از امکانات و جستجوی دقیق‌تر بین محصولات وسیله نقلیه خود را
+            انتخاب و سیستم را هوشمند‌تر ساز سازید
         </div>
-        <div class="uk-width-expand">
-            @foreach($user->vehicles as $vehicle)
-                <div class="uk-flex uk-flex-middle uk-margin" style="justify-content: flex-end;">
-                    <span>{{$vehicle->name}}</span><span><img uk-img width="100" class="uk-margin-left uk-margin-right uk-border-rounded"
-                                                              src="{{$vehicle->splashUrl}}"></span><a class="uk-link-reset"><i uk-icon="trash"></i></a>
-                </div>
-            @endforeach
+        <div class="uk-grid uk-flex uk-flex-middle uk-margin-top uk-padding">
+            <div class="uk-width-1-4 uk-flex uk-flex-middle uk-text-muted">
+                افزودن <span class="uk-margin-left uk-border-rounded uk-padding-small clickable"
+                             style="border: 1px solid gainsboro"><i class="fa-solid fa-4x fa-plus"></i></span>
+            </div>
+            <div class="uk-width-expand">
+                @foreach($user->vehicles as $vehicle)
+                    <div class="uk-flex uk-flex-middle uk-margin" style="justify-content: flex-end;">
+                        <span>{{$vehicle->name}}</span><span><img uk-img width="100"
+                                                                  class="uk-margin-left uk-margin-right uk-border-rounded"
+                                                                  src="{{$vehicle->splashUrl}}"></span><a class="uk-link-reset"><i
+                                    uk-icon="trash"></i></a>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
-    <h4 class="uk-text-muted">تغییر رمز عبور</h4>
-    <div class="uk-padding-small uk-border-rounded">
-        <form class="uk-form-horizontal" method="post" action="/password">
-            @csrf
-            @method('patch')
-            <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-text">رمز عبور فعلی</label>
-                <div class="uk-form-controls">
-                    <input name="current_password" class="uk-input uk-border-rounded" id="form-horizontal-text" type="password"
-                           placeholder="رمز عبور فعلی">
+    <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
+        <h4 class="uk-text-muted">تغییر رمز عبور</h4>
+        <div class="uk-padding-small uk-border-rounded">
+            <form class="uk-form-horizontal" method="post" action="/password">
+                @csrf
+                @method('patch')
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">رمز عبور فعلی</label>
+                    <div class="uk-form-controls">
+                        <input name="current_password" class="uk-input uk-border-rounded" id="form-horizontal-text"
+                               type="password"
+                               placeholder="رمز عبور فعلی">
+                    </div>
                 </div>
-            </div>
-            <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-text">رمز عبور جدید</label>
-                <div class="uk-form-controls">
-                    <input name="password" class="uk-input uk-border-rounded" id="form-horizontal-text" type="password"
-                           placeholder="رمز عبور جدید">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">رمز عبور جدید</label>
+                    <div class="uk-form-controls">
+                        <input name="password" class="uk-input uk-border-rounded" id="form-horizontal-text" type="password"
+                               placeholder="رمز عبور جدید">
+                    </div>
                 </div>
-            </div>
-            <div class="uk-margin">
-                <label class="uk-form-label" for="form-horizontal-text">تکرار رمز عبور</label>
-                <div class="uk-form-controls">
-                    <input name="password_confirmation" class="uk-input uk-border-rounded" id="form-horizontal-text" type="password"
-                           placeholder="تکرار رمز عبور">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">تکرار رمز عبور</label>
+                    <div class="uk-form-controls">
+                        <input name="password_confirmation" class="uk-input uk-border-rounded" id="form-horizontal-text"
+                               type="password"
+                               placeholder="تکرار رمز عبور">
+                    </div>
                 </div>
-            </div>
-            <div class="uk-text-center">
-                <button class="uk-button uk-button-success uk-border-rounded uk-text-white">تغییر رمز عبور</button>
-            </div>
-        </form>
+                <div class="uk-text-center">
+                    <button class="uk-button uk-button-success uk-border-rounded uk-text-white">تغییر رمز عبور</button>
+                </div>
+            </form>
+        </div>
     </div>
 @endsection

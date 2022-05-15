@@ -43,7 +43,7 @@
                         rules: 'required|string'
                     },
                     rating: {
-                        value: null,
+                        value: 3,
                         rules: 'required|numeric'
                     },
                     product_id: {

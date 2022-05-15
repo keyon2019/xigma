@@ -123,6 +123,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('order', [OrderController::class, 'all']);
     Route::get('order/{order}/edit', [OrderController::class, 'edit']);
     Route::patch('order/{order}', [OrderController::class, 'update']);
+    Route::get('order/user/{user}', [OrderController::class, 'userOrders']);
 
     Route::get('invoice', [InvoiceController::class, 'all']);
     Route::get('invoice/{invoice}/edit', [InvoiceController::class, 'edit']);

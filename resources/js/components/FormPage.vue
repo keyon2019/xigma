@@ -26,7 +26,7 @@
                     <div class="uk-width-1-1" v-if="form.position.value == 1">
                         <label class="uk-form-label">منوی سرگروه</label>
                         <select name="position" v-model="form.parent.value" class="uk-select">
-                            <option :value="null">سرگروه</option>
+                            <option value="">بدون سرگروه</option>
                             <option v-for="menu in topMenus" :value="menu.id">{{menu.name}}</option>
                         </select>
                     </div>

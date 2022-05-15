@@ -1,5 +1,5 @@
 <template>
-    <paginated-view @fetched="scroll" filterless="true">
+    <paginated-view :fetch-url="fetchUrl" @fetched="scroll" filterless="true">
         <template v-slot="scopeData">
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
@@ -8,7 +8,6 @@
                     <tr>
                         <th>#</th>
                         <th>مبلغ</th>
-                        <th>وضعیت پرداخت</th>
                         <th>وضعیت سفارش</th>
                         <th>زمان ثبت</th>
                         <th>مشاهده</th>
@@ -17,11 +16,12 @@
                     <tbody>
                     <tr v-for="order in scopeData.records">
                         <td class="uk-table-shrink">{{order.id}}</td>
-                        <td>{{order.total.toLocaleString()}}</td>
-                        <td>{{order.paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</td>
-                        <td>{{order.statusName}}</td>
                         <td>{{order.created_at}}</td>
-                        <td><a :href="`/order/${order.id}`"
+                        <td>{{order.total.toLocaleString()}}</td>
+                        <td>{{order.statusName}}</td>
+                        <td><a v-if="!adminPanel" :href="`/order/${order.id}`"
+                               class="uk-button uk-button-small uk-button-primary">نمایش</a>
+                            <a v-else :href="`/dashboard/order/${order.id}/edit`"
                                class="uk-button uk-button-small uk-button-primary">نمایش</a>
                         </td>
                     </tr>
@@ -34,7 +34,7 @@
 
 <script>
     export default {
-        props: ['category', 'options'],
+        props: ['category', 'options', 'fetch-url', 'admin-panel'],
         methods: {
             scroll() {
                 this.$el.scrollIntoView({behavior: 'smooth'});

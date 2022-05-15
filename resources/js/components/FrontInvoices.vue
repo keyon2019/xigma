@@ -15,8 +15,8 @@
                     <tbody>
                     <tr v-for="invoice in scopeData.records">
                         <td class="uk-table-shrink">{{invoice.id}}</td>
-                        <td>{{invoice.total.toLocaleString()}}</td>
                         <td>{{invoice.created_at}}</td>
+                        <td>{{invoice.total.toLocaleString()}}</td>
                         <td><a :href="`/invoice/${invoice.id}`"
                                class="uk-button uk-button-small uk-button-primary">نمایش</a>
                         </td>

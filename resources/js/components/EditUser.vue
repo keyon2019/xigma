@@ -1,6 +1,13 @@
 <template>
     <div>
-        <form-user :user="user" @submit="submit"></form-user>
+        <div class="uk-padding uk-background-default uk-border-rounded uk-box-shadow-small uk-margin">
+            <h4 class="uk-text-muted">مشخصات کاربر</h4>
+            <form-user :user="user" @submit="submit"></form-user>
+        </div>
+        <div class="uk-padding uk-background-default uk-border-rounded uk-box-shadow-small uk-margin">
+            <h4 class="uk-text-muted">سفارش‌ها</h4>
+            <front-orders :admin-panel="true" :fetch-url="'/dashboard/order/user/' + user.id"></front-orders>
+        </div>
     </div>
 </template>
 
