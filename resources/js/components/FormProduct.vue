@@ -71,6 +71,26 @@
                     <div class="uk-width-1-3">
                         <label><input class="uk-checkbox" type="checkbox" v-model="form.is_huge.value"> حجیم </label>
                     </div>
+                    <div class="uk-width-1-4">
+                        <form-input label="وزن" classes="uk-input" :errors="form.errors" type="input" name="weight"
+                                    v-model="form.weight.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-4">
+                        <form-input label="عرض" classes="uk-input" :errors="form.errors" type="input" name="width"
+                                    v-model="form.width.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-4">
+                        <form-input label="ارتفاع" classes="uk-input" :errors="form.errors" type="input" name="height"
+                                    v-model="form.height.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-4">
+                        <form-input label="عمق" classes="uk-input" :errors="form.errors" type="input" name="depth"
+                                    v-model="form.depth.value">
+                        </form-input>
+                    </div>
                 </div>
             </div>
             <div v-if="product" class="uk-width-1-3@m">
@@ -142,7 +162,23 @@
                     en_name: {
                         value: null,
                         rules: 'string',
-                    }
+                    },
+                    weight: {
+                        value: null,
+                        rules: 'numeric'
+                    },
+                    width: {
+                        value: null,
+                        rules: 'numeric'
+                    },
+                    height: {
+                        value: null,
+                        rules: 'numeric'
+                    },
+                    depth: {
+                        value: null,
+                        rules: 'numeric'
+                    },
                 }),
             }
         },

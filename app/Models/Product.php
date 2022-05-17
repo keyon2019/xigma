@@ -17,7 +17,7 @@ class Product extends Model
 
     protected $fillable = ['name', 'description', 'price', 'special_price', 'splash',
         'delivery_cost', 'is_huge', 'preorderable', 'daily_production_capacity', 'onesie', 'special_price_expiration',
-        'show', 'en_name'];
+        'show', 'en_name', 'weight', 'width', 'height', 'depth'];
 
     protected $with = ['variations', 'pictures'];
 

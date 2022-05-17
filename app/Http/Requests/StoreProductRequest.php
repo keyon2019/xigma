@@ -32,11 +32,15 @@ class StoreProductRequest extends FormRequest
             'delivery_cost' => 'required|numeric',
             'is_huge' => 'boolean',
             'preorderable' => 'boolean',
-            'daily_production_capacity' => 'numeric',
+            'daily_production_capacity' => 'nullable|numeric',
             'onesie' => 'boolean',
             'special_price_expiration' => 'date',
             'show' => 'boolean',
-            'en_name' => 'string'
+            'en_name' => 'string',
+            'weight' => 'numeric',
+            'width' => 'numeric',
+            'height' => 'numeric',
+            'depth' => 'numeric',
         ];
     }
 }
