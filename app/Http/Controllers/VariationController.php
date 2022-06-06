@@ -7,6 +7,7 @@ use App\Http\Requests\StoreVariationRequest;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Variation;
+use App\Scopes\VisibleProductsScope;
 use Illuminate\Http\Request;
 
 class VariationController extends Controller
@@ -21,7 +22,7 @@ class VariationController extends Controller
         if (\request()->wantsJson())
             return response()->json(Variation::withStock()
                 ->filter($filters)->with(['product' => function ($q) {
-                    $q->without('variations', 'pictures');
+                    $q->withoutGlobalScope(VisibleProductsScope::class)->without('variations', 'pictures');
                 }])->paginate(15));
         return view('dashboard.variation.index')->with('categories', Category::root()->with('subCategories')->get());
     }

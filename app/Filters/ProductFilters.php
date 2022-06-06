@@ -13,6 +13,11 @@ class ProductFilters extends QueryFilter
         $this->query->where('name', 'like', "%$value%");
     }
 
+    public function search($value)
+    {
+        $this->query->where('name', 'like', "%$value%");
+    }
+
     public function available($value)
     {
         $this->query->whereHas('variations', function (Builder $query) {
