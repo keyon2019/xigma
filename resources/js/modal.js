@@ -7,8 +7,11 @@ class Modal {
         Event.$emit(`show-modal-${modalName}`);
     }
 
-    show() {
+    show(onShow = null) {
         Event.$emit(`show-modal-${this.name}`);
+        if(onShow) {
+            UIkit.util.on(document, 'shown', `#${this.name}`, onShow)
+        }
     }
 
     hide() {

@@ -2,8 +2,9 @@
     <div class="uk-container">
         <div class="uk-grid uk-flex uk-flex-middle uk-margin-bottom">
             <div class="uk-width-expand"><h2 class="uk-text-large uk-text-center uk-text-left@s">{{$title}}</h2></div>
-            {{--<div class="uk-width-auto uk-visible@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span--}}
-            {{--data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>--}}
+            <div class="uk-width-auto uk-visible@s"><a href="{{$link ?? '#'}}"
+                                                       class="uk-link-reset"><span>نمایش تمام محصولات</span><span
+                            data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>
         </div>
         <div data-uk-slider dir="ltr">
             <div class="uk-position-relative uk-visible-toggle">
@@ -17,8 +18,8 @@
                                         <a href="/product/{{$product->id}}" class="uk-link-reset">
                                             <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
                                             <div class="uk-padding-small">
-                                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">{{$product->name}}</p>
-                                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard">{{$product->en_name}}</p>
+                                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate" dir="rtl">{{$product->name}}</p>
+                                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard uk-text-truncate">{{$product->en_name}}</p>
                                                 <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle uk-margin-remove uk-text-muted"
                                                      uk-grid>
                                                     <div class="uk-width-expand">

@@ -14,7 +14,8 @@
                     </div>
                     <template v-if="alternateReceiver">
                         <div class="uk-margin-small">
-                            <input name="receiver" class="uk-input uk-border-rounded" v-model="form.receiver.value" placeholder="نام گیرنده">
+                            <input name="receiver" class="uk-input uk-border-rounded" v-model="form.receiver.value"
+                                   placeholder="نام گیرنده">
                             <div v-if="form.errors.has('receiver')"
                                  class="uk-text-danger uk-text-small">{{form.errors['receiver']}}
                             </div>
@@ -51,7 +52,7 @@
                         </div>
                         <div class="uk-text-center uk-border-rounded uk-width-1-5@s">
                             <div class="address-container uk-border-rounded uk-padding-small clickable uk-flex uk-flex-middle uk-flex-center"
-                                 @click="addressModal.show()">
+                                 @click="showAddressModal">
                                 <div>
                                     <i class="uk-margin-small-bottom uk-text-primary" data-uk-icon="icon:plus;ratio:2"></i>
                                     <p class="uk-margin-remove uk-text-small uk-text-primary">افزودن آدرس جدید</p>
@@ -91,42 +92,42 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="(retailer,id) in tableItems">
+                        <tr v-for="(group, retailerName) in shippings">
                             <td class="uk-table-shrink">
-                                <p class="uk-margin-large" v-for="(item, index) in retailer.items">{{item.id}}</p>
+                                <p class="uk-margin-large" v-for="(item, index) in group.items">{{item.id}}</p>
                             </td>
                             <td class="uk-table-expand">
-                                <p class="uk-margin-large" v-for="item in retailer.items" v-text="item.name"></p>
+                                <p class="uk-margin-large" v-for="item in group.items" v-text="item.name"></p>
                             </td>
                             <td>
-                                <p class="uk-margin-large uk-text-center@m" v-for="item in retailer.items"
+                                <p class="uk-margin-large uk-text-center@m" v-for="item in group.items"
                                    v-text="item.quantity"></p>
                             </td>
                             <td>
-                                <p class="uk-margin-large uk-text-center@m" v-for="item in retailer.items"
-                                   v-text="item.price.toLocaleString()"></p>
+                                <p class="uk-margin-large uk-text-center@m" v-for="item in group.items"
+                                   v-text="(item.price * item.quantity).toLocaleString()"></p>
                             </td>
                             <td>
                                 <dl>
-                                    <dt>{{retailer.retailer}}</dt>
-                                    <dd class="uk-text-meta">{{retailer.address}}</dd>
+                                    <dt>{{retailerName}}</dt>
+                                    <dd class="uk-text-meta">{{group.retailerAddress}}</dd>
                                 </dl>
 
                             </td>
                             <td>
-                                <p v-for="method in retailer.shippingMethods">
+                                <p v-for="method in group.shippingMethods">
                                     <label class="uk-text-small uk-flex uk-flex-middle"><input class="uk-radio" type="radio"
                                                                                                :value="{
-                                                                                           'stock' : id,
+                                                                                           'stock_id' : group.retailer_id,
                                                                                            'method': method.id,
-                                                                                           'cost': method.id === 2 ? retailer.delivery_cost : 0
+                                                                                           'cost': method.id === 2 ? group.delivery_cost : 0
                                                                                            }"
-                                                                                               :name="`shipping_methods[${id}]`"
-                                                                                               v-model="form.shipping_methods.value[id]">
+                                                                                               :name="`shipping_methods[${group.retailer_id}]`"
+                                                                                               v-model="form.shipping_methods.value[group.retailer_id]">
                                         <div class="uk-margin-small-left">
                                             <div>{{method.name}}</div>
                                             <div class="uk-text-meta" v-if="method.id === 2">هزینه ارسال
-                                                {{retailer.delivery_cost.toLocaleString()}} تومان
+                                                {{group.delivery_cost.toLocaleString()}} تومان
                                             </div>
                                         </div>
                                     </label>
@@ -180,7 +181,7 @@
                     </div>
                 </div>
                 <div class="uk-margin-small-top uk-padding-small uk-border-rounded" style="border: 1px solid gainsboro"
-                     v-if="routes">
+                     v-if="shippings">
                     <div class="uk-light uk-margin-small">
                         <div class="uk-text-center uk-background-secondary uk-border-rounded uk-padding-small">نمایش مسیر ارسال
                             کالا
@@ -192,7 +193,7 @@
         </div>
         <modal class="uk-modal-container" name="address">
             <h2>ثبت آدرس جدید</h2>
-            <form-address @submit="createAddress"></form-address>
+            <form-address v-if="showModalMap" @submit="createAddress"></form-address>
         </modal>
         <!--</div>-->
         <!--</div>-->
@@ -256,26 +257,12 @@
                 mapKey: 1,
                 addressModal: new Modal('address'),
                 addresses: null,
-                routes: null,
                 selectedAddress: null,
                 factory: [51.5286869, 35.8243285, 'factory'],
                 methods: null,
                 alternateReceiver: false,
-                allShippingMethods: [
-                    {
-                        id: 1,
-                        name: 'دریافت در محل',
-                    },
-                    {
-                        id: 2,
-                        name: 'ارسال با پست',
-                    },
-                    {
-                        id: 3,
-                        name: 'حمل با باربری',
-                    }
-                ],
-                items: [],
+                showModalMap: false,
+                shippings: null,
                 cart: window.Cart,
                 form: new Form({
                     address_id: {
@@ -317,7 +304,7 @@
         },
         methods: {
             placeOrder() {
-                if (Object.values(this.form.shipping_methods.value).length !== Object.values(this.tableItems).length) {
+                if (Object.values(this.form.shipping_methods.value).length !== Object.values(this.shippings).length) {
                     Toast.message("لطفا نحوه ارسال تمامی مرسولات را مشخص نمایید").danger().show();
                     return;
                 }
@@ -340,24 +327,10 @@
             getRoutes() {
                 Loading.show();
                 axios.post('/checkout', this.form.asFormData()).then((response) => {
-                    this.items = response.data.items;
-                    this.routes = _.chain(this.items).groupBy('stock_id').map((group) => {
-                        return {
-                            stock_id: group[0].stock_id,
-                            latitude: group[0].latitude,
-                            longitude: group[0].longitude
-                        }
-                    }).value();
+                    this.shippings = response.data;
                     // this.methods = response.data.methods;
                 }).catch((e) => Toast.message(e.response.data.message).danger().show())
                     .then(() => Loading.close());
-            },
-            intersect(a, b) {
-                let setB = new Set(b);
-                return [...new Set(a)].filter(x => setB.has(x));
-            },
-            showNewAddressModal() {
-                this.addressModal.show();
             },
             createAddress(form) {
                 Loading.show();
@@ -370,16 +343,21 @@
                     Loading.hide();
                 })
             },
+            showAddressModal() {
+                this.addressModal.show(() => {
+                    this.showModalMap = true;
+                })
+            }
         },
         computed: {
             markers() {
                 this.mapKey++;
                 let selectedAddress = this.selectedAddress;
                 if (selectedAddress) {
-                    if (!this.routes)
+                    if (!this.shippings)
                         return [[selectedAddress.longitude, selectedAddress.latitude, 'pin']];
-                    return [..._.map(this.routes, (r) => {
-                        if (r.stock_id)
+                    return [..._.map(this.shippings, (r) => {
+                        if (r.retailer_id)
                             return [r.longitude, r.latitude];
                         return this.factory;
                     }),
@@ -387,38 +365,12 @@
                 }
                 return [];
             },
-            tableItems() {
-                return _.chain(this.items).groupBy('stock_id').mapValues((groups) => {
-                    return {
-                        retailer: groups[0].retailerName ?? 'دفتر مرکزی',
-                        address: groups[0].retailerAddress,
-                        delivery_cost: _.maxBy(groups, 'delivery_cost').delivery_cost,
-                        shippingMethods: _.chain(this.allShippingMethods).filter((method) => {
-                            if (_.findIndex(groups, ['is_huge', 1]) > -1) {
-                                return method.id !== 2;
-                            }
-                            return true;
-                        }).value(),
-                        items: _.chain(groups).groupBy('variation_id').map((g) => {
-                            return {
-                                'name': g[0].name,
-                                'quantity': g.length,
-                                'price': g[0].price * g.length
-                            }
-                        }).value()
-                    }
-                }).value();
-            },
             totalDeliveryCost() {
                 return _.sumBy(Object.values(this.form.shipping_methods.value), 'cost')
             },
             totalOrderCost() {
                 return this.cart.total() + this.totalDeliveryCost;
             },
-            availableShippingMethods() {
-                let allMethods = [1, 2, 3];
-                return this.intersect(allMethods, this.methods);
-            }
         },
         watch: {
             'form.address_id.value': function () {
@@ -427,13 +379,16 @@
             'form.cost_preference.value': function () {
                 this.getRoutes();
             },
-            'alternateReceiver': function (value) {
-                if (!value) {
-                    this.form.receiver.value = this.user.name;
-                    this.form.receiver_number.value = this.user.mobile;
-                } else {
-                    this.form.receiver.value = '';
-                    this.form.receiver_number.value = '';
+            'alternateReceiver': {
+                immediate: true,
+                handler(value) {
+                    if (!value) {
+                        this.form.receiver.value = this.user.name;
+                        this.form.receiver_number.value = this.user.mobile;
+                    } else {
+                        this.form.receiver.value = '';
+                        this.form.receiver_number.value = '';
+                    }
                 }
             }
         }

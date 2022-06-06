@@ -59,6 +59,11 @@
                                             class="uk-float-right uk-border-rounded uk-button uk-button-primary">تایید
                                     </button>
                                 </div>
+                                <div v-else>
+                                    <button @click="disapprove(comment)"
+                                            class="uk-float-right uk-border-rounded uk-button uk-button-danger">رد نظر
+                                    </button>
+                                </div>
                             </div>
                         </modal>
                     </td>
@@ -78,6 +83,17 @@
                 axios.post(`/dashboard/comment/${comment.id}`, {_method: 'patch'}).then(() => {
                     comment.approved = true;
                     Toast.message('نظر با موفقیت تایید شد').success().show();
+                }).catch((e) => {
+                    Toast.message(e.response.data.message).danger().show();
+                }).then(() => {
+                    Loading.hide();
+                })
+            },
+            disapprove(comment) {
+                Loading.show();
+                axios.post(`/dashboard/comment/${comment.id}`, {_method: 'delete'}).then(() => {
+                    comment.approved = false;
+                    Toast.message('نظر با موفقیت رد شد').success().show();
                 }).catch((e) => {
                     Toast.message(e.response.data.message).danger().show();
                 }).then(() => {

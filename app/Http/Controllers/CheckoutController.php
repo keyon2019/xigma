@@ -13,7 +13,7 @@ class CheckoutController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(CartInterface $cart, ShippingService $shippingService)
     {
         $gateways = array_map(function ($g) {
             return [
@@ -27,10 +27,6 @@ class CheckoutController extends Controller
 
     public function analyze(CartInterface $cart, Request $request, ShippingService $shippingService)
     {
-        $items = $shippingService->findStores($request->address_id, $cart->items, $request->cost_preference);
-//        dd($stocks);
-//        $methods = $shippingService->availableMethods($cart, $request->cost_preference, $stocks);
-
-        return response()->json(['items' => $items]);
+        return response()->json($shippingService->findStores($request->address_id, $cart->items, $request->cost_preference));
     }
 }

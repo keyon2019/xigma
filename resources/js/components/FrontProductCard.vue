@@ -4,10 +4,10 @@
             <img :src="product.splashUrl ? product.splashUrl : '/uploads/xigma_logo.png'"
                  class="uk-width-expand uk-border-rounded card-image">
             <div class="uk-padding-small">
-                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center">
+                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate">
                     {{product.name}}
                 </p>
-                <div class="uk-text-secondary uk-text-center clickable uk-margin-small-bottom numeric-standard">
+                <div dir="ltr" class="uk-text-secondary uk-text-center clickable uk-margin-small-bottom numeric-standard uk-text-truncate">
                     {{product.en_name}}
                 </div>
                 <p class="uk-margin-remove uk-display-inline-block uk-width-1-1 text-small@m">

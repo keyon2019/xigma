@@ -1,5 +1,5 @@
 <template>
-    <div ref="modal" class="uk-modal uk-flex-top">
+    <div ref="modal" :id="name" class="uk-modal uk-flex-top" uk-modal="stack: true">
         <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical uk-border-rounded uk-background-muted"
              :style="transparentDialog ? 'background: none !important' : ''">
             <button style="left: unset;right: -10px;" v-if="close" class="uk-modal-close-outside" type="button" uk-close></button>

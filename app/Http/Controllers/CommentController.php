@@ -39,4 +39,11 @@ class CommentController extends Controller
         $comment->save();
         return response([]);
     }
+
+    public function disapprove(Comment $comment)
+    {
+        $comment->approved = false;
+        $comment->save();
+        return response([]);
+    }
 }

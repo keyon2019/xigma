@@ -22,7 +22,7 @@ class TopProducts
 
     public function popular($category = null)
     {
-        return Cache::remember("most_popular_{$category->name}_products", 14400, function () use ($category) {
+//        return Cache::remember("most_popular_{$category->name}_products", 14400, function () use ($category) {
             $items = Item::with('variation.product')
                 ->select('variation_id', DB::raw('COUNT(variation_id) as count'))
                 ->groupBy('variation_id')
@@ -36,7 +36,7 @@ class TopProducts
                 });
             }
             return $items->get()->pluck('variation')->pluck('product');
-        });
+//        });
     }
 
     public function newest($category = null)

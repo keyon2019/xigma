@@ -69,11 +69,11 @@
                                     </span>
                                 </div>
                                 <div v-if="selectedVariation && selectedVariation.values.length > 0"
-                                     class="uk-grid uk-grid-small uk-margin-large-top uk-text-center uk-flex uk-flex-center uk-flex-middle uk-child-width-auto uk-grid-divider uk-text-small">
-                                    <div v-for="(value,index) in selectedVariation.values"
+                                     class="uk-margin-large-top uk-text-small">
+                                    <div class="uk-margin-small" v-for="(value,index) in selectedVariation.values"
                                          :class="index === 0 ? 'uk-first-column' : ''">
-                                        <p class="uk-margin-small-bottom">{{value.option.name}}</p>
-                                        <p class="uk-margin-remove">{{value.name}}</p>
+                                        <span class="uk-margin-small-bottom">{{value.option.name}}:</span>
+                                        <span class="uk-margin-remove uk-text-bold">{{value.name}}</span>
                                     </div>
                                 </div>
                                 <div class="uk-margin">
@@ -99,9 +99,9 @@
                                     </div>
                                 </div>
                                 <div v-if="selectedVariation" class="uk-margin">
-                                    <p class="uk-link uk-margin-small-bottom"><span class="uk-margin-small-right"
+                                    <a @click="pointsModal.show()" class="uk-link uk-margin-small-bottom"><span class="uk-margin-small-right"
                                                                                     data-uk-icon="warning"></span><span>{{selectedVariation.points}} امتیاز ویژه خرید زیگما</span>
-                                    </p>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -270,6 +270,9 @@
         <modal :close="true" name="slideshowmodal" class="" :transparent-dialog="true">
             <slideshow :images="productPictures" :index="selectedImageIndex"></slideshow>
         </modal>
+        <modal name="pointsModal">
+            <div>بعد از پایان مهلت مرجوعی، برای استفاده از امتیاز به قسمت امتیازات سر بزنید</div>
+        </modal>
     </div>
 </template>
 
@@ -280,6 +283,7 @@
             return {
                 selectedVariation: null,
                 quantity: 1,
+                pointsModal: new Modal('pointsModal'),
                 retailers: [],
                 commentModal: new Modal('comment'),
                 slideShowModal: new Modal('slideshowmodal'),
@@ -295,11 +299,12 @@
                 return p ? p.url : '';
             },
             getRetailers() {
+                Loading.show();
                 axios.post(`/item/${this.selectedVariation.id}/retailer`).then((response) => {
                     this.retailers = response.data.retailers;
                 }).catch((e) => {
                     Toast.message(e.response.data.message).danger().show();
-                });
+                }).then(() => Loading.hide());
             },
             showSlideshow(index) {
                 this.selectedImageIndex = index;

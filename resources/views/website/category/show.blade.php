@@ -9,11 +9,11 @@
         <div class="uk-container">
             <ul class="uk-breadcrumb">
                 <li><a href="/">زیگما</a></li>
-                @if($ans1 = $category->parentCategory->parentCategory)
+                @if($ans1 = $category->parentCategory->parentCategory ?? null)
                 <li><a href="/category/{{$ans1->id}}">{{$ans1->name}}</a>
                 </li>
                 @endif
-                @if($ans2 = $category->parentCategory)
+                @if($ans2 = $category->parentCategory ?? null)
                     <li><a
                                 href="/category/{{$ans2->id}}">{{$ans2->name}}</a></li>
                 @endif

@@ -70,7 +70,6 @@ class Form {
                     for (const [objKey, value] of Object.entries(field.value)) {
                         if (typeof value === 'object') {
                             _.forEach(value, (nestedValue, nestedKey) => {
-                                console.log(key, objKey, nestedKey, nestedValue);
                                 formData.append(`${key}[${objKey}][${nestedKey}]`, nestedValue);
                             });
                         } else {

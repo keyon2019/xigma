@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Filters\ProductFilters;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\Category;
 use App\Models\Option;
 use App\Models\Product;
 use App\Scopes\VisibleProductsScope;
@@ -30,13 +31,12 @@ class ProductController extends Controller
 
     public function show(Product $product, TopProducts $top)
     {
-//        dd($product->special_price_expiration);
         return view('website.product.show')
             ->with('product', $product->load('variations.values.option')->load(['comments' => function ($query) {
                 return $query->whereApproved(true)->latest();
             }]))
             ->with('topProducts', $top)
-            ->with('category', $product->category->withAncestors());
+            ->with('category', $product->category ? $product->category->withAncestors() : new Category());
     }
 
     public function create()

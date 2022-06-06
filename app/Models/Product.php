@@ -47,8 +47,8 @@ class Product extends Model
     public function scopeWithAvailability($query)
     {
         return $query->withExists(['variations as available' => function ($query) {
-            return $query->whereHas('items', function ($query) {
-                $query->whereSold(false);
+            return $query->whereHas('stocks', function ($query) {
+                $query->where('quantity', '>', 0);
             });
         }]);
     }

@@ -69,6 +69,7 @@
             sortsChanged(formData) {
                 const url = new URL(this.url, window.location.origin);
                 for (let pair of formData.entries()) {
+                    console.log(pair[1], pair[0]);
                     if (pair[1] == null || pair[1] === '' || pair[1] === undefined) {
                         url.searchParams.delete(pair[0]);
                     } else {

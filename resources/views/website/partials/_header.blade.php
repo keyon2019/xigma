@@ -1,4 +1,4 @@
-<div data-uk-sticky="top: 600;animation: uk-animation-slide-top;" class="sticky-nav uk-box-shadow-small uk-visible@m">
+<div data-uk-sticky="top: 600;animation: uk-animation-slide-top;" class="sticky-nav uk-box-shadow-small uk-visible@m hidden-in-print">
     <div class="uk-background-default">
         <div class="uk-container">
             <div class="uk-grid uk-grid-small uk-flex uk-flex-stretch">
@@ -68,13 +68,13 @@
                             </li>
                             @foreach($pages->where('position', 1) as $page)
                                 <li>
-                                    <a href="/{{$page->slug}}"
+                                    <a href="{{$page->redirectLink}}"
                                        class="uk-text-secondary">{{$page->name}}@if($page->subs->count() > 0)<span
                                                 uk-icon="chevron-down"></span>@endif</a>
                                     <div uk-dropdown="pos:bottom-justify;boundary: .arman-sticky-nav;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300">
                                         <ul class="uk-nav uk-dropdown-nav">
                                             @foreach($page->subs as $p)
-                                                <li><a href="/{{$p->slug}}" class="uk-text-secondary">{{$p->name}}</a></li>
+                                                <li><a href="{{$p->redirectLink}}" class="uk-text-secondary">{{$p->name}}</a></li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -91,7 +91,7 @@
                             <div uk-dropdown="pos:bottom-justify;offset:0">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     @foreach($pages->where('position', 5) as $page)
-                                        <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
+                                        <li><a href="{{$page->redirectLink}}" class="uk-text-secondary">{{$page->name}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -147,11 +147,11 @@
                         </div>
                         <div class="uk-background-muted uk-flex uk-flex-column uk-flex-center" style="flex: 1 1 0px">
                             <div class="uk-grid uk-grid-small uk-padding-small uk-padding-remove-vertical mobile-search-container">
-                                <div class="uk-visible@m">
-                                    <button class="uk-button uk-button-primary uk-text-secondary uk-border-rounded">جستجوی پیشرفته
-                                        محصولات
-                                    </button>
-                                </div>
+                                {{--<div class="uk-visible@m">--}}
+                                    {{--<button class="uk-button uk-button-primary uk-text-secondary uk-border-rounded">جستجوی پیشرفته--}}
+                                        {{--محصولات--}}
+                                    {{--</button>--}}
+                                {{--</div>--}}
                                 <search class="padding-small@m uk-width-expand"></search>
                             </div>
                         </div>
@@ -210,14 +210,14 @@
                                 </li>
                                 @foreach($pages->where('position', 1) as $page)
                                     <li>
-                                        <a href="/{{$page->slug}}"
+                                        <a href="{{$page->redirectLink}}"
                                            class="uk-text-secondary">{{$page->name}}@if($page->subs->count() > 0)<span
                                                     uk-icon="chevron-down"></span>@endif</a>
                                         @if($page->subs->count() > 0)
                                             <div uk-dropdown="pos:bottom-justify;boundary: .nav-bound;boundary-align: true;offset:0;animation: uk-animation-slide-top-small; duration: 300">
                                                 <ul class="uk-nav uk-dropdown-nav">
                                                     @foreach($page->subs as $p)
-                                                        <li><a href="/{{$p->slug}}" class="uk-text-secondary">{{$p->name}}</a>
+                                                        <li><a href="{{$p->redirectLink}}" class="uk-text-secondary">{{$p->name}}</a>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -236,7 +236,7 @@
                         <div uk-dropdown="pos:bottom-justify;offset:0">
                             <ul class="uk-nav uk-dropdown-nav">
                                 @foreach($pages->where('position', 5) as $page)
-                                    <li><a href="/{{$page->slug}}" class="uk-text-secondary">{{$page->name}}</a></li>
+                                    <li><a href="{{$page->redirectLink}}" class="uk-text-secondary">{{$page->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -273,7 +273,7 @@
                 </li>
             @endforeach
             @foreach($pages as $page)
-                <li><a href="/{{$page->slug}}">{{$page->name}}</a></li>
+                <li><a href="{{$page->redirectLink}}">{{$page->name}}</a></li>
             @endforeach
         </ul>
     </div>

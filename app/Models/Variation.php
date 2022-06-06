@@ -26,6 +26,11 @@ class Variation extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot(['quantity', 'price', 'discount', 'shipping_id']);
+    }
+
     public function items()
     {
         return $this->hasMany(Item::class);
@@ -34,6 +39,11 @@ class Variation extends Model
     public function values()
     {
         return $this->belongsToMany(Value::class)->withPivot('product_id', 'option_id');
+    }
+
+    public function stocks()
+    {
+        return $this->belongsToMany(Retailer::class, 'stocks')->withPivot('quantity');
     }
 
     public function getOrderPriceAttribute()
@@ -50,11 +60,11 @@ class Variation extends Model
         }]);
     }
 
-    public function scopeWithAvailableItemsCount($query)
+    public function scopeWithStock($query)
     {
-        return $query->withCount(['items as items_count' => function ($q) {
-            return $q->whereSold(false);
-        }]);
+        return $query->leftJoin('stocks', 'id', 'stocks.variation_id')
+            ->selectRaw('variations.*, SUM(stocks.quantity) as items_count')
+            ->groupBy('variations.id');
     }
 
     public function getFiltersAttribute()
@@ -64,7 +74,7 @@ class Variation extends Model
 
     public function getAvailableAttribute()
     {
-        return $this->items()->whereSold(false)->exists();
+        return $this->stocks()->where('quantity', '>', 0)->exists();
     }
 
     public function prepareForTable($quantity)
@@ -77,8 +87,7 @@ class Variation extends Model
             $this->productName = $this->product->name;
             $this->discount = $this->special_price_expiration > Carbon::now() ? $this->price - $this->special_price : 0;
             $this->price = $this->special_price_expiration > Carbon::now() ? $this->special_price : $this->price;
-        }
-        else {
+        } else {
             $this->splash = '/uploads/xigma_logo.png';
             $this->productName = 'unknown';
         }

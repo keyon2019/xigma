@@ -132,7 +132,7 @@
     <div class="uk-background-default uk-border-rounded uk-padding-small uk-box-shadow-small">
         <div class="uk-padding-small uk-background-muted uk-border-rounded">
             <order-progress status="{{$order->getRawOriginal('status')}}" class="uk-width-expand uk-visible@m"></order-progress>
-            @foreach($order->variations as $variation)
+            @foreach($order->groupedVariations as $variation)
                 <div class="uk-grid uk-flex uk-flex-middle uk-grid-small" data-uk-grid>
                     <div class="uk-width-1-5@m">
                         <img class="uk-width-expand uk-border-rounded"
@@ -141,21 +141,37 @@
                     <div class="uk-width-expand@m">
                         <div class="uk-text-bold uk-text-medium">{{$variation->name}}</div>
                         <div>{{$variation->sku}}</div>
-                        <div>نوع: {{$variation->filters}}</div>
+                        @foreach($variation->values as $value)
+                        <div class="uk-text-meta">
+                            {{$value->option->name}} : <span class="uk-text-bold">{{$value->name}}</span>
+                        </div>
+                        @endforeach
                         <div>
                             <div class="uk-grid uk-grid-small uk-grid-divider uk-margin-small-top uk-text-small">
-                                <div class="uk-first-column">تعداد: {{$variation->pivot->quantity}} عدد</div>
-                                <div>قیمت واحد: {{number_format($variation->pivot->price)}}</div>
-                                @if($variation->pivot->discount > 0)
-                                    <div>تخفیف: {{number_format($variation->pivot->discount)}}</div>
+                                <div class="uk-first-column">تعداد: {{$variation->quantity}} عدد</div>
+                                <div>قیمت واحد: {{number_format($variation->price + $variation->discount)}}</div>
+                                @if($variation->discount > 0)
+                                    <div>تخفیف: {{number_format($variation->discount)}}</div>
                                 @endif
-                                <div>قیمت کل: {{number_format($variation->pivot->price * $variation->pivot->quantity)}}</div>
+                                <div>قیمت کل: {{number_format($variation->price * $variation->quantity)}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="uk-width-1-6@m uk-text-small">
-                        <a href="/product/{{$variation->product_id}}"
-                           class="uk-button uk-button-secondary uk-button-small uk-border-rounded">خرید مجدد کالا</a>
+                        <div>
+                            <a href="/product/{{$variation->product_id}}"
+                               class="uk-button uk-button-link uk-button-small uk-border-rounded uk-flex uk-flex-middle">
+                                <i class="fa-solid fa-plus uk-margin-small-right"></i>
+                                <span>خرید مجدد کالا</span>
+                            </a>
+                        </div>
+                        <div class="uk-margin-top">
+                            <a href="/product/{{$variation->product_id}}"
+                               class="uk-button uk-button-link uk-text-danger uk-button-small uk-border-rounded uk-flex uk-flex-middle">
+                                <i class="fa-solid fa-minus uk-margin-small-right"></i>
+                                <span>مرجوع کردن کالا</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <hr/>
@@ -182,7 +198,7 @@
                 </tr>
                 <tr>
                     <td>مبلغ قابل پرداخت</td>
-                    <td>{{number_format($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;}))}}</td>
+                    <td>{{number_format(($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;})) + $order->shippings->sum('cost'))}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -209,7 +225,7 @@
                                 مرسوله: {{$loop->iteration}}
                             </div>
                             <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">مبدا
-                                ارسال: {{$shipping->retailer->name ?? 'کارخانه زیگما'}}
+                                ارسال: {{$shipping->stock->name ?? 'کارخانه زیگما'}}
                             </div>
                             <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">نحوه
                                 ارسال: {{$shipping->methodName}}
@@ -242,7 +258,8 @@
                 </accordion>
             </div>
             <div class="uk-text-center">
-                <a href="/order/{{$order->id}}/invoice" class="uk-button uk-button-secondary uk-background-gray uk-button-large uk-border-rounded">چاپ فاکتور</a>
+                <a href="/order/{{$order->id}}/invoice"
+                   class="uk-button uk-button-secondary uk-background-gray uk-button-large uk-border-rounded">چاپ فاکتور</a>
             </div>
         </div>
     </div>

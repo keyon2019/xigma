@@ -32,8 +32,9 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'link' => 'string',
             'name' => 'required|string',
-            'slug' => 'required|string',
+            'slug' => 'required_without:link|string',
             'content' => 'string',
             'position' => 'required|numeric',
             'meta_title' => 'string',
@@ -54,8 +55,9 @@ class PageController extends Controller
     public function update(Page $page, Request $request)
     {
         $validated = $request->validate([
+            'link' => 'string',
             'name' => 'required|string',
-            'slug' => 'required|string',
+            'slug' => 'required_without:link|string',
             'content' => 'string',
             'position' => 'required|numeric',
             'meta_title' => 'string',

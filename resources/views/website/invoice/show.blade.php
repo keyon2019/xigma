@@ -36,7 +36,7 @@
                         <div>
                             <div class="uk-grid uk-grid-small uk-grid-divider uk-margin-small-top uk-text-small">
                                 <div class="uk-first-column">تعداد: {{$variation->pivot->quantity}} عدد</div>
-                                <div>قیمت واحد: {{number_format($variation->pivot->price)}}</div>
+                                <div>قیمت واحد: {{number_format($variation->pivot->price + $variation->pivot->discount)}}</div>
                                 @if($variation->pivot->discount > 0)
                                     <div>تخفیف: {{number_format($variation->pivot->discount)}}</div>
                                 @endif
@@ -74,8 +74,6 @@
             <div class="uk-text-center">
                 <a href="/invoice/{{$invoice->id}}/invoice"
                    class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">چاپ پیش فاکتور</a>
-                <a href="/invoice/{{$invoice->id}}/invoice" class="uk-button uk-button-primary uk-border-rounded">به
-                    روزرسانی</a>
                 <a href="/invoice/{{$invoice->id}}/invoice"
                    class="uk-button uk-button-success uk-text-white uk-border-rounded">انتقال به سبد خرید</a>
             </div>

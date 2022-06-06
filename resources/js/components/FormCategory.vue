@@ -34,6 +34,9 @@
                             <option v-for="c in selectableCategories" :value="c.id" v-text="c.name"></option>
                         </select>
                     </div>
+                    <div class="uk-width-1-1">
+                        <label><input class="uk-checkbox" v-model="form.featured.value" type="checkbox" name="show"> دسته‌بندی منتخب </label>
+                    </div>
                     <div class="uk-width-1-3">
                         <image-input name="splash" v-model="form.splash.value" placeholder="800x800"></image-input>
                         <div v-if="form.errors.has('splash')"
@@ -86,6 +89,10 @@
                         rules: 'numeric'
                     },
                     show: {
+                        value: null,
+                        rules: 'boolean'
+                    },
+                    featured: {
                         value: null,
                         rules: 'boolean'
                     }

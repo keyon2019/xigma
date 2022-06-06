@@ -7,8 +7,8 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>مبلغ</th>
                         <th>زمان ثبت</th>
+                        <th>مبلغ</th>
                         <th>مشاهده</th>
                     </tr>
                     </thead>

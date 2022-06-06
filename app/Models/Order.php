@@ -66,7 +66,23 @@ class Order extends Model
 
     public function variations()
     {
-        return $this->belongsToMany(Variation::class)->withPivot(['quantity', 'price', 'discount']);
+        return $this->belongsToMany(Variation::class)->withPivot(['quantity', 'price', 'discount', 'shipping_id']);
+    }
+
+    public function getGroupedVariationsAttribute()
+    {
+        return $this->variations->groupBy('id')->map(function ($group) {
+            $v = $group[0];
+            $v->quantity = $group->sum('pivot.quantity');
+            $v->price = $group[0]->price;
+            $v->discount = $group[0]->discount;
+            return $v;
+        });
+    }
+
+    public function getGroupedByShippingsAttribute()
+    {
+        return $this->variations->groupBy('pivot.shipping_id');
     }
 
     public function address()
@@ -86,8 +102,7 @@ class Order extends Model
 
     public function getRetailersAttribute()
     {
-        return Retailer::whereHas('items', function ($q) {
-            $q->whereOrderId($this->id);
-        })->with('user')->get();
+        //todo new order retailers
+//        return $this->shippings->
     }
 }

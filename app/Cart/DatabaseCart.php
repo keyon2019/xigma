@@ -60,6 +60,8 @@ class DatabaseCart extends CartInterface
 
     public function checkAllAvailable($allAvailable, $notAllAvailable)
     {
+        return $allAvailable();
+        //todo fix this
         $items = Item::whereIn('variation_id', $this->items->pluck('id'))
             ->select('variation_id', DB::raw('SUM(sold = 0) as count'))
             ->groupBy('variation_id')->get();

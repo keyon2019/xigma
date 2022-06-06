@@ -35,7 +35,7 @@
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/product" title="همه محصولات">نمایش محصولات</a></li>
                     <li><a href="/dashboard/product/create" title="همه محصولات">محصول جدید</a></li>
-                    <li><a href="/dashboard/variation" title="انبار و موجودی">لیست تولید</a></li>
+                    <li><a href="/dashboard/variation" title="انبار و موجودی">موجودی</a></li>
                     <li><a href="/dashboard/discount" title="تخفیفات">تخفیفات</a></li>
                 </ul>
             </li>

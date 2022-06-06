@@ -6,6 +6,7 @@ use App\Events\OrderPaid;
 use App\Listeners\AddItemsToOrder;
 use App\Listeners\NotifyRetailers;
 use App\Listeners\TransferCartFromSessionToDB;
+use App\Listeners\UpdateInventory;
 use App\Listeners\UpdateOrderPaymentStatus;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +23,8 @@ class EventServiceProvider extends ServiceProvider
             TransferCartFromSessionToDB::class
         ],
         OrderPaid::class => [
-            UpdateOrderPaymentStatus::class, AddItemsToOrder::class, NotifyRetailers::class
+            UpdateOrderPaymentStatus::class, UpdateInventory::class,
+//            AddItemsToOrder::class, NotifyRetailers::class
         ]
     ];
 

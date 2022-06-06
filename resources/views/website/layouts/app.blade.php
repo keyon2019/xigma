@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="title" content="{{config('app.name')}} | @yield('meta_title')">
+    <meta name="title" content="{{config('app.name')}} | @yield('meta_title', 'زیگما')">
     <meta name="description" content="@yield('meta_description')">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="user" content="{{auth()->check() ? auth()->user() : '{}'}}">
 
-    <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+    <title>{{ config('app.name', 'Laravel') }} | @yield('title', 'زیگما')</title>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -33,6 +33,14 @@
 
             .hidden-in-print {
                 display: none;
+            }
+
+            .avoid-pb {
+                page-break-inside: avoid;
+            }
+
+            .uk-box-shadow-small {
+                border: 1px solid gainsboro;
             }
         }
 

@@ -94,6 +94,14 @@
     </div>
     <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
         <h4 class="uk-text-muted">تغییر رمز عبور</h4>
+        <div class="uk-text-blue uk-text-small">
+            <p class="">لطفا در تعیین رمز ورود جدید خود به موارد زیر توجه بفرمایید:</p>
+            <ul class="uk-list uk-list-disc uk-margin-small-left">
+                <li>رمز عبور باید دارای حداقل ۸ کاراکتر باشد</li>
+                <li>رمز عبور باید شامل حداقل ۱ حرف بزرگ و ۱ حرف کوچک باشد</li>
+                <li>رمز عبور باید شامل حداقل ۲ حرف و ۱ عدد باشد</li>
+            </ul>
+        </div>
         <div class="uk-padding-small uk-border-rounded">
             <form class="uk-form-horizontal" method="post" action="/password">
                 @csrf

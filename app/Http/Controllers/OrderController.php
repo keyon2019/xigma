@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Services\ClosestItemFinderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -42,7 +43,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         if (auth()->user()->id === $order->user_id)
-            return view('website.order.show')->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment'));
+            return view('website.order.show')->with('order', $order->load('variations.values', 'items', 'shippings', 'successfulPayment'));
         return abort(401);
     }
 
@@ -52,21 +53,15 @@ class OrderController extends Controller
 
             $items = $closestItemFinderService->find($request->address_id, $cart->items, $request->cost_preference);
 
-            $shippingCosts = $items->groupBy('stock_id')->mapWithKeys(function ($shipping, $stock) {
-                return [$stock ? $stock : 'null' => $shipping->max('delivery_cost')];
-            });
-
-            $shippings = array_map(function ($shipping, $key) use ($shippingCosts) {
-                $shipping['stock_id'] = $shipping['stock'] == 'null' ? null : $shipping['stock'];
-                unset($shipping['stock']);
-                if ($shipping['method'] == 2) {
-                    $shipping['cost'] = $shippingCosts[$key];
-                } else {
+            $shippings = collect($request->shipping_methods)->map(function ($shipping, $stock_id) use ($items) {
+                $shipping['stock_id'] = $shipping['stock_id'] == 'null' ? null : $shipping['stock_id'];
+                if ($shipping['method'] == 2)
+                    $shipping['cost'] = $items->firstWhere('retailer_id', $shipping['stock_id'])['delivery_cost'];
+                else {
                     $shipping['cost'] = 0;
                 }
                 return $shipping;
-            }, $request->shipping_methods, array_keys($request->shipping_methods));
-
+            });
 
             $order = auth()->user()->orders()->create($request->validated() + [
                     'status' => 1,
@@ -75,26 +70,18 @@ class OrderController extends Controller
 
             $createdShippings = $order->shippings()->createMany($shippings);
 
-            $itemShippingsToUpdate = $items->map(function ($item) use ($createdShippings) {
+            $orderVariations = $items->pluck('items')->flatten()->map(function ($item) use ($createdShippings, $order) {
                 return [
-                    'id' => $item->id,
-                    'shipping_id' => $createdShippings->firstWhere('stock_id', $item->stock_id)->id
-                ];
-            });
-
-            Item::updateValues($itemShippingsToUpdate->toArray());
-
-            $orderVariations = $cart->items->mapWithKeys(function ($item) {
-                return [
-                    $item->id => [
-                        'quantity' => $item->quantity,
-                        'price' => $item->price,
-                        'discount' => $item->discount
-                    ]
+                    'order_id' => $order->id,
+                    'variation_id' => $item->variation_id,
+                    'shipping_id' => $createdShippings->firstWhere('stock_id', $item->retailer_id)->id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
+                    'discount' => $item->discount
                 ];
             })->toArray();
 
-            $order->variations()->attach($orderVariations);
+            DB::table('order_variation')->insert($orderVariations);
 
             $createdGateway = $gateway->create($order);
 

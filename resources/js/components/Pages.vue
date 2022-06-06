@@ -15,7 +15,7 @@
                 <tbody>
                 <tr v-for="page in scopeData.records">
                     <td class="uk-table-shrink">{{page.id}}</td>
-                    <td class="uk-table-shrink">{{page.name}}</td>
+                    <td>{{page.name}}</td>
                     <td>{{page.slug}}</td>
                     <td>{{page.position}}</td>
                     <td>

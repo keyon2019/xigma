@@ -24,6 +24,11 @@ class Shipping extends Model
         return $this->belongsTo(Retailer::class, 'stock_id');
     }
 
+    public function variations()
+    {
+        return $this->belongsToMany(Variation::class, 'order_variation')->withPivot(['quantity', 'price', 'discount']);
+    }
+
     public function items()
     {
         return $this->hasMany(Item::class);

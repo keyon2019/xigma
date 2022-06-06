@@ -29,7 +29,7 @@ class ProfileController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:users,email,' . auth()->id(),
-            'mobile' => ['required', new Mobile(), 'unique:users,mobile,' . auth()->id()],
+//            'mobile' => ['required', new Mobile(), 'unique:users,mobile,' . auth()->id()],
             'area_code' => 'nullable|numeric|digits:3',
             'telephone' => 'nullable|numeric|digits:8',
             'emergency_mobile' => ['nullable', new Mobile()]
@@ -43,7 +43,7 @@ class ProfileController extends Controller
     {
         $data = $request->validate([
             'current_password' => 'required|current_password',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         auth()->user()->update(['password' => bcrypt($data['password'])]);

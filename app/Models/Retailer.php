@@ -19,6 +19,11 @@ class Retailer extends Model
         return $this->hasMany(Item::class, 'stock_id');
     }
 
+    public function stocks()
+    {
+        return $this->belongsToMany(Variation::class, 'stocks')->withPivot('quantity');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

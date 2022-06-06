@@ -25,6 +25,7 @@ use App\Http\Controllers\RetailerController;
 use App\Http\Controllers\RetailerItemController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserVehicleController;
 use App\Http\Controllers\ValueController;
@@ -47,6 +48,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
 });
@@ -99,6 +101,8 @@ Route::get('vehicle', [UserVehicleController::class, 'index']);
 Route::post('vehicle', [UserVehicleController::class, 'store']);
 Route::delete('vehicle', [UserVehicleController::class, 'destroy']);
 
+Route::get('stock', [StockController::class, 'supply']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
@@ -144,6 +148,7 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('/comment', [CommentController::class, 'index']);
     Route::patch('/comment/{comment}', [CommentController::class, 'approve']);
+    Route::delete('/comment/{comment}', [CommentController::class, 'disapprove']);
 
     Route::get('retailer/item', [RetailerItemController::class, 'create']);
     Route::post('retailer/item', [RetailerItemController::class, 'send']);
@@ -155,6 +160,8 @@ Route::prefix('dashboard')->group(function () {
 
     Route::post('/picture', [PictureController::class, 'store']);
     Route::delete('picture/{picture}', [PictureController::class, 'destroy']);
+
+    Route::post('stock/{variation}', [StockController::class, 'update']);
 });
 
 Route::get('{page}', [PageController::class, 'show']);

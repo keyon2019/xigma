@@ -134,7 +134,6 @@
                     if (!this.value && !this.manualValue) {
                         this.keyword = null;
                     } else {
-                        console.log("Got Called!");
                         let option = _.find(this.options, (option) => {
                             if (this.valueKeyName != null)
                                 return option[this.valueKeyName] === this.value;

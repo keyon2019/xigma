@@ -19,7 +19,7 @@ class VariationController extends Controller
     public function index(VariationFilters $filters)
     {
         if (\request()->wantsJson())
-            return response()->json(Variation::withAvailableItemsCount()
+            return response()->json(Variation::withStock()
                 ->filter($filters)->with(['product' => function ($q) {
                     $q->without('variations', 'pictures');
                 }])->paginate(15));

@@ -10,8 +10,11 @@
 <script>
     export default {
         methods: {
-            apply() {
+            apply($event) {
                 let formData = new FormData(this.$refs.form);
+                if($event.submitter) {
+                    formData.append($event.submitter.name, $event.submitter.value)
+                }
                 this.$emit('sortsChanged', formData);
             }
         }

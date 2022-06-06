@@ -31,6 +31,14 @@
                         </select>
                     </div>
                     <div class="uk-width-1-1">
+                        <form-input label="لینک (اولویت هدایت با لینک است)" classes="uk-input"
+                                    type="input"
+                                    name="slug"
+                                    :errors="form.errors"
+                                    v-model="form.link.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-1">
                         <form-input label="اسلاگ" classes="uk-input"
                                     type="input"
                                     name="slug"
@@ -94,6 +102,10 @@
                     slug: {
                         value: null,
                         rules: 'required|string'
+                    },
+                    link: {
+                        value: null,
+                        rules: 'string'
                     },
                     meta_title: {
                         value: null,

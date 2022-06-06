@@ -10,7 +10,7 @@ class Page extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['slug', 'name', 'content', 'meta_title', 'meta_description', 'position', 'parent'];
+    protected $fillable = ['slug', 'name', 'content', 'meta_title', 'meta_description', 'position', 'parent', 'link'];
 
     protected $with = ['subs'];
 
@@ -19,9 +19,14 @@ class Page extends Model
         return 'slug';
     }
 
-    public function setSlugValue($value)
+    public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = Str::slug($value);
+    }
+
+    public function getRedirectLinkAttribute()
+    {
+        return $this->link != null ? $this->link : "/$this->slug";
     }
 
     public function scopeRoot($query)

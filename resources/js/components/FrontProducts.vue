@@ -14,19 +14,19 @@
                 </div>
                 <div class="uk-padding-small">
                     <button class="uk-button sort-item uk-border-rounded" @click="sort = 'expensive'" name="sort"
-                            :class="{'uk-button uk-button-primary' : sort === 'expensive'}" type="submit" value="latest">گرانترین</button>
+                            :class="{'uk-button uk-button-primary' : sort === 'expensive'}" type="submit" value="expensive">گرانترین</button>
                 </div>
                 <div class="uk-padding-small">
-                    <button class="uk-button sort-item uk-border-rounded" @click="sort = 'price'" name="sort"
-                            :class="{'uk-button uk-button-primary' : sort === 'price'}" type="submit" value="latest">ارزان‌ترین</button>
+                    <button class="uk-button sort-item uk-border-rounded" @click="sort = 'cheap'" name="sort"
+                            :class="{'uk-button uk-button-primary' : sort === 'cheap'}" type="submit" value="cheap">ارزان‌ترین</button>
                 </div>
                 <div class="uk-padding-small">
                     <button class="uk-button sort-item uk-border-rounded" @click="sort = 'popular'" name="sort"
-                            :class="{'uk-button uk-button-primary' : sort === 'popular'}" type="submit" value="latest">محبوب‌ترین</button>
+                            :class="{'uk-button uk-button-primary' : sort === 'popular'}" type="submit" value="popular">محبوب‌ترین</button>
                 </div>
                 <div class="uk-padding-small">
                     <button class="uk-button sort-item uk-border-rounded" @click="sort = 'most_viewed'" name="sort"
-                            :class="{'uk-button uk-button-primary' : sort === 'most_viewed'}" type="submit" value="latest">پربازدید‌ترین</button>
+                            :class="{'uk-button uk-button-primary' : sort === 'most_viewed'}" type="submit" value="most_viewed">پربازدید‌ترین</button>
                 </div>
             </div>
         </template>

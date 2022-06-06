@@ -8,8 +8,11 @@ use App\Image;
 use App\Models\Category;
 use App\Models\Option;
 use App\Models\Product;
+use App\Models\Variation;
 use App\Models\Widget;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -50,6 +53,7 @@ class CategoryController extends Controller
             'wide_splash' => 'file',
             'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : '',
             'show' => 'boolean',
+            'featured' => 'boolean',
             'order' => 'numeric'
         ]);
 
@@ -79,6 +83,7 @@ class CategoryController extends Controller
             'wide_splash' => 'file',
             'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : '',
             'show' => 'boolean',
+            'featured' => 'boolean',
             'order' => 'numeric'
         ]);
 

@@ -68,7 +68,7 @@
                     <p class="uk-text-large text-small@m uk-text-primary">ابــزارهای خریــد</p>
                     @foreach($pages->filter(function($page) { return $page->position === 2;}) as $page)
                         <p class="uk-margin-small">
-                            <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
+                            <a href="{{$page->redirectLink}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
                         </p>
                     @endforeach
                 </div>
@@ -76,7 +76,7 @@
                     <p class="uk-text-large text-small@m uk-text-primary">دسته‌بندی محصولات</p>
                     @foreach($pages->filter(function($page) { return $page->position === 3;}) as $page)
                         <p class="uk-margin-small">
-                            <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
+                            <a href="{{$page->redirectLink}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
                         </p>
                     @endforeach
                 </div>
@@ -84,7 +84,7 @@
                     <p class="uk-text-large text-small@m uk-text-primary">لینک‌های مفید</p>
                     @foreach($pages->filter(function($page) { return $page->position === 4;}) as $page)
                         <p class="uk-margin-small">
-                            <a href="/{{$page->slug}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
+                            <a href="{{$page->redirectLink}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
                         </p>
                     @endforeach
                 </div>

@@ -6,7 +6,7 @@
             <input type="hidden" :name="name" v-model="realValue">
         </div>
         <div ref="drop" data-uk-dropdown="offset:2;pos:bottom-justify;boundary:.auto-input;boundary-align:true"
-             class="uk-border-rounded uk-margin-remove" style="padding: 2px 10px;border:1px solid gainsboro">
+             class="uk-border-rounded uk-margin-remove" style="padding: 2px 10px;border:1px solid gainsboro;width:100%;">
             <ul class="uk-nav uk-dropdown-nav uk-nav-default uk-overflow-auto"
                 :class="records && records.length > 5 ? 'uk-height-small' : ''">
                 <li class="uk-text-truncate"

@@ -12,10 +12,7 @@
 
 <script>
     export default {
-        props: ['images', 'index'],
-        data() {
-
-        }
+        props: ['images', 'index']
     }
 </script>
 

@@ -44,8 +44,8 @@ class ItemController extends Controller
 
     public function retailers(Variation $variation)
     {
-        $retailers = Retailer::whereHas('items', function ($q) use ($variation) {
-            return $q->whereVariationId($variation->id)->whereSold(false);
+        $retailers = Retailer::whereHas('stocks', function ($q) use ($variation) {
+            return $q->whereVariationId($variation->id)->where('quantity', '>', 0);
         })->get();
         return response()->json(['retailers' => $retailers]);
     }
