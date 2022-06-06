@@ -49,6 +49,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('test', function () {
+    dd(
+
+    );
+});
+
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
 });

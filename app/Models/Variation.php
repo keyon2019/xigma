@@ -7,6 +7,7 @@ use App\Traits\Shamsi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class Variation extends Model
@@ -74,7 +75,7 @@ class Variation extends Model
 
     public function getAvailableAttribute()
     {
-        return $this->stocks()->where('quantity', '>', 0)->exists();
+        return DB::table('stocks')->where('variation_id', $this->id)->where('quantity', '>', 0)->exists();
     }
 
     public function prepareForTable($quantity)

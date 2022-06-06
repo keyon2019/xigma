@@ -187,14 +187,14 @@
                     <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle" data-uk-grid>
                         <div class="uk-width-2-5@m">
                             <p class="uk-flex uk-margin-small-bottom"><span data-uk-icon="home"
-                                                                            class="uk-margin-small-right"></span>{{retailer.name}}
+                                                                            class="uk-margin-small-right"></span>{{retailer.name || 'کارخانه مرکزی'}}
                             </p>
                             <p class="uk-margin-remove uk-text-meta"><span class="uk-text-success uk-text-bold">۹۲٪</span> رضایت
                                 عملکرد</p>
                         </div>
                         <div class="uk-width-expand@s">
-                            <p class="uk-margin-small-bottom">{{retailer.city}} نمایندگی</p>
-                            <p class="uk-text-meta uk-margin-remove">{{retailer.address}}</p>
+                            <p class="uk-margin-small-bottom"><span v-if="retailer.city">{{retailer.city}} نمایندگی</span><span v-else>قم</span></p>
+                            <p class="uk-text-meta uk-margin-remove"><span v-if="retailer.address">{{retailer.address}}</span> <span class="uk-text-truncate" v-else>شهرک صنعتی شکوهیه، بلوار آیت اله خامنه ای، کوچه بنفشه2، پلاک 372</span></p>
                         </div>
                         <div class="uk-width-auto@s">
                             <div class="uk-grid uk-grid-small uk-child-width-auto uk-grid-divider">

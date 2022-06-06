@@ -44,10 +44,11 @@ class ItemController extends Controller
 
     public function retailers(Variation $variation)
     {
-        $retailers = Retailer::whereHas('stocks', function ($q) use ($variation) {
-            return $q->whereVariationId($variation->id)->where('quantity', '>', 0);
-        })->get();
-        return response()->json(['retailers' => $retailers]);
+        return response()->json(['retailers' => \Illuminate\Support\Facades\DB::table('stocks')
+            ->where('variation_id', 1)->where('quantity', '>', 0)
+            ->select('r.*')
+            ->leftJoin('retailers as r', 'r.id' ,'stocks.retailer_id')
+            ->get()]);
     }
 
     public function find(Request $request)
