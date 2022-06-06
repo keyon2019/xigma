@@ -30,7 +30,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('website.partials._header', function ($view) {
-            $pages = Page::root()->select('slug', 'name', 'position', 'link')->get();
+            $pages = Page::root()->get();
             return $view->with([
                 'categories' => Category::root()->visible()->with('subCategories')->get(),
                 'pages' => $pages->filter(function ($value) {
