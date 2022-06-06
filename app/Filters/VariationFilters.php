@@ -17,7 +17,11 @@ class VariationFilters extends QueryFilter
 
     public function keyword($value)
     {
-        $this->query->where('name', 'like', "%$value%");
+        $this->query->where('name', 'like', "%$value%")->orWhere(function ($q) use ($value) {
+            $q->whereHas('product', function (Builder $query) use ($value) {
+                return $query->where('name', 'like', "%$value%");
+            });
+        });
     }
 
     public function product($value)

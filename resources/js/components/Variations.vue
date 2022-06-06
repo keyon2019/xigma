@@ -23,8 +23,7 @@
                     <hr class="uk-margin-remove-top"/>
                     <div>
                         <div>
-                            <auto-complete name="product" value-key="id" api-result-key="data"
-                                           method="get" api="/dashboard/product" placeholder="محصول"></auto-complete>
+                            <input type="text" name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
                         </div>
                         <div>
                             <accordion title="دسته‌بندی" class="uk-margin-small-top">
