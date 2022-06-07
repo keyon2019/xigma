@@ -85,7 +85,7 @@ class OrderController extends Controller
 
             $createdGateway = $gateway->create($order);
 
-//            $cart->clear();
+            $cart->clear();
 
             return response()->json(['message' => 'Order Placed Successfully', 'gateway' => [
                 'post_parameters' => $createdGateway->postParameters(),
