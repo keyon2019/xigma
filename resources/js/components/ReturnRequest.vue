@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a v-if="!returnRequest" @click="modal.show()"
+        <a v-if="!returnRequest && order.status === 4" @click="modal.show()"
            class="uk-button uk-button-link uk-button-small uk-text-danger uk-border-rounded uk-flex uk-flex-middle">
             <i class="fa-solid fa-minus uk-margin-small-right"></i>
             <span>مرجوع کردن کالا</span>
@@ -15,7 +15,7 @@
             <div class="uk-padding-small uk-background-default uk-box-shadow-small uk-border-rounded uk-margin-small-top bordered">
                 <div class="uk-grid uk-grid-small">
                     <div>
-                        <img width="170" :src="variation.picture.url">
+                        <img width="170" :src="variation.picture ? variation.picture.url : ''">
                     </div>
                     <div>
                         <div class="uk-text-bold uk-margin-small">{{variation.name}}</div>
