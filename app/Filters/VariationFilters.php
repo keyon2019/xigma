@@ -15,6 +15,11 @@ class VariationFilters extends QueryFilter
         $this->query->orderBy($columnName, $order);
     }
 
+    public function sku($value)
+    {
+        $this->query->whereHas('sku', $value);
+    }
+
     public function keyword($value)
     {
         $this->query->where('name', 'like', "%$value%")->orWhere(function ($q) use ($value) {

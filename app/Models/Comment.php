@@ -11,7 +11,7 @@ class Comment extends Model
 {
     use HasFactory, Shamsi, Filterable;
 
-    protected $fillable = ['text', 'rating', 'product_id'];
+    protected $fillable = ['text', 'rating', 'product_id', 'reply'];
 
     protected $with = ['user'];
 
@@ -24,4 +24,5 @@ class Comment extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
 }

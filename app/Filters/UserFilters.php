@@ -9,4 +9,11 @@ class UserFilters extends QueryFilter
     {
         $this->query->whereIsRetailer($value);
     }
+
+    public function search($value)
+    {
+        $this->query->where('name', 'like', "%$value%")
+            ->orWhere('email', 'like', "%$value")
+            ->orWhere('mobile', $value);
+    }
 }

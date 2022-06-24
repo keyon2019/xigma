@@ -8,8 +8,11 @@
                     <div class="uk-margin-small">
                         <label><input class="uk-checkbox" type="checkbox" value="1" name="available"> محصولات موجود </label>
                     </div>
-                    <div>
+                    <div class="uk-margin-small">
                         <input type="text" name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
+                    </div>
+                    <div>
+                        <input type="text" name="sku" class="uk-input uk-border-rounded" placeholder="سریال">
                     </div>
                     <div v-for="(option, index) in options" class=" section-container uk-margin-small">
                         <ul data-uk-accordion="" class="uk-margin-remove-bottom">

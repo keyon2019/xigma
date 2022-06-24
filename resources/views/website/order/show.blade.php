@@ -24,7 +24,7 @@
         user-select: none;
     }
 
-    .arrow-steps .step:not(:last-child) {
+    .arrow-steps .step:not(:first-child) {
         margin: 0 10px 0 0;
     }
 
@@ -38,19 +38,19 @@
         content: "";
         position: absolute;
         top: 0;
-        right: -17px;
+        left: -17px;
         width: 0;
         height: 0;
         border-top: 40px solid transparent;
         border-bottom: 40px solid transparent;
-        border-left: 17px solid #ddd;
+        border-right: 17px solid #ddd;
         z-index: 2;
     }
 
     .arrow-steps .step:before {
-        right: auto;
-        left: 0;
-        border-left: 17px solid #f3f3f3;
+        left: auto;
+        right: 0;
+        border-right: 17px solid #f3f3f3;
         z-index: 0;
     }
 
@@ -63,13 +63,13 @@
     }
 
     .arrow-steps .step:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
     }
 
     .arrow-steps .step:last-child {
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
 
     .arrow-steps .step span {
@@ -81,14 +81,14 @@
         content: "";
         position: absolute;
         top: -2px;
-        left: -10px;
+        right: -10px;
         font-size: 11px;
         line-height: 21px;
     }
 
     .arrow-steps .step.current {
         color: #fff;
-        background-image: linear-gradient(to right, #fbc569, #FFAA1A);
+        background-image: linear-gradient(to left, #fbc569, #FFAA1A);
     }
 
     .arrow-steps .step.current a {
@@ -97,12 +97,12 @@
     }
 
     .arrow-steps .step.current:after {
-        border-left: 17px solid #FFAA1A;
+        border-right: 17px solid #FFAA1A;
     }
 
     .arrow-steps .step.done {
         color: #FFF;
-        background-image: linear-gradient(to right, #fbc569, #FFAA1A);
+        background-image: linear-gradient(to left, #fbc569, #FFAA1A);
     }
 
     .arrow-steps .step.done a {
@@ -111,11 +111,11 @@
     }
 
     .arrow-steps .step.done:after {
-        border-left: 17px solid #FFAA1A;
+        border-right: 17px solid #FFAA1A;
     }
 
     .arrow-steps {
-        flex-direction: row-reverse;
+        flex-direction: row;
     }
 
     .step {
@@ -140,11 +140,11 @@
                     </div>
                     <div class="uk-width-expand@m">
                         <div class="uk-text-bold uk-text-medium">{{$variation->name}}</div>
-                        <div>{{$variation->sku}}</div>
+                        <div><span>کد محصول: </span>{{$variation->sku}}</div>
                         @foreach($variation->values as $value)
-                        <div class="uk-text-meta">
-                            {{$value->option->name}} : <span class="uk-text-bold">{{$value->name}}</span>
-                        </div>
+                            <div class="uk-text-meta">
+                                {{$value->option->name}} : <span class="uk-text-bold">{{$value->name}}</span>
+                            </div>
                         @endforeach
                         <div>
                             <div class="uk-grid uk-grid-small uk-grid-divider uk-margin-small-top uk-text-small">
@@ -166,11 +166,7 @@
                             </a>
                         </div>
                         <div class="uk-margin-top">
-                            <a href="/product/{{$variation->product_id}}"
-                               class="uk-button uk-button-link uk-text-danger uk-button-small uk-border-rounded uk-flex uk-flex-middle">
-                                <i class="fa-solid fa-minus uk-margin-small-right"></i>
-                                <span>مرجوع کردن کالا</span>
-                            </a>
+                            <return-request @if($r = $order->returnRequests->firstWhere('variation_id', $variation->id)) :initial-return-request="{{$r}}" @endif :enquiries="{{$enquiries}}" :reasons="{{$reasons}}" :order="{{$order}}" :variation="{{$variation}}"></return-request>
                         </div>
                     </div>
                 </div>

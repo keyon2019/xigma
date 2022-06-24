@@ -23,7 +23,8 @@
                                     @if($variation->orderPrice != $variation->pivot->price)
                                         <div class="uk-text-small uk-text-danger uk-text-center">
                                             <div class="uk-text-bold">
-                                                <span class="uk-margin-small-right"><i class="fa-solid fa-triangle-exclamation"></i></span><span>در قیمت یا موجودی کالا تغییری بوجود آمده</span>
+                                                <span class="uk-margin-small-right"><i
+                                                            class="fa-solid fa-triangle-exclamation"></i></span><span>در قیمت یا موجودی کالا تغییری بوجود آمده</span>
                                             </div>
                                             <div style="font-size: 0.7rem">
                                                 جهت اصلاح پیش‌فاکتور از کلید "انتقال به سبد خرید" استفاده کنید
@@ -74,8 +75,7 @@
             <div class="uk-text-center">
                 <a href="/invoice/{{$invoice->id}}/invoice"
                    class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">چاپ پیش فاکتور</a>
-                <a href="/invoice/{{$invoice->id}}/invoice"
-                   class="uk-button uk-button-success uk-text-white uk-border-rounded">انتقال به سبد خرید</a>
+                <invoice-to-cart :invoice="{{$invoice}}"></invoice-to-cart>
             </div>
         </div>
     </div>

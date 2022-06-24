@@ -23,6 +23,7 @@ use App\Http\Controllers\ProductOptionsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RetailerController;
 use App\Http\Controllers\RetailerItemController;
+use App\Http\Controllers\ReturnRequestController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StockController;
@@ -49,12 +50,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('test', function () {
-    dd(
-
-    );
-});
-
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
 });
@@ -67,6 +62,7 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::get('/cart', [CartController::class, 'index']);
 Route::post('/cart', [CartController::class, 'store']);
+Route::post('/cart/from_invoice/{invoice}', [CartController::class, 'fromInvoice']);
 Route::delete('/cart', [CartController::class, 'destroy']);
 
 Route::resource('order', OrderController::class)->only(['show', 'index', 'store']);
@@ -100,12 +96,18 @@ Route::patch('profile', [ProfileController::class, 'update']);
 Route::patch('password', [ProfileController::class, 'changePassword']);
 
 Route::post('/comment', [CommentController::class, 'store']);
+Route::get('comment', [CommentController::class, 'userComments']);
 
 Route::post('search', [SearchController::class, 'index']);
 
 Route::get('vehicle', [UserVehicleController::class, 'index']);
 Route::post('vehicle', [UserVehicleController::class, 'store']);
 Route::delete('vehicle', [UserVehicleController::class, 'destroy']);
+
+Route::get('return_request', [ReturnRequestController::class, 'index']);
+Route::get('return_request/{return_request}', [ReturnRequestController::class, 'show']);
+Route::post('return_request', [ReturnRequestController::class, 'store']);
+Route::post('return_request/{return_request}/set_address', [ReturnRequestController::class, 'setAddress']);
 
 Route::get('stock', [StockController::class, 'supply']);
 
@@ -153,7 +155,8 @@ Route::prefix('dashboard')->group(function () {
     Route::post('/variation/{variation}/item', [ItemController::class, 'store']);
 
     Route::get('/comment', [CommentController::class, 'index']);
-    Route::patch('/comment/{comment}', [CommentController::class, 'approve']);
+    Route::patch('/comment/{comment}', [CommentController::class, 'update']);
+    Route::post('/comment/{comment}/approve', [CommentController::class, 'approve']);
     Route::delete('/comment/{comment}', [CommentController::class, 'disapprove']);
 
     Route::get('retailer/item', [RetailerItemController::class, 'create']);
@@ -168,6 +171,10 @@ Route::prefix('dashboard')->group(function () {
     Route::delete('picture/{picture}', [PictureController::class, 'destroy']);
 
     Route::post('stock/{variation}', [StockController::class, 'update']);
+
+    Route::get('return_request', [ReturnRequestController::class, 'all']);
+    Route::get('return_request/{return_request}/edit', [ReturnRequestController::class, 'edit']);
+    Route::patch('return_request/{return_request}', [ReturnRequestController::class, 'update']);
 });
 
 Route::get('{page}', [PageController::class, 'show']);

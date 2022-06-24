@@ -3,7 +3,7 @@
         <div class="clickable" @click="toggle">
             <span v-if="!this.$slots.title">{{title}}</span>
             <slot name="title"></slot>
-            <span class="uk-margin-small-left" :uk-icon="show ? 'chevron-down' : 'chevron-left'"></span>
+            <span class="uk-margin-small-left hidden-in-print" :uk-icon="show ? 'chevron-down' : 'chevron-left'"></span>
         </div>
         <div v-show="show">
             <slot></slot>
@@ -13,10 +13,10 @@
 
 <script>
     export default {
-        props: ['title'],
+        props: {'title': {}, 'open': {default : false}},
         data() {
             return {
-                show: false,
+                show: this.open,
             }
         },
         methods: {

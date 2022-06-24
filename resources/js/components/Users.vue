@@ -25,7 +25,7 @@
                         <th>#</th>
                         <th>نام</th>
                         <th>ایمیل</th>
-                        <th>تاریخ عضویت</th>
+                        <th>موبایل</th>
                         <th>نماینده</th>
                         <th>مدیریت</th>
                     </tr>
@@ -35,7 +35,7 @@
                         <td>{{user.id}}</td>
                         <td>{{user.name}}</td>
                         <td>{{user.email}}</td>
-                        <td>{{user.created_at}}</td>
+                        <td>{{user.mobile}}</td>
                         <td><span :data-uk-icon="user.is_retailer ? 'check': 'close'"></span></td>
                         <td>
                             <a :href="'/dashboard/user/' + user.id + '/edit'"

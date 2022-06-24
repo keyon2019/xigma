@@ -54,6 +54,12 @@
                                 <hr class="uk-margin-remove-top"/>
                                 <p class="uk-margin-remove-top uk-padding-small uk-padding-remove-vertical uk-padding-remove-right"
                                    v-text="comment.text"></p>
+                                <textarea v-model="comment.reply" class="uk-textarea uk-border-rounded uk-margin-small-bottom"
+                                          placeholder="ارسال پاسخ"></textarea>
+                                <button @click="update(comment)"
+                                        class="uk-float-right uk-border-rounded uk-margin-small-left uk-button uk-button-default">
+                                    ثبت پاسخ
+                                </button>
                                 <div v-if="!comment.approved">
                                     <button @click="approve(comment)"
                                             class="uk-float-right uk-border-rounded uk-button uk-button-primary">تایید
@@ -80,7 +86,7 @@
         methods: {
             approve(comment) {
                 Loading.show();
-                axios.post(`/dashboard/comment/${comment.id}`, {_method: 'patch'}).then(() => {
+                axios.post(`/dashboard/comment/${comment.id}/approve`).then(() => {
                     comment.approved = true;
                     Toast.message('نظر با موفقیت تایید شد').success().show();
                 }).catch((e) => {
@@ -94,6 +100,19 @@
                 axios.post(`/dashboard/comment/${comment.id}`, {_method: 'delete'}).then(() => {
                     comment.approved = false;
                     Toast.message('نظر با موفقیت رد شد').success().show();
+                }).catch((e) => {
+                    Toast.message(e.response.data.message).danger().show();
+                }).then(() => {
+                    Loading.hide();
+                })
+            },
+            update(comment) {
+                Loading.show();
+                axios.post(`/dashboard/comment/${comment.id}`, {
+                    _method: 'patch',
+                    reply: comment.reply,
+                }).then(() => {
+                    Toast.message('پاسخ نظر با موفقیت ثبت شد').success().show();
                 }).catch((e) => {
                     Toast.message(e.response.data.message).danger().show();
                 }).then(() => {

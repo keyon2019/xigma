@@ -21,6 +21,23 @@ class StockService
             ->exists();
     }
 
+    public function checkInventoryBatch($collection)
+    {
+        $query = DB::table('variations as v')
+            ->whereIn('v.id', $collection->keys())
+            ->leftJoin('stocks as s', 's.variation_id', 'v.id')
+            ->join('products as p', 'v.product_id', 'p.id')
+            ->groupBy('v.id')
+            ->selectRaw('v.id as variation_id, COALESCE(SUM(s.quantity), 0) as q, v.*, p.name as productName')
+            ->get();
+
+        $result = $query->each(function ($variation) use ($collection) {
+            $variation->available = $variation->q >= $collection[$variation->variation_id];
+        })->keyBy('variation_id');
+
+        return $result;
+    }
+
 
     public function supply($variationId)
     {

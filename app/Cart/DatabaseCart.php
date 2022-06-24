@@ -58,6 +58,14 @@ class DatabaseCart extends CartInterface
         })->exists();
     }
 
+    public function batchAdd($collection)
+    {
+        $n = $collection->mapWithKeys(function ($value, $key) {
+            return [$key => ['quantity' => $value]];
+        });
+        return auth()->user()->cart()->syncWithoutDetaching($n);
+    }
+
     public function checkAllAvailable($allAvailable, $notAllAvailable)
     {
         return $allAvailable();

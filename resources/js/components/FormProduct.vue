@@ -29,7 +29,7 @@
                             <ckeditor @ready="ckReady" v-model="form.description.value"></ckeditor>
                         </div>
                     </div>
-                    <div class="uk-width-1-3">
+                    <div class="uk-width-1-4">
                         <label class="uk-form-label">قیمت</label>
                         <div class="uk-form-controls">
                             <c-s-input name="price" v-model="form.price.value"></c-s-input>
@@ -38,7 +38,7 @@
                              class="uk-text-danger uk-text-small">{{form.errors['price']}}
                         </div>
                     </div>
-                    <div class="uk-width-1-3">
+                    <div class="uk-width-1-4">
                         <label class="uk-form-label">قیمت استثنایی</label>
                         <div class="uk-form-controls">
                             <c-s-input name="special_price" v-model="form.special_price.value"></c-s-input>
@@ -47,17 +47,12 @@
                              class="uk-text-danger uk-text-small">{{form.errors['special_price']}}
                         </div>
                     </div>
-                    <div class="uk-width-1-3">
+                    <div class="uk-width-1-4">
                         <form-input id="special_price_expiration" name="special_price_expiration" label="انقضای قیمت استثنایی" :errors="form.errors"
                                     :value="$refs.dp ? $refs.dp.displayValue : ''" classes="uk-input" type="input">
                         </form-input>
                     </div>
-                    <div class="uk-width-1-2">
-                        <form-input label="هزینه ارسال" classes="uk-input" :errors="form.errors" type="input" name="price"
-                                    v-model="form.delivery_cost.value">
-                        </form-input>
-                    </div>
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-4">
                         <form-input label="ظرفیت تولید روزانه" classes="uk-input" :errors="form.errors" type="input" name="price"
                                     v-model="form.daily_production_capacity.value">
                         </form-input>
@@ -130,10 +125,6 @@
                     special_price_expiration: {
                         value: '',
                         rules: 'string'
-                    },
-                    delivery_cost: {
-                        value: '',
-                        rules: 'numeric'
                     },
                     daily_production_capacity: {
                         value: '',

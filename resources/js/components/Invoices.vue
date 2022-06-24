@@ -6,6 +6,12 @@
                 <hr class="uk-margin-remove-top"/>
                 <div>
                     <div class="uk-margin-small">
+                        <input type="text" name="user" class="uk-input uk-border-rounded" placeholder="نام کاربر">
+                    </div>
+                    <div class="uk-margin-small">
+                        <input type="text" name="mobile" class="uk-input uk-border-rounded" placeholder="شماره موبایل">
+                    </div>
+                    <div class="uk-margin-small">
                         <input class="uk-input" id="created_at" name="created_at"
                                :value="$refs.dp ? $refs.dp.displayValue : ''" placeholder="زمان ثبت">
                         </input>
@@ -29,6 +35,7 @@
                 <tr>
                     <th>#</th>
                     <th>کاربر</th>
+                    <th>موبایل</th>
                     <th>مبلغ</th>
                     <th>زمان ثبت</th>
                     <th>مشاهده</th>
@@ -38,6 +45,7 @@
                 <tr v-for="invoice in scopeData.records">
                     <td class="uk-table-shrink">{{invoice.id}}</td>
                     <td class="uk-table-shrink">{{invoice.user.name}}</td>
+                    <td class="">{{invoice.user.mobile}}</td>
                     <td>{{invoice.total.toLocaleString()}}</td>
                     <td>{{invoice.created_at}}</td>
                     <td><a :href="`/dashboard/invoice/${invoice.id}/edit`"

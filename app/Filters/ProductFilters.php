@@ -13,6 +13,13 @@ class ProductFilters extends QueryFilter
         $this->query->where('name', 'like', "%$value%");
     }
 
+    public function sku($value)
+    {
+        $this->query->whereHas('variations', function($q) use ($value) {
+            return $q->where('sku', $value);
+        });
+    }
+
     public function search($value)
     {
         $this->query->where('name', 'like', "%$value%");

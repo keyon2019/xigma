@@ -16,6 +16,8 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+    <script defer src="{{ mix('js/app.js') }}"></script>
+
     @laravelPWA
 
     <style>
@@ -145,12 +147,5 @@
     <loading></loading>
     <toast dir="rtl" message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif"></toast>
 </div>
-<script src="{{ mix('js/app.js') }}"></script>
-<script>
-    const app = new Vue({
-        el: '#app',
-    });
-</script>
-
 </body>
 </html>

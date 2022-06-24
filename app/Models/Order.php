@@ -21,8 +21,8 @@ class Order extends Model
 
     CONST SHIPPING_METHODS = [
         '1' => 'دریافت در محل',
-        '2' => 'ارسال با پیک',
-        '3' => 'ارسال با باربری'
+        '2' => 'پست',
+        '3' => 'باربری'
     ];
 
     CONST COST_PREFERENCES = [
@@ -104,5 +104,10 @@ class Order extends Model
     {
         //todo new order retailers
 //        return $this->shippings->
+    }
+
+    public function returnRequests()
+    {
+        return $this->hasMany(ReturnRequest::class);
     }
 }

@@ -22,8 +22,11 @@
                     <div class="uk-margin-remove">جستجو</div>
                     <hr class="uk-margin-remove-top"/>
                     <div>
-                        <div>
+                        <div class="uk-margin-small">
                             <input type="text" name="keyword" class="uk-input uk-border-rounded" placeholder="نام محصول">
+                        </div>
+                        <div>
+                            <input type="text" name="sku" class="uk-input uk-border-rounded" placeholder="سریال">
                         </div>
                         <div>
                             <accordion title="دسته‌بندی" class="uk-margin-small-top">
@@ -69,6 +72,7 @@
                     <tr>
                         <th>#</th>
                         <th>نام محصول</th>
+                        <th>سریال</th>
                         <th>نوع</th>
                         <th>فیلترها</th>
                         <th>موجودی</th>
@@ -79,6 +83,7 @@
                     <tr v-for="variation in scopeData.records">
                         <td class="uk-table-shrink">{{variation.id}}</td>
                         <td>{{variation.product.name}}</td>
+                        <td>{{variation.sku}}</td>
                         <td>{{variation.name}}</td>
                         <td>{{variation.filters}}</td>
                         <td>{{variation.items_count}}</td>

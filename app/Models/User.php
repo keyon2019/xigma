@@ -83,6 +83,11 @@ class User extends Authenticatable
         return $this->hasOne(Retailer::class);
     }
 
+    public function returnRequests()
+    {
+        return $this->hasMany(ReturnRequest::class);
+    }
+
     public function scopeSearch($query, $value)
     {
         return $query->where('name', 'like', "%$value%")->orWhere('email', 'like', "%$value%");
@@ -95,7 +100,7 @@ class User extends Authenticatable
 
     public function getAreaCodeAttribute()
     {
-        return substr($this->telephone, 0, strlen($this->telephone)  - 8);
+        return substr($this->telephone, 0, strlen($this->telephone) - 8);
     }
 
     public function getTelephonePartAttribute()

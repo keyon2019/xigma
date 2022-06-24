@@ -28,4 +28,11 @@ trait Shamsi
             return Jalalian::forge($date)->format($this->shamsiFormat);
         return null;
     }
+
+    public function getPayedAtAttribute($date)
+    {
+        if ($date)
+            return Jalalian::forge($date)->format($this->shamsiFormat);
+        return null;
+    }
 }

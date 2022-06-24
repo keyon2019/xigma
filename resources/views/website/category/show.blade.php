@@ -5,6 +5,9 @@
 @section('meta_description', $category->description)
 
 @section('content')
+    <div>
+        <img src="/{{$category->wide_splash}}" class="uk-width-expand" uk-img>
+    </div>
     <div class="uk-section uk-section-small uk-section-muted padding-remove@m">
         <div class="uk-container">
             <ul class="uk-breadcrumb">

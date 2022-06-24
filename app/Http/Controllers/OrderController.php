@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\ReturnEnquiry;
+use App\Enum\ReturnReason;
 use App\Filters\OrderFilters;
 use App\Http\Requests\StoreOrderRequest;
 use App\Interfaces\CartInterface;
@@ -43,7 +45,10 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         if (auth()->user()->id === $order->user_id)
-            return view('website.order.show')->with('order', $order->load('variations.values', 'items', 'shippings', 'successfulPayment'));
+            return view('website.order.show')
+                ->with('order', $order->load('variations.values', 'items', 'shippings', 'successfulPayment', 'returnRequests'))
+                ->with('reasons', new ReturnReason())
+                ->with('enquiries', new ReturnEnquiry());
         return abort(401);
     }
 

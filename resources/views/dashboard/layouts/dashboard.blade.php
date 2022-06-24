@@ -52,8 +52,3 @@
 </body>
 </html>
 <script src="{{ mix('js/dashboard.js') }}"></script>
-<script>
-    const app = new Vue({
-        el: '#app',
-    });
-</script>

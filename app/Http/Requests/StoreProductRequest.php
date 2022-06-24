@@ -29,7 +29,6 @@ class StoreProductRequest extends FormRequest
             'price' => 'required|numeric',
             'special_price' => 'numeric',
             'splash' => 'numeric',
-            'delivery_cost' => 'required|numeric',
             'is_huge' => 'boolean',
             'preorderable' => 'boolean',
             'daily_production_capacity' => 'nullable|numeric',

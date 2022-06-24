@@ -55,66 +55,13 @@ class ClosestItemFinderService
         $deliveryCalculated = $this->calculateDeliveryCost($finalResult->groupBy('retailer_id'));
 
         return $deliveryCalculated;
-
-//        foreach ($items as $index => $item) {
-//            $result = DB::query()->fromSub(function ($q) use ($nearbyStocks, $item, $index) {
-//                $quantity = $item->quantity ?? $item->pivot->quantity;
-//                $q->from('stocks as t1')->selectRaw("t1.variation_id, @sum$index := @sum$index + t1.quantity as cumulative, $quantity as required,
-//                        @retailersSequence$index := CONCAT_WS(',', @retailersSequence$index, IFNULL(t1.retailer_id, -1)) as retailers")
-//                    ->where('variation_id', $item->id)
-//                    ->where('quantity', '>', 0)
-//                    ->crossJoin(\Illuminate\Support\Facades\DB::raw("(SELECT @sum$index := 0) r"))
-//                    ->crossJoin(\Illuminate\Support\Facades\DB::raw("(SELECT @retailersSequence$index := NULL) r2"))
-//                    ->orderByRaw("variation_id, FIELD(IFNULL(`retailer_id`, -1), $nearbyStocks)");
-//            }, "t")
-//                ->where('cumulative', '>=', $item->quantity ?? $item->pivot->quantity)
-//                ->join('variations as v', 'v.id', 'variation_id')
-//                ->join('products as p', 'p.id', 'v.product_id')
-//                ->select('variation_id', 'cumulative', 'required',
-//                    'retailers', 'v.name', 'v.sku', 'p.name as productName', 'p.is_huge', 'p.delivery_cost',
-//                    DB::raw('(CASE WHEN v.special_price_expiration > NOW() THEN v.special_price ELSE v.price END) as price'))
-//                ->limit(1);
-//            array_push($results, $result);
-//        }
-//        $b = array_shift($results);
-//        foreach ($results as $r) {
-//            $b->union($r);
-//        }
-//        return $b->get();
-
-//        foreach ($items as $index => $item) {
-//            $baseTable = DB::table('stocks')
-//                ->leftJoin('retailers', 'retailers.id', 'stocks.stock_id')
-//                ->join('variations', 'variations.id', 'stocks.variation_id')
-//                ->join('products', 'variations.product_id', 'products.id')
-//                ->select(['stocks.variation_id', 'stocks.retailer_id', 'variations.name', 'products.is_huge', 'products.delivery_cost',
-//                    DB::raw('(CASE WHEN variations.special_price_expiration > NOW() THEN variations.special_price ELSE variations.price END) as price')])
-//                ->selectRaw('retailers.latitude, retailers.longitude, retailers.address as retailerAddress, retailers.name as retailerName, retailers.id as retailerId')
-//                ->orderByRaw("stocks.variation_id, FIELD(IFNULL(`items`.`stock_id`, -1), $nearbyStocks)");
-//
-//            $t = "base$index";
-//
-//            $baseTable->joinSub($baseTable, $t, function ($join) use ($item, $t) {
-//                $join->on("$t.id", "items.id")->where("$t.variation_id", $item->id);
-//            })->limit($item->quantity ?? $item->pivot->quantity);
-//
-//            array_push($results, $baseTable);
-//        }
-//
-//        $b = array_shift($results);
-//
-//        foreach ($results as $r) {
-//            $b->union($r);
-//        }
-//
-//        return $b->get();
     }
 
     private function calculateDeliveryCost($group)
     {
         return $group->mapWithKeys(function ($shipping) {
             $weightCost = $shipping->sum(function ($i) {
-                return $i->weight * $i->quantity * 5000;
+                return $i->weight * $i->quantity * 5;
             });
             $packageCost = $shipping->map(function ($item) {
                 return max($item->width, $item->height, $item->depth) > 30 ? 20000 : 10000;

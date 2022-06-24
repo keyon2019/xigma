@@ -64,8 +64,8 @@
                                     <span class="uk-margin-small-left uk-text-muted">{{product.rating ? parseFloat(product.rating).toFixed(1) : '3'}} {{product.rating ? `(${product.comments.length})` : ''}}</span>
                                     <span class="uk-text-muted uk-margin-small-left">•</span>
                                     <span class="uk-flex-1 uk-margin-small-left"><a @click="showComments()">{{product.comments.length}} نظر کاربران</a></span>
-                                    <span class="numeric-standard" v-text="selectedVariation ? selectedVariation.sku : ''">
-
+                                    <span v-if="selectedVariation" class="numeric-standard">
+                                        <span>کد محصول:</span> <span v-text="selectedVariation.sku"></span>
                                     </span>
                                 </div>
                                 <div v-if="selectedVariation && selectedVariation.values.length > 0"
@@ -99,8 +99,9 @@
                                     </div>
                                 </div>
                                 <div v-if="selectedVariation" class="uk-margin">
-                                    <a @click="pointsModal.show()" class="uk-link uk-margin-small-bottom"><span class="uk-margin-small-right"
-                                                                                    data-uk-icon="warning"></span><span>{{selectedVariation.points}} امتیاز ویژه خرید زیگما</span>
+                                    <a @click="pointsModal.show()" class="uk-link uk-margin-small-bottom"><span
+                                            class="uk-margin-small-right"
+                                            data-uk-icon="warning"></span><span>{{selectedVariation.points}} امتیاز ویژه خرید زیگما</span>
                                     </a>
                                 </div>
                             </div>
@@ -187,14 +188,18 @@
                     <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle" data-uk-grid>
                         <div class="uk-width-2-5@m">
                             <p class="uk-flex uk-margin-small-bottom"><span data-uk-icon="home"
-                                                                            class="uk-margin-small-right"></span>{{retailer.name || 'کارخانه مرکزی'}}
+                                                                            class="uk-margin-small-right"></span>{{retailer.name
+                                || 'کارخانه مرکزی'}}
                             </p>
                             <p class="uk-margin-remove uk-text-meta"><span class="uk-text-success uk-text-bold">۹۲٪</span> رضایت
                                 عملکرد</p>
                         </div>
                         <div class="uk-width-expand@s">
-                            <p class="uk-margin-small-bottom"><span v-if="retailer.city">{{retailer.city}} نمایندگی</span><span v-else>قم</span></p>
-                            <p class="uk-text-meta uk-margin-remove"><span v-if="retailer.address">{{retailer.address}}</span> <span class="uk-text-truncate" v-else>شهرک صنعتی شکوهیه، بلوار آیت اله خامنه ای، کوچه بنفشه2، پلاک 372</span></p>
+                            <p class="uk-margin-small-bottom"><span v-if="retailer.city">{{retailer.city}} نمایندگی</span><span
+                                    v-else>قم</span></p>
+                            <p class="uk-text-meta uk-margin-remove"><span v-if="retailer.address">{{retailer.address}}</span>
+                                <span class="uk-text-truncate" v-else>شهرک صنعتی شکوهیه، بلوار آیت اله خامنه ای، کوچه بنفشه2، پلاک 372</span>
+                            </p>
                         </div>
                         <div class="uk-width-auto@s">
                             <div class="uk-grid uk-grid-small uk-child-width-auto uk-grid-divider">
@@ -250,8 +255,12 @@
                                         </span>
                                     </p>
                                     <hr class="uk-margin-remove-top"/>
-                                    <p class="uk-margin-large uk-margin-remove-top uk-padding-small uk-padding-remove-vertical uk-padding-remove-right"
-                                       v-text="comment.text"></p>
+                                    <div class="uk-margin-large uk-margin-remove-top uk-padding-small uk-padding-remove-vertical uk-padding-remove-right">
+                                        <div class=""
+                                           v-text="comment.text"></div>
+                                        <div v-if="comment.reply" class="uk-margin-left uk-margin-small-top uk-text-muted"
+                                             ><span>پاسخ زیگما: </span><span v-text="comment.reply"></span></div>
+                                    </div>
                                 </div>
                                 <div v-if="product.comments.length === 0"
                                      class="uk-flex uk-flex-center uk-flex-middle uk-height-1-1">

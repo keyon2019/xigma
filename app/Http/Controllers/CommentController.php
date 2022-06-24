@@ -22,6 +22,13 @@ class CommentController extends Controller
         return view('dashboard.comment.index');
     }
 
+    public function userComments(Request $request)
+    {
+        if ($request->wantsJson())
+            return response()->json(auth()->user()->comments()->with('product')->latest()->paginate(15));
+        return view('website.comment.index');
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -30,6 +37,13 @@ class CommentController extends Controller
             'product_id' => 'required|numeric|exists:products,id'
         ]);
         auth()->user()->comments()->create($data);
+        return response([]);
+    }
+
+    public function update(Comment $comment, Request $request)
+    {
+        $comment->reply = $request->reply;
+        $comment->save();
         return response([]);
     }
 
