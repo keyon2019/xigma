@@ -34,7 +34,7 @@
                 <tr v-for="comment in scopeData.records">
                     <td class="uk-table-shrink">{{comment.id}}</td>
                     <td>{{comment.user.name}}</td>
-                    <td>{{comment.product.name}}</td>
+                    <td>{{comment.product ? comment.product.name : ''}}</td>
                     <td>
                         <stars-rating :rating="comment.rating"></stars-rating>
                     </td>

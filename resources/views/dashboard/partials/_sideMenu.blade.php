@@ -17,6 +17,7 @@
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/order" title="همه سفارشات">سفارش‌ها</a></li>
                     <li><a href="/dashboard/invoice" title="همه پیش‌فاکتورها">پیش‌فاکتورها</a></li>
+                    <li><a href="/dashboard/return_request" title="همه درخواست‌های مرجوعی">مرجوعی</a></li>
                 </ul>
             </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: image"
