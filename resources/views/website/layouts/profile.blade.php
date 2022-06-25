@@ -46,6 +46,12 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="/return_request" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                        <span data-uk-icon="refresh"></span>
+                                        <span class="uk-margin-small-left uk-text-small">مرجوعی‌ها</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
                                         <span data-uk-icon="star"></span>
                                         <span class="uk-margin-small-left uk-text-small">امتیازات</span>

@@ -68,10 +68,15 @@
     </div>
     <div class="uk-margin-top">
         <div>تصاویر ارسالی</div>
+        <modal :close="true" name="slideshowmodal" class="" :transparent-dialog="true">
+            <slideshow
+                    :images="{{json_encode(collect($returnRequest->images)->map(function($v) {return "/$v";}))}}"></slideshow>
+        </modal>
         <div class="uk-grid uk-grid-small">
-            @foreach($returnRequest->images as $image)
+            @foreach($returnRequest->images as $index => $image)
                 <div>
-                    <img class="uk-border-rounded" uk-img
+                    <img class="uk-border-rounded clickable" uk-img
+                         onclick="Modal.show('slideshowmodal')"
                          style="width:100px;height:100px;object-position: center;object-fit: cover" src="/{{$image}}">
                 </div>
             @endforeach

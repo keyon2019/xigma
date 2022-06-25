@@ -2,7 +2,6 @@
 
 @section('profile-content')
     <h4 class="uk-text-muted">جزئیات درخواست مرجوعی شماره XGM-{{$returnRequest->id}}</h4>
-
     <div class="uk-background-default uk-border-rounded uk-padding-small uk-box-shadow-small">
         <div class="uk-padding-small uk-background-muted uk-border-rounded">
             <div class="uk-grid uk-flex uk-flex-middle uk-grid-small" data-uk-grid>
@@ -49,6 +48,8 @@
                 </div>
             </div>
             <div>درخواست کاربر: {{$returnRequest->enquiryName}}</div>
+            <div class="uk-padding-small uk-margin uk-border-rounded uk-background-default uk-box-shadow-small">
+                <span class="">وضعیت مرجوعی:</span> <span class="uk-text-bold">{{$returnRequest->statusName}}</span></div>
             <div class="uk-background-default uk-border-rounded uk-padding-small uk-text-small uk-box-shadow-small uk-margin-top">
                 <div class="uk-margin-small-bottom uk-text-bold">توضیحات</div>
                 <div class="uk-grid uk-grid-small uk-flex uk-flex-middle">
@@ -68,10 +69,15 @@
             </div>
             <div class="uk-background-default uk-border-rounded uk-padding-small uk-text-small uk-box-shadow-small uk-margin-top">
                 <div class="uk-margin-small-bottom uk-text-bold">تصاویر ارسالی</div>
+                <modal :close="true" name="slideshowmodal" class="" :transparent-dialog="true">
+                    <slideshow
+                            :images="{{json_encode(collect($returnRequest->images)->map(function($v) {return "/$v";}))}}"></slideshow>
+                </modal>
                 <div class="uk-grid uk-grid-small">
-                    @foreach($returnRequest->images as $image)
+                    @foreach($returnRequest->images as $index => $image)
                         <div>
-                            <img class="uk-border-rounded" uk-img
+                            <img class="uk-border-rounded clickable" uk-img
+                                 onclick="Modal.show('slideshowmodal')"
                                  style="width:100px;height:100px;object-position: center;object-fit: cover" src="/{{$image}}">
                         </div>
                     @endforeach

@@ -5,10 +5,9 @@
             <div class="uk-text-bold">مشخصات گیرنده کالا</div>
             <div class="uk-margin-small">
                 <label><input v-model="alternateReceiver" :true-value="false" :false-value="true"
-                              class="uk-checkbox uk-margin-small-right" type="checkbox"
-                              name="available">گیرنده کالا خودم هستم</label>
+                              class="uk-checkbox uk-margin-small-right" type="checkbox">گیرنده کالا خودم هستم</label>
             </div>
-            <template v-if="alternateReceiver">
+            <div v-show="alternateReceiver">
                 <div class="uk-margin-small">
                     <input name="receiver_name" class="uk-input uk-border-rounded" v-model="form.receiver_name.value"
                            placeholder="نام گیرنده">
@@ -23,7 +22,7 @@
                          class="uk-text-danger uk-text-small">{{form.errors['receiver_number']}}
                     </div>
                 </div>
-            </template>
+            </div>
         </div>
         <div class="address-container uk-padding-small uk-border-rounded">
             <div class="uk-grid uk-child-width-1-3@m uk-grid-small uk-grid-match" data-uk-grid>

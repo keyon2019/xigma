@@ -45,9 +45,9 @@
     <div class="uk-section uk-section-default uk-text-center">
         <div class="uk-container">
             <div>
-                <a class="uk-link-reset uk-margin-large-right" href="#"><img src="/uploads/instagram.svg"></a>
-                <a class="uk-link-reset uk-margin-large-right" href="#"><img src="/uploads/telegram.svg"></a>
-                <a class="uk-link-reset" href="#"><img src="/uploads/whatsapp.svg"></a>
+                <a class="uk-link-reset uk-margin-large-right" target="_blank" href="https://www.instagram.com/xigma.motor.parts"><img src="/uploads/instagram.svg"></a>
+                <a class="uk-link-reset uk-margin-large-right" target="_blank" href="#"><img src="/uploads/telegram.svg"></a>
+                <a class="uk-link-reset" target="_blank" href="https://api.whatsapp.com/send/?phone=989361005235&text&app_absent=0"><img src="/uploads/whatsapp.svg"></a>
             </div>
             <p class="uk-text-large text-small@m">با ما در شبکه‌های اجتماعی همراه باشید.</p>
         </div>

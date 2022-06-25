@@ -14,6 +14,9 @@
                         <div v-text="comment.product.name"></div>
                         <hr class="uk-margin-small"/>
                         <div v-text="comment.text" class="uk-text-small"></div>
+                        <div v-if="comment.reply" class="uk-margin-small-top uk-text-meta">
+                            <span>پاسخ زیگما: </span><span v-text="comment.reply"></span>
+                        </div>
                     </div>
                     <div style="align-self: flex-start">
                         <div v-if="comment.approved == null">

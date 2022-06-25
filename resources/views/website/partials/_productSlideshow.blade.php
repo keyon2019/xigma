@@ -55,7 +55,8 @@
                    uk-slider-item="previous"></a>
             </div>
         </div>
-        {{--<div class="uk-width-expand uk-hidden@s uk-text-center uk-text-left@s"><a href="{{$link ?? '#'}}" class="uk-text-primary"><span>نمایش تمام قطعات</span><span--}}
-        {{--data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>--}}
+        <div class="uk-width-auto uk-hidden@s uk-text-center uk-text-bold uk-margin"><a href="{{$link ?? '#'}}"
+                                                   class="uk-link-reset"><span>نمایش تمام محصولات</span><span
+                        data-uk-icon="chevron-left" class="uk-margin-small-left"></span></a></div>
     </div>
 </div>
