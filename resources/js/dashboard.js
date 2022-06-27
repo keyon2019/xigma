@@ -1,4 +1,4 @@
-require('./app.js');
+require('./bootstrap.js');
 
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -19,3 +19,7 @@ CKEditor.component.props.config.default = () => {
     return {language: 'fa', extraPlugins: [MyCustomUploadAdapterPlugin]}
 };
 Vue.use(CKEditor);
+
+const app = new Vue({
+    el: '#app',
+});
