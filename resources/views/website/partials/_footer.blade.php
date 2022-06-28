@@ -45,16 +45,28 @@
     <div class="uk-section uk-section-default uk-text-center">
         <div class="uk-container">
             <div>
-                <a class="uk-link-reset uk-margin-large-right" target="_blank" href="https://www.instagram.com/xigma.motor.parts"><img src="/uploads/instagram.svg"></a>
+                <a class="uk-link-reset uk-margin-large-right" target="_blank" href="https://www.instagram.com/xigma.motor.parts"><img
+                            src="/uploads/instagram.svg"></a>
                 <a class="uk-link-reset uk-margin-large-right" target="_blank" href="#"><img src="/uploads/telegram.svg"></a>
-                <a class="uk-link-reset" target="_blank" href="https://api.whatsapp.com/send/?phone=989361005235&text&app_absent=0"><img src="/uploads/whatsapp.svg"></a>
+                <a class="uk-link-reset" target="_blank"
+                   href="https://api.whatsapp.com/send/?phone=989361005235&text&app_absent=0"><img
+                            src="/uploads/whatsapp.svg"></a>
             </div>
             <p class="uk-text-large text-small@m">با ما در شبکه‌های اجتماعی همراه باشید.</p>
         </div>
     </div>
     <div class="uk-section uk-section-secondary uk-padding-remove-bottom">
         <div class="uk-container">
-            <div class="uk-grid uk-child-width-1-4@m uk-child-width-1-2 uk-text-light">
+            <div class="uk-grid uk-child-width-1-5@m uk-child-width-1-2 uk-text-light">
+                <div class="uk-text-center">
+                    <a referrerpolicy="origin" target="_blank"
+                       href="https://trustseal.enamad.ir/?id=284043&Code=2xzRQQ6qn6QDthoeRLmP">
+                        <img referrerpolicy="origin" class="uk-background-default uk-border-rounded uk-padding-small"
+                             src="https://Trustseal.eNamad.ir/logo.aspx?id=284043&Code=2xzRQQ6qn6QDthoeRLmP"
+                             alt=""
+                             style="cursor:pointer"
+                             id="2xzRQQ6qn6QDthoeRLmP"></a>
+                </div>
                 <div>
                     <p class="uk-text-large text-small@m uk-text-primary">ابــزارهای خریــد</p>
                     @foreach($pages->filter(function($page) { return $page->position === 2;}) as $page)
@@ -64,7 +76,7 @@
                     @endforeach
                 </div>
                 <div>
-                    <p class="uk-text-large text-small@m uk-text-primary">دسته‌بندی محصولات</p>
+                    <p class="uk-text-large text-small@m uk-text-primary">موتورسیکلت</p>
                     @foreach($pages->filter(function($page) { return $page->position === 3;}) as $page)
                         <p class="uk-margin-small">
                             <a href="{{$page->redirectLink}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
