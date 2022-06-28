@@ -25,7 +25,7 @@ class ProductController extends Controller
                 Product::withoutGlobalScope(VisibleProductsScope::class)
                     ->without('variations')->filter($filters)
                     ->withAvailability()->latest()->paginate(12)
-            );
+            , 200, [], JSON_INVALID_UTF8_IGNORE);
         return view('dashboard.product.index')->with('options', Option::all());
     }
 
