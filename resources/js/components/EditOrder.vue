@@ -51,7 +51,7 @@
                 <td class="uk-table-shrink"><img class="uk-border-rounded" :src="getVariationPicture(variation)">
                 </td>
                 <td class="uk-table-expand">{{variation.sku}}</td>
-                <td class="uk-table-expand">{{variation.product.name}}</td>
+                <td class="uk-table-expand">{{variation.product ? variation.product.name : variation.name}}</td>
                 <td>{{variation.filters}}</td>
                 <td>{{(variation.pivot.price + variation.pivot.discount).toLocaleString()}}</td>
                 <td class="uk-table-shrink">{{variation.pivot.quantity}}</td>
@@ -177,7 +177,7 @@
                 return {
                     'variation_name': variation.name,
                     'type': type,
-                    'product_name': variation.product.name,
+                    'product_name': variation.product ? variation.product.name : "unknown",
                     'picture': picture
                 }
             },
@@ -198,10 +198,16 @@
                 }, "");
             },
             getVariationPicture(variation) {
+                if (!variation.product) {
+                    if (variation.picture) {
+                        return variation.picture.url;
+                    }
+                    return '/uploads/xigma_logo.png';
+                }
                 const picture = _.find(variation.product.pictures, {'id': variation.splash});
                 if (picture)
                     return picture.url;
-                return '/uploads/xigma_logo.png'
+                return '/uploads/xigma_logo.png';
             },
             getShippingMethodName(id) {
                 switch (id) {

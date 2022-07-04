@@ -30,7 +30,7 @@ class CouponController extends Controller
 
         $user = auth()->user();
 
-        if ($request->amount > $user->total_points) {
+        if ($request->amount > $user->total_points || $request->amount > 250) {
             return abort(402, "امتیاز شما کافی نیست");
         }
 
