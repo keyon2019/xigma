@@ -103,6 +103,9 @@
                     this.$refs.filters.isSubmitting = false;
                 })
             },
+            add(object) {
+                this.data.data.unshift(object);
+            },
             destroy(id) {
                 const index = _.findIndex(this.data.data, r => r.id === id);
                 this.data.data.splice(index, 1);

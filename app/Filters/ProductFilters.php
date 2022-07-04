@@ -28,9 +28,8 @@ class ProductFilters extends QueryFilter
     public function available($value)
     {
         $this->query->whereHas('variations', function (Builder $query) {
-            return $query->whereHas('stocks', function (Builder $query) {
-                return $query->where('quantity', '>', 0);
-            });
+            return $query->whereRaw("exists (select * from `retailers` right join `stocks` on `retailers`.`id` = `stocks`.`retailer_id`
+             where `variations`.`id` = `stocks`.`variation_id` and `quantity` > 0)");
         });
     }
 

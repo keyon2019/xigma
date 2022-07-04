@@ -15,13 +15,16 @@ class ShippingController extends Controller
 
     public function update(Shipping $shipping, Request $request)
     {
-        $request->validate(['code' => 'required']);
-
-        $shipping->update([
-            'code' => $request->code,
-            'sailed' => true,
-            'sailed_at' => Carbon::now()->toDateTimeString()
+        $validated = $request->validate([
+            'code' => 'required',
+            'sailed_at' => 'nullable|date'
         ]);
+
+        $validated['sailed'] = true;
+        if ($validated['sailed_at'] == null)
+            unset($validated['sailed_at']);
+
+        $shipping->update($validated);
 
         return response([], 200);
     }

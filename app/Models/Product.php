@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -47,10 +48,17 @@ class Product extends Model
     public function scopeWithAvailability($query)
     {
         return $query->withExists(['variations as available' => function ($query) {
-            return $query->whereHas('stocks', function ($query) {
-                $query->where('quantity', '>', 0);
-            });
+            $query->whereRaw("exists (select * from `retailers` right join `stocks` on `retailers`.`id` = `stocks`.`retailer_id`
+             where `variations`.`id` = `stocks`.`variation_id` and `quantity` > 0)");
         }]);
+        //exists(select * from `variations` where `products`.`id` = `variations`.`product_id`) as `available`
+        //select * from `variations` where `products`.`id` = `variations`.`product_id` and exists (select * from `retailers` inner join `stocks` on `retailers`.`id` = `stocks`.`retailer_id` where `variations`.`id` = `stocks`.`variation_id` and `quantity` > ?)
+//        return $query->withExists(['variations as available' => function ($query) {
+//            $query->whereRaw("exists (select * from `retailers` right join `stocks` on `retailers`.`id` = `stocks`.`retailer_id` where `variations`.`id` = `stocks`.`variation_id` and `quantity` > 0)");
+//            return $query->whereHas('stocks', function ($query) {
+//                $query->where('quantity', '>', 0);
+//            });
+//        }]);
     }
 
     public function getSplashUrlAttribute()

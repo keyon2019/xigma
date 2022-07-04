@@ -86,32 +86,47 @@
                     <div class="uk-text-meta uk-margin-small-bottom">اطلاعات پرداخت</div>
                     <div class="uk-grid uk-child-width-1-4">
                         <div>وضعیت پرداخت: {{order.paid ? "پرداخت شده" : "در انتظار پرداخت"}}</div>
-                        <div>تاریخ پرداخت: <span v-if="order.successful_payment">{{order.successful_payment.updated_at}}</span></div>
-                        <div>درگاه پرداخت: <span v-if="order.successful_payment">{{order.successful_payment.gatewayName}}</span></div>
-                        <div>شماره پیگیری: <span v-if="order.successful_payment">{{order.successful_payment.reference_number}}</span></div>
+                        <div>تاریخ پرداخت: <span v-if="order.successful_payment">{{order.successful_payment.updated_at}}</span>
+                        </div>
+                        <div>درگاه پرداخت: <span v-if="order.successful_payment">{{order.successful_payment.gatewayName}}</span>
+                        </div>
+                        <div>شماره پیگیری: <span
+                                v-if="order.successful_payment">{{order.successful_payment.reference_number}}</span></div>
                     </div>
                 </td>
             </tr>
             <tr v-for="(shipping, index) in order.shippings">
                 <td colspan="9">
                     <div class="uk-text-meta">اطلاعات ارسال مرسوله {{index + 1}}</div>
-                    <div class="uk-grid uk-child-width-1-3 uk-grid-small uk-margin-small" data-uk-grid>
+                    <div class="uk-grid uk-child-width-1-3 uk-flex uk-flex-middle uk-grid-small uk-margin-small" data-uk-grid>
                         <div>مبدا ارسال: {{shipping.stock ? shipping.stock.name : 'کارخانه زیگما'}}</div>
                         <div>نحوه ارسال: {{shipping.methodName}}</div>
-                        <div>تاریخ ارسال: {{shipping.sailed_at}}</div>
+                        <div v-if="shipping.stock != null">تاریخ‌ارسال: {{shipping.sailed_at}}</div>
+                        <div v-else class="uk-flex uk-flex-middle">
+                            <div class="uk-margin-small-right">تاریخ‌ارسال:</div>
+                            <input class="uk-input uk-border-rounded sailed_at" v-model="shipping.sailed_at">
+                            <date-picker ref="picker" custom-input=".sailed_at"
+                                         type="datetime"
+                                         format="YYYY-MM-DD HH:mm:00"
+                                         display-format="jYYYY/jMM/jDD - HH:mm"
+                                         v-model="shippingSailedAt"></date-picker>
+                        </div>
                         <div>هزینه ارسال: {{shipping.cost.toLocaleString()}}</div>
                         <div class="uk-width-expand">شماره مرسوله/بارنامه:
                             <template>
                                 <span v-if="shipping.stock == null">
                                     <span class="uk-inline">
-                                        <a @click="updateShippingCode(shipping)" class="uk-form-icon uk-form-icon-flip" href="#"
-                                           uk-icon="icon: pencil"></a>
                                         <input class="uk-input uk-border-rounded" v-model="shippingCode"
                                                type="text">
                                     </span>
                                 </span>
                                 <span v-else>{{shipping.code}}</span>
                             </template>
+                        </div>
+                        <div v-if="shipping.stock == null">
+                            <button class="uk-button uk-button-primary uk-border-rounded uk-button-small"
+                                    @click="updateShippingCode(shipping)">به‌روزرسانی
+                            </button>
                         </div>
                     </div>
                 </td>
@@ -129,13 +144,15 @@
         data() {
             return {
                 order: this.initialOrder,
-                shippingCode: ''
+                shippingCode: '',
+                shippingSailedAt: '',
             }
         },
         mounted() {
             const factoryShipping = _.find(this.order.shippings, s => s.stock === null);
             if (factoryShipping) {
                 this.shippingCode = factoryShipping.code;
+                // this.shippingSailedAt = factoryShipping.sailed_at;
             }
         },
         computed: {
@@ -166,9 +183,13 @@
             },
             updateShippingCode(shipping) {
                 Loading.show();
-                axios.post(`/dashboard/shipping/${shipping.id}`, {_method: 'patch', code: this.shippingCode}).then(() => {
+                axios.post(`/dashboard/shipping/${shipping.id}`, {
+                    _method: 'patch',
+                    code: this.shippingCode,
+                    sailed_at: this.shippingSailedAt,
+                }).then(() => {
                     Toast.message('کد مرسوله با موفقیت ثبت شد').success().show()
-                }).catch((e) => Toast.message(e.response.data.message).show())
+                }).catch((e) => Toast.message(e.response.data.message).danger().show())
                     .then(() => Loading.hide());
             },
             getVariationType(variation) {

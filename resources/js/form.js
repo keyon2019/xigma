@@ -45,7 +45,11 @@ class Form {
 
     clear() {
         _.forEach(this, (obj, key) => {
-            obj.value = null;
+            if (!!obj.default) {
+                obj.value = obj.default;
+            } else {
+                obj.value = null;
+            }
         });
     }
 

@@ -166,7 +166,10 @@
                             </a>
                         </div>
                         <div class="uk-margin-top">
-                            <return-request @if($r = $order->returnRequests->firstWhere('variation_id', $variation->id)) :initial-return-request="{{$r}}" @endif :enquiries="{{$enquiries}}" :reasons="{{$reasons}}" :order="{{$order}}" :variation="{{$variation}}"></return-request>
+                            <return-request
+                                    @if($r = $order->returnRequests->firstWhere('variation_id', $variation->id)) :initial-return-request="{{$r}}"
+                                    @endif :enquiries="{{$enquiries}}" :reasons="{{$reasons}}" :order="{{$order}}"
+                                    :variation="{{$variation}}"></return-request>
                         </div>
                     </div>
                 </div>
@@ -196,6 +199,12 @@
                     <td>مبلغ قابل پرداخت</td>
                     <td>{{number_format(($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;})) + $order->shippings->sum('cost'))}}</td>
                 </tr>
+                @foreach($order->returnRequests as $returnRequest)
+                    <tr>
+                        <td>مرجوعی</td>
+                        <td>{{number_format($returnRequest->total)}} - <a class="uk-link-reset uk-text-small" href="/return_request/{{$returnRequest->id}}">فاکتور مرجوعی {{$returnRequest->id}}</a></td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
             <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">

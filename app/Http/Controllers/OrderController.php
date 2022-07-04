@@ -10,6 +10,7 @@ use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
 use App\Models\Item;
 use App\Models\Order;
+use App\Models\Shipping;
 use App\Models\User;
 use App\Services\ClosestItemFinderService;
 use Illuminate\Http\Request;
@@ -82,6 +83,7 @@ class OrderController extends Controller
                     'shipping_id' => $createdShippings->firstWhere('stock_id', $item->retailer_id)->id,
                     'quantity' => $item->quantity,
                     'price' => $item->price,
+                    'points' => $item->points,
                     'discount' => $item->discount
                 ];
             })->toArray();
@@ -120,7 +122,8 @@ class OrderController extends Controller
     public function invoice(Order $order)
     {
         if (auth()->user()->id === $order->user_id)
-            return view('website.order.invoice')->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment'));
+            return view('website.order.invoice')
+                ->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment','returnRequests'));
         return abort(401);
     }
 }

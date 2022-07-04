@@ -21,6 +21,11 @@
                 date: ""
             }
         },
+        watch: {
+            date() {
+                this.$emit(this.date);
+            }
+        },
         name: "DatePickerWrapper"
     }
 </script>

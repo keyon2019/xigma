@@ -62,8 +62,12 @@ class PageController extends Controller
             'position' => 'required|numeric',
             'meta_title' => 'string',
             'meta_description' => 'string',
-            'parent' => 'nullable|numeric',
+            'parent' => "nullable|numeric",
         ]);
+
+        if ($page->id == $validated['parent'])
+            return abort(402, "منو و سرگروه نمی‌توانند یکی باشند");
+
         $page->update($validated);
 
         return response([]);

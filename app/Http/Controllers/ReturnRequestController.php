@@ -58,6 +58,7 @@ class ReturnRequestController extends Controller
 
         $data['price'] = $variation->pivot->price;
         $data['discount'] = $variation->pivot->discount;
+        $data['points'] = $variation->pivot->points;
         $data['status'] = 0;
 
         $data['images'] = array_map(function ($image) {

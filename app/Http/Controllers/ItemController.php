@@ -45,7 +45,7 @@ class ItemController extends Controller
     public function retailers(Variation $variation)
     {
         return response()->json(['retailers' => \Illuminate\Support\Facades\DB::table('stocks')
-            ->where('variation_id', 1)->where('quantity', '>', 0)
+            ->where('variation_id', $variation->id)->where('quantity', '>', 0)
             ->select('r.*')
             ->leftJoin('retailers as r', 'r.id' ,'stocks.retailer_id')
             ->get()]);

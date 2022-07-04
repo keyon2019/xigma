@@ -17,7 +17,7 @@ class VariationFilters extends QueryFilter
 
     public function sku($value)
     {
-        $this->query->whereHas('sku', $value);
+        $this->query->where('sku', $value);
     }
 
     public function keyword($value)

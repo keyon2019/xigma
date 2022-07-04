@@ -57,7 +57,7 @@
     </div>
     <div class="uk-section uk-section-secondary uk-padding-remove-bottom">
         <div class="uk-container">
-            <div class="uk-grid uk-child-width-1-5@m uk-child-width-1-2 uk-text-light">
+            <div class="uk-grid uk-child-width-1-5@m uk-child-width-1-2 uk-text-light" data-uk-grid>
                 <div class="uk-text-center">
                     <a referrerpolicy="origin" target="_blank"
                        href="https://trustseal.enamad.ir/?id=284043&Code=2xzRQQ6qn6QDthoeRLmP">

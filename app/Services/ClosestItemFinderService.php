@@ -35,7 +35,7 @@ class ClosestItemFinderService
                 ->leftJoin('retailers as r', 'r.id', 'retailer_id')
                 ->select('variation_id', 'cumulative', 'required', 'retailer_id',
                     DB::raw('IFNULL(r.name, "دفتر مرکزی") as retailerName'),
-                    'r.address as retailerAddress', 'r.latitude', 'r.longitude',
+                    'r.address as retailerAddress', 'r.latitude', 'r.longitude', DB::raw('IFNULL(v.points, 0) as points'),
                     'v.name', 'v.sku', 'p.name as productName', 'p.is_huge', 'quantity', 'inventory',
                     'p.weight', 'p.width', 'p.depth', 'p.height',
                     DB::raw('(CASE WHEN v.special_price_expiration > NOW() THEN v.special_price ELSE v.price END) as price'),

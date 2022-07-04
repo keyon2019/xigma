@@ -66,9 +66,15 @@ class ReturnRequest extends Model
         $statuses = new ReturnEnquiry();
         return $statuses[$this->enquiry];
     }
+
     public function getShippingMethodNameAttribute()
     {
         $statuses = new ShippingMethod();
         return $statuses[$this->shipping_method];
+    }
+
+    public function getTotalAttribute()
+    {
+        return ($this->price - $this->discount) * $this->quantity;
     }
 }

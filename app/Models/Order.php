@@ -110,4 +110,11 @@ class Order extends Model
     {
         return $this->hasMany(ReturnRequest::class);
     }
+
+    public function getAcceptedReturnRequestsAttribute()
+    {
+        return $this->returnRequests->filter(function ($r) {
+            return $r->status > 1 || $r->status < 7;
+        });
+    }
 }

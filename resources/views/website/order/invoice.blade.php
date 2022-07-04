@@ -54,7 +54,8 @@
                     </div>
                 </div>
             </div>
-            <div class="uk-border-rounded uk-padding-small uk-text-small uk-background-default uk-margin-small uk-box-shadow-small" style="border: 1px solid gainsboro">
+            <div class="uk-border-rounded uk-padding-small uk-text-small uk-background-default uk-margin-small uk-box-shadow-small"
+                 style="border: 1px solid gainsboro">
                 <div class="uk-grid uk-child-width-1-2" data-uk-grid>
                     <div>
                         <div class="uk-grid uk-grid-small" data-uk-grid>
@@ -100,18 +101,22 @@
                                     مرسوله شماره {{$loop->iteration}}
                                 </div>
                                 <div class="uk-margin-small">
-                                    <span class="uk-text-muted"> فرستنده </span><span class="uk-margin-left">{{$shipping->stock->name ?? 'کارخانه مرکزی زیگما'}}</span>
+                                    <span class="uk-text-muted"> فرستنده </span><span
+                                            class="uk-margin-left">{{$shipping->stock->name ?? 'کارخانه مرکزی زیگما'}}</span>
                                 </div>
                             </div>
                             <div class="uk-width-2-5">
                                 <div class="uk-margin-small">
-                                    <span class="uk-text-muted"> تاریخ ارسال </span><span class="uk-margin-left">{{$shipping->sailed_at ?? 'در دست اقدام'}}</span>
+                                    <span class="uk-text-muted"> تاریخ ارسال </span><span
+                                            class="uk-margin-left">{{$shipping->sailed_at ?? 'در دست اقدام'}}</span>
                                 </div>
                                 <div class="uk-margin-small">
-                                    <span class="uk-text-muted"> نحوه ارسال </span><span class="uk-margin-left">{{$shipping->methodName}}</span>
+                                    <span class="uk-text-muted"> نحوه ارسال </span><span
+                                            class="uk-margin-left">{{$shipping->methodName}}</span>
                                 </div>
                                 <div class="uk-margin-small">
-                                    <span class="uk-text-muted"> شماره بارنامه / کد مرسوله </span><span class="uk-margin-left">{{$shipping->code ?? 'در دست اقدام'}}</span>
+                                    <span class="uk-text-muted"> شماره بارنامه / کد مرسوله </span><span
+                                            class="uk-margin-left">{{$shipping->code ?? 'در دست اقدام'}}</span>
                                 </div>
                             </div>
                         </div>
@@ -188,7 +193,91 @@
                     </table>
                 </div>
             </div>
-            <div class="uk-margin-large-top uk-text-meta">
+
+        </div>
+        @if($order->returnRequests->count() > 0)
+            <div class="uk-background-gray uk-margin-top">
+                <div class="uk-text-center uk-text-large uk-padding-xsmall uk-text-white">کالاهای مرجوعی</div>
+            </div>
+            <div class="uk-container uk-margin-top">
+                @foreach($order->acceptedReturnRequests as $returnRequest)
+                    <div class="uk-margin-small-bottom">
+                        <table class="uk-table uk-table-divider uk-table-small uk-margin-small-bottom
+            uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
+                            <thead class="uk-background-muted-darker">
+                            <tr>
+                                <th>نام قطعه</th>
+                                <th>نوع</th>
+                                <th>تعداد مرجوعی</th>
+                                <th>قیمت فروخته شده</th>
+                                <th>نوع درخواست</th>
+                                <th>وضعیت مرجوعی</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="uk-text-small">
+                                <td>
+                                    {{$returnRequest->variation->name}}
+                                </td>
+                                <td>{{$returnRequest->variation->filters}}</td>
+                                <td>{{$returnRequest->quantity}}</td>
+                                <td>{{number_format($returnRequest->total)}}</td>
+                                <td>{{$returnRequest->enquiryName}}</td>
+                                <td>{{$returnRequest->statusName}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        @if($returnRequest->shipping_method != null)
+                            <div class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
+                                 data-uk-grid>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle">
+                                    <div class="uk-margin-small-right">نحوه‌ارسال:</div>
+                                    <div>{{$returnRequest->shipping_method_name}}</div>
+                                </div>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle">
+                                    <div class="uk-margin-small-right">تاریخ‌ارسال:</div>
+                                    <div>{{$returnRequest->shipped_at}}</div>
+                                </div>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle">هزینه
+                                    ارسال: رایگان
+                                </div>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle">
+                                    <div class="uk-margin-small-right">شماره‌مرسوله:</div>
+                                    <div>{{$returnRequest->shipping_code}}</div>
+                                </div>
+                            </div>
+                        @endif
+                        @if($returnRequest->payed_at)
+                            <div class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
+                                 data-uk-grid>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle"
+                                     >وضعیت
+                                    پرداخت:
+                                    {{$returnRequest->payed_at != null ? 'پرداخت شده' : 'در انتظار پرداخت'}}</div>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle"
+                                     >
+                                    <div class="uk-margin-small-right">تاریخ‌پرداخت:</div>
+                                    <div>{{$returnRequest->payed_at}}</div>
+                                </div>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle"
+                                     >
+                                    <div class="uk-margin-small-right">درگاه‌پرداخت:</div>
+                                    <div>{{collect(config('gateway'))->firstWhere('id', $returnRequest->gateway)['name']}}</div>
+                                </div>
+                                <div class="uk-padding-xsmall uk-flex uk-flex-middle"
+                                     >
+                                    <div class="uk-margin-small-right">شماره‌پیگیری:</div>
+                                    <div>{{$returnRequest->reference_number}}</div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        @endif
+        <hr/>
+        <div class="uk-container">
+            <div class="uk-margin-top uk-text-meta">
                 <ul class="uk-list uk-list-disc">
                     <li>این فاکتور به منزله خرید شما بصورت آنلاین از وب‌سایت زیگما می‌باشد</li>
                     <li>با توجه به تنوع در اقلام فنی، مسئولیت متناسب بودن قطعه خریداری شده با وسیله نقلیه بر عهده خریدار می‌باشد و
@@ -198,7 +287,8 @@
                 </ul>
             </div>
             <div class="uk-margin-large-top uk-text-center hidden-in-print">
-                <button onclick="window.scrollTo(0,0);setTimeout(() => {window.print()}, 500)" class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">چاپ
+                <button onclick="window.scrollTo(0,0);setTimeout(() => {window.print()}, 500)"
+                        class="uk-button uk-button-secondary uk-background-gray uk-border-rounded">چاپ
                     فاکتور
                 </button>
             </div>

@@ -15,7 +15,7 @@
                     <div class="uk-width-1-1">
                         <label class="uk-form-label">موقعیت منو</label>
                         <select name="position" v-model="form.position.value" class="uk-select">
-                            <option :value="null">انتخاب کنید</option>
+                            <option value="">انتخاب کنید</option>
                             <option value="1">نوار منو بالا</option>
                             <option value="2">ستون اول فوتر</option>
                             <option value="3">ستون دوم فوتر</option>
@@ -23,7 +23,7 @@
                             <option value="5">XIGMA BOX</option>
                         </select>
                     </div>
-                    <div class="uk-width-1-1" v-if="form.position.value == 1">
+                    <div class="uk-width-1-1" v-show="form.position.value == 1">
                         <label class="uk-form-label">منوی سرگروه</label>
                         <select name="position" v-model="form.parent.value" class="uk-select">
                             <option value="">بدون سرگروه</option>
@@ -96,7 +96,7 @@
                         rules: 'required|numeric'
                     },
                     parent: {
-                        value: null,
+                        value: '',
                         rules: 'nullable|numeric'
                     },
                     slug: {
@@ -132,6 +132,9 @@
             ckReady() {
                 if (this.page) {
                     this.form.fill(this.page);
+                    for (const [key, value] of Object.entries(this.form)) {
+                        this.form[key].value = this.form[key].value == null ? "" : this.form[key].value;
+                    }
                 }
             }
         },

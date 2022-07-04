@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PictureController;
+use App\Http\Controllers\PointController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
@@ -28,6 +30,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserPointController;
 use App\Http\Controllers\UserVehicleController;
 use App\Http\Controllers\ValueController;
 use App\Http\Controllers\VariationController;
@@ -49,6 +52,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Auth::routes();
+
+Route::get('144706.txt', function () {
+    return "";
+});
 
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
@@ -110,6 +117,11 @@ Route::post('return_request', [ReturnRequestController::class, 'store']);
 Route::post('return_request/{return_request}/set_address', [ReturnRequestController::class, 'setAddress']);
 
 Route::get('stock', [StockController::class, 'supply']);
+Route::get('point/overview', [PointController::class, 'overview']);
+Route::get('point', [PointController::class, 'index']);
+
+Route::get('coupon', [CouponController::class, 'index']);
+Route::post('coupon', [CouponController::class, 'store']);
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
@@ -175,6 +187,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('return_request', [ReturnRequestController::class, 'all']);
     Route::get('return_request/{return_request}/edit', [ReturnRequestController::class, 'edit']);
     Route::patch('return_request/{return_request}', [ReturnRequestController::class, 'update']);
+
+    Route::get('user/{user}/point', [UserPointController::class, 'index']);
+    Route::post('user/{user}/point', [UserPointController::class, 'store']);
 });
 
 Route::get('{page}', [PageController::class, 'show']);

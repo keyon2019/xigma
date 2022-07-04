@@ -2,7 +2,7 @@
     <paginated-view :fetch-url="fetchUrl" ref="pv">
         <template v-slot="scopeData">
             <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
-            uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
+        uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
                 <thead>
                 <tr>
                     <th>#</th>

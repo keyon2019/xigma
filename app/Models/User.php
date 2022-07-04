@@ -28,7 +28,8 @@ class User extends Authenticatable
         'mobile',
         'emergency_mobile',
         'telephone',
-        'is_active'
+        'is_active',
+        'total_points'
     ];
 
     /**
@@ -96,6 +97,16 @@ class User extends Authenticatable
     public function vehicles()
     {
         return $this->belongsToMany(Vehicle::class);
+    }
+
+    public function points()
+    {
+        return $this->hasMany(Point::class);
+    }
+
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class);
     }
 
     public function getAreaCodeAttribute()
