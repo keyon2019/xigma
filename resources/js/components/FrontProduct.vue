@@ -257,9 +257,9 @@
                                     <hr class="uk-margin-remove-top"/>
                                     <div class="uk-margin-large uk-margin-remove-top uk-padding-small uk-padding-remove-vertical uk-padding-remove-right">
                                         <div class=""
-                                           v-text="comment.text"></div>
+                                             v-text="comment.text"></div>
                                         <div v-if="comment.reply" class="uk-margin-left uk-margin-small-top uk-text-muted"
-                                             ><span>پاسخ زیگما: </span><span v-text="comment.reply"></span></div>
+                                        ><span>پاسخ زیگما: </span><span v-text="comment.reply"></span></div>
                                     </div>
                                 </div>
                                 <div v-if="product.comments.length === 0"

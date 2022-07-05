@@ -1,6 +1,7 @@
 class Loading {
     show() {
-        Event.$emit('show-loading-modal');
+        if (document.hasFocus())
+            Event.$emit('show-loading-modal');
     }
 
     hide() {
