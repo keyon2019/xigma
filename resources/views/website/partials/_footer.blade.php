@@ -67,14 +67,19 @@
                              style="cursor:pointer"
                              id="2xzRQQ6qn6QDthoeRLmP"></a>
                 </div>
-                <div>
-                    <p class="uk-text-large text-small@m uk-text-primary">ابــزارهای خریــد</p>
-                    @foreach($pages->filter(function($page) { return $page->position === 2;}) as $page)
-                        <p class="uk-margin-small">
-                            <a href="{{$page->redirectLink}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>
-                        </p>
-                    @endforeach
+                <div class="uk-text-center">
+                    <img referrerpolicy='origin' id='rgvjjxlzwlaoapfujxlzjzpe' style='cursor:pointer'
+                         onclick='window.open("https://logo.samandehi.ir/Verify.aspx?id=314517&p=xlaorfthaodsdshwrfthjyoe", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")'
+                         alt='logo-samandehi' src='https://logo.samandehi.ir/logo.aspx?id=314517&p=qftinbpdshwlujynnbpdyndt'/>
                 </div>
+                {{--<div>--}}
+                {{--<p class="uk-text-large text-small@m uk-text-primary">ابــزارهای خریــد</p>--}}
+                {{--@foreach($pages->filter(function($page) { return $page->position === 2;}) as $page)--}}
+                {{--<p class="uk-margin-small">--}}
+                {{--<a href="{{$page->redirectLink}}" class="uk-link-reset uk-text-meta">{{$page->name}}</a>--}}
+                {{--</p>--}}
+                {{--@endforeach--}}
+                {{--</div>--}}
                 <div>
                     <p class="uk-text-large text-small@m uk-text-primary">موتورسیکلت</p>
                     @foreach($pages->filter(function($page) { return $page->position === 3;}) as $page)
