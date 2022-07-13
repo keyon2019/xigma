@@ -165,7 +165,7 @@
                         <div class="uk-width-expand">مبلغ قابل پرداخت</div>
                         <div>{{totalOrderCost.toLocaleString()}}</div>
                     </div>
-                    <div class="uk-grid uk-child-width-1-3 uk-flex uk-flex-center">
+                    <div class="uk-grid uk-grid-small uk-child-width-1-3 uk-flex uk-flex-center">
                         <div v-for="gateway in gateways" class="uk-text-center">
                             <img class="uk-margin-small-bottom" :src="gateway.icon">
                             <label>

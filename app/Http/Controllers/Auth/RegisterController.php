@@ -87,7 +87,7 @@ class RegisterController extends Controller
         $otp = rand(1000, 9999);
         Cache::put($data['mobile'], $otp, 60 * 10);
 
-        $service->send($data['mobile'], __('auth.otp', ['code' => $otp]));
+        $service->send($data['mobile'], $otp, SMSService::OTP);
 
         return response([], 200);
     }

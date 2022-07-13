@@ -53,10 +53,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('144706.txt', function () {
-    return "";
-});
-
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
 });

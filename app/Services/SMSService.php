@@ -13,24 +13,26 @@ use Illuminate\Support\Facades\Http;
 
 class SMSService
 {
-    private $username, $password, $url, $sourceNumber;
+    private $username, $password, $url;
+
+    CONST OTP = 92182;
+    CONST ORDER_PLACED = 91914;
 
     public function __construct()
     {
         $this->username = config('sms.username');
         $this->password = config('sms.password');
-        $this->url = "https://rest.payamak-panel.com/api/SendSMS/SendSMS";
-        $this->sourceNumber = "9999554615";
+        $this->url = "https://rest.payamak-panel.com/api/SendSMS/BaseServiceNumber";
     }
 
-    public function send($mobile, $content)
+    public function send($mobile, $content, $templateId)
     {
         try {
             Http::post($this->url, [
                 "username" => $this->username,
                 "password" => $this->password,
                 "to" => $mobile,
-                "from" => $this->sourceNumber,
+                "bodyId" => $templateId,
                 "text" => $content
             ]);
             return true;

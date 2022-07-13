@@ -6,6 +6,7 @@ namespace App\Interfaces;
 abstract class GatewayInterface
 {
     public $id, $order, $payment, $token;
+    public $isRial = false;
 
     abstract function postParameters(): array;
 
@@ -24,7 +25,7 @@ abstract class GatewayInterface
     {
         $this->order = $order;
         $this->payment = $this->order->payments()->create([
-            'amount' => $order->total,
+            'amount' => $this->isRial ? $order->total * 10 : $order->total,
             'gateway' => $this->id
         ]);
         $this->payment->update(['token' => $this->getToken()]);

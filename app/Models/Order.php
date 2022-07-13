@@ -74,8 +74,8 @@ class Order extends Model
         return $this->variations->groupBy('id')->map(function ($group) {
             $v = $group[0];
             $v->quantity = $group->sum('pivot.quantity');
-            $v->price = $group[0]->price;
-            $v->discount = $group[0]->discount;
+            $v->price = $group[0]->pivot->price;
+            $v->discount = $group[0]->pivot->discount;
             return $v;
         });
     }

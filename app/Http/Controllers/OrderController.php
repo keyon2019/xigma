@@ -57,48 +57,50 @@ class OrderController extends Controller
     {
         return $cart->checkAllAvailable(function () use ($request, $cart, $gateway, $closestItemFinderService) {
 
-            $items = $closestItemFinderService->find($request->address_id, $cart->items, $request->cost_preference);
+            return DB::transaction(function () use ($request, $cart, $gateway, $closestItemFinderService) {
+                $items = $closestItemFinderService->find($request->address_id, $cart->items, $request->cost_preference);
 
-            $shippings = collect($request->shipping_methods)->map(function ($shipping, $stock_id) use ($items) {
-                $shipping['stock_id'] = $shipping['stock_id'] == 'null' ? null : $shipping['stock_id'];
-                if ($shipping['method'] == 2)
-                    $shipping['cost'] = $items->firstWhere('retailer_id', $shipping['stock_id'])['delivery_cost'];
-                else {
-                    $shipping['cost'] = 0;
-                }
-                return $shipping;
+                $shippings = collect($request->shipping_methods)->map(function ($shipping, $stock_id) use ($items) {
+                    $shipping['stock_id'] = $shipping['stock_id'] == 'null' ? null : $shipping['stock_id'];
+                    if ($shipping['method'] == 2)
+                        $shipping['cost'] = $items->firstWhere('retailer_id', $shipping['stock_id'])['delivery_cost'];
+                    else {
+                        $shipping['cost'] = 0;
+                    }
+                    return $shipping;
+                });
+
+                $order = auth()->user()->orders()->create($request->validated() + [
+                        'status' => 1,
+                        'total' => $cart->totalPrice() + collect($shippings)->sum('cost')
+                    ]);
+
+                $createdShippings = $order->shippings()->createMany($shippings);
+
+                $orderVariations = $items->pluck('items')->flatten()->map(function ($item) use ($createdShippings, $order) {
+                    return [
+                        'order_id' => $order->id,
+                        'variation_id' => $item->variation_id,
+                        'shipping_id' => $createdShippings->firstWhere('stock_id', $item->retailer_id)->id,
+                        'quantity' => $item->quantity,
+                        'price' => $item->price,
+                        'points' => $item->points,
+                        'discount' => $item->discount
+                    ];
+                })->toArray();
+
+                DB::table('order_variation')->insert($orderVariations);
+
+                $createdGateway = $gateway->create($order);
+
+                $cart->clear();
+
+                return response()->json(['message' => 'Order Placed Successfully', 'gateway' => [
+                    'post_parameters' => $createdGateway->postParameters(),
+                    'method' => $createdGateway->method(),
+                    'url' => $createdGateway->gatewayUrl(),
+                ]]);
             });
-
-            $order = auth()->user()->orders()->create($request->validated() + [
-                    'status' => 1,
-                    'total' => $cart->totalPrice() + collect($shippings)->sum('cost')
-                ]);
-
-            $createdShippings = $order->shippings()->createMany($shippings);
-
-            $orderVariations = $items->pluck('items')->flatten()->map(function ($item) use ($createdShippings, $order) {
-                return [
-                    'order_id' => $order->id,
-                    'variation_id' => $item->variation_id,
-                    'shipping_id' => $createdShippings->firstWhere('stock_id', $item->retailer_id)->id,
-                    'quantity' => $item->quantity,
-                    'price' => $item->price,
-                    'points' => $item->points,
-                    'discount' => $item->discount
-                ];
-            })->toArray();
-
-            DB::table('order_variation')->insert($orderVariations);
-
-            $createdGateway = $gateway->create($order);
-
-            $cart->clear();
-
-            return response()->json(['message' => 'Order Placed Successfully', 'gateway' => [
-                'post_parameters' => $createdGateway->postParameters(),
-                'method' => $createdGateway->method(),
-                'url' => $createdGateway->gatewayUrl(),
-            ]]);
 
         }, function ($unavailableItems) {
             return response()->json(['message' => 'Some items are not available', 'item_ids' => $unavailableItems], 400);
@@ -123,7 +125,7 @@ class OrderController extends Controller
     {
         if (auth()->user()->id === $order->user_id)
             return view('website.order.invoice')
-                ->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment','returnRequests'));
+                ->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment', 'returnRequests'));
         return abort(401);
     }
 }
