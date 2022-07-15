@@ -176,7 +176,7 @@
             register() {
                 if (this.form.validate()) {
                     Loading.show();
-                    axios.post("register", this.form.asFormData()).then(() => {
+                    axios.post("/register", this.form.asFormData()).then(() => {
                         Toast.message("ثبت نام با موفقیت انجام شد").success().show();
                         window.location.href = "/";
                     }).catch((e) => Toast.message(e.response.data.message).danger().show())

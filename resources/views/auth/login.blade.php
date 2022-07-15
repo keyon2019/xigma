@@ -8,7 +8,7 @@
             </div>
             <div class="uk-width-large uk-margin-auto">
                 <div>
-                    <form method="post" class="toggle-class" action="{{route('login')}}">
+                    <form method="post" class="toggle-class" action="/login">
                         @csrf
                         <fieldset class="uk-fieldset">
                             <div class="uk-margin-small">
