@@ -182,22 +182,26 @@
                     <td class="uk-table-expand">{{number_format($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;}))}}</td>
                 </tr>
                 <tr>
-                    <td>مجموع تخفیف</td>
-                    <td>{{number_format($order->variations->sum(function($v) {
-                        return $v->pivot->quantity * $v->pivot->discount;
-                    }))}}</td>
-                </tr>
-                <tr>
-                    <td>مالیات بر ارزش افزوده</td>
-                    <td>9%</td>
-                </tr>
-                <tr>
                     <td>هزینه ارسال</td>
                     <td>{{number_format($order->shippings->sum('cost'))}}</td>
                 </tr>
                 <tr>
+                    <td>مجموع تخفیف</td>
+                    <td>{{number_format($order->variations->sum(function($v) {
+                        return $v->pivot->quantity * $v->pivot->discount;
+                    }) + $order->discount)}}</td>
+                </tr>
+                {{--<tr>--}}
+                    {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
+                    {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
+                {{--</tr>--}}
+                <tr>
+                    <td>مالیات بر ارزش افزوده</td>
+                    <td>{{number_format($order->vat)}}</td>
+                </tr>
+                <tr>
                     <td>مبلغ قابل پرداخت</td>
-                    <td>{{number_format(($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;})) + $order->shippings->sum('cost'))}}</td>
+                    <td>{{number_format($order->total)}}</td>
                 </tr>
                 @foreach($order->returnRequests as $returnRequest)
                     <tr>

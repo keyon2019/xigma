@@ -7,15 +7,19 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>زمان ثبت</th>
+                        <th>گیرنده</th>
+                        <th>همراه گیرنده</th>
                         <th>مبلغ</th>
                         <th>وضعیت سفارش</th>
+                        <th>زمان ثبت</th>
                         <th>مشاهده</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr v-for="order in scopeData.records">
                         <td class="uk-table-shrink">{{order.id}}</td>
+                        <td>{{order.receiver}}</td>
+                        <td>{{order.receiver_number}}</td>
                         <td>{{order.created_at}}</td>
                         <td>{{order.total.toLocaleString()}}</td>
                         <td>{{order.statusName}}</td>

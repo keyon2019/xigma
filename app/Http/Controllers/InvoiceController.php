@@ -44,7 +44,12 @@ class InvoiceController extends Controller
 
     public function store(CartInterface $cart)
     {
-        $invoice = auth()->user()->invoices()->create(['total' => $cart->totalPrice()]);
+        $total = $cart->totalPrice();
+        $vat = round($total * 0.09);
+        $invoice = auth()->user()->invoices()->create([
+            'total' => $cart->totalPrice() + $vat,
+            'vat' => $vat
+        ]);
         $invoice->variations()->sync($cart->preparedForDB());
 //        $cart->clear();
         return redirect("/invoice/$invoice->id");

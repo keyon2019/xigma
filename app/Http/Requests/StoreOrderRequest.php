@@ -33,7 +33,8 @@ class StoreOrderRequest extends FormRequest
             'gateway_id' => ['required', 'numeric', Rule::in(array_column(config('gateway'), 'id'))],
             'cost_preference' => ['required', 'numeric', Rule::in(ShippingService::COST_PREFERENCES)],
             'receiver' => 'required|string',
-            'receiver_number' => ['required', new Mobile()]
+            'receiver_number' => ['required', new Mobile()],
+            'coupon' => 'nullable|string'
         ];
     }
 

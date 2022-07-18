@@ -11,6 +11,17 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
 
     <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
+
+    <style>
+        @media print {
+            #content {
+                margin-top: 0 !important;
+            }
+            table tfoot {
+                display: table-row-group;
+            }
+        }
+    </style>
 </head>
 <body>
 

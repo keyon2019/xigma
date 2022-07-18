@@ -23,6 +23,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RetailerController;
 use App\Http\Controllers\RetailerItemController;
 use App\Http\Controllers\ReturnRequestController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\VariationController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleVariationController;
 use App\Http\Controllers\WidgetController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -118,6 +120,7 @@ Route::get('point', [PointController::class, 'index']);
 
 Route::get('coupon', [CouponController::class, 'index']);
 Route::post('coupon', [CouponController::class, 'store']);
+Route::post('coupon/validate', [CouponController::class, 'validateCoupon']);
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
@@ -186,6 +189,14 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('user/{user}/point', [UserPointController::class, 'index']);
     Route::post('user/{user}/point', [UserPointController::class, 'store']);
+
+    Route::get('address/user/{user}', [AddressController::class, 'userAddresses']);
+
+    Route::get('report/order', [ReportController::class, 'order']);
+    Route::get('report/point', [ReportController::class, 'point']);
+    Route::get('report/product', [ReportController::class, 'product']);
+    Route::get('report/category', [ReportController::class, 'category']);
+    Route::get('report/return_request', [ReportController::class, 'returnRequest']);
 });
 
 Route::get('{page}', [PageController::class, 'show']);

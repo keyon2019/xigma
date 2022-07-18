@@ -176,18 +176,26 @@
                             <td>{{number_format($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;}))}}</td>
                         </tr>
                         <tr class="uk-background-default">
-                            <td>جمع کل تخیفات</td>
-                            <td>{{number_format($order->variations->sum(function($v) {
-                        return $v->pivot->quantity * $v->pivot->discount;
-                    }))}}</td>
-                        </tr>
-                        <tr class="uk-background-default">
                             <td>هزینه ارسال</td>
                             <td>{{number_format($order->shippings->sum('cost'))}}</td>
                         </tr>
                         <tr class="uk-background-default">
+                            <td>جمع کل تخفیفات</td>
+                            <td>{{number_format($order->variations->sum(function($v) {
+                        return $v->pivot->quantity * $v->pivot->discount;
+                    }) + $order->discount)}}</td>
+                        </tr>
+                        {{--<tr class="uk-background-default">--}}
+                            {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
+                            {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
+                        {{--</tr>--}}
+                        <tr class="uk-background-default">
+                            <td>مالیات بر ارزش افزوده</td>
+                            <td>{{number_format($order->vat)}}</td>
+                        </tr>
+                        <tr class="uk-background-default">
                             <td>مبلغ قابل پرداخت</td>
-                            <td>{{number_format(($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;})) + $order->shippings->sum('cost'))}}</td>
+                            <td>{{number_format($order->total)}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -195,7 +203,7 @@
             </div>
 
         </div>
-        @if($order->returnRequests->count() > 0)
+        @if($order->acceptedReturnRequests->count() > 0)
             <div class="uk-background-gray uk-margin-top">
                 <div class="uk-text-center uk-text-large uk-padding-xsmall uk-text-white">کالاهای مرجوعی</div>
             </div>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\OrderStatus;
 use App\Enum\ReturnEnquiry;
 use App\Enum\ReturnReason;
 use App\Filters\OrderFilters;
 use App\Http\Requests\StoreOrderRequest;
 use App\Interfaces\CartInterface;
 use App\Interfaces\GatewayInterface;
+use App\Models\Coupon;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Shipping;
@@ -70,9 +72,16 @@ class OrderController extends Controller
                     return $shipping;
                 });
 
+                $coupon = Coupon::validate($request->coupon, auth()->id());
+
+                $orderTotal = max($cart->totalPrice() + collect($shippings)->sum('cost') - ($coupon ? $coupon->discount : 0), 0);
+                $vat = round($orderTotal * 0.09);
                 $order = auth()->user()->orders()->create($request->validated() + [
-                        'status' => 1,
-                        'total' => $cart->totalPrice() + collect($shippings)->sum('cost')
+                        'status' => ($orderTotal > 0 ? OrderStatus::INSPECTING : OrderStatus::PLACED),
+                        'discount' => $coupon ? $coupon->discount : null,
+                        'coupon' => $coupon ? $coupon->code : null,
+                        'total' => round($orderTotal + $vat),
+                        'vat' => $vat
                     ]);
 
                 $createdShippings = $order->shippings()->createMany($shippings);
@@ -91,15 +100,22 @@ class OrderController extends Controller
 
                 DB::table('order_variation')->insert($orderVariations);
 
-                $createdGateway = $gateway->create($order);
+                if ($coupon)
+                    $coupon->update(['order_id' => $order->id]);
 
                 $cart->clear();
 
-                return response()->json(['message' => 'Order Placed Successfully', 'gateway' => [
-                    'post_parameters' => $createdGateway->postParameters(),
-                    'method' => $createdGateway->method(),
-                    'url' => $createdGateway->gatewayUrl(),
-                ]]);
+                if ($order->total > 0) {
+                    $createdGateway = $gateway->create($order);
+
+                    return response()->json(['message' => 'Order Placed Successfully', 'gateway' => [
+                        'post_parameters' => $createdGateway->postParameters(),
+                        'method' => $createdGateway->method(),
+                        'url' => $createdGateway->gatewayUrl(),
+                    ]]);
+                } else {
+                    return response()->json($order);
+                }
             });
 
         }, function ($unavailableItems) {

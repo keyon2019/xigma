@@ -159,11 +159,38 @@
                         <div>{{totalDeliveryCost.toLocaleString()}}</div>
                     </div>
                     <hr class="uk-text-muted"/>
-                    <p class="uk-margin-small-bottom uk-text-muted">ثبت کد تخفیف</p>
-                    <input class="uk-input uk-border-rounded" placeholder="کد تخفیف">
+                    <template v-if="!this.coupon">
+                        <p class="uk-margin-small-bottom uk-text-muted">ثبت کد تخفیف</p>
+                        <div class="uk-grid uk-grid-small">
+                            <div class="uk-width-expand">
+                                <input class="uk-input uk-border-rounded uk-form-small" v-model="form.coupon.value"
+                                       placeholder="کد تخفیف">
+                            </div>
+                            <div>
+                                <button @click="checkCoupon"
+                                        class="uk-button uk-border-rounded uk-button-primary uk-button-small uk-button-default">
+                                    ثبت
+                                </button>
+                            </div>
+                        </div>
+                    </template>
+                    <div v-else>
+                        <div class="uk-grid-small uk-text-muted" uk-grid>
+                            <div class="uk-width-expand">کد تخفیف</div>
+                            <div>{{this.coupon.discount.toLocaleString()}}</div>
+                        </div>
+                    </div>
+                    <div class="uk-grid-small uk-margin uk-text-bolder" uk-grid>
+                        <div class="uk-width-expand">جمع کل (بدون احتساب مالیات)</div>
+                        <div>{{totalOrderCost.toLocaleString()}}</div>
+                    </div>
+                    <div class="uk-grid-small uk-margin uk-text-bolder" uk-grid>
+                        <div class="uk-width-expand">مالیات (۹٪)</div>
+                        <div>{{vat.toLocaleString()}}</div>
+                    </div>
                     <div class="uk-grid-small uk-margin uk-text-bolder" uk-grid>
                         <div class="uk-width-expand">مبلغ قابل پرداخت</div>
-                        <div>{{totalOrderCost.toLocaleString()}}</div>
+                        <div>{{totalPayable.toLocaleString()}}</div>
                     </div>
                     <div class="uk-grid uk-grid-small uk-child-width-1-3 uk-flex uk-flex-center">
                         <div v-for="gateway in gateways" class="uk-text-center">
@@ -195,52 +222,6 @@
             <h2>ثبت آدرس جدید</h2>
             <form-address v-if="showModalMap" @submit="createAddress"></form-address>
         </modal>
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div v-if="step === 2">-->
-        <!--<div class="uk-grid">-->
-        <!--<div class="uk-width-1-3">-->
-        <!--<div>-->
-        <!--<label><input @change="getRoutes" class="uk-radio" type="radio" value="2"-->
-        <!--name="cost_preference" v-model="form.cost_preference.value">سریع‌ترین</label>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<label><input @change="getRoutes" class="uk-radio" type="radio" value="1"-->
-        <!--name="cost_preference" v-model="form.cost_preference.value">مقرون به صرفه‌ترین</label>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="uk-width-1-3">-->
-        <!--<mapbox :key="mapKey" :markers="markers"></mapbox>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div v-if="step === 3">-->
-        <!--روش ارسال/دریافت سفارش-->
-        <!--<div>-->
-        <!--<label><input :disabled="!availableShippingMethods.includes(1)" class="uk-radio" type="radio" value="1"-->
-        <!--name="shipping_methods" v-model="form.shipping_method.value">دریافت در محل</label>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<label><input :disabled="!availableShippingMethods.includes(2)" class="uk-radio" type="radio" value="2"-->
-        <!--name="shipping_method" v-model="form.shipping_method.value">ارسال با پیک</label>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<label><input :disabled="!availableShippingMethods.includes(3)" class="uk-radio" type="radio" value="3"-->
-        <!--name="shipping_method" v-model="form.shipping_method.value">ارسال با باربری</label>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div>-->
-        <!--<div class="uk-float-left">-->
-        <!--<button :disabled="step <= 1" @click="step&#45;&#45;"-->
-        <!--class="uk-button uk-border-rounded uk-button-default">مرحله قبل-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--<div class="uk-float-right">-->
-        <!--<button @click="goToStep(step + 1)"-->
-        <!--class="uk-button uk-border-rounded uk-button-primary"-->
-        <!--v-text="step >= 3 ? 'پرداخت' : 'مرحله بعد'"></button>-->
-        <!--</div>-->
-        <!--</div>-->
         <form ref="gatewayForm" :method="gateway.method" :action="gateway.url">
             <input type="hidden" v-for="(value, key) in gateway.fields" :name="key" :value="value">
         </form>
@@ -260,6 +241,7 @@
                 selectedAddress: null,
                 factory: [51.5286869, 35.8243285, 'factory'],
                 methods: null,
+                coupon: null,
                 alternateReceiver: false,
                 showModalMap: false,
                 shippings: null,
@@ -288,6 +270,10 @@
                     receiver_number: {
                         value: '',
                         rules: 'required|numeric'
+                    },
+                    coupon: {
+                        value: '',
+                        rules: 'string'
                     }
                 }),
                 gateway: {
@@ -311,12 +297,16 @@
                 if (this.form.validate()) {
                     Loading.show();
                     axios.post('/order', this.form.asFormData()).then((response) => {
-                        this.gateway.fields = response.data.gateway.post_parameters;
-                        this.gateway.method = response.data.gateway.method;
-                        this.gateway.url = response.data.gateway.url;
-                        this.$nextTick(() => {
-                            this.$refs.gatewayForm.submit();
-                        })
+                        if (this.totalOrderCost > 0) {
+                            this.gateway.fields = response.data.gateway.post_parameters;
+                            this.gateway.method = response.data.gateway.method;
+                            this.gateway.url = response.data.gateway.url;
+                            this.$nextTick(() => {
+                                this.$refs.gatewayForm.submit();
+                            })
+                        } else {
+                            window.location.replace(`/order/${response.data.id}`);
+                        }
                     }).catch((e) => {
                         Toast.message(e.response.data.message).danger().show();
                     }).then(() => {
@@ -328,7 +318,6 @@
                 Loading.show();
                 axios.post('/checkout', this.form.asFormData()).then((response) => {
                     this.shippings = response.data;
-                    // this.methods = response.data.methods;
                 }).catch((e) => Toast.message(e.response.data.message).danger().show())
                     .then(() => Loading.close());
             },
@@ -347,6 +336,15 @@
                 this.addressModal.show(() => {
                     this.showModalMap = true;
                 })
+            },
+            checkCoupon() {
+                if (this.form.coupon.value !== "") {
+                    Loading.show();
+                    axios.post('/coupon/validate', {'coupon': this.form.coupon.value}).then((response) => {
+                        this.coupon = response.data;
+                        Toast.message('کد تخفیف با موفقیت اعمال شد').success().show();
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show()).then(() => Loading.hide())
+                }
             }
         },
         computed: {
@@ -369,8 +367,15 @@
                 return _.sumBy(Object.values(this.form.shipping_methods.value), 'cost')
             },
             totalOrderCost() {
-                return this.cart.total() + this.totalDeliveryCost;
+                let orderDiscount = this.coupon ? this.coupon.discount : 0;
+                return Math.max(this.cart.total() + this.totalDeliveryCost - orderDiscount, 0);
             },
+            vat() {
+                return Math.round(this.totalOrderCost * 0.09);
+            },
+            totalPayable() {
+                return Math.round(this.totalOrderCost + this.vat);
+            }
         },
         watch: {
             'form.address_id.value': function () {

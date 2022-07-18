@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Filters\VehicleFilters;
+use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,11 @@ class UserVehicleController extends Controller
         if ($request->wantsJson())
             return response()->json(Vehicle::filter($filters)->paginate(15));
         return view('website.vehicle.index')->with('vehicles', auth()->user()->vehicles);
+    }
+
+    public function userVehicles(User $user)
+    {
+        return response()->json($user->vehicles()->paginate(15));
     }
 
     public function store(Request $request)

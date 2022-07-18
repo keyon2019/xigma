@@ -4,7 +4,7 @@
                 class="uk-button uk-button-primary uk-border-rounded uk-margin"><span uk-icon="plus"></span>
             افزودن آدرس جدید
         </button>
-        <paginated-view ref="pv" @fetched="scroll" filterless="true" fetch-url="/address?paginated=true">
+        <paginated-view ref="pv" @fetched="scroll" filterless="true" :fetch-url="fetchUrl">
             <template v-slot="scopeData">
                 <div v-for="address in scopeData.records" class="uk-grid uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
                     <div class="uk-width-expand@m">
@@ -43,7 +43,12 @@
 
 <script>
     export default {
-        props: ['category', 'options'],
+        props: {
+            'category': {}, 'options': {}, 'fetch-url': {
+                type: String,
+                default: "/address?paginated=true"
+            }
+        },
         data() {
             return {
                 addressModal: new Modal('address'),

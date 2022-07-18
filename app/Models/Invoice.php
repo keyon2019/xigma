@@ -11,7 +11,7 @@ class Invoice extends Model
 {
     use HasFactory, Shamsi, Filterable;
 
-    protected $fillable = ['total'];
+    protected $fillable = ['total', 'vat'];
 
     public function variations()
     {

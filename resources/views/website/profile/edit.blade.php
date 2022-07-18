@@ -25,17 +25,10 @@
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-text">تاریخ تولد</label>
                 <div class="uk-form-controls uk-flex uk-flex-bottom">
-                    <input class="uk-input uk-width-small uk-form-blank" id="form-horizontal-text"
-                           style="border-bottom: 1px solid gainsboro" type="number" min="1" max="31" value="{{$user->birthday}}"
-                           placeholder="روز">
-                    <span class="uk-padding-small uk-padding-remove-vertical">/</span>
-                    <input class="uk-input uk-width-small uk-form-blank" id="form-horizontal-text"
-                           style="border-bottom: 1px solid gainsboro" type="number" min="1" max="12" value="{{$user->birthday}}"
-                           placeholder="ماه">
-                    <span class="uk-padding-small uk-padding-remove-vertical">/</span>
-                    <input class="uk-input uk-width-small uk-form-blank" id="form-horizontal-text"
-                           style="border-bottom: 1px solid gainsboro" type="number" min="1200" max="1401"
-                           value="{{$user->birthday}}" placeholder="سال">
+                    <input class="uk-input uk-border-rounded birthday"
+                           value="{{$user->birthday}}">
+                    <date-picker-wrapper custom-input=".birthday" name="birthday"
+                                         value="{{$user->birthday}}"></date-picker-wrapper>
                 </div>
             </div>
             <div class="uk-margin">

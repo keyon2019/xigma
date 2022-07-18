@@ -10,4 +10,9 @@ trait Filterable
     {
         return $filters->apply($query);
     }
+
+    public function scopeWithRollup()
+    {
+
+    }
 }

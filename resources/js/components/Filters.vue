@@ -1,6 +1,6 @@
 <template>
     <div v-if="!!this.$slots.default">
-        <form @submit.prevent="apply('form')" @change="apply('form')" ref="form">
+        <form @submit.prevent="apply('form')" @change="manual ? null : apply('form')" ref="form">
             <slot></slot>
         </form>
         <div id="filters-modal" class="uk-modal-full" name="filters-modal" uk-modal>
@@ -29,7 +29,13 @@
 
 <script>
     export default {
-        props: ['url'],
+        props: {
+            'url': {},
+            'manual': {
+                type: Boolean,
+                default: false,
+            }
+        },
         data() {
             return {
                 isSubmitting: false,

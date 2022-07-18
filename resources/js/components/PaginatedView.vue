@@ -1,6 +1,6 @@
 <template>
     <div class="uk-grid uk-grid-small" data-uk-grid>
-        <filters ref="filters" :url="url" class="uk-width-1-5 uk-visible@m"
+        <filters :manual="manual" ref="filters" :url="url" class="uk-width-1-5 uk-visible@m"
                  @filtersChanged="filtersChanged">
             <slot name="filters"></slot>
         </filters>
@@ -8,23 +8,35 @@
             <sort @sortsChanged="sortsChanged" class="uk-visible@m" :url="url">
                 <slot name="sort"></slot>
             </sort>
-            <div class="uk-text-small uk-hidden@m">
+            <div class="uk-text-small uk-hidden@m hidden-in-print">
                 <a @click="showFiltersModal()" class="uk-link-reset"><span class="uk-margin-small-right"><i
                         class="fa-solid fa-sliders"></i> فیلتر</span></a>
                 <a class="uk-link-reset"><span><i class="fa-solid fa-arrow-down-wide-short"></i> ترتیب نمایش</span></a>
                 <hr class="uk-margin-small"/>
             </div>
             <div id="paginated-view-content">
-                <slot :records="data.data"></slot>
+                <slot :records="tableItems" :otherData="otherData"></slot>
             </div>
-            <pagination :limit="2" @pagination-change-page="pageChanged" :key="paginationRenderKey" :data="data"></pagination>
+            <pagination v-if="!singlePage"
+                        :limit="2" @pagination-change-page="pageChanged" :key="paginationRenderKey" :data="data"></pagination>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['fetch-url'],
+        props: {
+            'fetch-url': {},
+            'data-key': {
+                default: null,
+            },
+            'single-page': {
+                default: false,
+            },
+            'manual': {
+                default: false,
+            }
+        },
         data() {
             return {
                 data: {},
@@ -33,7 +45,8 @@
                 embed: !!this.fetchUrl,
                 initialFetch: true,
                 filtersModal: new Modal('filters-modal'),
-                sortsModal: new Modal('sorts-modal')
+                sortsModal: new Modal('sorts-modal'),
+                otherData: {}
             }
         },
         mounted() {
@@ -43,6 +56,11 @@
                     this.url = window.location.href;
                     this.fetch();
                 });
+            }
+        },
+        computed: {
+            tableItems() {
+                return this.singlePage ? this.data : this.data.data;
             }
         },
         methods: {
@@ -69,7 +87,6 @@
             sortsChanged(formData) {
                 const url = new URL(this.url, window.location.origin);
                 for (let pair of formData.entries()) {
-                    console.log(pair[1], pair[0]);
                     if (pair[1] == null || pair[1] === '' || pair[1] === undefined) {
                         url.searchParams.delete(pair[0]);
                     } else {
@@ -91,7 +108,8 @@
                     url = new URL(`${window.location.origin}${this.url}`);
                 url.searchParams.set('json', '');
                 axios.get(url).then((response) => {
-                    this.data = response.data;
+                    this.data = this.dataKey ? response.data[this.dataKey] : response.data;
+                    this.otherData = response.data;
                     this.paginationRenderKey++;
                     if (!this.initialFetch) {
                         this.$emit('fetched');

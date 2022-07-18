@@ -44,6 +44,8 @@
             .uk-box-shadow-small {
                 border: 1px solid gainsboro;
             }
+
+
         }
 
         .animating-line {

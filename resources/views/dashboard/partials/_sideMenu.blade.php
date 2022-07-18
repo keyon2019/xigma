@@ -74,6 +74,15 @@
             <li><a href="/dashboard/comment">
                     <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>نظرات</a>
             </li>
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: info" class="uk-margin-small-right"></span>گزارش</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/report/order" title="گزارش سفارش‌ها">سفارشات</a></li>
+                    <li><a href="/dashboard/report/point" title="گزارش امتیاز">امتیازات</a></li>
+                    <li><a href="/dashboard/report/product" title="گزارش محصولات">پرفروش‌ترین محصولات</a></li>
+                    <li><a href="/dashboard/report/category" title="گزارش دسته‌بندی‌ها">پرفروش‌ترین دسته‌بندی‌ها</a></li>
+                    <li><a href="/dashboard/report/return_request" title="گزارش مرجوعی‌ها">مرجوعی‌ها</a></li>
+                </ul>
+            </li>
         </ul>
 
     </div>

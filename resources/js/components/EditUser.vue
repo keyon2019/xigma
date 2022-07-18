@@ -10,17 +10,23 @@
                 <li><a href="#orders">سفارش‌ها</a></li>
                 <li><a href="#addresses">نشانی‌ها</a></li>
                 <li><a href="#points">امتیازات</a></li>
+                <li><a href="#vehicles">وسایل نقلیه</a></li>
             </ul>
 
             <div class="uk-switcher uk-padding uk-background-default uk-border-rounded uk-box-shadow-small uk-margin">
-                <div>
+                <div id="orders-content">
                     <front-orders :admin-panel="true" :fetch-url="'/dashboard/order/user/' + user.id"></front-orders>
                 </div>
-                <div>
-                    Coming Soon
+                <div id="addresses-content">
+                    <front-addresses v-if="addressesShown" :fetch-url="'/dashboard/address/user/' + user.id"></front-addresses>
                 </div>
-                <div>
-                    <points :user="user" :fetch-url="'/dashboard/user/' + user.id + '/point'"></points>
+                <div id="points-content">
+                    <points v-if="pointsShown" :user="user" :fetch-url="'/dashboard/user/' + user.id + '/point'"></points>
+                </div>
+                <div id="vehicles-content">
+                    <div v-if="vehiclesShown">
+                        Vehicles
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,8 +38,22 @@
         props: ['initial-user'],
         data() {
             return {
-                user: this.initialUser
+                user: this.initialUser,
+                addressesShown: false,
+                pointsShown: false,
+                vehiclesShown: false,
             }
+        },
+        mounted() {
+            UIkit.util.on(document, 'beforeshow', '#addresses-content', (e) => {
+                this.addressesShown = true;
+            });
+            UIkit.util.on(document, 'beforeshow', '#points-content', (e) => {
+                this.pointsShown = true;
+            });
+            UIkit.util.on(document, 'beforeshow', '#vehicles-content', (e) => {
+                this.vehiclesShown = true;
+            });
         },
         methods: {
             submit(form) {

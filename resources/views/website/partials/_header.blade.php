@@ -141,9 +141,12 @@
                             <span class="uk-flex uk-margin-left uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable"
                                   onclick="window.location.replace('/profile')"
                                   data-uk-icon="icon:user;ratio:1.5"></span>
-                            <div class="uk-text-small uk-text-muted uk-margin-left">
+                            <div class="uk-text-small uk-margin-left">
                                 <a class="uk-link-reset" href="{{auth()->check() ? '/profile' : '/login'}}">
                                     {{auth()->check() ? auth()->user()->name : 'ورود به حساب کاربری'}}</a>
+                                @if(auth()->check())
+                                    <a class="uk-display-block uk-text-muted uk-text-light" href="/logout">خروج</a>
+                                @endif
                             </div>
                         </div>
                         <div class="uk-background-muted uk-flex uk-flex-column uk-flex-center" style="flex: 1 1 0px">
@@ -276,14 +279,14 @@
             @endforeach
             @foreach($pages as $page)
                 @if($page->subs->count() > 0)
-                <li class="uk-parent">
-                    <a href="{{$page->redirectLink}}">{{$page->name}}</a>
+                    <li class="uk-parent">
+                        <a href="{{$page->redirectLink}}">{{$page->name}}</a>
                         <ul class="uk-nav-sub">
                             @foreach($page->subs as $sub)
                                 <li><a href="{{$sub->redirectLink}}">{{$sub->name}}</a></li>
                             @endforeach
                         </ul>
-                </li>
+                    </li>
                 @else
                     <li><a href="{{$page->redirectLink}}">{{$page->name}}</a></li>
                 @endif

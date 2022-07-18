@@ -64,7 +64,7 @@
                 </tr>
                 <tr>
                     <td>مالیات بر ارزش افزوده</td>
-                    <td>9%</td>
+                    <td>{{number_format($invoice->vat)}}</td>
                 </tr>
                 <tr>
                     <td>مبلغ قابل پرداخت</td>

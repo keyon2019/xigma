@@ -31,4 +31,14 @@ class OrderFilters extends QueryFilter
     {
         $this->query->where('name', 'like', "%$value%");
     }
+
+    public function from($value)
+    {
+        $this->query->whereDate('created_at', '>=', $value);
+    }
+
+    public function to($value)
+    {
+        $this->query->whereDate('created_at', '<=', $value);
+    }
 }

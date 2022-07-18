@@ -28,7 +28,7 @@
                         <th>مدیریت</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody>2
                     <tr v-for="vehicle in scopeData.records">
                         <td class="uk-table-shrink">{{vehicle.id}}</td>
                         <td>{{vehicle.name}}</td>

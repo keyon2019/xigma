@@ -22,6 +22,15 @@ class CouponController extends Controller
         return view('website.coupon.index')->with('points', auth()->user()->total_points);
     }
 
+    public function validateCoupon(Request $request)
+    {
+        $request->validate(['coupon' => ['required', 'string']]);
+        if ($coupon = Coupon::validate($request->coupon, auth()->id())) {
+            return response()->json($coupon);
+        }
+        return abort(401, "کد تخفیف وارد شده معتبر نیست و یا منقضی شده است");
+    }
+
     public function store(Request $request)
     {
         $request->validate([

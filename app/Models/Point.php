@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\Shamsi;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,11 +11,16 @@ use Morilog\Jalali\Jalalian;
 
 class Point extends Model
 {
-    use HasFactory, Shamsi;
+    use HasFactory, Shamsi, Filterable;
 
     protected $fillable = ['user_id', 'amount', 'used', 'depleted', 'description', 'created_at'];
 
     protected $appends = ['status', 'expires_at'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function getExpiresAtAttribute()
     {

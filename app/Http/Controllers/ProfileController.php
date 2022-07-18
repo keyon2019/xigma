@@ -32,7 +32,8 @@ class ProfileController extends Controller
 //            'mobile' => ['required', new Mobile(), 'unique:users,mobile,' . auth()->id()],
             'area_code' => 'nullable|numeric|digits:3',
             'telephone' => 'nullable|numeric|digits:8',
-            'emergency_mobile' => ['nullable', new Mobile()]
+            'emergency_mobile' => ['nullable', new Mobile()],
+            'birthday' => 'date',
         ]);
         $data['telephone'] = $data['area_code'] . $data['telephone'];
         auth()->user()->update($data);

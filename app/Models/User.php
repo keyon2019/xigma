@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Morilog\Jalali\Jalalian;
 
 class User extends Authenticatable
 {
@@ -29,7 +30,8 @@ class User extends Authenticatable
         'emergency_mobile',
         'telephone',
         'is_active',
-        'total_points'
+        'total_points',
+        'birthday'
     ];
 
     /**
@@ -117,5 +119,12 @@ class User extends Authenticatable
     public function getTelephonePartAttribute()
     {
         return substr($this->telephone, -8, 8);
+    }
+
+    public function getBirthdayAttribute($value)
+    {
+        if ($value)
+            return Jalalian::forge($value)->format('Y/m/d');
+        return null;
     }
 }

@@ -54,6 +54,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'email' => 'nullable|string',
             'password' => 'string',
+            'birthday' => 'date',
             'is_retailer' => 'boolean',
             'is_active' => 'boolean'
         ]);

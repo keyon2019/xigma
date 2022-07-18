@@ -30,7 +30,8 @@ class Order extends Model
         '2' => 'سریع‌ترین'
     ];
 
-    protected $fillable = ['address_id', 'shipping_method', 'cost_preference', 'status', 'total', 'paid', 'receiver', 'receiver_number'];
+    protected $fillable = ['address_id', 'shipping_method',
+        'cost_preference', 'status', 'total', 'paid', 'receiver', 'receiver_number', 'vat', 'discount', 'coupon'];
 
     protected $appends = ['statusName'];
 
@@ -114,7 +115,7 @@ class Order extends Model
     public function getAcceptedReturnRequestsAttribute()
     {
         return $this->returnRequests->filter(function ($r) {
-            return $r->status > 1 || $r->status < 7;
+            return $r->status == 4 || $r->status == 6;
         });
     }
 }

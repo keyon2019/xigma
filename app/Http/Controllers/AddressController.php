@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use App\Models\Order;
+use App\Models\User;
 use App\Rules\Mobile;
 use Illuminate\Http\Request;
 
@@ -23,6 +24,11 @@ class AddressController extends Controller
         return view('website.address.index');
     }
 
+    public function userAddresses(User $user)
+    {
+        return response()->json($user->addresses()->latest()->paginate(10));
+    }
+
     public function store(Request $request)
     {
         $address = auth()->user()->addresses()->create($request->all() + ['latitude' => $request->lat, 'longitude' => $request->lng]);
@@ -31,6 +37,8 @@ class AddressController extends Controller
 
     public function update(Address $address, Request $request)
     {
+        if (!auth()->user()->is_admin || auth()->id() != $address->user_id)
+            return abort(401, "Unauthorized");
         $data = $request->validate([
             'province' => 'required|string',
             'city' => 'required|string',
@@ -45,9 +53,10 @@ class AddressController extends Controller
         $data['latitude'] = $data['lat'];
         $data['longitude'] = $data['lng'];
 
-        if (Order::whereAddressId($address->id)->exists()) {
-            return abort(402, "با نشانی مورد نظر سفارش ثبت شده در سیستم وجود دارد، لطفا برای تغییر، نشانی جدید ایجاد نمایید.");
-        }
+        if (!auth()->user()->is_admin)
+            if (Order::whereAddressId($address->id)->exists()) {
+                return abort(402, "با نشانی مورد نظر سفارش ثبت شده در سیستم وجود دارد، لطفا برای تغییر، نشانی جدید ایجاد نمایید.");
+            }
 
         $address->update($data);
 
@@ -56,6 +65,8 @@ class AddressController extends Controller
 
     public function destroy(Address $address)
     {
+        if (!auth()->is_admin || auth()->id() != $address->user_id)
+            return abort(401, "Unauthorized");
         if (Order::whereAddressId($address->id)->exists()) {
             return abort(402, "با نشانی مورد نظر سفارش ثبت شده در سیستم وجود دارد، امکان حذف آدرس وجود ندارد");
         }
