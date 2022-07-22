@@ -8,10 +8,10 @@
             <sort @sortsChanged="sortsChanged" class="uk-visible@m" :url="url">
                 <slot name="sort"></slot>
             </sort>
-            <div class="uk-text-small uk-hidden@m hidden-in-print">
-                <a @click="showFiltersModal()" class="uk-link-reset"><span class="uk-margin-small-right"><i
+            <div v-if="!!$slots['filters'] || !!$slots['sort']" class="uk-text-small uk-hidden@m hidden-in-print">
+                <a v-if="!!$slots['filters']" @click="showFiltersModal()" class="uk-link-reset"><span class="uk-margin-small-right"><i
                         class="fa-solid fa-sliders"></i> فیلتر</span></a>
-                <a class="uk-link-reset"><span><i class="fa-solid fa-arrow-down-wide-short"></i> ترتیب نمایش</span></a>
+                <a v-if="!!$slots['sort']" class="uk-link-reset"><span><i class="fa-solid fa-arrow-down-wide-short"></i> ترتیب نمایش</span></a>
                 <hr class="uk-margin-small"/>
             </div>
             <div id="paginated-view-content">

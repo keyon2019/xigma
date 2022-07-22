@@ -34,11 +34,16 @@ class SliderController extends Controller
             'button_text' => 'required|string',
             'order' => 'numeric',
             'url' => 'string',
-            'left' => 'boolean'
+            'left' => 'boolean',
+            'mobile_picture' => 'required|file'
         ]);
 
         if ($request->hasFile('picture')) {
             $validated['picture'] = Image::store($request->file('picture'));
+        }
+
+        if ($request->hasFile('mobile_picture')) {
+            $validated['mobile_picture'] = Image::store($request->file('mobile_picture'));
         }
 
         $slider = Slider::create($validated);
@@ -59,11 +64,16 @@ class SliderController extends Controller
             'button_text' => 'required|string',
             'order' => 'numeric',
             'url' => 'string',
-            'left' => 'boolean'
+            'left' => 'boolean',
+            'mobile_picture' => 'file'
         ]);
 
         if ($request->hasFile('picture')) {
             $validated['picture'] = $slider->picture->update($request->file('picture'));
+        }
+
+        if ($request->hasFile('mobile_picture')) {
+            $validated['mobile_picture'] = Image::store($request->file('mobile_picture'));
         }
 
         $slider->update($validated);

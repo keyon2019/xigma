@@ -1,7 +1,7 @@
 <template>
     <paginated-view ref="pv" :fetch-url="fetchUrl">
         <template v-slot="scopeData">
-            <div>
+            <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-divider uk-margin-remove
             uk-table-middle uk-table-center uk-table-striped uk-background-default uk-border-rounded uk-box-shadow-small">
                     <thead>

@@ -11,7 +11,7 @@ class Category extends Model
 {
     use HasFactory, Filterable;
 
-    protected $fillable = ['name', 'description', 'splash', 'wide_splash', 'parent_id', 'show', 'order', 'featured'];
+    protected $fillable = ['name', 'description', 'splash', 'wide_splash', 'parent_id', 'show', 'order', 'featured', 'show_slider'];
 
     public function scopeRoot($query)
     {

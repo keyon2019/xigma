@@ -18,7 +18,7 @@
                         </div>
                     @endforeach
                     <div>
-                        <div class="uk-grid uk-grid-small uk-grid-divider uk-margin-small-top uk-text-small">
+                        <div class="uk-grid uk-grid-small uk-grid-divider uk-child-width-auto@m uk-margin-small-top uk-text-small">
                             <div class="uk-first-column">تعداد: {{$returnRequest->quantity}} عدد</div>
                             <div>قیمت واحد: {{number_format($returnRequest->price + $returnRequest->discount)}}</div>
                             @if($returnRequest->discount > 0)
@@ -40,7 +40,7 @@
             </div>
             <hr/>
             <div class="uk-grid uk-margin-small-bottom" data-uk-grid>
-                <div class="uk-width-expand">
+                <div class="uk-width-expand@m">
                     علت مرجوعی: {{$returnRequest->reasonName}}
                 </div>
                 <div>
@@ -107,7 +107,7 @@
             @if($returnRequest->shipping_method != null)
                 <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
                     <accordion :open="true" title="اطلاعات ارسال">
-                        <div class="uk-grid uk-grid-collapse uk-child-width-1-2 uk-margin-small-top uk-text-meta"
+                        <div class="uk-grid uk-grid-collapse uk-child-width-1-2@m uk-margin-small-top uk-text-meta"
                              data-uk-grid>
                             <div class="uk-padding-small uk-background-muted uk-flex uk-flex-middle"
                                  style="border: 1px solid white">
@@ -135,7 +135,7 @@
             @if($returnRequest->payed_at)
                 <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
                     <accordion :open="true" title="اطلاعات پرداخت استرداد وجه">
-                        <div class="uk-grid uk-grid-collapse uk-child-width-1-2 uk-margin-small-top uk-text-meta"
+                        <div class="uk-grid uk-grid-collapse uk-child-width-1-2@m uk-margin-small-top uk-text-meta"
                              data-uk-grid>
                             <div class="uk-padding-small uk-background-muted uk-flex uk-flex-middle"
                                  style="border: 1px solid white">وضعیت

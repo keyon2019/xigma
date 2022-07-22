@@ -5,7 +5,8 @@
             <div class="uk-width-expand">
                 <div class="uk-grid uk-grid-small" data-uk-grid>
                     <div class="uk-width-1-1">
-                        <label><input class="uk-checkbox" v-model="form.show.value" type="checkbox" name="show"> نمایش دسته‌بندی </label>
+                        <label><input class="uk-checkbox" v-model="form.show.value" type="checkbox" name="show"> نمایش دسته‌بندی
+                        </label>
                     </div>
                     <div class="uk-width-1-1">
                         <form-input label="نام دسته‌بندی" classes="uk-input"
@@ -35,7 +36,12 @@
                         </select>
                     </div>
                     <div class="uk-width-1-1">
-                        <label><input class="uk-checkbox" v-model="form.featured.value" type="checkbox" name="show"> دسته‌بندی منتخب </label>
+                        <label><input class="uk-checkbox" v-model="form.featured.value" type="checkbox" name="show"> دسته‌بندی
+                            منتخب </label>
+                    </div>
+                    <div class="uk-width-1-1">
+                        <label><input class="uk-checkbox" v-model="form.show_slider.value" type="checkbox" name="show"> نمایش عکس
+                            عریض </label>
                     </div>
                     <div class="uk-width-1-3">
                         <image-input name="splash" v-model="form.splash.value" placeholder="800x800"></image-input>
@@ -93,6 +99,10 @@
                         rules: 'boolean'
                     },
                     featured: {
+                        value: null,
+                        rules: 'boolean'
+                    },
+                    show_slider: {
                         value: null,
                         rules: 'boolean'
                     }

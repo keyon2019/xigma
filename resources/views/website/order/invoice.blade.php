@@ -3,8 +3,9 @@
 @section('content')
     <div class="uk-section uk-section-muted uk-section-xsmall">
         <div class="uk-container">
+            <a href="/order/{{$order->id}}" class="uk-button uk-margin-small uk-border-rounded uk-button-secondary hidden-in-print">بازگشت به سفارش</a>
             <div class="uk-grid uk-flex uk-flex-middle">
-                <div class="uk-width-expand">
+                <div class="uk-width-expand@m">
                     <div class="uk-text-bold">فاکتور فروش آنلاین قطعات زیگما</div>
                     <div>فاکتور شماره {{$order->id}}</div>
                 </div>
@@ -121,49 +122,51 @@
                             </div>
                         </div>
                     </div>
-                    <table class="uk-table uk-table-striped uk-table-small uk-table-middle uk-margin-small-bottom uk-text-small">
-                        <thead>
-                        <tr class="uk-background-primary">
-                            <th class="uk-text-white uk-table-shrink">#</th>
-                            <th class="uk-text-white">نام قطعه</th>
-                            <th class="uk-text-white">نوع</th>
-                            <th class="uk-text-white">تعداد</th>
-                            <th class="uk-text-white">شماره سریال</th>
-                            <th class="uk-text-white">قیمت واحد</th>
-                            <th class="uk-text-white">قیمت کل</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($group as $variation)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td class="">
-                                    <div class="uk-grid uk-grid-small uk-flex uk-flex-middle">
-                                        <div>
-                                            <img uk-img width="50"
-                                                 src="{{$variation->picture->url ?? '/uploads/xigma_logo.png'}}">
-                                        </div>
-                                        <div class="uk-width-expand">
-                                            <div>{{$variation->name}}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>{{$variation->filters}}</td>
-                                <td>{{$variation->pivot->quantity}}</td>
-                                <td>
-                                    <div>{{$variation->sku}}</div>
-                                </td>
-                                <td>
-                                    @if($variation->pivot->discount > 0)
-                                        <div class="uk-text-line-through uk-text-muted">{{number_format($variation->pivot->price + $variation->pivot->discount)}}</div>
-                                    @endif
-                                    <div>{{number_format($variation->pivot->price)}}</div>
-                                </td>
-                                <td>{{number_format($variation->pivot->price * $variation->pivot->quantity)}}</td>
+                    <div class="uk-overflow-auto">
+                        <table class="uk-table uk-table-striped uk-table-small uk-table-middle uk-margin-small-bottom uk-text-small">
+                            <thead>
+                            <tr class="uk-background-primary">
+                                <th class="uk-text-white uk-table-shrink">#</th>
+                                <th class="uk-text-white">نام قطعه</th>
+                                <th class="uk-text-white">نوع</th>
+                                <th class="uk-text-white">تعداد</th>
+                                <th class="uk-text-white">شماره سریال</th>
+                                <th class="uk-text-white">قیمت واحد</th>
+                                <th class="uk-text-white">قیمت کل</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($group as $variation)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td class="">
+                                        <div class="uk-grid uk-grid-small uk-flex uk-flex-middle">
+                                            <div>
+                                                <img uk-img width="50"
+                                                     src="{{$variation->picture->url ?? '/uploads/xigma_logo.png'}}">
+                                            </div>
+                                            <div class="uk-width-expand@m">
+                                                <div>{{$variation->name}}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{$variation->filters}}</td>
+                                    <td>{{$variation->pivot->quantity}}</td>
+                                    <td>
+                                        <div>{{$variation->sku}}</div>
+                                    </td>
+                                    <td>
+                                        @if($variation->pivot->discount > 0)
+                                            <div class="uk-text-line-through uk-text-muted">{{number_format($variation->pivot->price + $variation->pivot->discount)}}</div>
+                                        @endif
+                                        <div>{{number_format($variation->pivot->price)}}</div>
+                                    </td>
+                                    <td>{{number_format($variation->pivot->price * $variation->pivot->quantity)}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             @endforeach
             <div class="uk-grid uk-margin-small uk-text-small">

@@ -3,6 +3,7 @@
 @section('content')
     <div class="uk-section uk-section-default uk-section-xsmall">
         <div class="uk-container">
+            <a href="/invoice/{{$invoice->id}}" class="uk-button uk-border-rounded uk-button-secondary hidden-in-print">بازگشت به  پیش‌فاکتور</a>
             <div class="uk-grid uk-flex uk-flex-middle">
                 <div class="uk-width-expand">
                     <div class="uk-text-bold">پیش فاکتور فروش آنلاین قطعات زیگما</div>

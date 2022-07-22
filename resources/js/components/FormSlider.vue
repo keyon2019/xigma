@@ -53,7 +53,13 @@
                             </select>
                         </div>
                     </div>
-                    <div class="uk-width-1-1">
+                    <div class="uk-width-1-3">
+                        <image-input name="mobile_picture" v-model="form.mobile_picture.value" placeholder="1080x1080"></image-input>
+                        <div v-if="form.errors.has('mobile_picture')"
+                             class="uk-text-danger uk-text-small">{{form.errors['mobile_picture']}}
+                        </div>
+                    </div>
+                    <div class="uk-width-expand">
                         <image-input name="splash" v-model="form.picture.value" placeholder="1920x800"></image-input>
                         <div v-if="form.errors.has('picture')"
                              class="uk-text-danger uk-text-small">{{form.errors['picture']}}
@@ -81,6 +87,10 @@
                         rules: 'required|string',
                     },
                     picture: {
+                        value: null,
+                        rules: 'file'
+                    },
+                    mobile_picture: {
                         value: null,
                         rules: 'file'
                     },

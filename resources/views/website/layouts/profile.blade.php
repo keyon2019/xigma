@@ -7,7 +7,8 @@
         <div class="uk-container">
             <div class="uk-grid uk-grid-small">
                 <div class="uk-width-1-4@m hidden-in-print" style="">
-                    <div class="uk-padding-small uk-padding-remove-top" style="z-index: 8;background: url('/uploads/bg-pattern.png');">
+                    <div class="uk-padding-small uk-padding-remove-top"
+                         style="z-index: 8;background: url('/uploads/bg-pattern.png');">
                         <img src="/uploads/xigma-badge.png" class="uk-margin-small-bottom uk-width-expand" alt="xigma_badge">
                         <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium uk-margin-small-bottom">
                             <div class="uk-grid uk-grid-small uk-grid-divider uk-flex uk-flex-middle">
@@ -25,7 +26,83 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium">
+                        <accordion class="uk-hidden@m" :show-chevron="false" title-class="uk-text-white uk-text-center"
+                                   title='<button class="uk-button uk-button-primary uk-margin-small-bottom uk-border-rounded uk-width-expand">نمایش منوی پروفایل کاربری</button>'>
+                            <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-medium">
+                                <ul class="uk-list uk-list-large">
+                                    <li>
+                                        <a href="/profile/edit" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="user"></span>
+                                            <span class="uk-margin-small-left uk-text-small">اطلاعات کاربری</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/order" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="tag"></span>
+                                            <span class="uk-margin-small-left uk-text-small">سفارش‌های من</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/invoice" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="file-text"></span>
+                                            <span class="uk-margin-small-left uk-text-small">پیش‌فاکتور‌ها</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/return_request" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="refresh"></span>
+                                            <span class="uk-margin-small-left uk-text-small">مرجوعی‌ها</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/point/overview" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="star"></span>
+                                            <span class="uk-margin-small-left uk-text-small">امتیازات</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/comment">
+                                            <span data-uk-icon="comment"></span>
+                                            <span class="uk-margin-small-left uk-text-small">نظرات</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/address">
+                                            <span data-uk-icon="location"></span>
+                                            <span class="uk-margin-small-left uk-text-small">نشانی‌ها</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/vehicle">
+                                            <span data-uk-icon="bolt"></span>
+                                            <span class="uk-margin-small-left uk-text-small">وسایل نقلیه من</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="heart"></span>
+                                            <span class="uk-margin-small-left uk-text-small">لیست علاقمندی‌ها</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
+                                            <span data-uk-icon="mail"></span>
+                                            <span class="uk-margin-small-left uk-text-small">پیغام‌ها</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <hr/>
+                                <ul class="uk-list uk-list-large">
+                                    <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/logout">
+                                            <span data-uk-icon="sign-out"></span>
+                                            <span class="uk-margin-small-left uk-text-small">خروج</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </accordion>
+                        <div class="uk-background-default uk-padding-small uk-border-rounded uk-visible@m uk-box-shadow-medium">
                             <ul class="uk-list uk-list-large">
                                 <li>
                                     <a href="/profile/edit" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">

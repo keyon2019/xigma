@@ -182,8 +182,8 @@
                     </div>
                 </div>
             </div>
-            <div ref="retailers" v-if="selectedVariation && retailers.length > 0">
-                <p class="uk-text-lead half-title uk-margin-large-bottom">نمایندگی‌ها فروشنده قطعه شما</p>
+            <div ref="retailers" class="uk-padding-small" v-if="selectedVariation && retailers.length > 0">
+                <p class="uk-text-lead half-title uk-margin-large-bottom">نمایندگی‌های فروشنده قطعه شما</p>
                 <div v-for="(retailer,index) in retailers">
                     <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle" data-uk-grid>
                         <div class="uk-width-2-5@m">
@@ -197,7 +197,7 @@
                         <div class="uk-width-expand@s">
                             <p class="uk-margin-small-bottom"><span v-if="retailer.city">{{retailer.city}} نمایندگی</span><span
                                     v-else>قم</span></p>
-                            <p class="uk-text-meta uk-margin-remove"><span v-if="retailer.address">{{retailer.address}}</span>
+                            <p class="uk-text-meta uk-text-truncate uk-margin-remove"><span v-if="retailer.address">{{retailer.address}}</span>
                                 <span class="uk-text-truncate" v-else>شهرک صنعتی شکوهیه، بلوار آیت اله خامنه ای، کوچه بنفشه2، پلاک 372</span>
                             </p>
                         </div>

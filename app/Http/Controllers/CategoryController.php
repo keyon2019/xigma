@@ -54,7 +54,8 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : '',
             'show' => 'boolean',
             'featured' => 'boolean',
-            'order' => 'numeric'
+            'order' => 'numeric',
+            'show_slider' => 'boolean'
         ]);
 
         if ($request->hasFile('splash')) {
@@ -84,7 +85,8 @@ class CategoryController extends Controller
             'parent_id' => $request->parent_id ? 'numeric|exists:categories,id' : '',
             'show' => 'boolean',
             'featured' => 'boolean',
-            'order' => 'numeric'
+            'order' => 'numeric',
+            'show_slider' => 'boolean'
         ]);
 
         if ($request->hasFile('splash')) {

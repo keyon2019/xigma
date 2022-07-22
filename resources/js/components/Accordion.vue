@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="clickable" @click="toggle">
-            <span v-if="!this.$slots.title">{{title}}</span>
+            <span :class="titleClass" v-if="!this.$slots.title" v-html="title"></span>
             <slot name="title"></slot>
-            <span class="uk-margin-small-left hidden-in-print" :uk-icon="show ? 'chevron-down' : 'chevron-left'"></span>
+            <span v-if="showChevron" :class="titleClass" class="uk-margin-small-left hidden-in-print" :uk-icon="show ? 'chevron-down' : 'chevron-left'"></span>
         </div>
         <div v-show="show">
             <slot></slot>
@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        props: {'title': {}, 'open': {default : false}},
+        props: {'title': {}, 'open': {default : false}, 'title-class': {}, 'show-chevron' : {default: true}},
         data() {
             return {
                 show: this.open,

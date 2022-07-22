@@ -49,19 +49,9 @@
                 <ul class="uk-slideshow-items uk-child-width-1-1">
                     <li :data-index="index" v-for="(slider,index) in sliders">
                         <div class="uk-inline uk-width-expand uk-height-1-1">
-                            <img class="slider-img uk-width-expand" :src="slider.picture">
-                            <div class="uk-overlay-primary uk-position-cover uk-overlay-secondary">
-                                <div class="uk-padding uk-position-absolute uk-position-center">
-                                    <p class="uk-heading-small uk-margin-remove-top uk-text-justify"
-                                       style="text-align-last: left">{{slider.title}}</p>
-                                    <p class="uk-text-bold uk-text-large uk-text-primary uk-text-right">
-                                        {{slider.sub_title}}</p>
-                                    <p class="uk-text-center uk-padding-small uk-padding-remove-horizontal">
-                                        <a :href="slider.url ? slider.url : ''"
-                                           class="uk-button uk-button-danger uk-border-rounded uk-width-1-2">{{slider.button_text}}</a>
-                                    </p>
-                                </div>
-                            </div>
+                            <a :href="slider.url ? slider.url : ''">
+                                <img class="slider-img uk-width-expand" :src="slider.mobile_picture ? slider.mobile_picture : slider.picture">
+                            </a>
                         </div>
                     </li>
                 </ul>
