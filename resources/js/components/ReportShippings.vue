@@ -14,19 +14,11 @@
                         <date-picker-wrapper custom-input=".to" name="to"></date-picker-wrapper>
                     </div>
                     <div class="uk-margin-small">
-                        <select class="uk-select" name="province_id">
-                            <option value="">همه استان‌ها</option>
-                            <option v-for="province in provinces" :value="province.id">{{province.name}}</option>
-                        </select>
-                    </div>
-                    <div class="uk-margin-small">
                         <select name="status" class="uk-select">
-                            <option :value="null">وضعیت سفارش</option>
-                            <option value="1">ثبت فاکتور</option>
-                            <option value="2">بررسی سفارش</option>
-                            <option value="3">آماده‌سازی</option>
-                            <option value="4">ارسال شده</option>
-                            <option value="5">لغو شده</option>
+                            <option :value="null">نوع ارسال</option>
+                            <option value="1">دریافت در محل</option>
+                            <option value="2">پست</option>
+                            <option value="3">باربری</option>
                         </select>
                     </div>
                     <div class="uk-margin-small-top">
@@ -44,16 +36,16 @@
                 <tr>
                     <th>#</th>
                     <th>مبلغ</th>
-                    <th>وضعیت سفارش</th>
-                    <th>زمان ثبت</th>
+                    <th>نوع ارسال</th>
+                    <th>تاریخ</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="order in scopeData.records">
-                    <td class="uk-table-shrink">{{order.id}}</td>
-                    <td>{{order.total.toLocaleString()}}</td>
-                    <td>{{order.statusName}}</td>
-                    <td>{{order.created_at}}</td>
+                <tr v-for="shipping in scopeData.records">
+                    <td class="uk-table-shrink">{{shipping.id}}</td>
+                    <td>{{shipping.cost.toLocaleString()}}</td>
+                    <td>{{shipping.methodName}}</td>
+                    <td>{{shipping.created_at}}</td>
                 </tr>
                 </tbody>
                 <tfoot>
@@ -61,13 +53,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>تعداد کل سفارشات: {{scopeData.otherData.count.toLocaleString()}}</td>
+                        <td>تعداد کل ارسال‌ها: {{scopeData.otherData.count.toLocaleString()}}</td>
                     </tr>
                     <tr class="uk-text-bold uk-background-muted-darker" v-if="scopeData.otherData.sum">
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>جمع مبلغ کل سفارشات: {{scopeData.otherData.sum.toLocaleString()}}</td>
+                        <td>جمع مبلغ کل ارسال‌ها: {{scopeData.otherData.sum.toLocaleString()}}</td>
                     </tr>
                 </tfoot>
             </table>

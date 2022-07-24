@@ -23,6 +23,7 @@ use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductOptionsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProvinceController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RetailerController;
 use App\Http\Controllers\RetailerItemController;
@@ -38,6 +39,7 @@ use App\Http\Controllers\VariationController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VehicleVariationController;
 use App\Http\Controllers\WidgetController;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -122,6 +124,8 @@ Route::get('coupon', [CouponController::class, 'index']);
 Route::post('coupon', [CouponController::class, 'store']);
 Route::post('coupon/validate', [CouponController::class, 'validateCoupon']);
 
+Route::post('province', [ProvinceController::class, 'index']);
+
 Route::prefix('dashboard')->group(function () {
     Route::get('/', [DashboardController::class, 'overview']);
 
@@ -197,6 +201,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('report/product', [ReportController::class, 'product']);
     Route::get('report/category', [ReportController::class, 'category']);
     Route::get('report/return_request', [ReportController::class, 'returnRequest']);
+    Route::get('report/shipping', [ReportController::class, 'shipping']);
+    Route::get('report/shipping_average', [ReportController::class, 'shippingAverageTime']);
 });
 
 Route::get('{page}', [PageController::class, 'show']);

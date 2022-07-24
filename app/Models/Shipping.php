@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\Shamsi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class Shipping extends Model
 {
-    use HasFactory, Shamsi;
+    use HasFactory, Shamsi, Filterable;
 
     protected $fillable = ['method', 'stock_id', 'cost', 'sailed_at', 'code'];
 

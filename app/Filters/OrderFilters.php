@@ -41,4 +41,11 @@ class OrderFilters extends QueryFilter
     {
         $this->query->whereDate('created_at', '<=', $value);
     }
+
+    public function province_id($value)
+    {
+        $this->query->whereHas('address', function ($q) use ($value) {
+            return $q->whereProvinceId($value);
+        });
+    }
 }

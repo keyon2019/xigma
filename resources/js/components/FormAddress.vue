@@ -5,18 +5,22 @@
             <div class="uk-width-expand">
                 <div class="uk-grid uk-grid-small uk-grid-match" data-uk-grid>
                     <div class="uk-width-1-2@m">
-                        <form-input label="استان" classes="uk-input"
-                                    type="input"
-                                    name="province"
-                                    :errors="form.errors"
-                                    v-model="form.province.value">
-                        </form-input>
-                        <form-input label="شهر" classes="uk-input"
-                                    type="input"
-                                    name="city"
-                                    :errors="form.errors"
-                                    v-model="form.city.value">
-                        </form-input>
+                        <label class="uk-form-label">استان</label>
+                        <select class="uk-select" name="province_id" v-model="form.province_id.value">
+                            <option value="" disabled>انتخاب کنید</option>
+                            <option v-for="province in provinces" :value="province.id">{{province.name}}</option>
+                        </select>
+                        <div v-if="form.errors.has('province_id')"
+                             class="uk-text-danger uk-text-small">{{form.errors['province_id']}}
+                        </div>
+                        <label class="uk-form-label">شهر</label>
+                        <select class="uk-select" name="city_id" v-model="form.city_id.value">
+                            <option value="" disabled>لطفا یک استان را انتخاب کنید</option>
+                            <option v-for="city in cities" :value="city.id">{{city.name}}</option>
+                        </select>
+                        <div v-if="form.errors.has('city_id')"
+                             class="uk-text-danger uk-text-small">{{form.errors['city_id']}}
+                        </div>
                         <form-input label="آدرس" classes="uk-input"
                                     type="input"
                                     name="directions"
@@ -63,13 +67,13 @@
             return {
                 categories: [],
                 form: new Form({
-                    province: {
+                    province_id: {
                         value: '',
-                        rules: 'required|string'
+                        rules: 'required|numeric'
                     },
-                    city: {
+                    city_id: {
                         value: '',
-                        rules: 'required|string'
+                        rules: 'required|numeric'
                     },
                     directions: {
                         value: '',
@@ -92,11 +96,21 @@
                         rules: 'required|numeric|digits:11'
                     }
                 }),
+                provinces: []
             }
         },
         mounted() {
             if (this.address) {
                 this.form.fill(this.address);
+            }
+            axios.post('/province').then((response) => {
+                this.provinces = response.data;
+            }).catch((e) => Toast.message(e.response.data.message).danger().show())
+                .then(() => Loading.hide());
+        },
+        computed: {
+            cities() {
+                return this.form.province_id.value ? _.find(this.provinces, {id: this.form.province_id.value}).cities : [];
             }
         },
         methods: {

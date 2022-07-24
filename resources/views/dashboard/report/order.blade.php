@@ -3,5 +3,5 @@
 @section('title', 'گزارش سفارش')
 
 @section('content')
-    <report-orders></report-orders>
+    <report-orders :provinces="{{$provinces}}"></report-orders>
 @endsection

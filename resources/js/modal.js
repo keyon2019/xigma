@@ -14,8 +14,11 @@ class Modal {
         }
     }
 
-    hide() {
+    hide(onHide = null) {
         Event.$emit(`hide-modal-${this.name}`);
+        if(onHide) {
+            UIkit.util.on(document, 'hidden', `#${this.name}`, onHide)
+        }
     }
 
     open() {

@@ -8,10 +8,14 @@ use App\Filters\OrderFilters;
 use App\Filters\PointFilters;
 use App\Filters\ProductFilters;
 use App\Filters\ReturnRequestFilters;
+use App\Filters\ShippingFilters;
 use App\Models\Order;
 use App\Models\Point;
 use App\Models\Product;
+use App\Models\Province;
 use App\Models\ReturnRequest;
+use App\Models\Shipping;
+use App\Models\Vehicle;
 use App\Scopes\VisibleProductsScope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +37,8 @@ class ReportController extends Controller
                 'sum' => $orders->sum('total')
             ]);
         }
-        return view('dashboard.report.order');
+        return view('dashboard.report.order')
+            ->with('provinces', Province::all());
     }
 
     public function point(PointFilters $filters, Request $request)
@@ -81,6 +86,16 @@ class ReportController extends Controller
             $query->orderBy('totalQuantity');
         }
 
+        if ($request->has('province_id') && $request->province_id != null) {
+            $query->join('addresses as ad', 'o.address_id', 'ad.id')
+                ->where('ad.province_id', $request->province_id);
+        }
+
+        if ($request->has('vehicle_id') && $request->vehicle_id != null) {
+            $query->join('vehicle_variation as vh', 'vh.variation_id', 'v.id')
+                ->where('vehicle_id', $request->vehicle_id);
+        }
+
         if ($request->has('from') && $request->from != null) {
             $query->whereDate('o.created_at', '>=', $request->from);
         }
@@ -92,7 +107,9 @@ class ReportController extends Controller
             $products = $query->get();
             return response()->json($products);
         }
-        return view('dashboard.report.product');
+        return view('dashboard.report.product')
+            ->with('provinces', Province::all())
+            ->with('vehicles', Vehicle::all());
     }
 
     public function category(Request $request)
@@ -154,5 +171,45 @@ class ReportController extends Controller
         if ($request->wantsJson())
             return response()->json($query->get());
         return view('dashboard.report.return_request');
+    }
+
+    public function shipping(Request $request, ShippingFilters $shippingFilters)
+    {
+        if ($request->wantsJson()) {
+            $shippings = Shipping::filter($shippingFilters)->latest()->get();
+            return response()->json([
+                'rows' => $shippings,
+                'count' => $shippings->count(),
+                'sum' => $shippings->sum('cost')
+            ]);
+        }
+        return view('dashboard.report.shipping');
+    }
+
+    public function shippingAverageTime(Request $request, OrderFilters $filters)
+    {
+        $query = Order::join('shippings as sh', 'sh.order_id', 'orders.id')
+            ->selectRaw('orders.id, CONVERT(AVG(DATEDIFF(sh.sailed_at,orders.created_at)), UNSIGNED) as averageDays')
+            ->groupBy('orders.id')
+            ->orderByDesc('orders.created_at')
+            ->havingRaw('averageDays IS NOT NULL');
+
+        if ($request->has('from') && $request->from != null) {
+            $query->whereDate('orders.created_at', '>=', $request->from);
+        }
+        if ($request->has('to') && $request->to != null) {
+            $query->whereDate('orders.created_at', '<=', $request->to);
+        }
+
+        $shippings = $query->get();
+
+        if($request->wantsJson()) {
+            return response()->json([
+                'rows' => $shippings,
+                'average' => number_format($shippings->avg('averageDays'))
+            ]);
+        }
+
+        return view('dashboard.report.shipping_average');
     }
 }

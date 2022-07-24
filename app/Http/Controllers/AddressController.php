@@ -31,7 +31,20 @@ class AddressController extends Controller
 
     public function store(Request $request)
     {
-        $address = auth()->user()->addresses()->create($request->all() + ['latitude' => $request->lat, 'longitude' => $request->lng]);
+        $data = $request->validate([
+            'province_id' => 'required|numeric|exists:provinces,id',
+            'city_id' => 'required|numeric|exists:cities,id',
+            'directions' => 'required|string',
+            'zip' => 'required|string|size:10',
+            'phone' => 'required|string|size:11',
+            'mobile' => ['required', new Mobile()],
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric'
+        ]);
+        $data['latitude'] = $request->lat;
+        $data['longitude'] = $request->lng;
+
+        $address = auth()->user()->addresses()->create($data);
         return response()->json(['address' => $address]);
     }
 
@@ -40,8 +53,8 @@ class AddressController extends Controller
         if (!auth()->user()->is_admin || auth()->id() != $address->user_id)
             return abort(401, "Unauthorized");
         $data = $request->validate([
-            'province' => 'required|string',
-            'city' => 'required|string',
+            'province_id' => 'required|numeric|exists:provinces,id',
+            'city_id' => 'required|numeric|exists:cities,id',
             'directions' => 'required|string',
             'zip' => 'required|string|size:10',
             'phone' => 'required|string|size:11',

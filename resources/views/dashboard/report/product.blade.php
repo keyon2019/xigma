@@ -3,5 +3,5 @@
 @section('title', 'گزارش پرفروش‌ترین محصولات')
 
 @section('content')
-    <report-products></report-products>
+    <report-products :provinces="{{$provinces}}" :vehicles="{{$vehicles}}"></report-products>
 @endsection

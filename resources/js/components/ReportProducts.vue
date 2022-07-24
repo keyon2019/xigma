@@ -10,6 +10,18 @@
                         <label><input class="uk-radio" type="radio" value="" name="desc" checked> کم فروش‌ترین</label>
                     </div>
                     <div class="uk-margin-small">
+                        <select class="uk-select" name="province_id">
+                            <option value="">همه استان‌ها</option>
+                            <option v-for="province in provinces" :value="province.id">{{province.name}}</option>
+                        </select>
+                    </div>
+                    <div class="uk-margin-small">
+                        <select class="uk-select" name="vehicle_id">
+                            <option value="">همه وسایل نقلیه</option>
+                            <option v-for="vehicle in vehicles" :value="vehicle.id">{{vehicle.name}}</option>
+                        </select>
+                    </div>
+                    <div class="uk-margin-small">
                         <input class="uk-input uk-border-rounded from" name="from" placeholder="از تاریخ">
                         <date-picker-wrapper custom-input=".from" name="from"></date-picker-wrapper>
                     </div>
@@ -55,6 +67,7 @@
 
 <script>
     export default {
+        props: ['provinces', 'vehicles'],
         data() {
             return {}
         },

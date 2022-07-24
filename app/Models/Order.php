@@ -52,7 +52,7 @@ class Order extends Model
 
     public function getStatusNameAttribute()
     {
-        return self::STATUSES[$this->status];
+        return $this->status ? self::STATUSES[$this->status] : '';
     }
 
     public function payments()

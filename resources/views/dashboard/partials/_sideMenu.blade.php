@@ -81,6 +81,8 @@
                     <li><a href="/dashboard/report/product" title="گزارش محصولات">پرفروش‌ترین محصولات</a></li>
                     <li><a href="/dashboard/report/category" title="گزارش دسته‌بندی‌ها">پرفروش‌ترین دسته‌بندی‌ها</a></li>
                     <li><a href="/dashboard/report/return_request" title="گزارش مرجوعی‌ها">مرجوعی‌ها</a></li>
+                    <li><a href="/dashboard/report/shipping" title="گزارش ارسال‌ها">هزینه ارسال</a></li>
+                    <li><a href="/dashboard/report/shipping_average" title="گزارش متوسط زمان ارسال">متوسط زمان ارسال</a></li>
                 </ul>
             </li>
         </ul>

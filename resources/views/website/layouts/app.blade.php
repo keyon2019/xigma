@@ -18,13 +18,13 @@
 
     <script defer src="{{ mix('js/app.js') }}"></script>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QE00XJXG2X"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FDWMWX2ZC"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config','G-QE00XJXG2X');
+        gtag('config','G-1FDWMWX2ZC');
     </script>
 
     @laravelPWA

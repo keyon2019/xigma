@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="createAddressModal.show()"
+        <button @click="createAddressModal.show(() => { showModalMap = true})"
                 class="uk-button uk-button-primary uk-border-rounded uk-margin"><span uk-icon="plus"></span>
             افزودن آدرس جدید
         </button>
@@ -9,7 +9,7 @@
                 <div v-for="address in scopeData.records" class="uk-grid uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
                     <div class="uk-width-expand@m">
                         <div class="uk-margin-bottom">
-                            <span>استان: </span><a>{{address.province}}</a> <span class="uk-margin-large-left">شهر: </span><a>{{address.city}}</a>
+                            <span>استان: </span><a>{{address.provinceName}}</a> <span class="uk-margin-large-left">شهر: </span><a>{{address.cityName}}</a>
                         </div>
                         <div class="uk-margin-bottom">
                             نشانی: {{address.directions}}
@@ -31,12 +31,13 @@
         </paginated-view>
         <modal class="uk-modal-container" name="address" dir="rtl">
             <h2>ویرایش آدرس</h2>
-            <form-address :key="selectedAddress ? selectedAddress.id : 'addressKEy'" :address="selectedAddress"
+            <form-address v-if="showModalMap" :key="selectedAddress ? selectedAddress.id : 'addressKEy'"
+                          :address="selectedAddress"
                           @submit="updateAddress"></form-address>
         </modal>
         <modal class="uk-modal-container" name="create-address" dir="rtl">
             <h2>ثبت آدرس جدید</h2>
-            <form-address @submit="createAddress"></form-address>
+            <form-address v-if="showModalMap" @submit="createAddress"></form-address>
         </modal>
     </div>
 </template>
@@ -54,6 +55,7 @@
                 addressModal: new Modal('address'),
                 createAddressModal: new Modal('create-address'),
                 selectedAddress: null,
+                showModalMap: false,
             }
         },
         methods: {
@@ -81,7 +83,9 @@
             },
             editAddress(address) {
                 this.selectedAddress = address;
-                this.addressModal.show();
+                this.addressModal.show(() => {
+                    this.showModalMap = true;
+                });
             },
             createAddress(form) {
                 Loading.show();

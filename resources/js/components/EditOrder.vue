@@ -18,8 +18,8 @@
                             </p>
                             <p><strong>ترجیح هزینه‌ای: </strong> {{order.cost_preference}}</p>
                             <p><strong>تاریخ ثبت: </strong> {{order.created_at}}</p>
-                            <p><strong>آدرس: </strong> {{order.address.province}}, {{order.address.city}},
-                                {{order.address.directions}}
+                            <p><strong>آدرس: </strong> {{order.address.provinceName}}, {{order.address.cityName}},
+                                {{order.address.directions}} {{order.address.zip}}
                             </p>
                         </div>
                     </div>

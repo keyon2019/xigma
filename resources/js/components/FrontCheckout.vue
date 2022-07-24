@@ -40,9 +40,9 @@
                                                       name="address_id" v-model="form.address_id.value"></label>
                                     </div>
                                     <div>
-                                        <p class="uk-margin-small"><span class="uk-text-bold">استان: </span> {{address.province}}
+                                        <p class="uk-margin-small"><span class="uk-text-bold">استان: </span> {{address.provinceName}}
                                         </p>
-                                        <p class="uk-margin-small"><span class="uk-text-bold">شهر: </span> {{address.city}}</p>
+                                        <p class="uk-margin-small"><span class="uk-text-bold">شهر: </span> {{address.cityName}}</p>
                                         <p class="uk-margin-small"><span class="uk-text-bold">آدرس: </span> {{address.directions}}
                                         <p class="uk-margin-small"><span class="uk-text-bold">کدپستی: </span> {{address.zip}}
                                         </p>
@@ -326,6 +326,7 @@
                 axios.post('/address', form.asFormData()).then((response) => {
                     this.addresses.unshift(response.data.address);
                     Toast.message('آدرس جدید با موفقیت ثبت شد').success().show();
+                    this.addressModal.hide();
                 }).catch((e) => {
                     Toast.message(e.response.data.message).danger().show();
                 }).then(() => {
