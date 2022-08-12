@@ -21,10 +21,14 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1FDWMWX2ZC"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
-        gtag('config','G-1FDWMWX2ZC');
+        gtag('config', 'G-1FDWMWX2ZC');
     </script>
 
     @laravelPWA
@@ -33,6 +37,7 @@
         .uk-modal-page {
             overflow: unset !important;
         }
+
         @media print {
             header {
                 display: none;
@@ -156,7 +161,10 @@
     </main>
     @include('website.partials._footer')
     <loading></loading>
-    <toast dir="rtl" message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif"></toast>
+    <toast class="hidden-in-print"
+           dir="rtl"
+           message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif">
+    </toast>
 </div>
 </body>
 </html>

@@ -67,6 +67,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/reminder">
+                                            <span data-uk-icon="warning"></span>
+                                            <span class="uk-margin-small-left uk-text-small">درخواست‌های یادآوری</span>
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/address">
                                             <span data-uk-icon="location"></span>
                                             <span class="uk-margin-small-left uk-text-small">نشانی‌ها</span>
@@ -138,6 +144,12 @@
                                     <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/comment">
                                         <span data-uk-icon="comment"></span>
                                         <span class="uk-margin-small-left uk-text-small">نظرات</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item" href="/reminder">
+                                        <span data-uk-icon="warning"></span>
+                                        <span class="uk-margin-small-left uk-text-small">درخواست‌های یادآوری</span>
                                     </a>
                                 </li>
                                 <li>

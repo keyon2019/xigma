@@ -1,13 +1,13 @@
 <?php
 return [
-    'Zarrinpal' => [
-        'id' => 1,
-        'class' => 'Zarrinpal',
-        'base_url' => 'https://sandbox.zarinpal.com/pg',
-        'merchant_id' => \Illuminate\Support\Str::random(36),
-        'icon' => '/uploads/zarinpal-logo.png',
-        'name' => 'زرین پال'
-    ],
+//    'Zarrinpal' => [
+//        'id' => 1,
+//        'class' => 'Zarrinpal',
+//        'base_url' => 'https://sandbox.zarinpal.com/pg',
+//        'merchant_id' => \Illuminate\Support\Str::random(36),
+//        'icon' => '/uploads/zarinpal-logo.png',
+//        'name' => 'زرین پال'
+//    ],
     'IranKish' => [
         'id' => 2,
         'class' => 'IranKish',

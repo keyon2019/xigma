@@ -23,6 +23,7 @@ class UpdateInventory
      */
     public function handle($event)
     {
-        $this->stockService->updateStocksInventory($event->order);
+        if ($event->stockNeedsUpdate)
+            $this->stockService->updateStocksInventory($event->order, $event->increment);
     }
 }

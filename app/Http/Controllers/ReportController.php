@@ -13,10 +13,12 @@ use App\Models\Order;
 use App\Models\Point;
 use App\Models\Product;
 use App\Models\Province;
+use App\Models\Reminder;
 use App\Models\ReturnRequest;
 use App\Models\Shipping;
 use App\Models\Vehicle;
 use App\Scopes\VisibleProductsScope;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -203,7 +205,7 @@ class ReportController extends Controller
 
         $shippings = $query->get();
 
-        if($request->wantsJson()) {
+        if ($request->wantsJson()) {
             return response()->json([
                 'rows' => $shippings,
                 'average' => number_format($shippings->avg('averageDays'))
@@ -211,5 +213,50 @@ class ReportController extends Controller
         }
 
         return view('dashboard.report.shipping_average');
+    }
+
+    public function reminder(Request $request)
+    {
+        $query = Reminder::selectRaw('variation_id, count(variation_id) as count')
+            ->with('variation.product')
+            ->groupBy('variation_id')
+            ->orderByDesc('count')
+            ->get();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'rows' => $query,
+            ]);
+        }
+
+        return view('dashboard.report.reminder');
+    }
+
+    public function productExitAverage(Request $request)
+    {
+        if (!$request->wantsJson()) {
+            return view('dashboard.report.product_exit_average');
+        }
+        if (!$request->has('from') || !$request->has('to')) {
+            return response([]);
+        }
+        $from = Carbon::parse($request->from);
+        $days = $from->diffInDays($request->to);
+
+        $query = Product::without(['variations', 'pictures', 'comments'])
+            ->withoutGlobalScope('rating')->withoutGlobalScope(VisibleProductsScope::class)
+            ->join('variations as v', 'v.product_id', 'products.id')
+            ->join('order_variation as ov', 'v.id', 'ov.variation_id')
+            ->join('orders as o', 'o.id', 'ov.order_id')
+            ->whereDate('o.created_at', '>=', $request->from)
+            ->whereDate('o.created_at', '<=', $request->to)
+            ->select('products.id as id', 'v.id as variationId', 'v.sku as sku', 'v.name as name', 'products.name as productName')
+            ->selectRaw("(IFNULL(SUM(ov.quantity), 0) / $days) as exit_average")
+            ->orderByDesc('exit_average')
+            ->groupBy('v.id');
+
+        return response()->json([
+            'rows' => $query->get(),
+        ]);
     }
 }

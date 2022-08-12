@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\OrderPaid;
+use App\Events\OrderStatusChanged;
 use App\Listeners\AddItemsToOrder;
 use App\Listeners\NotifyRetailers;
 use App\Listeners\TransferCartFromSessionToDB;
@@ -25,6 +26,9 @@ class EventServiceProvider extends ServiceProvider
         OrderPaid::class => [
             UpdateOrderPaymentStatus::class, UpdateInventory::class,
 //            AddItemsToOrder::class, NotifyRetailers::class
+        ],
+        OrderStatusChanged::class => [
+            UpdateInventory::class
         ]
     ];
 

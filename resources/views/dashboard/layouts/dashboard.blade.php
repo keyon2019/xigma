@@ -17,6 +17,7 @@
             #content {
                 margin-top: 0 !important;
             }
+
             table tfoot {
                 display: table-row-group;
             }
@@ -57,7 +58,9 @@
         </div>
     </div>
     <loading></loading>
-    <toast message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif"></toast>
+    <toast class="hidden-in-print"
+           message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif">
+    </toast>
 </div>
 
 </body>

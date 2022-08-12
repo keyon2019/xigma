@@ -171,9 +171,15 @@
                         <p v-if="product.onesie" class="uk-text-danger uk-margin-small-bottom"><span class="uk-margin-small-right"
                                                                                                      data-uk-icon="warning"></span><span>محدودیت خرید</span>
                         </p>
-                        <button class="uk-button uk-button-success uk-border-rounded uk-text-white add-to-cart-button uk-width-expand"
-                                @click="addToCart()"
-                                :disabled="!selectedVariation || (!!selectedVariation && !selectedVariation.available)">
+                        <template v-if="!selectedVariation || (!!selectedVariation && !selectedVariation.available)">
+                            <button @click="remindMe()" class="uk-button uk-button-primary uk-border-rounded uk-width-expand">
+                                موجود شد، به من اطلاع
+                                بده!
+                            </button>
+                        </template>
+                        <button v-else
+                                class="uk-button uk-button-success uk-border-rounded uk-text-white add-to-cart-button uk-width-expand"
+                                @click="addToCart()">
                     <span class="uk-grid uk-grid-small uk-flex uk-flex-middle uk-grid-divider">
                         <span class="uk-width-auto uk-first-column" data-uk-icon="icon:cart;ratio:1.5"></span>
                         <span class="uk-width-expand">افزودن به سبد خرید</span>
@@ -300,6 +306,17 @@
             }
         },
         methods: {
+            remindMe() {
+                if (!this.user) {
+                    window.location.href = '/login';
+                    return
+                }
+                Loading.show();
+                axios.post('/reminder', {variation_id: this.selectedVariation.id}).then(() => {
+                    Toast.message("درخواست شما با موفقیت ثبت شد").success().show();
+                }).catch((e) => Toast.message(e.response.data.message).danger().show())
+                    .then(() => Loading.hide());
+            },
             addToCart() {
                 Event.$emit('add-to-cart', this.selectedVariation.id, this.quantity);
             },

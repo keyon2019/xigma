@@ -56,7 +56,7 @@ class StockService
         );
     }
 
-    public function updateStocksInventory(Order $order)
+    public function updateStocksInventory(Order $order, $increment = false)
     {
         $collection = collect();
         $order->shippings()->with('variations')->get()->each(function ($shipping) use ($collection) {
@@ -68,11 +68,15 @@ class StockService
                 ]);
             }
         });
-        DB::transaction(function () use ($collection) {
+        DB::transaction(function () use ($collection, $increment) {
             foreach ($collection as $row) {
-                DB::table('stocks')->whereVariationId($row['variation_id'])
-                    ->whereRetailerId($row['retailer_id'])
-                    ->decrement('quantity', $row['quantity']);
+                $query = DB::table('stocks')->whereVariationId($row['variation_id'])
+                    ->whereRetailerId($row['retailer_id']);
+                if ($increment) {
+                    $query->increment('quantity', $row['quantity']);
+                } else {
+                    $query->decrement('quantity', $row['quantity']);
+                }
             }
         });
     }

@@ -1,9 +1,10 @@
 require('./bootstrap.js');
 
 import CKEditor from '@ckeditor/ckeditor5-vue2';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// import ClassicEditor from 'ckeditor5-34.2.0-custom'
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Editor from 'ckeditor5-35.0.1-1yonwqufgwot/build/ckeditor'
 import {MyCustomUploadAdapterPlugin} from './uploadAdapter';
+
 
 import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 
@@ -15,9 +16,9 @@ Vue.use(VuePersianDatetimePicker, {
     }
 });
 
-CKEditor.component.props.editor.default = ClassicEditor;
+CKEditor.component.props.editor.default = Editor.Editor;
 CKEditor.component.props.config.default = () => {
-    return {language: 'fa', extraPlugins: [MyCustomUploadAdapterPlugin]}
+    return {language: 'fa', extraPlugins: [MyCustomUploadAdapterPlugin], removePlugins: ['Title']}
 };
 Vue.use(CKEditor);
 

@@ -203,6 +203,17 @@ Route::prefix('dashboard')->group(function () {
     Route::get('report/return_request', [ReportController::class, 'returnRequest']);
     Route::get('report/shipping', [ReportController::class, 'shipping']);
     Route::get('report/shipping_average', [ReportController::class, 'shippingAverageTime']);
+    Route::get('report/reminder', [ReportController::class, 'reminder']);
+    Route::get('report/product_exit_average', [ReportController::class, 'productExitAverage']);
+
+    Route::get('contact', [\App\Http\Controllers\ContactController::class, 'index']);
 });
 
+Route::get('reminder', [\App\Http\Controllers\ReminderController::class, 'index']);
+Route::post('reminder', [\App\Http\Controllers\ReminderController::class, 'store']);
+Route::delete('reminder/{reminder}', [\App\Http\Controllers\ReminderController::class, 'destroy']);
+Route::get('contact', [\App\Http\Controllers\ContactController::class, 'show']);
+Route::group(['middleware' => ['throttle:2,2']], function () {
+    Route::post('contact', [\App\Http\Controllers\ContactController::class, 'store']);
+});
 Route::get('{page}', [PageController::class, 'show']);

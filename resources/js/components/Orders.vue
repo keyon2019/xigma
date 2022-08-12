@@ -52,7 +52,7 @@
                 <tbody>
                 <tr v-for="order in scopeData.records">
                     <td class="uk-table-shrink">{{order.id}}</td>
-                    <td class="uk-table-shrink">{{order.user.name}}</td>
+                    <td class="">{{order.user.name}}</td>
                     <td>{{order.receiver_number}}</td>
                     <td>{{order.total.toLocaleString()}}</td>
                     <td>{{order.statusName}}</td>

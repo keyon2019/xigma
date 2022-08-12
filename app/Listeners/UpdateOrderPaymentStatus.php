@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Enum\OrderStatus;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -26,6 +27,6 @@ class UpdateOrderPaymentStatus
     public function handle($event)
     {
         $order = $event->order;
-        $order->update(['paid' => true, 'status' => 2]);
+        $order->update(['paid' => true, 'status' => OrderStatus::INSPECTING]);
     }
 }

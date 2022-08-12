@@ -127,4 +127,9 @@ class User extends Authenticatable
             return Jalalian::forge($value)->format('Y/m/d');
         return null;
     }
+
+    public function reminders()
+    {
+        return $this->hasMany(Reminder::class);
+    }
 }

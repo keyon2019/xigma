@@ -74,6 +74,9 @@
             <li><a href="/dashboard/comment">
                     <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>نظرات</a>
             </li>
+            <li><a href="/dashboard/contact">
+                    <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>ارتباط با ما</a>
+            </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: info" class="uk-margin-small-right"></span>گزارش</a>
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/report/order" title="گزارش سفارش‌ها">سفارشات</a></li>
@@ -83,6 +86,8 @@
                     <li><a href="/dashboard/report/return_request" title="گزارش مرجوعی‌ها">مرجوعی‌ها</a></li>
                     <li><a href="/dashboard/report/shipping" title="گزارش ارسال‌ها">هزینه ارسال</a></li>
                     <li><a href="/dashboard/report/shipping_average" title="گزارش متوسط زمان ارسال">متوسط زمان ارسال</a></li>
+                    <li><a href="/dashboard/report/reminder" title="درخواست موجودی">درخواست موجودی</a></li>
+                    <li><a href="/dashboard/report/product_exit_average" title="نرخ خروج">نرخ خروج</a></li>
                 </ul>
             </li>
         </ul>

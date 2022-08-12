@@ -77,11 +77,12 @@
 </template>
 
 <script>
-
+    // import Editor from 'ckeditor5-35.0.1-1yonwqufgwot/build/ckeditor'
     export default {
         props: ['page', 'button-class', 'button-text', 'top-menus'],
         data() {
             return {
+                // editor: Editor,
                 form: new Form({
                     name: {
                         value: '',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enum\OrderStatus;
 use App\Enum\ReturnEnquiry;
 use App\Enum\ReturnReason;
+use App\Events\OrderStatusChanged;
 use App\Filters\OrderFilters;
 use App\Http\Requests\StoreOrderRequest;
 use App\Interfaces\CartInterface;
@@ -132,9 +133,20 @@ class OrderController extends Controller
 
     public function update(Order $order, Request $request)
     {
-        $data = $request->validate(['status' => 'numeric']);
+        $data = $request->validate([
+            'status' => 'numeric',
+            'refunded_at' => 'date',
+            'refund_gateway' => 'numeric',
+            'refund_reference_number' => 'numeric'
+        ]);
+
+        $oldStatus = $order->status;
         $order->update($data);
-        return response([], 200);
+
+        event(new OrderStatusChanged($order, $oldStatus, $order->status));
+        if ($request->wantsJson())
+            return response([], 200);
+        return back()->with(['flash_message' => json_encode(['message' => 'استرداد وجه با موفقیت ثبت شد', 'type' => 'success'])]);
     }
 
     public function invoice(Order $order)

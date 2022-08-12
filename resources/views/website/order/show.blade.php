@@ -266,6 +266,34 @@
                     </div>
                 </accordion>
             </div>
+            @if($order->refunded_at)
+                <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
+                    <accordion :open="true" title="اطلاعات استرداد وجه">
+                        <div class="uk-grid uk-grid-collapse uk-child-width-1-2@m uk-margin-small-top uk-text-meta"
+                             data-uk-grid>
+                            <div class="uk-padding-small uk-background-muted uk-flex uk-flex-middle"
+                                 style="border: 1px solid white">وضعیت
+                                پرداخت:
+                                {{$order->refunded_at != null ? 'مسترد شده' : 'در انتظار استرداد'}}</div>
+                            <div class="uk-padding-small uk-background-muted uk-flex uk-flex-middle"
+                                 style="border: 1px solid white">
+                                <div class="uk-margin-small-right">تاریخ‌پرداخت:</div>
+                                <div>{{$order->refunded_at}}</div>
+                            </div>
+                            <div class="uk-padding-small uk-background-muted uk-flex uk-flex-middle"
+                                 style="border: 1px solid white">
+                                <div class="uk-margin-small-right">درگاه‌پرداخت:</div>
+                                <div>{{collect(config('gateway'))->firstWhere('id', $order->refund_gateway)['name']}}</div>
+                            </div>
+                            <div class="uk-padding-small uk-flex uk-flex-middle uk-background-muted"
+                                 style="border: 1px solid white">
+                                <div class="uk-margin-small-right">شماره‌پیگیری:</div>
+                                <div>{{$order->refund_reference_number}}</div>
+                            </div>
+                        </div>
+                    </accordion>
+                </div>
+            @endif
             <div class="uk-text-center">
                 <a href="/order/{{$order->id}}/invoice"
                    class="uk-button uk-button-secondary uk-background-gray uk-button-large uk-border-rounded">چاپ فاکتور</a>

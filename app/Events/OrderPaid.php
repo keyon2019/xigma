@@ -14,7 +14,7 @@ class OrderPaid
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $order;
+    public $order, $increment, $stockNeedsUpdate;
 
     /**
      * Create a new event instance.
@@ -24,5 +24,7 @@ class OrderPaid
     public function __construct($order)
     {
         $this->order = $order;
+        $this->increment = false;
+        $this->stockNeedsUpdate = true;
     }
 }
