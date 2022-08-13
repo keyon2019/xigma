@@ -15,12 +15,14 @@ class CheckoutController extends Controller
 
     public function index(CartInterface $cart, ShippingService $shippingService)
     {
-        $gateways = array_map(function ($g) {
+        $gateways = collect(config('gateway'))->filter(function($gateway) {
+            return $gateway['active'] == true;
+        })->map(function($g) {
             return [
                 'id' => $g['id'],
                 'icon' => $g['icon']
             ];
-        }, config('gateway'));
+        });
 
         return view('website.checkout.index', compact('gateways'));
     }

@@ -1,13 +1,14 @@
 <?php
 return [
-//    'Zarrinpal' => [
-//        'id' => 1,
-//        'class' => 'Zarrinpal',
-//        'base_url' => 'https://sandbox.zarinpal.com/pg',
-//        'merchant_id' => \Illuminate\Support\Str::random(36),
-//        'icon' => '/uploads/zarinpal-logo.png',
-//        'name' => 'زرین پال'
-//    ],
+    'Zarrinpal' => [
+        'id' => 1,
+        'class' => 'Zarrinpal',
+        'base_url' => 'https://sandbox.zarinpal.com/pg',
+        'merchant_id' => \Illuminate\Support\Str::random(36),
+        'icon' => '/uploads/zarinpal-logo.png',
+        'name' => 'زرین پال',
+        'active' => false
+    ],
     'IranKish' => [
         'id' => 2,
         'class' => 'IranKish',
@@ -22,6 +23,7 @@ Pi9e6hmNy60qoClILbWBrtYPtWywaB577z7UlSaFLyTVnzjbWgOsHlnHQeXvDqAb
 Za3M9KKhZztcyufd6DrQ6zPGNgcH1/1EDxVh4lTJJDaezN1eFoP/BvtY66lIUj+f
 xBcJ82Eia4JB0VdklQIDAQAB
 -----END PUBLIC KEY-----',
-        'name' => 'ایران‌کیش'
+        'name' => 'ایران‌کیش',
+        'active' => true
     ]
 ];
