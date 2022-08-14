@@ -31,4 +31,12 @@ abstract class GatewayInterface
         $this->payment->update(['token' => $this->getToken()]);
         return $this;
     }
+
+    public function updateToken($order, $payment)
+    {
+        $this->order = $order;
+        $this->payment = $payment;
+        $this->payment->update(['token' => $this->getToken()]);
+        return $this;
+    }
 }

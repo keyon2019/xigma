@@ -78,7 +78,7 @@ class OrderController extends Controller
                 $orderTotal = max($cart->totalPrice() + collect($shippings)->sum('cost') - ($coupon ? $coupon->discount : 0), 0);
                 $vat = round($orderTotal * 0.09);
                 $order = auth()->user()->orders()->create($request->validated() + [
-                        'status' => ($orderTotal > 0 ? OrderStatus::INSPECTING : OrderStatus::PLACED),
+                        'status' => OrderStatus::PLACED,
                         'discount' => $coupon ? $coupon->discount : null,
                         'coupon' => $coupon ? $coupon->code : null,
                         'total' => round($orderTotal + $vat),

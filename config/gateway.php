@@ -7,7 +7,6 @@ return [
         'merchant_id' => \Illuminate\Support\Str::random(36),
         'icon' => '/uploads/zarinpal-logo.png',
         'name' => 'زرین پال',
-        'active' => false,
         'default' => false,
     ],
     'IranKish' => [

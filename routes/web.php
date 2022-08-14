@@ -92,6 +92,7 @@ Route::get('/product/{product}', [ProductController::class, 'show']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
 
 Route::any('/payment/{payment}', [PaymentController::class, 'update']);
+Route::post('/payment/{order}/attempt', [PaymentController::class, 'store']);
 
 Route::post('/item/{variation}/retailer', [ItemController::class, 'retailers']);
 

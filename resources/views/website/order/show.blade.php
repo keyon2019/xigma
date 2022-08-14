@@ -192,8 +192,8 @@
                     }) + $order->discount)}}</td>
                 </tr>
                 {{--<tr>--}}
-                    {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
-                    {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
+                {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
+                {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
                 {{--</tr>--}}
                 <tr>
                     <td>مالیات بر ارزش افزوده</td>
@@ -206,17 +206,20 @@
                 @foreach($order->returnRequests as $returnRequest)
                     <tr>
                         <td>مرجوعی</td>
-                        <td>{{number_format($returnRequest->total)}} - <a class="uk-link-reset uk-text-small" href="/return_request/{{$returnRequest->id}}">فاکتور مرجوعی {{$returnRequest->id}}</a></td>
+                        <td>{{number_format($returnRequest->total)}} - <a class="uk-link-reset uk-text-small"
+                                                                          href="/return_request/{{$returnRequest->id}}">فاکتور
+                                مرجوعی {{$returnRequest->id}}</a></td>
                     </tr>
                 @endforeach
                 </tbody>
             </table>
             <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
-                <accordion title="اطلاعات پرداخت">
+                <accordion :open="{{!$order->paid}}" title="اطلاعات پرداخت">
                     <div class="uk-grid uk-grid-collapse uk-child-width-1-2@m uk-margin-small-top uk-text-meta"
                          data-uk-grid>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">وضعیت
-                            پرداخت: {{$order->paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}</div>
+                            پرداخت: {{$order->paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}
+                        </div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">تاریخ
                             پرداخت: {{$order->successfulPayment->created_at ?? null}}</div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">درگاه

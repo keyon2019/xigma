@@ -13,7 +13,15 @@ class PaymentController extends Controller
 
     public function store(Order $order)
     {
-
+        if ($order->paid)
+            abort(402, "امکان پرداخت سفارش وجود ندارد");
+        $payment = $order->payments()->first();
+        $gateway = $payment->gateway->updateToken($order, $payment);
+        return response()->json(['message' => 'Order Placed Successfully', 'gateway' => [
+            'post_parameters' => $gateway->postParameters(),
+            'method' => $gateway->method(),
+            'url' => $gateway->gatewayUrl(),
+        ]]);
     }
 
     public function update(Payment $payment, Request $request, SMSService $SMSService)
