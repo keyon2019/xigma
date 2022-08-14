@@ -219,6 +219,14 @@
                          data-uk-grid>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">وضعیت
                             پرداخت: {{$order->paid ? 'پرداخت شده' : 'در انتظار پرداخت'}}
+                            {{--@if(!$order->paid)--}}
+                                {{--<form class="uk-display-inline" method="post" action="/payment/{{$order->id}}/attempt">--}}
+                                    {{--@csrf--}}
+                                    {{--<button class="uk-button uk-button-small uk-button-success uk-text-white uk-border-rounded">--}}
+                                        {{--پرداخت--}}
+                                    {{--</button>--}}
+                                {{--</form>--}}
+                            {{--@endif--}}
                         </div>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">تاریخ
                             پرداخت: {{$order->successfulPayment->created_at ?? null}}</div>

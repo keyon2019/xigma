@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Enum\OrderStatus;
+use App\Models\Order;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -19,12 +22,17 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('backup:run')->daily()->at('00:00');
+        $schedule->call(function () {
+            Order::where('created_at', '<', Carbon::now()->subMinutes(20))
+                ->whereStatus(OrderStatus::PLACED)
+                ->update(['status' => OrderStatus::CANCELED]);
+        })->everyMinute();
     }
 
     /**
@@ -34,7 +42,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
