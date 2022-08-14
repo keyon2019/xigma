@@ -66,7 +66,7 @@
                                 جمع کل خرید: {{total.toLocaleString()}} تومان
                             </div>
                             <div>
-                                مالیات بر ارزش افزوده: ۹ درصد
+                                مالیات بر ارزش افزوده: {{order.vat.toLocaleString()}}
                             </div>
                             <div>
                                 مبلغ پرداختی: {{payable.toLocaleString()}} تومان
@@ -160,7 +160,7 @@
                 return _.sumBy(this.order.variations, v => (v.pivot.price + v.pivot.discount) * v.pivot.quantity);
             },
             payable() {
-                return _.sumBy(this.order.variations, v => (v.pivot.price) * v.pivot.quantity) + _.sumBy(this.order.shippings, 'cost');
+                return this.order.total;
             },
             totalDiscount() {
                 return _.sumBy(this.order.variations, v => v.pivot.discount);

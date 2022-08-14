@@ -20,7 +20,8 @@ class CheckoutController extends Controller
         })->map(function($g) {
             return [
                 'id' => $g['id'],
-                'icon' => $g['icon']
+                'icon' => $g['icon'],
+                'default' => $g['default']
             ];
         });
 

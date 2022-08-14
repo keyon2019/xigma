@@ -40,9 +40,11 @@
                                                       name="address_id" v-model="form.address_id.value"></label>
                                     </div>
                                     <div>
-                                        <p class="uk-margin-small"><span class="uk-text-bold">استان: </span> {{address.provinceName}}
+                                        <p class="uk-margin-small"><span class="uk-text-bold">استان: </span>
+                                            {{address.provinceName}}
                                         </p>
-                                        <p class="uk-margin-small"><span class="uk-text-bold">شهر: </span> {{address.cityName}}</p>
+                                        <p class="uk-margin-small"><span class="uk-text-bold">شهر: </span> {{address.cityName}}
+                                        </p>
                                         <p class="uk-margin-small"><span class="uk-text-bold">آدرس: </span> {{address.directions}}
                                         <p class="uk-margin-small"><span class="uk-text-bold">کدپستی: </span> {{address.zip}}
                                         </p>
@@ -61,82 +63,85 @@
                         </div>
                     </div>
                 </div>
-                <hr/>
-                <div class="uk-grid uk-grid-small uk-child-width-1-2@m" data-uk-grid>
-                    <div>
-                        <ul class="uk-child-width-expand uk-subnav uk-subnav-pill uk-text-center" uk-switcher>
-                            <li><a @click="form.cost_preference.value = 1" class="uk-border-rounded"
-                                   style="padding: 10px;border:1px solid gainsboro" href="#">کم‌هزینه‌ترین
-                                روش ارسال</a></li>
-                            <li><a @click="form.cost_preference.value = 2" class="uk-border-rounded"
-                                   style="padding: 10px;border:1px solid gainsboro" href="#">سریع‌ترین
-                                روش ارسال</a></li>
-                        </ul>
+                <template v-if="form.address_id.value">
+                    <hr/>
+                    <div class="uk-grid uk-grid-small uk-child-width-1-2@m" data-uk-grid>
+                        <div>
+                            <ul class="uk-child-width-expand uk-subnav uk-subnav-pill uk-text-center" uk-switcher>
+                                <li><a @click="form.cost_preference.value = 1" class="uk-border-rounded"
+                                       style="padding: 10px;border:1px solid gainsboro" href="#">کم‌هزینه‌ترین
+                                    روش ارسال</a></li>
+                                <li><a @click="form.cost_preference.value = 2" class="uk-border-rounded"
+                                       style="padding: 10px;border:1px solid gainsboro" href="#">سریع‌ترین
+                                    روش ارسال</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <button class="uk-button uk-button-secondary uk-float-right uk-border-rounded" @click="getRoutes()">
+                                راهنمای ارسال کالا
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <button class="uk-button uk-button-secondary uk-float-right uk-border-rounded" @click="getRoutes()">
-                            راهنمای ارسال کالا
-                        </button>
-                    </div>
-                </div>
-                <div class="uk-margin-small-top">
-                    <table class="uk-table uk-table-middle uk-table-large full-bordered uk-table-responsive">
-                        <thead>
-                        <tr class="uk-background-muted">
-                            <th>ردیف</th>
-                            <th>شرح کالا</th>
-                            <th>تعداد</th>
-                            <th class="uk-text-center@m">قیمت کل (تومان)</th>
-                            <th class="uk-width-1-4">فرستنده</th>
-                            <th>نحوه ارسال</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(group, retailerName) in shippings">
-                            <td class="uk-table-shrink">
-                                <p class="uk-margin-large" v-for="(item, index) in group.items">{{item.id}}</p>
-                            </td>
-                            <td class="uk-table-expand">
-                                <p class="uk-margin-large" v-for="item in group.items" v-text="item.name"></p>
-                            </td>
-                            <td>
-                                <p class="uk-margin-large uk-text-center@m" v-for="item in group.items"
-                                   v-text="item.quantity"></p>
-                            </td>
-                            <td>
-                                <p class="uk-margin-large uk-text-center@m" v-for="item in group.items"
-                                   v-text="(item.price * item.quantity).toLocaleString()"></p>
-                            </td>
-                            <td>
-                                <dl>
-                                    <dt>{{retailerName}}</dt>
-                                    <dd class="uk-text-meta">{{group.retailerAddress}}</dd>
-                                </dl>
+                    <div class="uk-margin-small-top">
+                        <table class="uk-table uk-table-middle uk-table-large full-bordered uk-table-responsive">
+                            <thead>
+                            <tr class="uk-background-muted">
+                                <th>ردیف</th>
+                                <th>شرح کالا</th>
+                                <th>تعداد</th>
+                                <th class="uk-text-center@m">قیمت کل (تومان)</th>
+                                <th class="uk-width-1-4">فرستنده</th>
+                                <th>نحوه ارسال</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="(group, retailerName) in shippings">
+                                <td class="uk-table-shrink">
+                                    <p class="uk-margin-large" v-for="(item, index) in group.items">{{item.id}}</p>
+                                </td>
+                                <td class="uk-table-expand">
+                                    <p class="uk-margin-large" v-for="item in group.items" v-text="item.name"></p>
+                                </td>
+                                <td>
+                                    <p class="uk-margin-large uk-text-center@m" v-for="item in group.items"
+                                       v-text="item.quantity"></p>
+                                </td>
+                                <td>
+                                    <p class="uk-margin-large uk-text-center@m" v-for="item in group.items"
+                                       v-text="(item.price * item.quantity).toLocaleString()"></p>
+                                </td>
+                                <td>
+                                    <dl>
+                                        <dt>{{retailerName}}</dt>
+                                        <dd class="uk-text-meta">{{group.retailerAddress}}</dd>
+                                    </dl>
 
-                            </td>
-                            <td>
-                                <p v-for="method in group.shippingMethods">
-                                    <label class="uk-text-small uk-flex uk-flex-middle"><input class="uk-radio" type="radio"
-                                                                                               :value="{
+                                </td>
+                                <td>
+                                    <p v-for="method in group.shippingMethods">
+                                        <label class="uk-text-small uk-flex uk-flex-middle"><input :disabled="method.id === 1"
+                                                                                                   class="uk-radio" type="radio"
+                                                                                                   :value="{
                                                                                            'stock_id' : group.retailer_id,
                                                                                            'method': method.id,
                                                                                            'cost': method.id === 2 ? group.delivery_cost : 0
                                                                                            }"
-                                                                                               :name="`shipping_methods[${group.retailer_id}]`"
-                                                                                               v-model="form.shipping_methods.value[group.retailer_id]">
-                                        <div class="uk-margin-small-left">
-                                            <div>{{method.name}}</div>
-                                            <div class="uk-text-meta" v-if="method.id === 2">هزینه ارسال
-                                                {{group.delivery_cost.toLocaleString()}} تومان
+                                                                                                   :name="`shipping_methods[${group.retailer_id}]`"
+                                                                                                   v-model="form.shipping_methods.value[group.retailer_id]">
+                                            <div class="uk-margin-small-left">
+                                                <div>{{method.name}}</div>
+                                                <div class="uk-text-meta" v-if="method.id === 2">هزینه ارسال
+                                                    {{group.delivery_cost.toLocaleString()}} تومان
+                                                </div>
                                             </div>
-                                        </div>
-                                    </label>
-                                </p>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                                        </label>
+                                    </p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
             </div>
             <div class="uk-width-1-4@m">
                 <div class="uk-background-muted uk-padding-small uk-border-rounded uk-text-small"
@@ -196,7 +201,8 @@
                         <div v-for="gateway in gateways" class="uk-text-center">
                             <img class="uk-margin-small-bottom" :src="gateway.icon">
                             <label>
-                                <input v-model="form.gateway_id.value" class="uk-radio" type="radio" :value="gateway.id">
+                                <input v-model="form.gateway_id.value" class="uk-radio" type="radio"
+                                       :value="gateway.id">
                             </label>
                         </div>
                     </div>
@@ -260,7 +266,7 @@
                         rules: 'required|object'
                     },
                     gateway_id: {
-                        value: 1,
+                        value: 2,
                         rules: 'required|numeric'
                     },
                     receiver: {
@@ -290,6 +296,10 @@
         },
         methods: {
             placeOrder() {
+                if (this.form.address_id.value == null) {
+                    Toast.message("لطفا آدرس ارسال سفارش را مشخص بفرمایید").danger().show();
+                    return;
+                }
                 if (Object.values(this.form.shipping_methods.value).length !== Object.values(this.shippings).length) {
                     Toast.message("لطفا نحوه ارسال تمامی مرسولات را مشخص نمایید").danger().show();
                     return;
