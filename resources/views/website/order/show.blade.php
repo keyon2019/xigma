@@ -214,7 +214,7 @@
                 </tbody>
             </table>
             <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">
-                <accordion :open="{{!$order->paid}}" title="اطلاعات پرداخت">
+                <accordion title="اطلاعات پرداخت">
                     <div class="uk-grid uk-grid-collapse uk-child-width-1-2@m uk-margin-small-top uk-text-meta"
                          data-uk-grid>
                         <div class="uk-padding-small uk-background-muted" style="border: 1px solid white">وضعیت
