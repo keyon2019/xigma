@@ -67,6 +67,9 @@
                                     </div>
                                 </div>
                             </li>
+                            <li>
+                                <a href="/contact" class="uk-text-secondary">تماس با ما</a>
+                            </li>
                             @foreach($pages->where('position', 1) as $page)
                                 <li>
                                     <a href="{{$page->redirectLink}}"
@@ -212,6 +215,9 @@
                                         </div>
                                     </div>
                                 </li>
+                                <li>
+                                    <a href="/contact" class="uk-text-secondary">تماس با ما</a>
+                                </li>
                                 @foreach($pages->where('position', 1) as $page)
                                     <li>
                                         <a href="{{$page->redirectLink}}"
@@ -277,6 +283,9 @@
                     </ul>
                 </li>
             @endforeach
+            <li>
+                <a href="/contact">تماس با ما</a>
+            </li>
             @foreach($pages as $page)
                 @if($page->subs->count() > 0)
                     <li class="uk-parent">
