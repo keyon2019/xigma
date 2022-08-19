@@ -14,7 +14,7 @@
                             <p><strong>وضعیت سفارش: </strong>
                                 <select v-model="order.status" class="uk-select uk-width-medium uk-border-rounded">
                                     <option v-for="(status,key) in statuses"
-                                            :disabled="(user.roles.includes(2) && (key == 1 || key == 2 || key == 5))"
+                                            :disabled="($user.roles.includes(2) && (key == 1 || key == 2 || key == 5))"
                                             :value="key">{{status}}
                                     </option>
                                 </select>
