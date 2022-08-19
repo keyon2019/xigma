@@ -5,6 +5,7 @@
             <component v-if="['input','textarea', 'c-s-input'].includes(type)" :is="type" :name="name" :placeholder="label" :value.prop="value"
                        :id="id"
                        :rows="rows"
+                       :disabled="disabled"
                        class="uk-border-rounded"
                        @input="$emit('input', $event.target.value)"
                        :class="[errors.has(name) ? 'uk-form-danger' : '', classes ? classes : '']"></component>
@@ -17,7 +18,7 @@
 
 <script>
     export default {
-        props: ['errors', 'label', 'name', 'type', 'classes', 'value', 'rows', 'options', 'id'],
+        props: ['errors', 'label', 'name', 'type', 'classes', 'value', 'rows', 'options', 'id', 'disabled'],
     }
 </script>
 

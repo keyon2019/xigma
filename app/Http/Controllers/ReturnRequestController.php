@@ -12,17 +12,18 @@ use App\Models\ReturnRequest;
 use App\Rules\Mobile;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Gate;
 
 class ReturnRequestController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->only(['edit', 'all']);
     }
 
     public function all(Request $request, ReturnRequestFilters $filters, ReturnRequestStatus $statuses)
     {
+        Gate::authorize('edit-order');
         if ($request->wantsJson())
             return response()->json(ReturnRequest::filter($filters)->with('user')->latest()->paginate(15));
         return view('dashboard.return_request.index', compact('statuses'));
@@ -37,6 +38,8 @@ class ReturnRequestController extends Controller
 
     public function show(ReturnRequest $returnRequest)
     {
+        if (auth()->id() != $returnRequest->user_id)
+            return abort(401, "Unauthorized");
         return view('website.return_request.show', compact('returnRequest'));
     }
 
@@ -76,12 +79,14 @@ class ReturnRequestController extends Controller
                          ReturnRequestStatus $statuses,
                          ShippingMethod $shippingMethods)
     {
+        Gate::authorize('edit-order');
         $returnRequest->load(['variation', 'user', 'technician']);
         return view('dashboard.return_request.edit', compact('returnRequest', 'technicalStatuses', 'statuses', 'shippingMethods'));
     }
 
     public function update(ReturnRequest $returnRequest, Request $request)
     {
+        Gate::authorize('edit-order');
         $validated = $request->validate([
             'technical_status' => 'nullable|numeric',
             'technical_comment' => 'nullable|string',

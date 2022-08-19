@@ -17,6 +17,7 @@ class CreateStockTransactionsTable extends Migration
             $table->id();
             $table->foreignId('variation_id')->constrained();
             $table->unsignedInteger('quantity');
+            $table->unsignedInteger('current_stock');
             $table->timestamps();
         });
     }

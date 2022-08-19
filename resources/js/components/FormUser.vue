@@ -8,10 +8,11 @@
                         <form-input label="نام کاربر" classes="uk-input"
                                     type="input"
                                     name="name"
+                                    :disabled="!$user.is_admin"
                                     :errors="form.errors"
                                     v-model="form.name.value">
                         </form-input>
-                        <form-input label="موبایل" classes="uk-input"
+                        <form-input :disabled="!$user.is_admin" label="موبایل" classes="uk-input"
                                     type="input"
                                     name="mobile"
                                     :errors="form.errors"

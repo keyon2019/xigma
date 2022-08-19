@@ -31,6 +31,7 @@ use App\Http\Controllers\ReturnRequestController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StockTransactionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPointController;
 use App\Http\Controllers\UserVehicleController;
@@ -182,6 +183,7 @@ Route::prefix('dashboard')->group(function () {
 
     Route::resource('user', UserController::class)->except('show', 'destroy');
     Route::get('user/search', [UserController::class, 'search']);
+    Route::post('user/{user}/role', [UserController::class, 'updateRoles']);
 
     Route::post('/picture', [PictureController::class, 'store']);
     Route::delete('picture/{picture}', [PictureController::class, 'destroy']);
@@ -208,6 +210,9 @@ Route::prefix('dashboard')->group(function () {
     Route::get('report/product_exit_average', [ReportController::class, 'productExitAverage']);
 
     Route::get('contact', [\App\Http\Controllers\ContactController::class, 'index']);
+
+    Route::resource('stock_transaction', StockTransactionController::class)->only(['index', 'store']);
+    Route::post('variation/search', [VariationController::class, 'search']);
 });
 
 Route::get('reminder', [\App\Http\Controllers\ReminderController::class, 'index']);

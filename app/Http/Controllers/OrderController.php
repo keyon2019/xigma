@@ -18,17 +18,18 @@ use App\Models\User;
 use App\Services\ClosestItemFinderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->only(['all', 'edit', 'update', 'userOrders']);
     }
 
     public function all(Request $request, OrderFilters $filters)
     {
+        Gate::authorize('edit-order');
         if ($request->wantsJson())
             return response()->json(Order::filter($filters)->with('user')->latest()->paginate(15));
         return view('dashboard.order.index');
@@ -43,6 +44,7 @@ class OrderController extends Controller
 
     public function userOrders(User $user)
     {
+        Gate::authorize('edit-order');
         return response()->json($user->orders()->latest()->paginate(10));
     }
 
@@ -126,6 +128,7 @@ class OrderController extends Controller
 
     public function edit(Order $order)
     {
+        Gate::authorize('edit-order');
         return view('dashboard.order.edit')
             ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product', 'successfulPayment']))
             ->with('orderStatuses', json_encode(Order::STATUSES));
@@ -133,6 +136,7 @@ class OrderController extends Controller
 
     public function update(Order $order, Request $request)
     {
+        Gate::authorize('edit-order');
         $data = $request->validate([
             'status' => 'numeric',
             'refunded_at' => 'date',

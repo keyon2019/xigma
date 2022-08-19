@@ -9,16 +9,19 @@ use App\Models\Product;
 use App\Models\Variation;
 use App\Scopes\VisibleProductsScope;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class VariationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth');
+        $this->middleware('admin')->only('search');
     }
 
     public function index(VariationFilters $filters)
     {
+        Gate::authorize('edit-product');
         if (\request()->wantsJson())
             return response()->json(Variation::withStock()
                 ->filter($filters)->with(['product' => function ($q) {
@@ -29,6 +32,7 @@ class VariationController extends Controller
 
     public function store(Product $product, StoreVariationRequest $request)
     {
+        Gate::authorize('edit-product');
         $variation = $product->variations()->create($request->validated());
 
         if ($request->has('options'))
@@ -39,6 +43,7 @@ class VariationController extends Controller
 
     public function update(Variation $variation, StoreVariationRequest $request)
     {
+        Gate::authorize('edit-product');
         $variation->update($request->validated());
 
         if ($request->has('options'))
@@ -49,12 +54,23 @@ class VariationController extends Controller
 
     public function destroy(Variation $variation)
     {
+        Gate::authorize('edit-product');
         try {
             $variation->delete();
             return response([]);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
         }
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate(['keyword' => 'required|string|min:3']);
+        $keyword = $request->keyword;
+        $response = Variation::whereHas('product', function ($q) use ($keyword) {
+            return $q->where('name', 'like', "%$keyword%");
+        })->orWhere('name', 'like', "%$keyword%")->orWhere('sku', "$keyword")->limit(10)->get();
+        return response()->json(['result' => $response]);
     }
 
     private function optionsAsArray($variation, $options)

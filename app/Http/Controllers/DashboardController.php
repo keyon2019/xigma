@@ -9,11 +9,13 @@ class DashboardController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth');
     }
 
-    public function overview(Request $request)
+    public function overview()
     {
-        return view('dashboard.pages.overview');
+        if (auth()->user()->is_admin || auth()->user()->roles != null)
+            return view('dashboard.pages.overview');
+        return abort(401, 'Unauthenticated!');
     }
 }

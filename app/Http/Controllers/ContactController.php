@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Rules\Mobile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin')->only('index');
+        $this->middleware('auth')->only('index');
     }
 
     public function index(Request $request)
     {
+        Gate::authorize('edit-user');
         if ($request->wantsJson())
             return response()->json(Contact::latest()->paginate(15));
         return view('dashboard.contact.index');

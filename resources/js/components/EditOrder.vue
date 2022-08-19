@@ -13,7 +13,10 @@
                         <div class="uk-width-1-2">
                             <p><strong>وضعیت سفارش: </strong>
                                 <select v-model="order.status" class="uk-select uk-width-medium uk-border-rounded">
-                                    <option v-for="(status,key) in statuses" :value="key">{{status}}</option>
+                                    <option v-for="(status,key) in statuses"
+                                            :disabled="(user.roles.includes(2) && (key == 1 || key == 2 || key == 5))"
+                                            :value="key">{{status}}
+                                    </option>
                                 </select>
                             </p>
                             <p><strong>ترجیح هزینه‌ای: </strong> {{order.cost_preference}}</p>
@@ -167,7 +170,7 @@
             },
             totalShippingsCost() {
                 return _.sumBy(this.order.shippings, 'cost');
-            }
+            },
         },
         methods: {
             findItemProductName(item) {

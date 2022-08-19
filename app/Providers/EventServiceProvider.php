@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Events\OrderPaid;
 use App\Events\OrderStatusChanged;
+use App\Events\ProductIsNowAvailable;
 use App\Listeners\AddItemsToOrder;
+use App\Listeners\NotifyavailabilitySubscribers;
 use App\Listeners\NotifyRetailers;
 use App\Listeners\TransferCartFromSessionToDB;
 use App\Listeners\UpdateInventory;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderStatusChanged::class => [
             UpdateInventory::class
+        ],
+        ProductIsNowAvailable::class => [
+            NotifyAvailabilitySubscribers::class,
         ]
     ];
 

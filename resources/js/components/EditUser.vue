@@ -7,6 +7,7 @@
         <div class="">
             <ul class="uk-tab"
                 data-uk-switcher="animation: uk-animation-slide-left-medium, uk-animation-slide-right-medium">
+                <li v-if="$user.is_admin"><a href="#roles">نقش‌های سیستمی</a></li>
                 <li><a href="#orders">سفارش‌ها</a></li>
                 <li><a href="#addresses">نشانی‌ها</a></li>
                 <li><a href="#points">امتیازات</a></li>
@@ -14,6 +15,17 @@
             </ul>
 
             <div class="uk-switcher uk-padding uk-background-default uk-border-rounded uk-box-shadow-small uk-margin">
+                <div v-if="$user.is_admin">
+                    <div v-for="(role, id) in roles" class="uk-margin-small">
+                        <label><input class="uk-checkbox" v-model="user.roles" type="checkbox" :value="id" name="roles[]">
+                            {{role}} </label>
+                    </div>
+                    <div>
+                        <button @click="updateRoles()" class="uk-button uk-button-secondary uk-border-rounded uk-button-small">
+                            ویرایش
+                        </button>
+                    </div>
+                </div>
                 <div id="orders-content">
                     <front-orders :admin-panel="true" :fetch-url="'/dashboard/order/user/' + user.id"></front-orders>
                 </div>
@@ -35,7 +47,7 @@
 
 <script>
     export default {
-        props: ['initial-user'],
+        props: ['initial-user', 'roles'],
         data() {
             return {
                 user: this.initialUser,
@@ -65,6 +77,13 @@
                 }).then(() => {
                     Loading.close();
                 })
+            },
+            updateRoles() {
+                Loading.show();
+                axios.post(`/dashboard/user/${this.user.id}/role`, {roles: this.user.roles}).then(() => {
+                    Toast.message("نقش‌های کاربر با موفقیت به روزرسانی شد").success().show();
+                }).catch((e) => Toast.message(e.response.data.message).danger().show())
+                    .then(() => Loading.hide());
             }
         }
     }

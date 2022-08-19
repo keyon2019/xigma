@@ -13,16 +13,18 @@ use App\Models\Widget;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin')->except('show');
+        $this->middleware('auth')->except('show');
     }
 
     public function index(Request $request, CategoryFilters $filters)
     {
+        Gate::authorize('edit-product');
         if ($request->wantsJson())
             return response()->json(Category::filter($filters)->paginate($request->has('n') ? $request->n : 15));
         return view('dashboard.category.index');
@@ -41,11 +43,13 @@ class CategoryController extends Controller
 
     public function create()
     {
+        Gate::authorize('edit-product');
         return view('dashboard.category.create');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('edit-product');
         $validated = $request->validate([
             'name' => 'required|string',
             'description' => 'string',
@@ -72,11 +76,13 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        Gate::authorize('edit-product');
         return view('dashboard.category.edit', compact('category'));
     }
 
     public function update(Category $category, Request $request)
     {
+        Gate::authorize('edit-product');
         $validated = $request->validate([
             'name' => 'required|string',
             'description' => 'string',
@@ -104,6 +110,7 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        Gate::authorize('edit-product');
         $category->splash->delete();
         $category->wide_splash->delete();
         Widget::whereCategory($category->id)->delete();

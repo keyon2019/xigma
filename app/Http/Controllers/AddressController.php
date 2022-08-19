@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\User;
 use App\Rules\Mobile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AddressController extends Controller
 {
@@ -26,6 +27,7 @@ class AddressController extends Controller
 
     public function userAddresses(User $user)
     {
+        Gate::authorize('edit-user');
         return response()->json($user->addresses()->latest()->paginate(10));
     }
 

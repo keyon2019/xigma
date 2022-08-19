@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Picture;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class PictureController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth');
     }
 
     public function store(Request $request)
     {
+        Gate::authorize('edit-product');
         $validated = $request->validate([
             'file' => 'required|file',
             'picturable_id' => 'numeric',
@@ -34,6 +36,7 @@ class PictureController extends Controller
 
     public function destroy(Picture $picture)
     {
+        Gate::authorize('edit-product');
         $picture->delete();
         return response([], 200);
     }

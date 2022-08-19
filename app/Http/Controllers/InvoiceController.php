@@ -6,17 +6,18 @@ use App\Filters\InvoiceFilters;
 use App\Interfaces\CartInterface;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class InvoiceController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->only('all');
     }
 
     public function all(Request $request, InvoiceFilters $filters)
     {
+        Gate::authorize('edit-invoice');
         if ($request->wantsJson())
             return response()->json(Invoice::filter($filters)->with('user')->latest()->paginate(15));
         return view('dashboard.invoice.index');
@@ -24,6 +25,7 @@ class InvoiceController extends Controller
 
     public function edit(Invoice $invoice)
     {
+        Gate::authorize('edit-invoice');
         return view('dashboard.invoice.edit')
             ->with('invoice', $invoice->load(['user', 'variations.product']));
     }
@@ -51,7 +53,7 @@ class InvoiceController extends Controller
             'vat' => $vat
         ]);
         $invoice->variations()->sync($cart->preparedForDB());
-//        $cart->clear();
+        $cart->clear();
         return redirect("/invoice/$invoice->id");
     }
 

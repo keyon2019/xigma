@@ -5,21 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Point;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserPointController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth');
     }
 
     public function index(User $user)
     {
+        Gate::authorize('edit-user');
         return response()->json($user->points()->latest()->paginate(15));
     }
 
     public function store(User $user, Request $request)
     {
+        Gate::authorize('edit-user');
         $validated = $request->validate([
             'user_id' => 'required|numeric',
             'amount' => 'required|numeric',

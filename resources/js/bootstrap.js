@@ -39,8 +39,10 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 
 
 const user = JSON.parse(document.querySelector('meta[name="user"]').getAttribute('content'));
-if (!_.isEmpty(user))
+if (!_.isEmpty(user)) {
     Vue.prototype.user = user;
+    Vue.prototype.$user = user;
+}
 
 
 import mapboxgl from 'mapbox-gl';

@@ -11,6 +11,16 @@ use Mavinoo\Batch\Batch;
 
 class StockService
 {
+    public function getInventoryCount($variationId)
+    {
+        $quantity = DB::table('stocks')
+            ->where('variation_id', $variationId)
+            ->groupBy('variation_id')
+            ->selectRaw('SUM(stocks.quantity) as q')
+            ->first();
+        return $quantity ? $quantity->q : 0;
+    }
+
     public function checkInventory($variationId, $quantity = 1)
     {
         return DB::table('stocks')

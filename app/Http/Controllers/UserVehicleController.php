@@ -6,6 +6,7 @@ use App\Filters\VehicleFilters;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserVehicleController extends Controller
 {
@@ -23,6 +24,7 @@ class UserVehicleController extends Controller
 
     public function userVehicles(User $user)
     {
+        Gate::authorize('edit-user');
         return response()->json($user->vehicles()->paginate(15));
     }
 

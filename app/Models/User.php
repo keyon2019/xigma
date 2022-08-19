@@ -31,7 +31,8 @@ class User extends Authenticatable
         'telephone',
         'is_active',
         'total_points',
-        'birthday'
+        'birthday',
+        'roles'
     ];
 
     /**
@@ -51,6 +52,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'roles' => 'array'
     ];
 
     public function cart()
@@ -131,5 +133,10 @@ class User extends Authenticatable
     public function reminders()
     {
         return $this->hasMany(Reminder::class);
+    }
+
+    public function hasRole($role)
+    {
+        return in_array($role, $this->roles ?? []);
     }
 }
