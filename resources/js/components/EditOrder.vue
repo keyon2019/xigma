@@ -30,6 +30,11 @@
                         <button class="uk-button uk-button-primary uk-border-rounded hidden-in-print" @click="updateOrder">
                             ویرایش
                         </button>
+                        <a target="_blank"
+                           :href="'/order/' + order.id + '/invoice?print=1'"
+                           class="uk-button uk-button-secondary uk-border-rounded hidden-in-print">
+                            چاپ فاکتور
+                        </a>
                     </div>
                 </div>
             </div>

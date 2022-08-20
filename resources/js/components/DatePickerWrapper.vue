@@ -1,8 +1,8 @@
 <template>
     <div>
         <vue-persian-datetime-picker :value="value"
-                                     format="YYYY/MM/DD"
-                                     display-format="jYYYY/jMM/jDD"
+                                     :format="format"
+                                     :display-format="displayFormat"
                                      :custom-input="customInput"
                                      v-model="date"
                                      type="date"></vue-persian-datetime-picker>
@@ -14,12 +14,24 @@
     import VuePersianDatetimePicker from 'vue-persian-datetime-picker';
 
     export default {
-        props: ['value', 'custom-input', 'name'],
+        props: {
+            'value': {}, 'custom-input': {}, 'name': {},
+            'format': {
+                default: 'YYYY/MM/DD'
+            },
+            'display-format': {
+                default: 'jYYYY/jMM/jDD'
+            }
+        },
         components: {VuePersianDatetimePicker},
         data() {
             return {
                 date: ""
             }
+        },
+        mounted() {
+            if(this.value)
+                this.date = this.value;
         },
         watch: {
             date() {

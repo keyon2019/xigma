@@ -27,8 +27,12 @@
                 <div class="uk-form-controls uk-flex uk-flex-bottom">
                     <input class="uk-input uk-border-rounded birthday"
                            value="{{$user->birthday}}">
-                    <date-picker-wrapper custom-input=".birthday" name="birthday"
-                                         value="{{$user->birthday}}"></date-picker-wrapper>
+                    <date-picker-wrapper
+                            format="YYYY-MM-DD"
+                            display-format="jYYYY/jMM/jDD"
+                            custom-input=".birthday"
+                            name="birthday"
+                            value="{{$user->birthday}}"></date-picker-wrapper>
                 </div>
             </div>
             <div class="uk-margin">

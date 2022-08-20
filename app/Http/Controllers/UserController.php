@@ -39,6 +39,8 @@ class UserController extends Controller
             'name' => 'required|string',
             'mobile' => ['required', new Mobile(), 'unique:users,mobile'],
             'email' => 'nullable|string',
+            'telephone' => 'required|string',
+            'emergency_mobile' => [new Mobile()],
             'password' => 'required|string',
             'is_retailer' => 'boolean',
             'is_active' => 'boolean'
@@ -61,8 +63,10 @@ class UserController extends Controller
         Gate::authorize('edit-user');
         $validated = $request->validate([
             'name' => 'required|string',
-            'email' => 'nullable|string',
-            'mobile' => [new Mobile(), 'unique:users,mobile'],
+            'email' => ['nullable', 'email', "unique:users,email,$user->id"],
+            'mobile' => [new Mobile(), "unique:users,mobile,$user->id"],
+            'telephone' => 'string',
+            'emergency_mobile' => [new Mobile()],
             'password' => 'string',
             'birthday' => 'date',
             'is_retailer' => 'boolean',

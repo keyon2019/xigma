@@ -36,33 +36,35 @@
             </div>
         </template>
         <template v-slot="scopeData">
-            <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
             uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>کاربر</th>
-                    <th>موبایل</th>
-                    <th>مبلغ</th>
-                    <th>وضعیت سفارش</th>
-                    <th>زمان ثبت</th>
-                    <th>مشاهده</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="order in scopeData.records">
-                    <td class="uk-table-shrink">{{order.id}}</td>
-                    <td class="">{{order.user.name}}</td>
-                    <td>{{order.receiver_number}}</td>
-                    <td>{{order.total.toLocaleString()}}</td>
-                    <td>{{order.statusName}}</td>
-                    <td>{{order.created_at}}</td>
-                    <td><a :href="`/dashboard/order/${order.id}/edit`"
-                           class="uk-button uk-button-small uk-button-primary">نمایش</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>کاربر</th>
+                        <th>موبایل</th>
+                        <th>مبلغ</th>
+                        <th>وضعیت سفارش</th>
+                        <th>زمان ثبت</th>
+                        <th>مشاهده</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="order in scopeData.records">
+                        <td class="uk-table-shrink">{{order.id}}</td>
+                        <td class="">{{order.user.name}}</td>
+                        <td>{{order.receiver_number}}</td>
+                        <td>{{order.total.toLocaleString()}}</td>
+                        <td>{{order.statusName}}</td>
+                        <td>{{order.created_at}}</td>
+                        <td><a :href="`/dashboard/order/${order.id}/edit`"
+                               class="uk-button uk-button-small uk-button-primary">نمایش</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </template>
     </paginated-view>
 </template>

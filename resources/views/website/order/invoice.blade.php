@@ -3,7 +3,8 @@
 @section('content')
     <div class="uk-section uk-section-muted uk-section-xsmall">
         <div class="uk-container">
-            <a href="/order/{{$order->id}}" class="uk-button uk-margin-small uk-border-rounded uk-button-secondary hidden-in-print">بازگشت به سفارش</a>
+            <a href="/order/{{$order->id}}"
+               class="uk-button uk-margin-small uk-border-rounded uk-button-secondary hidden-in-print">بازگشت به سفارش</a>
             <div class="uk-grid uk-flex uk-flex-middle">
                 <div class="uk-width-expand@m">
                     <div class="uk-text-bold">فاکتور فروش آنلاین قطعات زیگما</div>
@@ -93,7 +94,7 @@
                 </div>
             </div>
             @foreach($order->groupedByShippings as $shippingId => $group)
-                <div class="uk-padding-small uk-box-shadow-small uk-border-rounded uk-margin-small uk-background-default avoid-pb">
+                <div class="uk-padding-small uk-box-shadow-small uk-border-rounded uk-margin-small uk-background-default">
                     <div>
                         <div class="uk-grid uk-grid-collapse uk-text-small">
                             <div class="uk-width-expand">
@@ -189,8 +190,8 @@
                     }) + $order->discount)}}</td>
                         </tr>
                         {{--<tr class="uk-background-default">--}}
-                            {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
-                            {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
+                        {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
+                        {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
                         {{--</tr>--}}
                         <tr class="uk-background-default">
                             <td>مالیات بر ارزش افزوده</td>
@@ -262,21 +263,21 @@
                             <div class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
                                  data-uk-grid>
                                 <div class="uk-padding-xsmall uk-flex uk-flex-middle"
-                                     >وضعیت
+                                >وضعیت
                                     پرداخت:
                                     {{$returnRequest->payed_at != null ? 'پرداخت شده' : 'در انتظار پرداخت'}}</div>
                                 <div class="uk-padding-xsmall uk-flex uk-flex-middle"
-                                     >
+                                >
                                     <div class="uk-margin-small-right">تاریخ‌پرداخت:</div>
                                     <div>{{$returnRequest->payed_at}}</div>
                                 </div>
                                 <div class="uk-padding-xsmall uk-flex uk-flex-middle"
-                                     >
+                                >
                                     <div class="uk-margin-small-right">درگاه‌پرداخت:</div>
                                     <div>{{collect(config('gateway'))->firstWhere('id', $returnRequest->gateway)['name']}}</div>
                                 </div>
                                 <div class="uk-padding-xsmall uk-flex uk-flex-middle"
-                                     >
+                                >
                                     <div class="uk-margin-small-right">شماره‌پیگیری:</div>
                                     <div>{{$returnRequest->reference_number}}</div>
                                 </div>
@@ -305,4 +306,12 @@
             </div>
         </div>
     </div>
+    <script>
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+        });
+        if (params.print) {
+            window.print();
+        }
+    </script>
 @endsection

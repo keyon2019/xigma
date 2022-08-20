@@ -155,7 +155,7 @@ class OrderController extends Controller
 
     public function invoice(Order $order)
     {
-        if (auth()->user()->id === $order->user_id)
+        if (auth()->user()->id === $order->user_id || auth()->user()->is_admin || auth()->user()->roles != [])
             return view('website.order.invoice')
                 ->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment', 'returnRequests'));
         return abort(401);

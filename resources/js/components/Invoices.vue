@@ -29,31 +29,33 @@
             </div>
         </template>
         <template v-slot="scopeData">
-            <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-divider uk-table-small uk-margin-remove
             uk-table-middle uk-background-default uk-border-rounded uk-box-shadow-small">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>کاربر</th>
-                    <th>موبایل</th>
-                    <th>مبلغ</th>
-                    <th>زمان ثبت</th>
-                    <th>مشاهده</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="invoice in scopeData.records">
-                    <td class="uk-table-shrink">{{invoice.id}}</td>
-                    <td class="uk-table-shrink">{{invoice.user.name}}</td>
-                    <td class="">{{invoice.user.mobile}}</td>
-                    <td>{{invoice.total.toLocaleString()}}</td>
-                    <td>{{invoice.created_at}}</td>
-                    <td><a :href="`/dashboard/invoice/${invoice.id}/edit`"
-                           class="uk-button uk-button-small uk-button-primary">نمایش</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>کاربر</th>
+                        <th>موبایل</th>
+                        <th>مبلغ</th>
+                        <th>زمان ثبت</th>
+                        <th>مشاهده</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="invoice in scopeData.records">
+                        <td class="uk-table-shrink">{{invoice.id}}</td>
+                        <td class="uk-table-shrink">{{invoice.user.name}}</td>
+                        <td class="">{{invoice.user.mobile}}</td>
+                        <td>{{invoice.total.toLocaleString()}}</td>
+                        <td>{{invoice.created_at}}</td>
+                        <td><a :href="`/dashboard/invoice/${invoice.id}/edit`"
+                               class="uk-button uk-button-small uk-button-primary">نمایش</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </template>
     </paginated-view>
 </template>

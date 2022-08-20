@@ -38,10 +38,15 @@
     <header id="top-head" class="uk-position-fixed uk-box-shadow-medium hidden-in-print">
         <div class="uk-container uk-container-expand uk-background-secondary">
             <nav class="uk-navbar uk-light" data-uk-navbar="mode:click; duration: 250">
+                <div class="uk-navbar-left uk-hidden@m">
+                    <ul class="uk-navbar-nav">
+                        <li><a uk-toggle="target: #offcanvas-overlay" href="#" data-uk-icon="icon: menu"></a></li>
+                    </ul>
+                </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
                         <li><a href="#" data-uk-icon="icon: settings" title="تنظیمات" data-uk-tooltip></a></li>
-                        <li><a href="#" data-uk-icon="icon: sign-out" title="خروچ" data-uk-tooltip></a></li>
+                        <li><a href="/logout" data-uk-icon="icon: sign-out" title="خروچ" data-uk-tooltip></a></li>
                     </ul>
                 </div>
             </nav>

@@ -4,7 +4,7 @@
         <div class="uk-grid" data-uk-grid>
             <div class="uk-width-expand">
                 <div class="uk-grid uk-grid-small" data-uk-grid>
-                    <div class="uk-width-expand">
+                    <div class="uk-width-1-2">
                         <form-input label="نام کاربر" classes="uk-input"
                                     type="input"
                                     name="name"
@@ -12,24 +12,57 @@
                                     :errors="form.errors"
                                     v-model="form.name.value">
                         </form-input>
-                        <form-input :disabled="!$user.is_admin" label="موبایل" classes="uk-input"
-                                    type="input"
-                                    name="mobile"
-                                    :errors="form.errors"
-                                    v-model="form.mobile.value">
-                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
                         <form-input label="ایمیل" classes="uk-input"
                                     type="input"
                                     name="email"
                                     :errors="form.errors"
                                     v-model="form.email.value">
                         </form-input>
-                        <div>
-                            <label class="uk-form-label">رمز عبور</label>
-                            <div class="uk-form-controls">
-                                <input class="uk-input " type="password" v-model="form.password.value" name="password">
-                            </div>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <form-input :disabled="!$user.is_admin" label="موبایل" classes="uk-input"
+                                    type="input"
+                                    name="mobile"
+                                    :errors="form.errors"
+                                    v-model="form.mobile.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <form-input label="تلفن ثابت" classes="uk-input"
+                                    type="input"
+                                    name="telephone"
+                                    :errors="form.errors"
+                                    v-model="form.telephone.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <label class="uk-form-label">تاریخ تولد</label>
+                        <div class="uk-form-controls uk-flex uk-flex-bottom">
+                            <input class="uk-input uk-border-rounded sailed_at" v-model="form.birthday.value">
+                            <date-picker ref="picker" custom-input=".sailed_at"
+                                         type="date"
+                                         format="YYYY-MM-DD"
+                                         display-format="jYYYY/jMM/jDD"
+                                         v-model="form.birthday.value"></date-picker>
                         </div>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <form-input label="تلفن اضطراری" classes="uk-input"
+                                    type="input"
+                                    name="emergency_mobile"
+                                    :errors="form.errors"
+                                    v-model="form.emergency_mobile.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
+                        <label class="uk-form-label">رمز عبور</label>
+                        <div class="uk-form-controls">
+                            <input class="uk-input " type="password" v-model="form.password.value" name="password">
+                        </div>
+                    </div>
+                    <div class="uk-width-1-1">
                         <div class="uk-flex uk-flex-middle uk-margin-small">
                             <label><input v-model="form.is_retailer.value" class="uk-checkbox" type="checkbox">
                                 فروشنده</label>
@@ -63,6 +96,18 @@
                     mobile: {
                         value: '',
                         rules: 'required|numeric'
+                    },
+                    telephone: {
+                        value: '',
+                        rules: 'numeric'
+                    },
+                    emergency_mobile: {
+                        value: '',
+                        rules: 'numeric'
+                    },
+                    birthday: {
+                        value: '',
+                        rules: 'string'
                     },
                     email: {
                         value: '',

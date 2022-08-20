@@ -123,12 +123,12 @@ class User extends Authenticatable
         return substr($this->telephone, -8, 8);
     }
 
-    public function getBirthdayAttribute($value)
-    {
-        if ($value)
-            return Jalalian::forge($value)->format('Y/m/d');
-        return null;
-    }
+//    public function getBirthdayAttribute($value)
+//    {
+//        if ($value)
+//            return Jalalian::forge($value)->format('Y/m/d');
+//        return null;
+//    }
 
     public function reminders()
     {
