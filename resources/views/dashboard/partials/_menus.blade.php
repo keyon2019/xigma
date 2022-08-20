@@ -46,7 +46,9 @@
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/product" title="همه محصولات">نمایش محصولات</a></li>
                     <li><a href="/dashboard/product/create" title="همه محصولات">محصول جدید</a></li>
-                    <li><a href="/dashboard/variation" title="انبار و موجودی">موجودی</a></li>
+                    @if(auth()->user()->is_admin)
+                        <li><a href="/dashboard/variation" title="انبار و موجودی">موجودی</a></li>
+                    @endif
                     <li><a href="/dashboard/stock_transaction" title="تراکنش انبار">تراکنش انبار</a></li>
                     <li><a href="/dashboard/discount" title="تخفیفات">تخفیفات</a></li>
                 </ul>

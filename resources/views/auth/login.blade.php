@@ -16,7 +16,7 @@
                                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: phone"></span>
                                     <input class="uk-input uk-border-rounded" name="email" required
                                            placeholder="تلفن همراه"
-                                           type="text">
+                                           type="number">
                                 </div>
                             </div>
                             <div class="uk-margin-top">

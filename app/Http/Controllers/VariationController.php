@@ -16,12 +16,11 @@ class VariationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->only('search');
+        $this->middleware('admin')->only(['search', 'index']);
     }
 
     public function index(VariationFilters $filters)
     {
-        Gate::authorize('edit-product');
         if (\request()->wantsJson())
             return response()->json(Variation::withStock()
                 ->filter($filters)->with(['product' => function ($q) {
