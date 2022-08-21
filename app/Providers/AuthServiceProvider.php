@@ -40,6 +40,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasRole(Role::SUPPORT) || $user->hasRole(Role::STOCK);
         });
 
+        Gate::define('edit-shipping', function($user) {
+            return $user->hasRole(Role::STOCK);
+        });
+
         Gate::define('edit-invoice', function ($user) {
             return $user->hasRole(Role::SUPPORT);
         });
