@@ -35,6 +35,11 @@ class Shipping extends Model
         return $this->hasMany(Item::class);
     }
 
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
     public function getMethodNameAttribute()
     {
         return Order::SHIPPING_METHODS[$this->method];

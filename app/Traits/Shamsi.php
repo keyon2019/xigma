@@ -37,13 +37,6 @@ trait Shamsi
         return null;
     }
 
-    public function getRefundedAtAttribute($date)
-    {
-        if ($date)
-            return Jalalian::forge($date)->format($this->shamsiFormat);
-        return null;
-    }
-
     /**
      * Prepare a date for array / JSON serialization.
      *

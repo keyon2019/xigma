@@ -16,6 +16,7 @@ use App\Models\Order;
 use App\Models\Shipping;
 use App\Models\User;
 use App\Services\ClosestItemFinderService;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -134,7 +135,7 @@ class OrderController extends Controller
             ->with('orderStatuses', json_encode(Order::STATUSES));
     }
 
-    public function update(Order $order, Request $request)
+    public function update(Order $order, Request $request, SMSService $service)
     {
         Gate::authorize('edit-order');
         $data = $request->validate([
@@ -146,6 +147,10 @@ class OrderController extends Controller
 
         $oldStatus = $order->status;
         $order->update($data);
+
+        if ($request->has('refund_reference_number')) {
+            $service->send($order->user->mobile, "{$order->user->name};" . number_format($order->total), 93581);
+        }
 
         event(new OrderStatusChanged($order, $oldStatus, $order->status));
         if ($request->wantsJson())

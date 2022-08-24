@@ -10,6 +10,7 @@ use App\Http\Requests\ReturnRequestForm;
 use App\Models\Order;
 use App\Models\ReturnRequest;
 use App\Rules\Mobile;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
@@ -43,7 +44,7 @@ class ReturnRequestController extends Controller
         return view('website.return_request.show', compact('returnRequest'));
     }
 
-    public function store(ReturnRequestForm $request)
+    public function store(ReturnRequestForm $request, SMSService $service)
     {
         $data = $request->validated();
 
@@ -71,6 +72,8 @@ class ReturnRequestController extends Controller
 
         $returnRequest = auth()->user()->returnRequests()->create($data);
 
+        $service->send($order->user->mobile, "{$order->user->name};$returnRequest->id", 93570);
+
         return response()->json($returnRequest, 200);
     }
 
@@ -84,7 +87,7 @@ class ReturnRequestController extends Controller
         return view('dashboard.return_request.edit', compact('returnRequest', 'technicalStatuses', 'statuses', 'shippingMethods'));
     }
 
-    public function update(ReturnRequest $returnRequest, Request $request)
+    public function update(ReturnRequest $returnRequest, Request $request, SMSService $service)
     {
         Gate::authorize('edit-order');
         $validated = $request->validate([
@@ -103,6 +106,21 @@ class ReturnRequestController extends Controller
         });
 
         $returnRequest->update($validated);
+
+        if ($request->has('status')) {
+            switch ($validated['status']) {
+                case ReturnRequestStatus::WAITING_FOR_ADDRESS:
+                    $service->send($returnRequest->order->user->mobile, $returnRequest->order->user->name, 93572);
+                    break;
+                case ReturnRequestStatus::REJECTED:
+                    $service->send($returnRequest->order->user->mobile, "{$returnRequest->order->user->name};$returnRequest->id",
+                        93572);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         return back()->with(['flash_message' => json_encode(['message' => 'درخواست عودت با موفقیت به‌روزرسانی شد', 'type' => 'success'])]);
     }
 

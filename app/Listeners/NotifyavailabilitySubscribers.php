@@ -30,7 +30,6 @@ class NotifyAvailabilitySubscribers
      */
     public function handle(ProductIsNowAvailable $event)
     {
-        //todo send SMS
         Reminder::whereVariationId($event->variation->id)->delete();
     }
 }
