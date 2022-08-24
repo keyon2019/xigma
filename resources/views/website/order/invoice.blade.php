@@ -147,7 +147,7 @@
                                                      src="{{$variation->picture->url ?? '/uploads/xigma_logo.png'}}">
                                             </div>
                                             <div class="uk-width-expand@m">
-                                                <div>{{$variation->name}}</div>
+                                                <div>{{$variation->product->name}}</div>
                                             </div>
                                         </div>
                                     </td>

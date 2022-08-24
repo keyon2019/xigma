@@ -157,7 +157,9 @@ class OrderController extends Controller
     {
         if (auth()->user()->id === $order->user_id || auth()->user()->is_admin || auth()->user()->roles != [])
             return view('website.order.invoice')
-                ->with('order', $order->load('variations', 'items', 'shippings', 'successfulPayment', 'returnRequests'));
+                ->with('order', $order->load(['variations' => function ($q) {
+                    return $q->without('variations');
+                }], 'items', 'shippings', 'successfulPayment', 'returnRequests'));
         return abort(401);
     }
 }
