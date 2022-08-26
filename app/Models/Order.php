@@ -32,7 +32,7 @@ class Order extends Model
 
     protected $fillable = ['address_id', 'shipping_method',
         'cost_preference', 'status', 'total', 'paid', 'receiver', 'receiver_number', 'vat', 'discount', 'coupon',
-        'refunded_at', 'refund_gateway', 'refund_reference_number'
+        'refunded_at', 'refund_gateway', 'refund_reference_number', 'financial_id'
     ];
 
     protected $appends = ['statusName'];

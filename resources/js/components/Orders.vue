@@ -47,6 +47,7 @@
                         <th>مبلغ</th>
                         <th>وضعیت سفارش</th>
                         <th>زمان ثبت</th>
+                        <th># سند حسابداری</th>
                         <th>مشاهده</th>
                     </tr>
                     </thead>
@@ -58,6 +59,7 @@
                         <td>{{order.total.toLocaleString()}}</td>
                         <td>{{order.statusName}}</td>
                         <td>{{order.created_at}}</td>
+                        <td>{{order.financial_id}}</td>
                         <td><a :href="`/dashboard/order/${order.id}/edit`"
                                class="uk-button uk-button-small uk-button-primary">نمایش</a>
                         </td>

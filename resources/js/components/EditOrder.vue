@@ -24,6 +24,10 @@
                             <p><strong>آدرس: </strong> {{order.address.provinceName}}, {{order.address.cityName}},
                                 {{order.address.directions}} {{order.address.zip}}
                             </p>
+                            <p><strong>شماره سند حسابداری: </strong>
+                                <input class="uk-input uk-width-medium" placeholder="سند حسابداری"
+                                       v-model="order.financial_id" type="number">
+                            </p>
                         </div>
                     </div>
                     <div>
@@ -234,7 +238,8 @@
                 axios.post(`/dashboard/order/${this.order.id}`, {
                     _method: "patch",
                     status: this.order.status,
-                    paid: this.order.paid
+                    paid: this.order.paid,
+                    financial_id: this.order.financial_id
                 }).then(() => {
 
                     Toast.message("سفارش با موفقیت به روزرسانی شد").success().show();
