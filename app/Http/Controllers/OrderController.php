@@ -143,7 +143,7 @@ class OrderController extends Controller
             'refunded_at' => 'date',
             'refund_gateway' => 'numeric',
             'refund_reference_number' => 'numeric',
-            'financial_id' => 'string'
+            'financial_id' => 'nullable|string'
         ]);
 
         $oldStatus = $order->status;

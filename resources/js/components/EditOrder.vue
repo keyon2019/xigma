@@ -24,7 +24,7 @@
                             <p><strong>آدرس: </strong> {{order.address.provinceName}}, {{order.address.cityName}},
                                 {{order.address.directions}} {{order.address.zip}}
                             </p>
-                            <p><strong>شماره سند حسابداری: </strong>
+                            <p v-if="this.$user.is_admin"><strong>شماره سند حسابداری: </strong>
                                 <input class="uk-input uk-width-medium" placeholder="سند حسابداری"
                                        v-model="order.financial_id" type="number">
                             </p>
