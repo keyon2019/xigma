@@ -32,7 +32,8 @@ class User extends Authenticatable
         'is_active',
         'total_points',
         'birthday',
-        'roles'
+        'roles',
+        'ssn'
     ];
 
     /**

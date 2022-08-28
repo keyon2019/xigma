@@ -6,6 +6,7 @@ use App\Enum\Role;
 use App\Filters\UserFilters;
 use App\Models\User;
 use App\Rules\Mobile;
+use App\Rules\SSN;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +44,7 @@ class UserController extends Controller
             'emergency_mobile' => [new Mobile()],
             'password' => 'required|string',
             'is_retailer' => 'boolean',
+            'ssn' => [new SSN()],
             'is_active' => 'boolean'
         ]);
 
@@ -68,6 +70,7 @@ class UserController extends Controller
             'telephone' => 'string',
             'emergency_mobile' => [new Mobile()],
             'password' => 'string',
+            'ssn' => [new SSN()],
             'birthday' => 'date',
             'is_retailer' => 'boolean',
             'is_active' => 'boolean'

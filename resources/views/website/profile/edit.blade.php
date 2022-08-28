@@ -14,6 +14,14 @@
                            placeholder="نام و نام خانواداگی">
                 </div>
             </div>
+            <div class="uk-margin-bottom">
+                <label class="uk-form-label" for="form-horizontal-text2">کد ملی</label>
+                <div class="uk-form-controls">
+                    <input name="ssn" class="uk-input uk-border-rounded" id="form-horizontal-text2" type="number"
+                           value="{{$user->ssn}}"
+                           placeholder="کد ملی">
+                </div>
+            </div>
             <div class="uk-margin">
                 <label class="uk-form-label" for="form-horizontal-text">شماره موبایل</label>
                 <div class="uk-form-controls">

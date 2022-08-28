@@ -106,9 +106,9 @@ class IranKish extends GatewayInterface
                 $this->token = $response['result']['token'];
                 return $this->token;
             }
-            return abort("500", "Problem occurred with IranKish Gateway! " . $response['responseCode'] . " " . $response['description']);
+            return abort("500", " عدم امکان اتصال به درگاه پرداخت " . $response['description']);
         } catch (RequestException $exception) {
-            return abort(500, $exception->getMessage());
+            return abort(500, "عدم امکان اتصال به درگاه پرداخت");
         }
     }
 

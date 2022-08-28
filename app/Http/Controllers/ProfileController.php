@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Rules\Mobile;
+use App\Rules\SSN;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -29,7 +30,7 @@ class ProfileController extends Controller
         $data = $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:users,email,' . auth()->id(),
-//            'mobile' => ['required', new Mobile(), 'unique:users,mobile,' . auth()->id()],
+            'ssn' => [new SSN()],
             'area_code' => 'nullable|numeric|digits:3',
             'telephone' => 'nullable|numeric|digits:8',
             'emergency_mobile' => ['nullable', new Mobile()],

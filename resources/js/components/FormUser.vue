@@ -14,6 +14,14 @@
                         </form-input>
                     </div>
                     <div class="uk-width-1-2">
+                        <form-input label="کد ملی" classes="uk-input"
+                                    type="input"
+                                    name="ssn"
+                                    :errors="form.errors"
+                                    v-model="form.ssn.value">
+                        </form-input>
+                    </div>
+                    <div class="uk-width-1-2">
                         <form-input label="ایمیل" classes="uk-input"
                                     type="input"
                                     name="email"
@@ -108,6 +116,10 @@
                     birthday: {
                         value: '',
                         rules: 'string'
+                    },
+                    ssn: {
+                        value: '',
+                        rules: 'numeric'
                     },
                     email: {
                         value: '',
