@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Role;
 use App\Filters\CommentFilters;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\User;
+use App\Notifications\CommentSubmitted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 
 class CommentController extends Controller
 {
@@ -38,7 +42,9 @@ class CommentController extends Controller
             'text' => 'required|string',
             'product_id' => 'required|numeric|exists:products,id'
         ]);
-        auth()->user()->comments()->create($data);
+        $comment = auth()->user()->comments()->create($data);
+
+        Notification::send(User::adminAndRoles(Role::SUPPORT)->get(), new CommentSubmitted($comment));
         return response([]);
     }
 

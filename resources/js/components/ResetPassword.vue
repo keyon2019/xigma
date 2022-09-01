@@ -2,7 +2,7 @@
     <div class="uk-width-large uk-margin-auto">
         <div class="uk-text-center">
             <img uk-img width="200" src="/uploads/xigma_logo.png">
-            <h3 class="uk-margin-small">ثبت نام در زیگما</h3>
+            <h3 class="uk-margin-small">بازیابی رمز عبور</h3>
         </div>
         <div v-if="step === 1" class="uk-text-center">
             <div class="uk-margin-small">
@@ -33,25 +33,9 @@
         <div v-if="step === 3">
             <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
-                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: phone"></span>
-                    <input disabled class="uk-input uk-border-rounded" name="mobile" v-model="form.mobile.value"
-                           placeholder="شماره تلفن همراه خود را وارد کنید"
-                           type="text">
-                </div>
-            </div>
-            <div class="uk-margin">
-                <div class="uk-inline uk-width-1-1">
-                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
-                    <input class="uk-input uk-border-rounded" name="name" v-model="form.name.value"
-                           placeholder="نام و نام خانوادگی"
-                           type="text">
-                </div>
-            </div>
-            <div class="uk-margin">
-                <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
                     <input class="uk-input uk-border-rounded" name="password" v-model="form.password.value"
-                           placeholder="رمز عبور (حداقل ۸ کاراکتر)"
+                           placeholder="رمز عبور"
                            type="password">
                 </div>
             </div>
@@ -59,18 +43,12 @@
                 <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: lock"></span>
                     <input class="uk-input uk-border-rounded" name="password_confirmation" v-model="form.password_confirmation.value"
-                           placeholder="تکرار رمز عبور (حداقل ۸ کاراکتر)"
+                           placeholder="تکرار رمز عبور"
                            type="password">
                 </div>
             </div>
-            <div class="uk-margin">
-                <label class="uk-text-small"><input class="uk-checkbox" type="checkbox" name="agreed" v-model="form.agreed.value">
-                    کلیه <a class="uk-text-primary" href="/Rules">قوانین و مقررات</a> عضویت در سایت زیگما را مطالعه کرده و با آن
-                    موافقم
-                </label>
-            </div>
             <div class="uk-text-center uk-margin">
-                <button @click="register" class="uk-button uk-button-primary uk-border-rounded uk-width-expand">ثبت نام</button>
+                <button @click="register" class="uk-button uk-button-primary uk-border-rounded uk-width-expand">ثبت رمز عبور جدید</button>
             </div>
         </div>
     </div>
@@ -134,10 +112,6 @@
                         value: '',
                         rules: 'required|numeric|digits:4'
                     },
-                    name: {
-                        value: '',
-                        rules: 'required|string'
-                    },
                     password: {
                         value: '',
                         rules: 'required|string'
@@ -145,10 +119,6 @@
                     password_confirmation: {
                         value: '',
                         rules: 'required|string'
-                    },
-                    agreed: {
-                        value: false,
-                        rules: 'required|boolean'
                     }
                 })
             }
@@ -157,28 +127,28 @@
             getOtp() {
                 Loading.show();
                 if (this.form.validate(['mobile'])) {
-                    axios.post('otp', {mobile: this.form.mobile.value}).then(() => {
+                    axios.post('/reset_otp', {mobile: this.form.mobile.value}).then(() => {
                         this.step = 2;
                         this.countdown.restart();
-                    }).catch((e) => Toast.message(this.getErrorMessage(e)).danger().show())
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show())
                         .then(() => Loading.hide());
                 }
             },
             verifyOtp() {
                 Loading.show();
                 if (this.form.validate(['mobile', 'otp'])) {
-                    axios.post('verify_otp', {mobile: this.form.mobile.value, otp: this.form.otp.value}).then(() => {
+                    axios.post('/verify_reset_otp', {mobile: this.form.mobile.value, otp: this.form.otp.value}).then(() => {
                         this.step = 3;
-                    }).catch((e) => Toast.message(this.getErrorMessage(e)).danger().show())
+                    }).catch((e) => Toast.message(e.response.data.message).danger().show())
                         .then(() => Loading.hide());
                 }
             },
             register() {
                 if (this.form.validate()) {
                     Loading.show();
-                    axios.post("/register", this.form.asFormData()).then(() => {
-                        Toast.message("ثبت نام با موفقیت انجام شد").success().show();
-                        window.location.href = "/";
+                    axios.post("/password_reset", this.form.asFormData()).then(() => {
+                        Toast.message("رمز عبور با موفقیت به روزرسانی شد").success().show();
+                        window.location.href = "/login";
                     }).catch((e) => Toast.message(this.getErrorMessage(e)).danger().show())
                         .then(() => Loading.hide())
                 } else {

@@ -81,7 +81,7 @@ class RegisterController extends Controller
     public function otp(Request $request, SMSService $service)
     {
         $data = $request->validate([
-            'mobile' => ['required', 'numeric', 'unique:users,mobile', new Mobile()]
+            'mobile' => ['required', 'numeric', new Mobile(), 'unique:users,mobile']
         ]);
 
         $otp = rand(1000, 9999);
@@ -104,4 +104,6 @@ class RegisterController extends Controller
         }
         return response()->json(['message' => "کد وارد شده صحیح نیست و یا منقضی شده است"], 401);
     }
+
+
 }

@@ -13,6 +13,7 @@ class VehicleController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin')->only('search');
     }
 
     public function index(Request $request, VehicleFilters $filters)
@@ -66,5 +67,12 @@ class VehicleController extends Controller
         Storage::delete($vehicle->splash);
         $vehicle->delete();
         return back();
+    }
+
+    public function search(Request $request, VehicleFilters $filters)
+    {
+        $request->validate(['keyword' => 'required|string']);
+        $vehicles = Vehicle::filter($filters)->take(10)->get();
+        return response()->json(['vehicles' => $vehicles]);
     }
 }

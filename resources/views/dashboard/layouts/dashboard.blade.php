@@ -45,6 +45,7 @@
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
+                        <notification-bell></notification-bell>
                         <li><a href="#" data-uk-icon="icon: settings" title="تنظیمات" data-uk-tooltip></a></li>
                         <li><a href="/logout" data-uk-icon="icon: sign-out" title="خروچ" data-uk-tooltip></a></li>
                     </ul>

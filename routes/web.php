@@ -58,10 +58,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('notification', [\App\Http\Controllers\NotificationController::class, 'index']);
+Route::post('notification/{notification}', [\App\Http\Controllers\NotificationController::class, 'read']);
+
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('otp', [\App\Http\Controllers\Auth\RegisterController::class, 'otp']);
+    Route::post('reset_otp', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'resetOtp']);
 });
 Route::post('verify_otp', [\App\Http\Controllers\Auth\RegisterController::class, 'verifyOtp']);
+Route::post('verify_reset_otp', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'verifyResetOtp']);
+Route::post('password_reset', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'reset']);
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -213,6 +219,12 @@ Route::prefix('dashboard')->group(function () {
 
     Route::resource('stock_transaction', StockTransactionController::class)->only(['index', 'store']);
     Route::post('variation/search', [VariationController::class, 'search']);
+    Route::get('thread/bulk', [\App\Http\Controllers\ThreadController::class, 'bulk']);
+    Route::post('thread/bulk', [\App\Http\Controllers\ThreadController::class, 'storeBulk']);
+    Route::resource('thread', \App\Http\Controllers\ThreadController::class)->except(['show', 'destroy', 'update']);
+
+    Route::get('vehicle/search', [VehicleController::class, 'search']);
+
 });
 
 Route::get('reminder', [\App\Http\Controllers\ReminderController::class, 'index']);
@@ -222,4 +234,9 @@ Route::get('contact', [\App\Http\Controllers\ContactController::class, 'show']);
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('contact', [\App\Http\Controllers\ContactController::class, 'store']);
 });
+
+Route::post('thread/{thread}/reply', [\App\Http\Controllers\ReplyController::class, 'store']);
+Route::get('thread', [\App\Http\Controllers\ThreadController::class, 'userThreads']);
+Route::get('thread/{thread}', [\App\Http\Controllers\ThreadController::class, 'show']);
+
 Route::get('{page}', [PageController::class, 'show']);

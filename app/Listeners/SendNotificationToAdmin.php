@@ -2,15 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Enum\OrderStatus;
 use App\Enum\Role;
 use App\Models\User;
-use App\Notifications\OrderPlaced;
+use App\Notifications\UserRegistered;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 
-class UpdateOrderPaymentStatus
+class SendNotificationToAdmin
 {
     /**
      * Create the event listener.
@@ -25,13 +25,11 @@ class UpdateOrderPaymentStatus
     /**
      * Handle the event.
      *
-     * @param  object $event
+     * @param  Registered $event
      * @return void
      */
-    public function handle($event)
+    public function handle(Registered $event)
     {
-        $order = $event->order;
-        Notification::send(User::adminAndRoles(Role::SUPPORT, Role::STOCK)->get(), new OrderPlaced($order));
-        $order->update(['paid' => true, 'status' => OrderStatus::INSPECTING]);
+        Notification::send(User::adminAndRoles(Role::SUPPORT)->get(), new UserRegistered($event->user));
     }
 }

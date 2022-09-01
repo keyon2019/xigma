@@ -98,7 +98,7 @@ class UserController extends Controller
     {
         Gate::authorize('edit-user');
         $request->validate(['search' => 'required|string']);
-        $users = User::search($request->search)->filter($filters)->take(10)->get();
+        $users = User::filter($filters)->take(10)->get();
         return response()->json(['users' => $users]);
     }
 }

@@ -44,6 +44,13 @@ if (!_.isEmpty(user)) {
     Vue.prototype.$user = user;
 }
 
+Vue.prototype.getErrorMessage = (response) => {
+    let errors = response.response.data.errors;
+    if (_.has(response.response.data, 'errors'))
+        return errors[Object.keys(errors)[0]][0];
+    return response.response.data.message;
+};
+
 
 import mapboxgl from 'mapbox-gl';
 

@@ -98,6 +98,9 @@
             </li>
         @endif
         @if(auth()->user()->is_admin)
+            <li><a href="/dashboard/thread">
+                    <span data-uk-icon="icon: mail" class="uk-margin-small-right"></span>پیغام‌ها</a>
+            </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: info" class="uk-margin-small-right"></span>گزارش</a>
                 <ul class="uk-nav-sub uk-text-light">
                     <li><a href="/dashboard/report/order" title="گزارش سفارش‌ها">سفارشات</a></li>

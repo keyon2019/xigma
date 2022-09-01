@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Role;
 use App\Models\Contact;
+use App\Models\User;
+use App\Notifications\ContactUsSubmitted;
 use App\Rules\Mobile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 
 class ContactController extends Controller
 {
@@ -37,6 +41,7 @@ class ContactController extends Controller
         ]);
 
         Contact::create($validated);
+        Notification::send(User::adminAndRoles(Role::SUPPORT)->get(), new ContactUsSubmitted());
         return response([]);
     }
 }

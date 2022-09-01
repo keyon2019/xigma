@@ -18,8 +18,8 @@
                                         <a href="/product/{{$product->id}}" class="uk-link-reset">
                                             <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
                                             <div class="uk-padding-small">
-                                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate" dir="rtl">{{$product->name}}</p>
-                                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard uk-text-truncate">{{$product->en_name}}</p>
+                                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate text-small@m" dir="rtl">{{$product->name}}</p>
+                                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard uk-text-truncate text-small@m">{{$product->en_name}}</p>
                                                 <div class="uk-grid uk-grid-collapse uk-flex uk-flex-middle uk-margin-remove uk-text-muted"
                                                      uk-grid>
                                                     <div class="uk-width-expand">

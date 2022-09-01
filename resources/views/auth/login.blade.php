@@ -32,7 +32,8 @@
                                     <label><input class="uk-checkbox" name="remember" type="checkbox"> مرا به خاطر بسپار</label>
                                 </div>
                                 <div>
-                                    <a class="uk-margin uk-margin-bottom uk-button uk-button-text uk-text-muted">فراموشی کلمه عبور</a>
+                                    <a href="/password/reset"
+                                       class="uk-margin uk-margin-bottom uk-button uk-button-text uk-text-muted">فراموشی کلمه عبور</a>
                                 </div>
                             </div>
                             <div class="uk-margin-bottom uk-text-center">

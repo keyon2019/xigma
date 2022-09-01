@@ -8,10 +8,12 @@ use App\Events\ProductIsNowAvailable;
 use App\Listeners\AddItemsToOrder;
 use App\Listeners\NotifyavailabilitySubscribers;
 use App\Listeners\NotifyRetailers;
+use App\Listeners\SendNotificationToAdmin;
 use App\Listeners\TransferCartFromSessionToDB;
 use App\Listeners\UpdateInventory;
 use App\Listeners\UpdateOrderPaymentStatus;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        Registered::class => [
+            SendNotificationToAdmin::class
+        ],
         Login::class => [
             TransferCartFromSessionToDB::class
         ],

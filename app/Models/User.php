@@ -96,7 +96,9 @@ class User extends Authenticatable
 
     public function scopeSearch($query, $value)
     {
-        return $query->where('name', 'like', "%$value%")->orWhere('email', 'like', "%$value%");
+        return $query->where('name', 'like', "%$value%")
+            ->orWhere('email', 'like', "%$value%")
+            ->orWhere('mobile', $value);
     }
 
     public function vehicles()
@@ -148,5 +150,20 @@ class User extends Authenticatable
         }
 
         return parent::castAttribute($key, $value);
+    }
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class);
+    }
+
+    public function scopeAdminAndRoles($query, ...$roles)
+    {
+        $query->whereIsAdmin(true);
+        if (!!$roles) {
+            collect($roles)->each(function ($role) use ($query) {
+                return $query->orWhere('roles', 'like', "%$role%");
+            });
+        }
     }
 }

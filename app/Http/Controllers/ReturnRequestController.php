@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Enum\ReturnRequestStatus;
 use App\Enum\ReturnTechnicalStatus;
+use App\Enum\Role;
 use App\Enum\ShippingMethod;
 use App\Filters\ReturnRequestFilters;
 use App\Http\Requests\ReturnRequestForm;
 use App\Models\Order;
 use App\Models\ReturnRequest;
+use App\Models\User;
+use App\Notifications\ReturnRequestCreated;
 use App\Rules\Mobile;
 use App\Services\SMSService;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 
 class ReturnRequestController extends Controller
 {
@@ -73,6 +77,9 @@ class ReturnRequestController extends Controller
         $returnRequest = auth()->user()->returnRequests()->create($data);
 
         $service->send($order->user->mobile, "{$order->user->name};$returnRequest->id", 93570);
+
+        Notification::send(User::adminAndRoles(Role::STOCK, Role::SUPPORT)
+            ->get(), new ReturnRequestCreated($returnRequest));
 
         return response()->json($returnRequest, 200);
     }

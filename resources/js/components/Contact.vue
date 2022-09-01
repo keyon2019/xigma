@@ -84,7 +84,7 @@
                     axios.post('/contact', this.form.asFormData()).then(() => {
                         this.showForm = false;
                         Toast.message("پیام شما با موفقیت ثبت شد").success().show();
-                    }).catch((e) => Toast.message(e.response.data.message).danger().show())
+                    }).catch((e) => Toast.message(this.getErrorMessage(e)).danger().show())
                         .then(() => Loading.hide());
                 }
             }

@@ -129,6 +129,10 @@ class Validator {
         return value.length === parseInt(digits) ? [true, ''] : [false, `تعداد ارقام این فیلد ${digits} عدد است`];
     }
 
+    static validateMin(value, length) {
+        return value.length >= length ? [true, ''] : [false, `حداقل تعداد کاراکتر برای این فیلد ${length} است`]
+    }
+
     static validateNumeric(value) {
         return !isNaN(value) ? [true, ''] : [false, 'فیلد فقط مقادیر عددی را می‌پذیرد'];
     }

@@ -8,7 +8,7 @@ return [
         'icon' => '/uploads/zarinpal-logo.png',
         'name' => 'زرین پال',
         'default' => false,
-        'active' => false,
+        'active' => true,
     ],
     'IranKish' => [
         'id' => 2,

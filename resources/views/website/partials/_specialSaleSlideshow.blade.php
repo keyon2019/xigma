@@ -16,8 +16,8 @@
                                 <img src="{{$product->splashUrl}}" class="uk-width-expand uk-border-rounded">
                             </a>
                             <div class="uk-padding-small">
-                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate" dir="rtl">{{$product->name}}</p>
-                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard uk-text-truncate">{{$product->en_name}}</p>
+                                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate text-small@m" dir="rtl">{{$product->name}}</p>
+                                <p class="uk-text-secondary uk-margin-remove uk-text-center numeric-standard uk-text-truncate text-small@m">{{$product->en_name}}</p>
                                 <p class="uk-margin-remove uk-display-inline-block uk-width-1-1">
                                     <span class="uk-text-muted uk-float-right uk-text-line-through">{{number_format($product->price)}}</span>
                                     <span class="uk-float-left uk-label uk-label-danger">{{$product->discount}}%</span>
