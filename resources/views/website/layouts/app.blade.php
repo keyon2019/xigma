@@ -166,5 +166,6 @@
            message="@if($errors->any()){{json_encode(['message' => $errors->first(), 'type' => 'danger'])}}@else{{session('flash_message')}}@endif">
     </toast>
 </div>
+@yield('js')
 </body>
 </html>
