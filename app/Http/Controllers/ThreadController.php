@@ -50,7 +50,7 @@ class ThreadController extends Controller
         ]);
 
         $thread = Thread::create($validated);
-        return redirect("/dashboard/thread/$thread->id")
+        return redirect("/dashboard/thread/$thread->id/edit")
             ->with(['flash_message' => json_encode(['message' => 'پیغام با موفقیت ارسال شد', 'type' => 'success'])]);
     }
 
