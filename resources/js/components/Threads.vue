@@ -45,7 +45,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="thread in scopeData.records">
+                    <tr v-for="thread in scopeData.records"
+                        :class="$notifications.has('ThreadReplied', 'thread_id', thread.id) && isAdmin ? 'attention' : ''">
                         <td v-if="isAdmin" class="">{{thread.user.name}}</td>
                         <td v-if="isAdmin">{{thread.user.mobile}}</td>
                         <td>{{thread.title}}</td>
@@ -65,9 +66,9 @@
 <script>
     export default {
         props: {
-          'is-admin': {
-              default: true,
-          }
+            'is-admin': {
+                default: true,
+            }
         },
         data() {
             return {}

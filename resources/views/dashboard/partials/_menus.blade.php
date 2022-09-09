@@ -17,9 +17,19 @@
         || auth()->user()->hasRole(\App\Enum\Role::SUPPORT)
         || auth()->user()->hasRole(\App\Enum\Role::STOCK))
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: tag"
-                                                    class="uk-margin-small-right"></span>سفارش‌</a>
+                                                    class="uk-margin-small-right"></span>
+                    <span class="@if(auth()->user()->unreadNotifications->contains(function($n) {
+                                                        return $n->type == "App\Notifications\OrderPlaced";
+                                                    })) red-dot @endif">سفارش</span></a>
                 <ul class="uk-nav-sub uk-text-light">
-                    <li><a href="/dashboard/order" title="همه سفارشات">سفارش‌ها</a></li>
+                    <li><a href="/dashboard/order" title="همه سفارشات">
+                            سفارش‌ها
+                            @php($ordersCount = auth()->user()->unreadNotifications->where('type', 'App\Notifications\OrderPlaced')->count())
+                            @if($ordersCount > 0)
+                                <span class="badge uk-background-danger uk-margin-small-left">
+                                {{$ordersCount}}
+                            </span></a></li>
+                            @endif
                     @if(!auth()->user()->hasRole(\App\Enum\Role::STOCK))
                         <li><a href="/dashboard/invoice" title="همه پیش‌فاکتورها">پیش‌فاکتورها</a></li>
                     @endif
@@ -91,15 +101,26 @@
                 </ul>
             </li>
             <li><a href="/dashboard/comment">
-                    <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>نظرات</a>
+                    <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>
+                    <span class="@if(auth()->user()->unreadNotifications->contains(function($n) {
+                                                        return $n->type == "App\Notifications\CommentSubmitted";
+                                                    })) red-dot @endif">نظرات</span>
+                </a>
             </li>
             <li><a href="/dashboard/contact">
-                    <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>ارتباط با ما</a>
+                    <span data-uk-icon="icon: comment" class="uk-margin-small-right"></span>
+                    <span class="@if(auth()->user()->unreadNotifications->contains(function($n) {
+                                                        return $n->type == "App\Notifications\ContactUsSubmitted";
+                                                    })) red-dot @endif">ارتباط با ما</span>
+                </a>
             </li>
         @endif
         @if(auth()->user()->is_admin)
             <li><a href="/dashboard/thread">
-                    <span data-uk-icon="icon: mail" class="uk-margin-small-right"></span>پیغام‌ها</a>
+                    <span data-uk-icon="icon: mail" class="uk-margin-small-right"></span>
+                    <span class="@if(auth()->user()->unreadNotifications->contains(function($n) {
+                                                        return $n->type == "App\Notifications\ThreadReplied";
+                                                    })) red-dot @endif">پیغام‌ها</span></a>
             </li>
             <li class="uk-parent"><a href="#"><span data-uk-icon="icon: info" class="uk-margin-small-right"></span>گزارش</a>
                 <ul class="uk-nav-sub uk-text-light">

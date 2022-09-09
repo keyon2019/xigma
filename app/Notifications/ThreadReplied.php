@@ -58,7 +58,8 @@ class ThreadReplied extends Notification
     {
         return [
             "message" => "پاسخ جدید به پیغام ارسال شده ثبت شد",
-            "location" => "/dashboard/thread/{$this->thread->id}/edit"
+            "location" => "/dashboard/thread/{$this->thread->id}/edit",
+            'thread_id' => $this->thread->id,
         ];
     }
 }

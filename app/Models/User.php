@@ -157,6 +157,11 @@ class User extends Authenticatable
         return $this->hasMany(Thread::class);
     }
 
+    public function scopeQueryHasRole($query, $role)
+    {
+        return $query->where('roles', 'like', "%$role%");
+    }
+
     public function scopeAdminAndRoles($query, ...$roles)
     {
         $query->whereIsAdmin(true);

@@ -13,6 +13,8 @@
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title', 'زیگما')</title>
 
+    <meta name="notifications" content="{{$notifications}}">
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
@@ -149,6 +151,21 @@
 
         .uk-notification {
             direction: rtl;
+        }
+
+        .red-dot {
+            position: relative;
+        }
+
+        .red-dot::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: #c70e0e;
+            position: absolute;
+            top: 0;
+            left: -12px;
         }
 
     </style>

@@ -55,7 +55,8 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'mobile' => ['required', 'string', new Mobile(), 'unique:users,mobile'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'otp' => ['required', 'numeric', 'digits:4', new ValidOTP(\request()->get('mobile'))],
@@ -72,7 +73,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'name' => $data['first_name'] . " " . $data['last_name'],
             'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
         ]);

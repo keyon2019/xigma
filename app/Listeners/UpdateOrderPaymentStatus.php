@@ -31,7 +31,7 @@ class UpdateOrderPaymentStatus
     public function handle($event)
     {
         $order = $event->order;
-        Notification::send(User::adminAndRoles(Role::SUPPORT, Role::STOCK)->get(), new OrderPlaced($order));
+        Notification::send(User::whereIsAdmin(true)->get(), new OrderPlaced($order));
         $order->update(['paid' => true, 'status' => OrderStatus::INSPECTING]);
     }
 }

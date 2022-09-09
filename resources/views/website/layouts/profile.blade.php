@@ -93,7 +93,9 @@
                                     <li>
                                         <a class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
                                             <span data-uk-icon="mail"></span>
-                                            <span class="uk-margin-small-left uk-text-small">پیغام‌ها</span>
+                                            <span class="@if(auth()->user()->unreadNotifications->contains(function($n) {
+                                                        return $n->type == "App\Notifications\ThreadCreated";
+                                                    })) red-dot @endif">پیغام‌ها</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -173,7 +175,9 @@
                                 <li>
                                     <a href="/thread" class="uk-link-reset uk-flex uk-flex-middle profile-nav-item">
                                         <span data-uk-icon="mail"></span>
-                                        <span class="uk-margin-small-left uk-text-small">پیغام‌ها</span>
+                                        <span class="@if(auth()->user()->unreadNotifications->contains(function($n) {
+                                                        return $n->type == "App\Notifications\ThreadCreated" || $n->type == "App\Notifications\ThreadReplied";
+                                                    })) red-dot @endif uk-text-small uk-margin-small-left"> پیغام‌ها</span>
                                     </a>
                                 </li>
                             </ul>

@@ -26,6 +26,8 @@ import {Loading} from './loading';
 import {Form} from './form';
 import {Modal} from './modal';
 import {Cart} from './cart';
+import {Notification} from './notification';
+
 
 window.Loading = new Loading();
 window.Form = Form;
@@ -50,6 +52,8 @@ Vue.prototype.getErrorMessage = (response) => {
         return errors[Object.keys(errors)[0]][0];
     return response.response.data.message;
 };
+
+Vue.prototype.$notifications = new Notification();
 
 
 import mapboxgl from 'mapbox-gl';

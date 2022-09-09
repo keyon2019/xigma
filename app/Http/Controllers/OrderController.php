@@ -130,6 +130,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         Gate::authorize('edit-order');
+        optional(auth()->user()->notifications->where('data.order_id', $order->id)->first())->delete();
         return view('dashboard.order.edit')
             ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product', 'successfulPayment']))
             ->with('orderStatuses', json_encode(Order::STATUSES));

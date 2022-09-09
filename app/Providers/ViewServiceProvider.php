@@ -29,6 +29,11 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::composer('*', function ($view) {
+            return $view->with([
+                'notifications' => auth()->check() ? auth()->user()->unreadNotifications : collect([])
+            ]);
+        });
         View::composer('website.partials._header', function ($view) {
             $pages = Page::root()->get();
             return $view->with([

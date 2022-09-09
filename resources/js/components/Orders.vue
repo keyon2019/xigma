@@ -52,7 +52,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="order in scopeData.records">
+                    <tr v-for="order in scopeData.records"
+                        :class="$notifications.has('OrderPlaced', 'order_id', order.id) ? 'attention' : ''">
                         <td class="uk-table-shrink">{{order.id}}</td>
                         <td class="">{{order.user.name}}</td>
                         <td>{{order.receiver_number}}</td>

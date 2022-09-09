@@ -580,3 +580,8 @@ table.full-bordered th, table.full-bordered td {
 .bordered {
   border: 1px solid gainsboro;
 }
+
+tr.attention {
+  position: relative;
+  border-right: 5px solid $global-danger-background;
+}

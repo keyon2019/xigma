@@ -42,8 +42,16 @@
             <div class="uk-margin">
                 <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
-                    <input class="uk-input uk-border-rounded" name="name" v-model="form.name.value"
-                           placeholder="نام و نام خانوادگی"
+                    <input class="uk-input uk-border-rounded" name="name" v-model="form.first_name.value"
+                           placeholder="نام"
+                           type="text">
+                </div>
+            </div>
+            <div class="uk-margin">
+                <div class="uk-inline uk-width-1-1">
+                    <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: user"></span>
+                    <input class="uk-input uk-border-rounded" name="name" v-model="form.last_name.value"
+                           placeholder="نام خانوادگی"
                            type="text">
                 </div>
             </div>
@@ -134,7 +142,11 @@
                         value: '',
                         rules: 'required|numeric|digits:4'
                     },
-                    name: {
+                    first_name: {
+                        value: '',
+                        rules: 'required|string'
+                    },
+                    last_name: {
                         value: '',
                         rules: 'required|string'
                     },

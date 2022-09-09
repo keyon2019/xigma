@@ -141,11 +141,11 @@
                             <div class="uk-margin-left uk-text-muted uk-text-small header-cart-container">
                                 <cart></cart>
                             </div>
-                            <span class="uk-flex uk-margin-left uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable"
+                            <span class="uk-flex uk-margin-left uk-background-muted-darker uk-height-1-1 uk-padding-small uk-padding-remove-vertical clickable @if(auth()->check() && auth()->user()->unreadNotifications->count() > 0) red-dot @endif"
                                   onclick="window.location.replace('/profile')"
                                   data-uk-icon="icon:user;ratio:1.5"></span>
                             <div class="uk-text-small uk-margin-left">
-                                <a class="uk-link-reset" href="{{auth()->check() ? '/profile' : '/login'}}">
+                                <a class="uk-link-reset @if(auth()->check() && auth()->user()->unreadNotifications->count() > 0) red-dot @endif" href="{{auth()->check() ? '/profile' : '/login'}}">
                                     {{auth()->check() ? auth()->user()->name : 'ورود به حساب کاربری'}}</a>
                                 @if(auth()->check())
                                     <a class="uk-display-block uk-text-muted uk-text-light" href="/logout">خروج</a>

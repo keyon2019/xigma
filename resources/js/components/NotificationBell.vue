@@ -19,10 +19,11 @@
 <script>
     export default {
         name: "NotificationBell",
+        props: ['initial-notifications'],
         data() {
             return {
                 showMenu: false,
-                notifications: [],
+                notifications: this.initialNotifications,
             }
         },
         methods: {
@@ -33,9 +34,7 @@
             }
         },
         mounted() {
-            axios.get('/notification').then((response) => {
-                this.notifications = (response.data);
-            }).catch((e) => Toast.message(this.getErrorMessage(e)).danger().show());
+
         }
     }
 </script>

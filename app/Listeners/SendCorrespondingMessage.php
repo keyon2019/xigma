@@ -3,26 +3,27 @@
 namespace App\Listeners;
 
 use App\Enum\OrderStatus;
-use App\Enum\Role;
 use App\Events\OrderStatusChanged;
-use App\Models\User;
-use App\Notifications\OrderPlaced;
-use App\Notifications\UserRegistered;
-use Illuminate\Auth\Events\Registered;
+use App\Services\SMSService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Notification;
 
-class SendNotificationToAdmin
+class SendCorrespondingMessage
 {
+    /**
+     * @var SMSService
+     */
+    private $service;
+
     /**
      * Create the event listener.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(SMSService $service)
     {
         //
+        $this->service = $service;
     }
 
     /**
@@ -33,8 +34,8 @@ class SendNotificationToAdmin
      */
     public function handle(OrderStatusChanged $event)
     {
-        if (($event->newStatus != $event->oldStatus) && ($event->newStatus == OrderStatus::PREPARING)) {
-            Notification::send(User::queryHasRole(Role::STOCK)->get(), new OrderPlaced($event->order));
+        if (($event->oldStatus != $event->newStatus) && ($event->newStatus == OrderStatus::CANCELED)) {
+            $this->service->send($event->order->user->mobile, "{$event->order->user->name}", 99642);
         }
     }
 }

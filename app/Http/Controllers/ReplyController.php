@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enum\Role;
 use App\Models\Thread;
 use App\Models\User;
 use App\Notifications\ThreadReplied;
@@ -24,7 +25,9 @@ class ReplyController extends Controller
                 'user_id' => auth()->id()
             ]);
             if (auth()->id() == $thread->user_id) {
-                Notification::send(User::adminAndRoles()->get(), new ThreadReplied($thread));
+                Notification::send(User::adminAndRoles(Role::OPERATOR)->get(), new ThreadReplied($thread));
+            } else {
+                Notification::send(User::find($thread->user_id), new ThreadReplied($thread));
             }
             return back()->with(
                 ['flash_message' => json_encode(['message' => 'پاسخ شما با موفقیت ثبت شد', 'type' => 'success'])]

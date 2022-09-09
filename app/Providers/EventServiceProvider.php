@@ -8,6 +8,7 @@ use App\Events\ProductIsNowAvailable;
 use App\Listeners\AddItemsToOrder;
 use App\Listeners\NotifyavailabilitySubscribers;
 use App\Listeners\NotifyRetailers;
+use App\Listeners\SendCorrespondingMessage;
 use App\Listeners\SendNotificationToAdmin;
 use App\Listeners\TransferCartFromSessionToDB;
 use App\Listeners\UpdateInventory;
@@ -24,9 +25,6 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendNotificationToAdmin::class
-        ],
         Login::class => [
             TransferCartFromSessionToDB::class
         ],
@@ -35,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
 //            AddItemsToOrder::class, NotifyRetailers::class
         ],
         OrderStatusChanged::class => [
-            UpdateInventory::class
+            UpdateInventory::class, SendNotificationToAdmin::class, SendCorrespondingMessage::class,
         ],
         ProductIsNowAvailable::class => [
             NotifyAvailabilitySubscribers::class,

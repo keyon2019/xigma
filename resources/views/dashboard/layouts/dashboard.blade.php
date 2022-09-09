@@ -10,6 +10,8 @@
 
     <meta name="csrf-token" content="{{csrf_token()}}">
 
+    <meta name="notifications" content="{{$notifications}}">
+
     <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
 
     <style>
@@ -22,10 +24,39 @@
                 display: table-row-group;
             }
         }
+
+        .red-dot {
+            position: relative;
+        }
+
+        .red-dot::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            background: #c70e0e;
+            position: absolute;
+            top: 0;
+            left: -12px;
+        }
+
+        .badge {
+            box-sizing: border-box;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 5px;
+            border-radius: 500px;
+            vertical-align: middle;
+            background: #c70e0e;
+            color: #fff;
+            font-size: 0.875rem;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
-
 <div class="uk-position-cover uk-background-muted loading-cover">
     <div class="lds-ellipsis uk-position-center">
         <div></div>
@@ -45,7 +76,7 @@
                 </div>
                 <div class="uk-navbar-right">
                     <ul class="uk-navbar-nav">
-                        <notification-bell></notification-bell>
+                        <notification-bell :initial-notifications="{{$notifications}}"></notification-bell>
                         <li><a href="#" data-uk-icon="icon: settings" title="تنظیمات" data-uk-tooltip></a></li>
                         <li><a href="/logout" data-uk-icon="icon: sign-out" title="خروچ" data-uk-tooltip></a></li>
                     </ul>

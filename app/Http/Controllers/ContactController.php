@@ -23,6 +23,7 @@ class ContactController extends Controller
         Gate::authorize('edit-user');
         if ($request->wantsJson())
             return response()->json(Contact::latest()->paginate(15));
+        auth()->user()->notifications()->whereType('App\Notifications\ContactUsSubmitted')->delete();
         return view('dashboard.contact.index');
     }
 

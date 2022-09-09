@@ -24,6 +24,7 @@ class CommentController extends Controller
         Gate::authorize('edit-user');
         if ($request->wantsJson())
             return response()->json(Comment::filter($filters)->with(['user', 'product'])->latest()->paginate(15));
+        auth()->user()->notifications()->whereType('App\Notifications\CommentSubmitted')->delete();
         return view('dashboard.comment.index');
     }
 
@@ -44,7 +45,7 @@ class CommentController extends Controller
         ]);
         $comment = auth()->user()->comments()->create($data);
 
-        Notification::send(User::adminAndRoles(Role::SUPPORT)->get(), new CommentSubmitted($comment));
+        Notification::send(User::adminAndRoles(Role::OPERATOR)->get(), new CommentSubmitted($comment));
         return response([]);
     }
 

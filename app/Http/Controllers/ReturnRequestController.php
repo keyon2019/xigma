@@ -123,6 +123,10 @@ class ReturnRequestController extends Controller
                     $service->send($returnRequest->order->user->mobile, "{$returnRequest->order->user->name};$returnRequest->id",
                         93572);
                     break;
+                case ReturnRequestStatus::WAITING:
+                    $service->send($returnRequest->order->user->mobile, "{$returnRequest->order->user->name};$returnRequest->id",
+                        99639);
+                    break;
                 default:
                     break;
             }

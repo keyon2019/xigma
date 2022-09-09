@@ -8,8 +8,10 @@ use App\Models\Province;
 use App\Models\Thread;
 use App\Models\User;
 use App\Models\Vehicle;
+use App\Notifications\ThreadCreated;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class ThreadController extends Controller
 {
@@ -32,6 +34,7 @@ class ThreadController extends Controller
         if ($request->wantsJson())
             return response()->json(auth()->user()->threads()->orderBy('updated_at', 'desc')
                 ->paginate(15));
+        auth()->user()->notifications()->whereType('App\Notifications\ThreadCreated')->delete();
         return view('website.thread.index');
     }
 
@@ -50,6 +53,7 @@ class ThreadController extends Controller
         ]);
 
         $thread = Thread::create($validated);
+        Notification::send(User::find($validated['user_id']), new ThreadCreated());
         return redirect("/dashboard/thread/$thread->id/edit")
             ->with(['flash_message' => json_encode(['message' => 'پیغام با موفقیت ارسال شد', 'type' => 'success'])]);
     }
@@ -61,12 +65,14 @@ class ThreadController extends Controller
         if (!$thread->seen) {
             $thread->update(['seen' => true]);
         }
+        optional(auth()->user()->notifications->where('data.thread_id', $thread->id)->first())->delete();
         $thread->load('replies.user');
         return view('website.thread.show', compact('thread'));
     }
 
     public function edit(Thread $thread)
     {
+        optional(auth()->user()->notifications->where('data.thread_id', $thread->id)->first())->delete();
         $thread->load('replies.user');
         return view('dashboard.thread.edit', compact('thread'));
     }
@@ -102,6 +108,8 @@ class ThreadController extends Controller
         });
 
         Thread::insert($threads->toArray());
+
+        Notification::send(User::find($userIds), new ThreadCreated());
 
         return redirect("/dashboard/thread")
             ->with(['flash_message' => json_encode(['message' => "پیغام با موفقیت برای {$threads->count()} کاربر ارسال شد", 'type' => 'success'])]);
