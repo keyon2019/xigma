@@ -6,6 +6,7 @@ use App\Events\OrderPaid;
 use App\Events\OrderStatusChanged;
 use App\Events\ProductIsNowAvailable;
 use App\Listeners\AddItemsToOrder;
+use App\Listeners\GiveRewardPoints;
 use App\Listeners\NotifyavailabilitySubscribers;
 use App\Listeners\NotifyRetailers;
 use App\Listeners\SendCorrespondingMessage;
@@ -29,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
             TransferCartFromSessionToDB::class
         ],
         OrderPaid::class => [
-            UpdateOrderPaymentStatus::class, UpdateInventory::class,
+            UpdateOrderPaymentStatus::class, UpdateInventory::class, GiveRewardPoints::class,
 //            AddItemsToOrder::class, NotifyRetailers::class
         ],
         OrderStatusChanged::class => [

@@ -120,4 +120,9 @@ class Order extends Model
             return $r->status == 4 || $r->status == 6;
         });
     }
+
+    public function getPointsAttribute()
+    {
+        return $this->variations()->sum('order_variation.points');
+    }
 }
