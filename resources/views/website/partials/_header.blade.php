@@ -154,11 +154,6 @@
                         </div>
                         <div class="uk-background-muted uk-flex uk-flex-column uk-flex-center" style="flex: 1 1 0px">
                             <div class="uk-grid uk-grid-small uk-padding-small uk-padding-remove-vertical mobile-search-container">
-                                {{--<div class="uk-visible@m">--}}
-                                {{--<button class="uk-button uk-button-primary uk-text-secondary uk-border-rounded">جستجوی پیشرفته--}}
-                                {{--محصولات--}}
-                                {{--</button>--}}
-                                {{--</div>--}}
                                 <search class="padding-small@m uk-width-expand"></search>
                             </div>
                         </div>

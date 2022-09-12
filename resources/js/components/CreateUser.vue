@@ -12,8 +12,8 @@
                 axios.post('/dashboard/user', form.asFormData()).then((response) => {
                     Toast.message("کاربر جدید با موفقیت ثبت شد").success().show();
                     window.location.replace(`/dashboard/user/${response.data.user.id}/edit`);
-                }).catch((error) => {
-
+                }).catch((e) => {
+                    Toast.message(this.getErrorMessage(e)).danger().show();
                 }).then(() => {
                     Loading.close();
                 })

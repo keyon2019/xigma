@@ -18,7 +18,7 @@ class OrderFilters extends QueryFilter
     public function name($value)
     {
         return $this->query->whereHas('user', function ($q) use ($value) {
-            return $q->whereName($value);
+            return $q->where('name', 'like', "%$value%");
         });
     }
 
