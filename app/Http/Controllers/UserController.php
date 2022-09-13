@@ -40,9 +40,9 @@ class UserController extends Controller
             'name' => 'required|string',
             'mobile' => ['required', new Mobile(), 'unique:users,mobile'],
             'email' => 'nullable|string',
-            'telephone' => 'required|string',
+            'telephone' => 'nullable|string',
             'emergency_mobile' => [new Mobile()],
-            'password' => 'required|string',
+            'password' => 'required|string|min:8',
             'is_retailer' => 'boolean',
             'ssn' => [new SSN()],
             'is_active' => 'boolean'
