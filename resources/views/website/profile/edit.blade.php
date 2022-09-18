@@ -80,21 +80,8 @@
         <div class="uk-text-meta"> شما می‌توانید جهت سهولت در استفاده از امکانات و جستجوی دقیق‌تر بین محصولات وسیله نقلیه خود را
             انتخاب و سیستم را هوشمند‌تر ساز سازید
         </div>
-        <div class="uk-grid uk-flex uk-flex-middle uk-margin-top uk-padding">
-            <div class="uk-width-1-4 uk-flex uk-flex-middle uk-text-muted">
-                افزودن <span class="uk-margin-left uk-border-rounded uk-padding-small clickable"
-                             style="border: 1px solid gainsboro"><i class="fa-solid fa-4x fa-plus"></i></span>
-            </div>
-            <div class="uk-width-expand">
-                @foreach($user->vehicles as $vehicle)
-                    <div class="uk-flex uk-flex-middle uk-margin" style="justify-content: flex-end;">
-                        <span>{{$vehicle->name}}</span><span><img uk-img width="100"
-                                                                  class="uk-margin-left uk-margin-right uk-border-rounded"
-                                                                  src="{{$vehicle->splashUrl}}"></span><a class="uk-link-reset"><i
-                                    uk-icon="trash"></i></a>
-                    </div>
-                @endforeach
-            </div>
+        <div class="uk-width-expand">
+            <front-vehicles fetch-url="/vehicle" :user-vehicles="{{$user->vehicles}}"></front-vehicles>
         </div>
     </div>
     <div class="uk-background-default uk-padding-small uk-border-rounded uk-box-shadow-small uk-margin">

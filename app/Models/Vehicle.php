@@ -22,7 +22,7 @@ class Vehicle extends Model
         if ($pic = Picture::find($this->splash)) {
             return $pic->url;
         }
-        return null;
+        return "/uploads/xigma_logo.png";
     }
 
     public function variations()

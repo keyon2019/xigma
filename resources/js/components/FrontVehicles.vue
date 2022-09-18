@@ -1,44 +1,56 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <div>
-        <user-vehicles class="uk-margin-bottom" @remove="removeVehicle" :initial-vehicles="vehicles"></user-vehicles>
-        <paginated-view :fetch-url="fetchUrl">
-            <template v-slot:filters>
-                <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
-                    <div class="uk-margin-remove">جستجو</div>
-                    <hr class="uk-margin-remove-top"/>
-                    <div>
+        <div class="uk-grid uk-flex uk-flex-middle uk-margin-top uk-padding">
+            <div class="uk-width-1-4@m uk-flex uk-flex-middle uk-flex-start uk-flex-center@m uk-text-muted">
+                افزودن <span @click="modal.show()" class="uk-margin-left uk-border-rounded uk-padding-small clickable"
+                             style="border: 1px solid gainsboro"><i class="fa-solid fa-4x fa-plus"></i></span>
+            </div>
+            <div class="uk-width-expand">
+                <div v-for="vehicle in vehicles" class="uk-flex uk-flex-middle uk-margin" style="justify-content: flex-end;">
+                    <span v-text="vehicle.name"></span><span><img uk-img width="100"
+                                                              class="uk-margin-left uk-margin-right uk-border-rounded"
+                                                              :src="vehicle.splashUrl"></span><a @click="removeVehicle(vehicle)" class="uk-link-reset"><i
+                        uk-icon="trash"></i></a>
+                </div>
+            </div>
+        </div>
+        <modal class="uk-modal-container" name="vehicle-modal">
+            <h2>انتخاب وسیله نقلیه</h2>
+            <hr/>
+            <paginated-view :fetch-url="fetchUrl">
+                <template v-slot:filters>
+                    <div class="uk-background-default uk-box-shadow-small uk-padding-small uk-border-rounded">
+                        <div class="uk-margin-remove">جستجو</div>
+                        <hr class="uk-margin-remove-top"/>
                         <div>
-                            <input name="keyword" class="uk-input uk-border-rounded" placeholder="نام وسیله نقلیه">
-                        </div>
-                        <div class="uk-margin-small-top">
-                            <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
-                                    type="submit">جستجو
-                            </button>
+                            <div>
+                                <input name="keyword" class="uk-input uk-border-rounded" placeholder="نام وسیله نقلیه">
+                            </div>
+                            <div class="uk-margin-small-top">
+                                <button class="uk-button uk-width-expand uk-button-primary uk-border-rounded"
+                                        type="submit">اعمال فیلترها
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </template>
-            <template v-slot="scopeData">
-                <table class="uk-table uk-table-divider uk-table-middle uk-box-shadow-small uk-table-small
-             uk-background-default uk-border-rounded">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>نام وسیله نقلیه</th>
-                        <th>مدیریت</th>
-                    </tr>
-                    </thead>
-                    <tbody>2
-                    <tr v-for="vehicle in scopeData.records">
-                        <td class="uk-table-shrink">{{vehicle.id}}</td>
-                        <td>{{vehicle.name}}</td>
-                        <td><a class="uk-button uk-button-small uk-button-secondary"
-                               @click="chosen(vehicle)">انتخاب</a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </template>
-        </paginated-view>
+                </template>
+                <template v-slot="scopeData">
+                    <div class="uk-grid uk-grid-small uk-child-width-1-4@m uk-child-width-1-2" data-uk-grid>
+                        <div v-for="vehicle in scopeData.records">
+                            <div @click="chosen(vehicle)"
+                                 class="uk-card uk-card-small uk-card-default clickable uk-border-rounded uk-overflow-hidden">
+                                <div class="uk-card-media-top">
+                                    <img :src="vehicle.splashUrl" width="800" height="800" :alt="vehicle.name">
+                                </div>
+                                <div class="uk-card-body">
+                                    <p>{{vehicle.name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </paginated-view>
+        </modal>
     </div>
 </template>
 
@@ -50,7 +62,8 @@
         props: ['fetch-url', 'choose-list', 'user-vehicles'],
         data() {
             return {
-                vehicles: this.userVehicles
+                vehicles: this.userVehicles,
+                modal: new Modal('vehicle-modal')
             }
         },
         methods: {
