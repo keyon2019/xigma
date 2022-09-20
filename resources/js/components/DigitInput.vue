@@ -98,7 +98,6 @@
         methods: {
             inputListener() {
                 this.$emit('input', this.digitValues.join(""));
-                console.log(this.digitValues.join(""));
             }
         }
     }

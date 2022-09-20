@@ -8,9 +8,9 @@
             <div class="uk-margin-small">
                 <div class="uk-inline uk-width-1-1">
                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: phone"></span>
-                    <input class="uk-input uk-border-rounded" name="mobile" v-model="form.mobile.value"
+                    <numeric-field class="uk-input uk-border-rounded" name="mobile" v-model="form.mobile.value"
                            placeholder="شماره تلفن همراه خود را وارد کنید"
-                           type="text">
+                                   type="text"></numeric-field>
                 </div>
             </div>
             <div class="uk-text-center uk-margin">
@@ -18,7 +18,8 @@
             </div>
         </div>
         <div v-if="step === 2" class="uk-text-center">
-            <digit-input :digits="4" v-model="form.otp.value"></digit-input>
+            <numeric-field class="uk-text-center" placeholder="کد ۴ رقمی ارسال شده را وارد نمایید"
+                           v-model="form.otp.value"></numeric-field>
             <div class="uk-text-center uk-margin">
                 <button @click="verifyOtp" class="uk-button uk-button-primary uk-border-rounded uk-width-expand">تایید</button>
             </div>

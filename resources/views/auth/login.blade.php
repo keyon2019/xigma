@@ -14,11 +14,10 @@
                             <div class="uk-margin-small">
                                 <div class="uk-inline uk-width-1-1">
                                     <span class="uk-form-icon uk-form-icon-flip" data-uk-icon="icon: phone"></span>
-                                    <input uk-tooltip="لطفا فقط از اعداد کیبورد انگلیسی استفاده بفرمایید"
-                                           onkeyup="mobileInputKeyUp(event)" class="uk-input uk-border-rounded" name="email"
+                                    <numeric-field uk-tooltip="لطفا فقط از اعداد کیبورد انگلیسی استفاده بفرمایید"
+                                           classes="uk-input uk-border-rounded" name="email"
                                            required
-                                           placeholder="تلفن همراه"
-                                           type="number">
+                                                   placeholder="تلفن همراه"></numeric-field>
                                 </div>
                             </div>
                             <div class="uk-margin-top">
@@ -59,15 +58,5 @@
 @endsection
 
 @section('js')
-    <script>
-        function mobileInputKeyUp(event) {
-            if (String.fromCharCode(event.keyCode).match(/(\w|\s)/g)) {
-                if (isNaN(event.key)) {
-                    Toast.message("لطفا فقط اعداد کیبورد لاتین را وارد نمایید").danger().show();
-                } else {
 
-                }
-            }
-        }
-    </script>
 @endsection
