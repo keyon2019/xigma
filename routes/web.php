@@ -112,6 +112,7 @@ Route::post('/comment', [CommentController::class, 'store']);
 Route::get('comment', [CommentController::class, 'userComments']);
 
 Route::post('search', [SearchController::class, 'index']);
+Route::get('search', [SearchController::class, 'show']);
 
 Route::get('vehicle', [UserVehicleController::class, 'index']);
 Route::post('vehicle', [UserVehicleController::class, 'store']);

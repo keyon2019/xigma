@@ -1,11 +1,12 @@
 <template>
     <div>
         <div class="uk-width-expand uk-inline">
-            <div style="z-index: 1024"class="uk-position-relative">
+            <div style="z-index: 1024" class="uk-position-relative">
                 <span class="uk-form-icon" data-uk-icon="search" style="right: unset"></span>
                 <input @input="search()" v-model="keyword" placeholder="جستجو... " class="uk-input uk-border-rounded">
             </div>
-            <div ref="drop" id="search-drop" uk-drop="mode:click;pos:bottom-justify;offset:5" class="drop-overlay uk-border-rounded">
+            <div ref="drop" id="search-drop" uk-drop="mode:click;pos:bottom-justify;offset:5"
+                 class="drop-overlay uk-border-rounded">
                 <div class="uk-card uk-card-body uk-card-default uk-card-small uk-border-rounded">
                     <div v-if="products.length > 0" dir="ltr" class="uk-position-relative uk-visible-toggle" tabindex="-1"
                          uk-slider>
@@ -30,11 +31,13 @@
                     </div>
                     <template v-if="categories.length > 0">
                         <hr/>
-                        <p class="uk-margin-small-bottom">در دسته‌بندی‌ها: </p>
                         <div v-for="category in categories" class="uk-text-small uk-text-meta">
-                            <a class="uk-button-text" :href="`/category/${category.id}`">{{category.name}}</a>
+                            <a class="uk-button-text" :href="`/category/${category.id}`"><span class="uk-text-bold uk-text-emphasis">{{keyword}}</span> در {{category.name}}</a>
                         </div>
                     </template>
+                    <div v-if="products.length > 0" class="uk-text-center">
+                        <a class="uk-text-small" :href="`/search?keyword=${keyword}`">نمایش تمام نتایج</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,12 +106,11 @@
                     this.products = [];
                     axios.post("/search", {keyword: this.keyword}).then((response) => {
                         this.result = true;
+                        this.categories = response.data.categories;
+                        this.products = response.data.products;
                         this.$nextTick(() => {
                             UIkit.drop(this.$refs.drop).show();
                         });
-                        this.brands = response.data.brands;
-                        this.categories = response.data.categories;
-                        this.products = response.data.products;
                     }).catch((e) => console.log(e.response.data.message))
                 }
             }

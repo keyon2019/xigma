@@ -30,7 +30,7 @@
                 </div>
             </div>
         </template>
-        <template v-slot:filters>
+        <template v-slot:filters v-if="!filterless">
             <div class="uk-background-default uk-border-rounded uk-text-small">
                 <p class="uk-text-center uk-text-small uk-padding-small uk-padding-remove-horizontal uk-margin-remove uk-text-bold">
                     تنظیمات نمایش محصولات</p>
@@ -68,7 +68,8 @@
             </div>
         </template>
         <template v-slot="scopeData">
-            <div v-if="scopeData.records ? scopeData.records.length > 0 : false" data-uk-grid class="uk-grid uk-grid-small uk-child-width-1-3@m uk-child-width-1-2 uk-margin-small-top">
+            <div v-if="scopeData.records ? scopeData.records.length > 0 : false"
+                 data-uk-grid class="uk-grid uk-grid-small uk-child-width-1-2 uk-margin-small-top" :class="quarter ? 'uk-child-width-1-4@m' : 'uk-child-width-1-3@m'">
                 <div v-for="product in scopeData.records">
                     <front-product-card :product="product"></front-product-card>
                 </div>
@@ -80,7 +81,7 @@
 
 <script>
     export default {
-        props: ['category', 'options'],
+        props: ['category', 'options', 'filterless', 'quarter'],
         data() {
             return {
                 sort: null

@@ -4,7 +4,7 @@
             <img :src="product.splashUrl ? product.splashUrl : '/uploads/xigma_logo.png'"
                  class="uk-width-expand uk-border-rounded card-image">
             <div class="uk-padding-small">
-                <p class="uk-text-secondary uk-margin-remove uk-text-medium uk-text-center uk-text-truncate">
+                <p class="uk-text-secondary uk-margin-remove uk-text-center uk-text-truncate">
                     {{product.name}}
                 </p>
                 <div dir="ltr" class="uk-text-secondary uk-text-center clickable uk-margin-small-bottom numeric-standard uk-text-truncate">

@@ -51,14 +51,6 @@ class Product extends Model
             $query->whereRaw("exists (select * from `retailers` right join `stocks` on `retailers`.`id` = `stocks`.`retailer_id`
              where `variations`.`id` = `stocks`.`variation_id` and `quantity` > 0)");
         }]);
-        //exists(select * from `variations` where `products`.`id` = `variations`.`product_id`) as `available`
-        //select * from `variations` where `products`.`id` = `variations`.`product_id` and exists (select * from `retailers` inner join `stocks` on `retailers`.`id` = `stocks`.`retailer_id` where `variations`.`id` = `stocks`.`variation_id` and `quantity` > ?)
-//        return $query->withExists(['variations as available' => function ($query) {
-//            $query->whereRaw("exists (select * from `retailers` right join `stocks` on `retailers`.`id` = `stocks`.`retailer_id` where `variations`.`id` = `stocks`.`variation_id` and `quantity` > 0)");
-//            return $query->whereHas('stocks', function ($query) {
-//                $query->where('quantity', '>', 0);
-//            });
-//        }]);
     }
 
     public function getSplashUrlAttribute()
