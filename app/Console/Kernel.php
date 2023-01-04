@@ -27,7 +27,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('backup:run')->daily()->at('00:00');
+        $schedule->command('backup:run --only-db --only-to-disk=s3')->daily()->at('00:00');
+        $schedule->command('backup:clean')->daily()->at('00:00');
         $schedule->call(function () {
             Order::where('created_at', '<', Carbon::now()->subMinutes(20))
                 ->whereStatus(OrderStatus::PLACED)
