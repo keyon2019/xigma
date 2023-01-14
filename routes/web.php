@@ -56,6 +56,13 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+if (config('app.env') !== 'production') {
+    Route::get('login/{user}', function (\App\Models\User $user) {
+        \auth()->login($user);
+        return back();
+    });
+}
+
 Route::get('notification', [\App\Http\Controllers\NotificationController::class, 'index']);
 Route::post('notification/{notification}', [\App\Http\Controllers\NotificationController::class, 'read']);
 

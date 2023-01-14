@@ -35,7 +35,7 @@
                             ویرایش
                         </button>
                         <a target="_blank"
-                           :href="'/order/' + order.id + '/invoice?print=1'"
+                           :href="'/order/' + order.id + '/invoice?print=1&rasmi=1'"
                            class="uk-button uk-button-secondary uk-border-rounded hidden-in-print">
                             چاپ فاکتور
                         </a>

@@ -1,19 +1,48 @@
 @extends('website.layouts.app')
+<style>
+    @media print {
+        table thead th {
+            font-size: 10px !important;
+        }
 
+        table tbody td {
+            font-size: 10px !important;
+        }
+
+        .uk-text-small {
+            font-size: 10px !important;
+        }
+    }
+</style>
 @section('content')
     <div class="uk-section uk-section-muted uk-section-xsmall">
         <div class="uk-container">
             <a href="/order/{{$order->id}}"
                class="uk-button uk-margin-small uk-border-rounded uk-button-secondary hidden-in-print">بازگشت به سفارش</a>
-            <div class="uk-grid uk-flex uk-flex-middle">
-                <div class="uk-width-expand@m">
-                    <div class="uk-text-bold">فاکتور فروش آنلاین قطعات زیگما</div>
-                    <div>فاکتور شماره {{$order->id}}</div>
+            @if(!request()->has('rasmi'))
+                <div class="uk-grid uk-flex uk-flex-middle">
+                    <div class="uk-width-expand@m">
+                        <div class="uk-text-bold">فاکتور فروش آنلاین قطعات زیگما</div>
+                        <div>فاکتور شماره {{$order->id}}</div>
+                    </div>
+                    <div>
+                        <img uk-img src="/uploads/xigma_invoice_logo.png">
+                    </div>
                 </div>
-                <div>
-                    <img uk-img src="/uploads/xigma_invoice_logo.png">
+            @else
+                <div class="uk-grid uk-flex uk-flex-middle">
+                    <div class="uk-width-1-3">
+                        <div>فاکتور شماره {{$order->id}}</div>
+                    </div>
+                    <div class="uk-width-1-3 uk-text-center">
+                        <div class="uk-text-bold uk-text-large">رایان تجارت</div>
+                        <div>نماینده فروش محصولات زیگما</div>
+                    </div>
+                    <div class="uk-width-1-3 uk-text-right">
+                        <img uk-img width="300" src="/uploads/xigma_rasmi_logo.png">
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="uk-border-rounded uk-padding-small uk-background-default uk-margin-small uk-text-small"
                  style="border: 1px solid gainsboro">
                 <div>
@@ -36,18 +65,34 @@
                         </div>
                         <div>
                             <span class=" uk-text-muted">
-                                 تاریخ ثبت
+                                تاریخ ثبت سفارش
                             </span>
                             <span class="uk-margin-left">
                                 {{$order->created_at}}
                             </span>
                         </div>
-                        <div class="uk-width-expand">
+                        <div>
+                            <span class=" uk-text-muted">
+                                کد ملی
+                            </span>
+                            <span class="uk-margin-left">
+                                {{$order->ssn}}
+                            </span>
+                        </div>
+                        <div class="">
                             <span class="uk-text-muted">
                                 نشانی
                             </span>
                             <span class="uk-margin-left">
                                 {{$order->address->directions}}
+                            </span>
+                        </div>
+                        <div>
+                            <span class="uk-text-muted">
+                                کد پستی
+                            </span>
+                            <span class="uk-margin-left">
+                                {{$order->address->zip}}
                             </span>
                         </div>
                     </div>
@@ -56,8 +101,9 @@
                     </div>
                 </div>
             </div>
-            <div class="uk-border-rounded uk-padding-small uk-text-small uk-background-default uk-margin-small uk-box-shadow-small"
-                 style="border: 1px solid gainsboro">
+            <div
+                class="uk-border-rounded uk-padding-small uk-text-small uk-background-default uk-margin-small uk-box-shadow-small"
+                style="border: 1px solid gainsboro">
                 <div class="uk-grid uk-child-width-1-2" data-uk-grid>
                     <div>
                         <div class="uk-grid uk-grid-small" data-uk-grid>
@@ -104,36 +150,39 @@
                                 </div>
                                 <div class="uk-margin-small">
                                     <span class="uk-text-muted"> فرستنده </span><span
-                                            class="uk-margin-left">{{$shipping->stock->name ?? 'کارخانه مرکزی زیگما'}}</span>
+                                        class="uk-margin-left">{{$shipping->stock->name ?? (request()->has('rasmi') ? "رایات تجارت گستر دادمهر پارسیان" : "کارخانه مرکزی زیگما")}}</span>
                                 </div>
                             </div>
                             <div class="uk-width-2-5">
                                 <div class="uk-margin-small">
                                     <span class="uk-text-muted"> تاریخ ارسال </span><span
-                                            class="uk-margin-left">{{$shipping->sailed_at ?? 'در دست اقدام'}}</span>
+                                        class="uk-margin-left">{{$shipping->sailed_at ?? 'در دست اقدام'}}</span>
                                 </div>
                                 <div class="uk-margin-small">
                                     <span class="uk-text-muted"> نحوه ارسال </span><span
-                                            class="uk-margin-left">{{$shipping->methodName}}</span>
+                                        class="uk-margin-left">{{$shipping->methodName}}</span>
                                 </div>
                                 <div class="uk-margin-small">
                                     <span class="uk-text-muted"> شماره بارنامه / کد مرسوله </span><span
-                                            class="uk-margin-left">{{$shipping->code ?? 'در دست اقدام'}}</span>
+                                        class="uk-margin-left">{{$shipping->code ?? 'در دست اقدام'}}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="uk-overflow-auto">
-                        <table class="uk-table uk-table-striped uk-table-small uk-table-middle uk-margin-small-bottom uk-text-small">
+                        <table
+                            class="uk-table uk-table-striped uk-table-small uk-table-middle uk-margin-small-bottom uk-text-small">
                             <thead>
                             <tr class="uk-background-primary">
                                 <th class="uk-text-white uk-table-shrink">#</th>
-                                <th class="uk-text-white">نام قطعه</th>
-                                <th class="uk-text-white">نوع</th>
+                                <th colspan="2" class="uk-text-white">نام قطعه</th>
+                                <th class="uk-text-white">سریال</th>
+                                <th class="uk-text-white">مشخصات فنی</th>
                                 <th class="uk-text-white">تعداد</th>
-                                <th class="uk-text-white">شماره سریال</th>
                                 <th class="uk-text-white">قیمت واحد</th>
                                 <th class="uk-text-white">قیمت کل</th>
+                                <th class="uk-text-white">تخفیف ردیف</th>
+                                <th class="uk-text-white">قیمت نهایی (تومان)</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -141,28 +190,23 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td class="">
-                                        <div class="uk-grid uk-grid-small uk-flex uk-flex-middle">
-                                            <div>
-                                                <img uk-img width="50"
-                                                     src="{{$variation->picture->url ?? '/uploads/xigma_logo.png'}}">
-                                            </div>
-                                            <div class="uk-width-expand@m">
-                                                <div>{{$variation->product->name}}</div>
-                                            </div>
-                                        </div>
+                                        <img uk-img width="50"
+                                             src="{{$variation->picture->url ?? '/uploads/xigma_logo.png'}}">
                                     </td>
-                                    <td>{{$variation->filters}}</td>
-                                    <td>{{$variation->pivot->quantity}}</td>
+                                    <td>
+                                        <div>{{$variation->product->name}}</div>
+                                    </td>
                                     <td>
                                         <div>{{$variation->sku}}</div>
                                     </td>
+                                    <td>{{$variation->filters}}</td>
+                                    <td>{{$variation->pivot->quantity}}</td>
+                                    <td>{{number_format($variation->pivot->price + $variation->pivot->discount)}}</td>
+                                    <td>{{number_format(($variation->pivot->price + $variation->pivot->discount) * $variation->pivot->quantity)}}</td>
+                                    <td>{{number_format($variation->pivot->discount * $variation->pivot->quantity)}}</td>
                                     <td>
-                                        @if($variation->pivot->discount > 0)
-                                            <div class="uk-text-line-through uk-text-muted">{{number_format($variation->pivot->price + $variation->pivot->discount)}}</div>
-                                        @endif
-                                        <div>{{number_format($variation->pivot->price)}}</div>
+                                        {{number_format($variation->pivot->price * $variation->pivot->quantity)}}
                                     </td>
-                                    <td>{{number_format($variation->pivot->price * $variation->pivot->quantity)}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -176,23 +220,30 @@
                     <table class="uk-table uk-table-small">
                         <tbody>
                         <tr class="uk-background-default">
-                            <td>جمع کل قیمت</td>
+                            <td>جمع کل مبالغ</td>
                             <td>{{number_format($order->variations->sum(function($v) {return $v->pivot->price * $v->pivot->quantity;}))}}</td>
                         </tr>
+                        <tr class="uk-background-default">
+                            <td>بن تخفیف</td>
+                            <td>@if($order->coupon)
+                                    {{number_format($order->coupon->discount)}}
+                                @else 0
+                                @endif</td>
+                        </tr>
+                        {{--                        <tr class="uk-background-default">--}}
+                        {{--                            <td>بن تخفیف</td>--}}
+                        {{--                            <td>{{number_format($order->variations->sum(function($v) {--}}
+                        {{--                        return $v->pivot->quantity * $v->pivot->discount;--}}
+                        {{--                    }) + $order->discount)}}</td>--}}
+                        {{--                        </tr>--}}
                         <tr class="uk-background-default">
                             <td>هزینه ارسال</td>
                             <td>{{number_format($order->shippings->sum('cost'))}}</td>
                         </tr>
                         <tr class="uk-background-default">
-                            <td>جمع کل تخفیفات</td>
-                            <td>{{number_format($order->variations->sum(function($v) {
-                        return $v->pivot->quantity * $v->pivot->discount;
-                    }) + $order->discount)}}</td>
+                            <td>مبلغ خالص فاکتور</td>
+                            <td>{{number_format($order->total - $order->vat)}}</td>
                         </tr>
-                        {{--<tr class="uk-background-default">--}}
-                        {{--<td>قابل پرداخت (بدون احتساب مالیات)</td>--}}
-                        {{--<td>{{number_format($order->total - $order->vat)}}</td>--}}
-                        {{--</tr>--}}
                         <tr class="uk-background-default">
                             <td>مالیات بر ارزش افزوده</td>
                             <td>{{number_format($order->vat)}}</td>
@@ -240,8 +291,9 @@
                             </tbody>
                         </table>
                         @if($returnRequest->shipping_method != null)
-                            <div class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
-                                 data-uk-grid>
+                            <div
+                                class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
+                                data-uk-grid>
                                 <div class="uk-padding-xsmall uk-flex uk-flex-middle">
                                     <div class="uk-margin-small-right">نحوه‌ارسال:</div>
                                     <div>{{$returnRequest->shipping_method_name}}</div>
@@ -260,8 +312,9 @@
                             </div>
                         @endif
                         @if($returnRequest->payed_at)
-                            <div class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
-                                 data-uk-grid>
+                            <div
+                                class="uk-grid uk-grid-collapse uk-margin-small-bottom uk-background-default uk-padding-small uk-box-shadow-small uk-border-rounded uk-child-width-1-2 uk-text-meta"
+                                data-uk-grid>
                                 <div class="uk-padding-xsmall uk-flex uk-flex-middle"
                                 >وضعیت
                                     پرداخت:
