@@ -11,7 +11,7 @@ class Order extends Model
 {
     use HasFactory, Shamsi, Filterable;
 
-    CONST STATUSES = [
+    const STATUSES = [
         '1' => 'ثبت فاکتور',
         '2' => 'بررسی سفارش',
         '3' => 'آماده‌سازی',
@@ -19,13 +19,13 @@ class Order extends Model
         '5' => 'لغو شده'
     ];
 
-    CONST SHIPPING_METHODS = [
+    const SHIPPING_METHODS = [
         '1' => 'دریافت در محل',
         '2' => 'پست',
         '3' => 'باربری'
     ];
 
-    CONST COST_PREFERENCES = [
+    const COST_PREFERENCES = [
         '1' => 'مقرون به صرفه‌ترین',
         '2' => 'سریع‌ترین'
     ];
@@ -124,5 +124,10 @@ class Order extends Model
     public function getPointsAttribute()
     {
         return $this->variations()->sum('order_variation.points');
+    }
+
+    public function orderCoupon()
+    {
+        return $this->hasOne(Coupon::class);
     }
 }

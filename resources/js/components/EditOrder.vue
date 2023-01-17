@@ -84,7 +84,10 @@
                                 مبلغ پرداختی: {{payable.toLocaleString()}} تومان
                             </div>
                             <div>
-                                مجموع تخفیف: {{totalDiscount.toLocaleString()}} تومان
+                                تخفیف محصولات: {{totalDiscount.toLocaleString()}} تومان
+                            </div>
+                            <div>
+                                بن تخفیف: {{(order.order_coupon ? order.order_coupon.discount : 0).toLocaleString()}} تومان
                             </div>
                             <div>
                                 هزینه ارسال: {{totalShippingsCost.toLocaleString()}} تومان

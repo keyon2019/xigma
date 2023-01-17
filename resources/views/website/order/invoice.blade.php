@@ -199,7 +199,7 @@
                                     <td>
                                         <div>{{$variation->sku}}</div>
                                     </td>
-                                    <td>{{$variation->filters}}</td>
+                                    <td>{{$variation->name}}</td>
                                     <td>{{$variation->pivot->quantity}}</td>
                                     <td>{{number_format($variation->pivot->price + $variation->pivot->discount)}}</td>
                                     <td>{{number_format(($variation->pivot->price + $variation->pivot->discount) * $variation->pivot->quantity)}}</td>
@@ -225,8 +225,8 @@
                         </tr>
                         <tr class="uk-background-default">
                             <td>بن تخفیف</td>
-                            <td>@if($order->coupon)
-                                    {{number_format($order->coupon->discount)}}
+                            <td>@if($order->orderCoupon)
+                                    {{number_format($order->orderCoupon->discount)}}
                                 @else 0
                                 @endif</td>
                         </tr>
