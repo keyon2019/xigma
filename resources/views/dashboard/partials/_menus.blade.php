@@ -13,6 +13,28 @@
 <div class="left-nav-wrap">
     <ul class="uk-nav uk-nav-default uk-nav-parent-icon" data-uk-nav>
         <li class="uk-nav-header">تنظیمات</li>
+        @if(auth()->user()->is_retailer)
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: box"
+                                                    class="uk-margin-small-right"></span>موجودی</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/r/stock" title="لیست موجودی">لیست موجودی</a></li>
+{{--                    <li><a href="/dashboard/r/retailer" title="">سایر نمایندگان</a></li>--}}
+                </ul>
+            </li>
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: settings"
+                                                    class="uk-margin-small-right"></span>فاکتور</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/r/invoice/create" title="لیست موجودی">ثبت فاکتور درب فروشگاه</a></li>
+                    <li><a href="/dashboard/r/invoice" title="">لیست فاکتورها</a></li>
+                </ul>
+            </li>
+            <li class="uk-parent"><a href="#"><span data-uk-icon="icon: tag"
+                                                    class="uk-margin-small-right"></span>سفارش</a>
+                <ul class="uk-nav-sub uk-text-light">
+                    <li><a href="/dashboard/r/order" title="سفارش‌های آنلاین">سفارش‌های آنلاین</a></li>
+                </ul>
+            </li>
+        @endif
         @if(auth()->user()->is_admin
         || auth()->user()->hasRole(\App\Enum\Role::SUPPORT)
         || auth()->user()->hasRole(\App\Enum\Role::STOCK))

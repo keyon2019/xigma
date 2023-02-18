@@ -14,7 +14,7 @@ class DashboardController extends Controller
 
     public function overview()
     {
-        if (auth()->user()->is_admin || auth()->user()->roles != null)
+        if (auth()->user()->is_admin || auth()->user()->is_retailer || auth()->user()->roles != null)
             return view('dashboard.pages.overview');
         return abort(401, 'Unauthenticated!');
     }

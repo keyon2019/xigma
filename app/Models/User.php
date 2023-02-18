@@ -84,9 +84,9 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function retailer()
+    public function retailers()
     {
-        return $this->hasOne(Retailer::class);
+        return $this->hasMany(Retailer::class);
     }
 
     public function returnRequests()

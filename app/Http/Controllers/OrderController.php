@@ -53,7 +53,7 @@ class OrderController extends Controller
     {
         if (auth()->user()->id === $order->user_id)
             return view('website.order.show')
-                ->with('order', $order->load('variations.values', 'items', 'shippings', 'successfulPayment', 'returnRequests'))
+                ->with('order', $order->load('variations.values', 'shippings', 'successfulPayment', 'returnRequests'))
                 ->with('reasons', new ReturnReason())
                 ->with('enquiries', new ReturnEnquiry());
         return abort(401);
@@ -132,7 +132,7 @@ class OrderController extends Controller
         Gate::authorize('edit-order');
         optional(auth()->user()->notifications->where('data.order_id', $order->id)->first())->delete();
         return view('dashboard.order.edit')
-            ->with('order', $order->load(['user', 'address', 'items', 'shippings', 'variations.product', 'successfulPayment', 'orderCoupon']))
+            ->with('order', $order->load(['user', 'address', 'shippings', 'variations.product', 'successfulPayment', 'orderCoupon']))
             ->with('orderStatuses', json_encode(Order::STATUSES));
     }
 

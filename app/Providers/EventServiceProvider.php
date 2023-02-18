@@ -31,7 +31,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderPaid::class => [
             UpdateOrderPaymentStatus::class, UpdateInventory::class, GiveRewardPoints::class,
-//            AddItemsToOrder::class, NotifyRetailers::class
+            NotifyRetailers::class
         ],
         OrderStatusChanged::class => [
             UpdateInventory::class, SendNotificationToAdmin::class, SendCorrespondingMessage::class,

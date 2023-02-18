@@ -265,7 +265,7 @@
                     <ul class="uk-nav-sub">
                         @foreach($category->subCategories->sortBy('order') as $sCategory)
                             <li class="uk-parent">
-                                <a>{{$sCategory->name}}</a>
+                                <a href="/category/{{$sCategory->id}}">{{$sCategory->name}}</a>
                                 <ul class="uk-list-hyphen">
                                     @foreach($sCategory->subCategories->sortBy('order') as $ssCategory)
                                         <li>

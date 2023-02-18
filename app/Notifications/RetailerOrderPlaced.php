@@ -45,7 +45,7 @@ class RetailerOrderPlaced extends Notification
         return [
             'order_id' => $this->order->id,
             'message' => 'سفارش سیستمی جدید ثبت شد',
-            'path' => "/order/{$this->order->id}"
+            'path' => "/dashboard/r/order/{$this->order->id}"
         ];
     }
 }

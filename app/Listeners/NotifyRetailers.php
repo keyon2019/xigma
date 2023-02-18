@@ -27,7 +27,7 @@ class NotifyRetailers
     public function handle($event)
     {
         $order = $event->order;
-        $retailers = $order->retailers;
-        Notification::send($retailers->pluck('user'), new RetailerOrderPlaced($order));
+        $users = $order->shippings()->with('stock.user')->get()->pluck('stock.user')->filter();
+        Notification::send($users, new RetailerOrderPlaced($order));
     }
 }

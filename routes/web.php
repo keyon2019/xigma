@@ -58,7 +58,7 @@ Auth::routes();
 
 if (config('app.env') !== 'production') {
     Route::get('login/{user}', function (\App\Models\User $user) {
-        \auth()->login($user);
+        auth()->login($user);
         return back();
     });
 }
@@ -141,6 +141,7 @@ Route::post('coupon/validate', [CouponController::class, 'validateCoupon']);
 Route::post('province', [ProvinceController::class, 'index']);
 
 Route::prefix('dashboard')->group(function () {
+
     Route::get('/', [DashboardController::class, 'overview']);
 
     Route::resource('product', ProductController::class)->except(['show', 'destroy']);
@@ -231,12 +232,25 @@ Route::prefix('dashboard')->group(function () {
 
     Route::get('vehicle/search', [VehicleController::class, 'search']);
 
+    Route::prefix('r')->middleware('retailer')->group(function () {
+        Route::post('sold', [\App\Http\Controllers\Retailer\ItemController::class, 'sold']);
+        Route::get('order', [\App\Http\Controllers\Retailer\OrderController::class, 'index']);
+        Route::get('order/{order}', [\App\Http\Controllers\Retailer\OrderController::class, 'show']);
+        Route::post('shipping/{shipping}/sailed', [\App\Http\Controllers\Retailer\ShippingController::class, 'sailed']);
+        Route::get('stock', [\App\Http\Controllers\Retailer\StockController::class, 'index']);
+        Route::get('retailer', [\App\Http\Controllers\Retailer\RetailerController::class, 'index']);
+        Route::get('retailer/{retailer}', [\App\Http\Controllers\Retailer\RetailerController::class, 'show']);
+        Route::resource('invoice', \App\Http\Controllers\Retailer\StoreInvoiceController::class);
+        Route::get('search', [SearchController::class, 'stockSearch']);
+    });
+
 });
 
 Route::get('reminder', [\App\Http\Controllers\ReminderController::class, 'index']);
 Route::post('reminder', [\App\Http\Controllers\ReminderController::class, 'store']);
 Route::delete('reminder/{reminder}', [\App\Http\Controllers\ReminderController::class, 'destroy']);
 Route::get('contact', [\App\Http\Controllers\ContactController::class, 'show']);
+
 Route::group(['middleware' => ['throttle:2,2']], function () {
     Route::post('contact', [\App\Http\Controllers\ContactController::class, 'store']);
 });

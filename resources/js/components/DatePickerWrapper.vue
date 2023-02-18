@@ -5,7 +5,7 @@
                                      :display-format="displayFormat"
                                      :custom-input="customInput"
                                      v-model="date"
-                                     type="date"></vue-persian-datetime-picker>
+                                     :type="type"></vue-persian-datetime-picker>
         <input type="hidden" :name="name" v-model="date">
     </div>
 </template>
@@ -21,6 +21,9 @@
             },
             'display-format': {
                 default: 'jYYYY/jMM/jDD'
+            },
+            'type': {
+                default: 'date'
             }
         },
         components: {VuePersianDatetimePicker},

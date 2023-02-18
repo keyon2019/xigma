@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Retailer;
 
 use App\Filters\ItemFilters;
 use App\Http\Controllers\Controller;
@@ -10,7 +10,7 @@ class RetailerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware('auth');
     }
 
     public function index()
