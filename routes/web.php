@@ -59,7 +59,7 @@ Auth::routes();
 if (config('app.env') !== 'production') {
     Route::get('login/{user}', function (\App\Models\User $user) {
         auth()->login($user);
-        return back();
+        return redirect('dashboard');
     });
 }
 

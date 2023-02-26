@@ -191,7 +191,7 @@
                 if (!stock.editing) {
                     Loading.show();
                     axios.post(`/dashboard/stock/${this.selectedVariation.id}`, {
-                        retailer_id: stock.retailer_id,
+                        retailer_id: stock.id,
                         quantity: stock.quantity
                     }).then(() => {
                         Toast.message("موجودی با موفقیت ویرایش شد").success().show();
