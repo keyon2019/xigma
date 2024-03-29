@@ -47,7 +47,7 @@ class InvoiceController extends Controller
     public function store(CartInterface $cart)
     {
         $total = $cart->totalPrice();
-        $vat = round($total * 0.09);
+        $vat = round($total * 0.1);
         $invoice = auth()->user()->invoices()->create([
             'total' => $cart->totalPrice() + $vat,
             'vat' => $vat

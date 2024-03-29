@@ -60,13 +60,13 @@
                     <td colspan="5">مالیات بر ارزش افزوده</td>
                     <td></td>
                     <td></td>
-                    <td>{{ (totalPrice * 0.09).toLocaleString() }}</td>
+                    <td>{{ (totalPrice * 0.1).toLocaleString() }}</td>
                 </tr>
                 <tr>
                     <td colspan="5">قابل پرداخت</td>
                     <td></td>
                     <td></td>
-                    <td>{{ (totalPrice * 1.09).toLocaleString() }}</td>
+                    <td>{{ (totalPrice * 1.1).toLocaleString() }}</td>
                 </tr>
                 </tfoot>
             </table>

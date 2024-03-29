@@ -190,7 +190,7 @@
                         <div>{{totalOrderCost.toLocaleString()}}</div>
                     </div>
                     <div class="uk-grid-small uk-margin uk-text-bolder" uk-grid>
-                        <div class="uk-width-expand">مالیات (۹٪)</div>
+                        <div class="uk-width-expand">مالیات (۱۰٪)</div>
                         <div>{{vat.toLocaleString()}}</div>
                     </div>
                     <div class="uk-grid-small uk-margin uk-text-bolder" uk-grid>
@@ -382,7 +382,7 @@
                 return Math.max(this.cart.total() + this.totalDeliveryCost - orderDiscount, 0);
             },
             vat() {
-                return Math.round(this.totalOrderCost * 0.09);
+                return Math.round(this.totalOrderCost * 0.1);
             },
             totalPayable() {
                 return Math.round(this.totalOrderCost + this.vat);
